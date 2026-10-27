@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Surfaces & Borders */
+  --color-bg-base: #FFFFFF;
+  --color-bg-subtle: #F7F6F3;
+  --color-bg-active: #EFECE6;
+  --color-border-hairline: #E4E2DC;
+  --color-border-strong: #CFCBC2;
+
+  /* Typography */
+  --color-text-primary: #1C1B19;
+  --color-text-muted: #5F5C55;
+  --color-text-disabled: #A19D94;
+
+  /* Brand Accent: Single Forest Green */
+  --color-accent: #1F5F4B;
+  --color-accent-hover: #174A3A;
+  --color-accent-tint: #E8F1ED;
+
+  /* Semantic Alerts */
+  --color-success: #2F7D4F;
+  --color-success-bg: #EAF5EE;
+  --color-warning: #9A5B0A;
+  --color-warning-bg: #FEF3E2;
+  --color-danger: #B42318;
+  --color-danger-bg: #FDECEA;
+  --color-info: #3F3D38;
+  --color-info-bg: #F0EEE9;
+
+  /* Earthy Categorical Chart Palette */
+  --color-chart-forest: #1F5F4B;
+  --color-chart-ochre: #B7791F;
+  --color-chart-terracotta: #B4533A;
+  --color-chart-slate: #5F6B73;
+  --color-chart-olive: #7A8B3A;
+  --color-chart-sand: #C9B89A;
+}
+
+/* Base styles */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: 'IBM Plex Sans', 'Noto Sans Devanagari', system-ui, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular numbers for tables, metrics, and financials */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Senior Citizen Accessibility Text Scaling Modes */
+.senior-text-normal {
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.senior-text-large {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.senior-text-xlarge {
+  font-size: 22px;
+  line-height: 32px;
+}
+
+/* Focus Ring */
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Custom Scrollbar for High-Density Tables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-subtle);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}

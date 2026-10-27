@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { PERMISSION_MATRIX, ROLES, RoleCode, CapabilityCode } from '@/permissions/matrix';
+import { PERMISSION_MATRIX, ROLES, RoleCode } from '@/permissions/matrix';
 import { authorize, hasPermission } from '@/permissions/authorize';
 
 describe('RBAC Permission Engine', () => {

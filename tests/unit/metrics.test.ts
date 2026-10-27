@@ -4,6 +4,7 @@ import {
   calculateUniqueParticipants,
   calculateTotalAttendance,
   isMemberActive,
+  AttendanceItem,
 } from '@/domain/metrics';
 
 describe('Measurement & Reporting Definitions (Section 1)', () => {
@@ -15,7 +16,7 @@ describe('Measurement & Reporting Definitions (Section 1)', () => {
   ];
 
   // Reference date: 2026-10-27
-  const attendanceRecords = [
+  const attendanceRecords: AttendanceItem[] = [
     // m-1 attended 3 sessions in October 2026 (Active & Participant)
     { id: 'a-1', memberId: 'm-1', sessionDate: '2026-10-25', status: 'Present' },
     { id: 'a-2', memberId: 'm-1', sessionDate: '2026-10-20', status: 'Present' },

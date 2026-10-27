@@ -33,8 +33,8 @@ describe('Masking & Privacy Protection (DPDP Act, Concept Note)', () => {
       expect(dobToAgeBand('1964-05-15', 2026)).toBe('60–64');
       expect(dobToAgeBand('1958-11-20', 2026)).toBe('65–69');
       expect(dobToAgeBand('1952-03-01', 2026)).toBe('70–74');
-      expect(dobToAgeBand('1946-08-10', 2026)).toBe('75–79');
-      expect(dobToAgeBand('1941-01-05', 2026)).toBe('80–84');
+      expect(dobToAgeBand('1949-08-10', 2026)).toBe('75–79');
+      expect(dobToAgeBand('1944-01-05', 2026)).toBe('80–84');
       expect(dobToAgeBand('1935-04-12', 2026)).toBe('85+');
     });
   });

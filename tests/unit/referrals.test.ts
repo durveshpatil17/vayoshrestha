@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { canTransitionReferral, getNextAllowedReferralStatuses, ReferralStatus } from '@/domain/referrals';
+import { canTransitionReferral, getNextAllowedReferralStatuses } from '@/domain/referrals';
 
 describe('Referral State Machine (FR-32, FR-33)', () => {
   it('should allow valid sequential status transitions', () => {

@@ -121,6 +121,97 @@ export type CapabilityCode =
 
 export type ActionCode = 'create' | 'read' | 'update' | 'delete' | 'approve' | 'export';
 
+export type CapabilityKey =
+  | CapabilityCode
+  | 'systemSettings'
+  | 'usersAndRoles'
+  | 'ownAccount'
+  | 'memberProfiles'
+  | 'consentPreferences'
+  | 'centres'
+  | 'programmes'
+  | 'programmesAndEvents'
+  | 'registrations'
+  | 'attendance'
+  | 'attendanceRecords'
+  | 'attendanceCorrections'
+  | 'messageTemplates'
+  | 'announcements'
+  | 'messageDelivery'
+  | 'deliveryStatus'
+  | 'optInOut'
+  | 'optInOptOut'
+  | 'servicesCatalogue'
+  | 'serviceBookings'
+  | 'referrals'
+  | 'partners'
+  | 'partnerProfiles'
+  | 'feedback'
+  | 'followUps'
+  | 'healthRequests'
+  | 'escalationRules'
+  | 'voiceCheckins'
+  | 'dashboards'
+  | 'operationalReports'
+  | 'csrReports'
+  | 'exports'
+  | 'dataExports'
+  | 'auditLogs'
+  | 'complaints'
+  | 'approvalQueue'
+  | 'approvalsQueue'
+  | 'integrationMonitor'
+  | 'dataGovernance';
+
+const CAPABILITY_MAP: Record<string, CapabilityCode> = {
+  systemSettings: 'SYSTEM_SETTINGS',
+  usersAndRoles: 'SYSTEM_SETTINGS',
+  ownAccount: 'OWN_ACCOUNT',
+  memberProfiles: 'MEMBER_PROFILES',
+  consentPreferences: 'CONSENT_PREFERENCES',
+  centres: 'CENTRES',
+  programmes: 'PROGRAMMES',
+  programmesAndEvents: 'PROGRAMMES',
+  registrations: 'REGISTRATIONS',
+  attendance: 'ATTENDANCE',
+  attendanceRecords: 'ATTENDANCE',
+  attendanceCorrections: 'ATTENDANCE_CORRECTIONS',
+  messageTemplates: 'MESSAGE_TEMPLATES',
+  announcements: 'ANNOUNCEMENTS',
+  messageDelivery: 'MESSAGE_DELIVERY',
+  deliveryStatus: 'MESSAGE_DELIVERY',
+  optInOut: 'OPT_IN_OUT',
+  optInOptOut: 'OPT_IN_OUT',
+  servicesCatalogue: 'SERVICES_CATALOGUE',
+  serviceBookings: 'SERVICE_BOOKINGS',
+  referrals: 'REFERRALS',
+  partners: 'PARTNER_PROFILES',
+  partnerProfiles: 'PARTNER_PROFILES',
+  feedback: 'FEEDBACK',
+  followUps: 'FOLLOW_UPS',
+  healthRequests: 'HEALTH_REQUESTS',
+  escalationRules: 'ESCALATION_RULES',
+  voiceCheckins: 'VOICE_CHECKINS',
+  dashboards: 'DASHBOARDS',
+  operationalReports: 'OPERATIONAL_REPORTS',
+  csrReports: 'CSR_REPORTS',
+  exports: 'EXPORTS',
+  dataExports: 'EXPORTS',
+  auditLogs: 'AUDIT_LOGS',
+  complaints: 'COMPLAINTS',
+  approvalQueue: 'APPROVAL_QUEUE',
+  approvalsQueue: 'APPROVAL_QUEUE',
+  integrationMonitor: 'INTEGRATION_MONITOR',
+  dataGovernance: 'DATA_GOVERNANCE',
+};
+
+export function normalizeCapability(cap: CapabilityCode | CapabilityKey | string): CapabilityCode {
+  if (cap in CAPABILITY_MAP) {
+    return CAPABILITY_MAP[cap];
+  }
+  return cap as CapabilityCode;
+}
+
 export type ScopeQualifier =
   | 'all'
   | 'assigned_centres'

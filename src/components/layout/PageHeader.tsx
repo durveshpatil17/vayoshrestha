@@ -5,14 +5,17 @@ import { Link } from 'react-router-dom';
 export interface BreadcrumbItem {
   label: string;
   to?: string;
+  href?: string;
 }
 
 export interface PageHeaderProps {
   title: string;
   description?: string;
   breadcrumbs?: BreadcrumbItem[];
+  breadcrumb?: BreadcrumbItem[];
   primaryAction?: React.ReactNode;
   secondaryActions?: React.ReactNode;
+  actions?: React.ReactNode;
   statusBadge?: React.ReactNode;
   className?: string;
 }
@@ -21,28 +24,36 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   title,
   description,
   breadcrumbs,
+  breadcrumb,
   primaryAction,
   secondaryActions,
+  actions,
   statusBadge,
   className = '',
 }) => {
+  const effectiveCrumbs = breadcrumbs || breadcrumb;
+  const effectivePrimaryAction = primaryAction || actions;
+
   return (
     <div className={`pb-6 mb-6 border-b border-border-hairline ${className}`}>
       {/* Breadcrumbs */}
-      {breadcrumbs && breadcrumbs.length > 0 && (
+      {effectiveCrumbs && effectiveCrumbs.length > 0 && (
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-text-muted mb-2">
-          {breadcrumbs.map((crumb, idx) => (
-            <React.Fragment key={idx}>
-              {idx > 0 && <ChevronRight className="w-3 h-3 text-border-strong" />}
-              {crumb.to ? (
-                <Link to={crumb.to} className="hover:text-text-primary transition-colors">
-                  {crumb.label}
-                </Link>
-              ) : (
-                <span className="text-text-primary font-medium">{crumb.label}</span>
-              )}
-            </React.Fragment>
-          ))}
+          {effectiveCrumbs.map((crumb, idx) => {
+            const targetUrl = crumb.to || crumb.href;
+            return (
+              <React.Fragment key={idx}>
+                {idx > 0 && <ChevronRight className="w-3 h-3 text-border-strong" />}
+                {targetUrl ? (
+                  <Link to={targetUrl} className="hover:text-text-primary transition-colors">
+                    {crumb.label}
+                  </Link>
+                ) : (
+                  <span className="text-text-primary font-medium">{crumb.label}</span>
+                )}
+              </React.Fragment>
+            );
+          })}
         </nav>
       )}
 
@@ -62,10 +73,10 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
           )}
         </div>
 
-        {(primaryAction || secondaryActions) && (
+        {(effectivePrimaryAction || secondaryActions) && (
           <div className="flex items-center gap-3 shrink-0">
             {secondaryActions}
-            {primaryAction}
+            {effectivePrimaryAction}
           </div>
         )}
       </div>

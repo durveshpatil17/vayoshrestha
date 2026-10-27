@@ -29,6 +29,16 @@ export function getLockRemainingHours(
   return Math.ceil(diffMs / (60 * 60 * 1000));
 }
 
+export function calculateLockCountdown(
+  sessionEndTime: string,
+  lockWindowHours: number = 12,
+  currentTime: string = new Date().toISOString()
+): string {
+  const hours = getLockRemainingHours(sessionEndTime, lockWindowHours, currentTime);
+  if (hours <= 0) return '0h';
+  return `${hours}h`;
+}
+
 export interface AttendanceCorrectionRequest {
   memberId: string;
   sessionId: string;

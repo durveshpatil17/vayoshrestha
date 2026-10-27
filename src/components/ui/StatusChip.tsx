@@ -9,7 +9,10 @@ export type ChipVariant =
   | 'rejected'
   | 'in-progress'
   | 'neutral'
-  | 'danger';
+  | 'danger'
+  | 'warning'
+  | 'success'
+  | 'info';
 
 export interface StatusChipProps {
   label: string;
@@ -25,13 +28,16 @@ export const StatusChip: React.FC<StatusChipProps> = ({
   const variantStyles: Record<ChipVariant, string> = {
     active: 'bg-success-bg text-success border-success/30',
     approved: 'bg-success-bg text-success border-success/30',
+    success: 'bg-success-bg text-success border-success/30',
     registered: 'bg-accent-tint text-accent border-accent/30',
     pending: 'bg-warning-bg text-warning border-warning/30',
     'in-progress': 'bg-warning-bg text-warning border-warning/30',
+    warning: 'bg-warning-bg text-warning border-warning/30',
     'opted-out': 'bg-bg-subtle text-text-muted border-border-hairline',
     neutral: 'bg-bg-subtle text-text-muted border-border-hairline',
     danger: 'bg-danger-bg text-danger border-danger/30',
     rejected: 'bg-danger-bg text-danger border-danger/30',
+    info: 'bg-info-bg text-info border-info/30',
   };
 
   return (

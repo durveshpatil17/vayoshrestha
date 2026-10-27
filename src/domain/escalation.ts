@@ -95,6 +95,7 @@ export interface SlaStatus {
   isBreached: boolean;
   remainingMinutes: number;
   overdueMinutes: number;
+  formattedRemaining: string;
 }
 
 export function calculateSlaStatus(
@@ -108,18 +109,21 @@ export function calculateSlaStatus(
 
   const diffMs = slaDeadlineMs - currentMs;
   const diffMinutes = Math.round(diffMs / (60 * 1000));
+  const formattedRemaining = formatSlaCountdown(diffMinutes);
 
   if (diffMinutes >= 0) {
     return {
       isBreached: false,
       remainingMinutes: diffMinutes,
       overdueMinutes: 0,
+      formattedRemaining,
     };
   } else {
     return {
       isBreached: true,
       remainingMinutes: diffMinutes,
       overdueMinutes: Math.abs(diffMinutes),
+      formattedRemaining,
     };
   }
 }
@@ -142,3 +146,5 @@ export function formatSlaCountdown(remainingMinutes: number): string {
     return `${mins}m overdue`;
   }
 }
+
+export const matchWarningSigns = evaluateWarningSigns;

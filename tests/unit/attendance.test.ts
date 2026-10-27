@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   isAttendanceLocked,
   getLockRemainingHours,
+  calculateLockCountdown,
   validateCorrectionRequest,
   canApproveCorrection,
 } from '@/domain/attendance';
@@ -79,5 +80,86 @@ describe('Attendance Lock & Corrections (FR-19–22)', () => {
         approverCentres: ['HUB-NSK'],
       })
     ).toBe(false);
+
+    // PM can approve any centre
+    expect(
+      canApproveCorrection({
+        correction,
+        approverId: 'u-pm-1',
+        approverRole: 'PM',
+        approverCentres: [],
+      })
+    ).toBe(true);
+
+    // Volunteer (VF) can never approve
+    expect(
+      canApproveCorrection({
+        correction,
+        approverId: 'u-vf-2',
+        approverRole: 'VF',
+        approverCentres: ['HUB-PUN'],
+      })
+    ).toBe(false);
+  });
+
+  it('should test calculateLockCountdown remaining time formatting', () => {
+    const sessionEndTime = '2026-10-27T10:00:00.000Z';
+    const currentTime = '2026-10-27T14:00:00.000Z';
+    expect(calculateLockCountdown(sessionEndTime, 12, currentTime)).toBe('8h');
+
+    // Locked returns 0h
+    const pastTime = '2026-10-28T14:00:00.000Z';
+    expect(calculateLockCountdown(sessionEndTime, 12, pastTime)).toBe('0h');
+  });
+
+  it('should reject invalid correction requests missing parameters or same status', () => {
+    // missing memberId
+    expect(
+      validateCorrectionRequest({
+        memberId: '',
+        sessionId: 'sess-1',
+        previousStatus: 'Absent',
+        requestedStatus: 'Present',
+        reason: 'Reason',
+        requesterId: 'u-1',
+      }).valid
+    ).toBe(false);
+
+    // missing sessionId
+    expect(
+      validateCorrectionRequest({
+        memberId: 'm-1',
+        sessionId: '',
+        previousStatus: 'Absent',
+        requestedStatus: 'Present',
+        reason: 'Reason',
+        requesterId: 'u-1',
+      }).valid
+    ).toBe(false);
+
+    // same status
+    expect(
+      validateCorrectionRequest({
+        memberId: 'm-1',
+        sessionId: 'sess-1',
+        previousStatus: 'Present',
+        requestedStatus: 'Present',
+        reason: 'Reason',
+        requesterId: 'u-1',
+      }).valid
+    ).toBe(false);
+
+    // missing requesterId
+    expect(
+      validateCorrectionRequest({
+        memberId: 'm-1',
+        sessionId: 'sess-1',
+        previousStatus: 'Absent',
+        requestedStatus: 'Present',
+        reason: 'Reason',
+        requesterId: '',
+      }).valid
+    ).toBe(false);
   });
 });
+

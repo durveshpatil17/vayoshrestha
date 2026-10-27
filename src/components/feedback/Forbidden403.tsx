@@ -7,14 +7,17 @@ import { useAuthStore } from '@/store/authStore';
 export interface Forbidden403Props {
   missingPermission?: string;
   requiredRole?: string;
+  currentRole?: string;
 }
 
 export const Forbidden403: React.FC<Forbidden403Props> = ({
   missingPermission = 'ADMIN_ACCESS',
   requiredRole,
+  currentRole,
 }) => {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
+  const effectiveRole = currentRole || user?.role || 'Guest';
 
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 text-center max-w-xl mx-auto">
@@ -28,7 +31,7 @@ export const Forbidden403: React.FC<Forbidden403Props> = ({
         Restricted Eldercare Capability
       </h1>
       <p className="text-sm text-text-muted mb-6 leading-relaxed">
-        Your current active persona (<strong>{user?.role || 'Guest'}</strong>) is not authorized to view this resource.
+        Your current active persona (<strong>{effectiveRole}</strong>) is not authorized to view this resource.
         This screen requires capability <code className="bg-bg-subtle px-1.5 py-0.5 rounded text-xs border border-border-hairline">{missingPermission}</code>
         {requiredRole && <> or role <strong>{requiredRole}</strong></>}.
       </p>

@@ -9,10 +9,14 @@ export interface UserAccount {
   assignedCentres: string[];
   linkedSeniors?: string[];
   partnerOrganisationId?: string;
+  partnerId?: string;
   isActive: boolean;
   mfaEnabled: boolean;
   failedLoginAttempts: number;
+  failedAttempts?: number;
   lockoutUntil?: string | null;
+  lockedUntil?: string | null;
+  mustChangePassword?: boolean;
   lastLoginAt?: string;
   avatarUrl?: string;
 }
@@ -43,9 +47,11 @@ export interface SeniorCitizen {
   emergencyContactPhone: string;
   centreId: string;
   primaryLanguage: 'Hindi' | 'Marathi' | 'English' | 'Gujarati';
+  preferredLanguage?: 'Hindi' | 'Marathi' | 'English' | 'Gujarati' | string;
   address: string;
   digitalConfidence: 'Basic' | 'Assisted' | 'Confident' | 'None';
   isAssistedRegistration: boolean;
+  isAssisted?: boolean;
   assistedBy?: string; // Volunteer or Family name
   consentStatus: 'OptedIn' | 'OptedOut' | 'Pending';
   consentRecordedAt?: string;
@@ -175,6 +181,24 @@ export interface OutboundMessage {
   retryCount: number;
 }
 
+export interface Announcement {
+  id: string;
+  title: string;
+  content: string;
+  category: 'Event' | 'HealthAlert' | 'Closure' | 'General';
+  targetCentres: string[];
+  targetLanguages: string[];
+  audienceSize: number;
+  excludedNoConsent: number;
+  excludedOptedOut: number;
+  scheduledFor: string;
+  status: 'Draft' | 'Submitted' | 'Approved' | 'Sent' | 'Cancelled';
+  submittedBy: string;
+  submittedAt: string;
+  approvedBy?: string;
+  approvedAt?: string;
+}
+
 export interface ServicePartner {
   id: string;
   name: string;
@@ -283,8 +307,8 @@ export interface AuditEvent {
   entity: string;
   entityId: string;
   reason?: string;
-  diffBefore?: Record<string, unknown> | null;
-  diffAfter?: Record<string, unknown> | null;
+  diffBefore?: Record<string, any> | any | null;
+  diffAfter?: Record<string, any> | any | null;
   timestamp: string;
   hash: string;
 }

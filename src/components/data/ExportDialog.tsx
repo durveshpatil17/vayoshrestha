@@ -9,19 +9,28 @@ import { Download, X, AlertTriangle } from 'lucide-react';
 export interface ExportDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  datasetName: string;
-  data: Record<string, any>[];
-  fileNamePrefix: string;
+  datasetName?: string;
+  title?: string;
+  data: any[];
+  fileNamePrefix?: string;
+  defaultFileName?: string;
+  columns?: { key: string; label: string }[];
 }
 
 export const ExportDialog: React.FC<ExportDialogProps> = ({
   isOpen,
   onClose,
   datasetName,
+  title,
   data,
   fileNamePrefix,
+  defaultFileName,
+  columns,
 }) => {
   const user = useAuthStore((s) => s.user);
+  const effectiveDatasetName = datasetName || title || 'Export Data';
+  const effectivePrefix = fileNamePrefix || defaultFileName || 'export';
+
   const [reason, setReason] = useState('');
   const [format, setFormat] = useState<'csv' | 'json'>('csv');
   const [error, setError] = useState('');
@@ -44,7 +53,7 @@ export const ExportDialog: React.FC<ExportDialogProps> = ({
         user?.fullName || 'Anonymous',
         user?.role || 'SA',
         'EXPORT',
-        datasetName,
+        effectiveDatasetName,
         `export-${Date.now()}`,
         reason,
         null,
@@ -53,7 +62,7 @@ export const ExportDialog: React.FC<ExportDialogProps> = ({
 
       // 2. Generate CSV or JSON
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const filename = `${fileNamePrefix}_${user?.role}_${timestamp}.${format}`;
+      const filename = `${effectivePrefix}_${user?.role}_${timestamp}.${format}`;
 
       let content = '';
       if (format === 'json') {

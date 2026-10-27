@@ -1,10 +1,10 @@
 import React from 'react';
-import { CapabilityCode, ActionCode } from './matrix';
+import { CapabilityCode, CapabilityKey, ActionCode, normalizeCapability } from './matrix';
 import { authorize, ResourceContext } from './authorize';
 import { useAuthStore } from '@/store/authStore';
 
 export interface CanProps {
-  capability: CapabilityCode;
+  capability: CapabilityCode | CapabilityKey;
   action?: ActionCode;
   resource?: ResourceContext;
   children: React.ReactNode;
@@ -23,8 +23,9 @@ export const Can: React.FC<CanProps> = ({
   fallback = null,
 }) => {
   const user = useAuthStore((state) => state.user);
+  const normalizedCap = normalizeCapability(capability);
 
-  const isAllowed = authorize(user, capability, action, resource);
+  const isAllowed = authorize(user, normalizedCap, action, resource);
 
   if (!isAllowed) {
     return <>{fallback}</>;

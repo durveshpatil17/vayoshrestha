@@ -44,5 +44,25 @@ describe('Consent & Communication Gating (FR-09, FR-29)', () => {
     const updated = evaluateOptOutAction(member, 'STOP');
     expect(updated.consentStatus).toBe('OptedOut');
     expect(updated.optedOutChannels).toContain('WhatsApp');
+
+    // Also test UNSUBSCRIBE and OPT OUT
+    const updatedUnsub = evaluateOptOutAction(member, 'unsubscribe');
+    expect(updatedUnsub.consentStatus).toBe('OptedOut');
+
+    // Non-stop message leaves member unchanged
+    const nonStop = evaluateOptOutAction(member, 'Namaste');
+    expect(nonStop.consentStatus).toBe('OptedIn');
+  });
+
+  it('should block message if WhatsApp is in optedOutChannels even if status is OptedIn', () => {
+    const member = {
+      id: 'm-5',
+      consentStatus: 'OptedIn' as const,
+      optedOutChannels: ['WhatsApp'],
+    };
+    const result = canSendMessage(member, 'Reminder');
+    expect(result.allowed).toBe(false);
+    expect(result.reason).toContain('WhatsApp');
   });
 });
+

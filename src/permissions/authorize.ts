@@ -1,8 +1,10 @@
 import {
   PERMISSION_MATRIX,
   CapabilityCode,
+  CapabilityKey,
   RoleCode,
   ActionCode,
+  normalizeCapability,
 } from './matrix';
 
 export interface AuthUser {
@@ -28,10 +30,11 @@ export interface ResourceContext {
  */
 export function hasPermission(
   role: RoleCode,
-  capability: CapabilityCode,
+  capability: CapabilityCode | CapabilityKey,
   action: ActionCode = 'read'
 ): boolean {
-  const capRules = PERMISSION_MATRIX[capability];
+  const normalizedCap = normalizeCapability(capability);
+  const capRules = PERMISSION_MATRIX[normalizedCap];
   if (!capRules) return false;
 
   const roleRule = capRules[role];
@@ -52,13 +55,15 @@ export function hasPermission(
  */
 export function authorize(
   user: AuthUser | null | undefined,
-  capability: CapabilityCode,
+  capability: CapabilityCode | CapabilityKey,
   action: ActionCode = 'read',
   resource?: ResourceContext
 ): boolean {
   if (!user || !user.role) return false;
 
-  const capRules = PERMISSION_MATRIX[capability];
+  const normalizedCap = normalizeCapability(capability);
+  const capRules = PERMISSION_MATRIX[normalizedCap];
+
   if (!capRules) return false;
 
   const rule = capRules[user.role];

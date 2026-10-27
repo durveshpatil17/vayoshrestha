@@ -1,0 +1,33 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/Button';
+import { FileQuestion, ArrowLeft } from 'lucide-react';
+
+export const NotFoundPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center max-w-md mx-auto">
+      <div className="w-14 h-14 rounded-full bg-bg-subtle text-text-muted flex items-center justify-center mb-4 border border-border-hairline">
+        <FileQuestion className="w-7 h-7" />
+      </div>
+      <span className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">
+        HTTP 404
+      </span>
+      <h1 className="font-serif text-2xl font-semibold text-text-primary mb-2">
+        Page Not Found
+      </h1>
+      <p className="text-xs text-text-muted mb-6 leading-relaxed">
+        The requested screen does not exist or has been relocated within the Vayoshreshtha eldercare workspace.
+      </p>
+      <div className="flex gap-3">
+        <Button variant="secondary" size="md" icon={<ArrowLeft className="w-4 h-4" />} onClick={() => navigate(-1)}>
+          Go Back
+        </Button>
+        <Button variant="primary" size="md" onClick={() => navigate('/')}>
+          Return Home
+        </Button>
+      </div>
+    </div>
+  );
+};

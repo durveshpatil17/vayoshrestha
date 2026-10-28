@@ -6,8 +6,10 @@ import { useAuthStore } from '@/store/authStore';
 import { mockStore } from '@/mock/store';
 
 export interface RevealPhoneModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  open?: boolean;
+  onClose?: () => void;
+  onOpenChange?: (open: boolean) => void;
   memberId: string;
   memberName: string;
   unmaskedPhone: string;
@@ -16,17 +18,24 @@ export interface RevealPhoneModalProps {
 
 export const RevealPhoneModal: React.FC<RevealPhoneModalProps> = ({
   isOpen,
+  open,
   onClose,
+  onOpenChange,
   memberId,
   memberName,
   unmaskedPhone,
   onRevealed,
 }) => {
+  const isModalVisible = open !== undefined ? open : (isOpen ?? false);
+  const handleClose = () => {
+    onClose?.();
+    onOpenChange?.(false);
+  };
   const user = useAuthStore((s) => s.user);
   const [reason, setReason] = useState('');
   const [error, setError] = useState('');
 
-  if (!isOpen) return null;
+  if (!isModalVisible) return null;
 
   const handleReveal = () => {
     if (!reason.trim()) {
@@ -39,18 +48,18 @@ export const RevealPhoneModal: React.FC<RevealPhoneModalProps> = ({
       user?.fullName || 'Volunteer Staff',
       user?.role || 'VF',
       'PII_REVEAL',
-      'SeniorCitizen',
+      'SENIOR',
       memberId,
+      `Unmasked phone number for reason: ${reason}`,
       reason,
-      { phoneMasked: true },
-      { phoneRevealed: true },
-      user?.assignedCentres[0]
+      undefined,
+      user?.assignedChapter || user?.assignedCentres[0]
     );
 
     onRevealed(unmaskedPhone);
     setReason('');
     setError('');
-    onClose();
+    handleClose();
   };
 
   return (
@@ -68,7 +77,7 @@ export const RevealPhoneModal: React.FC<RevealPhoneModalProps> = ({
               <p className="text-xs text-text-muted">{memberName} ({memberId})</p>
             </div>
           </div>
-          <button onClick={onClose} className="text-text-muted hover:text-text-primary">
+          <button onClick={handleClose} className="text-text-muted hover:text-text-primary">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -91,7 +100,7 @@ export const RevealPhoneModal: React.FC<RevealPhoneModalProps> = ({
         />
 
         <div className="flex justify-end gap-3 pt-4 mt-4 border-t border-border-hairline">
-          <Button variant="outline" size="sm" onClick={onClose}>
+          <Button variant="outline" size="sm" onClick={handleClose}>
             Cancel
           </Button>
           <Button

@@ -36,7 +36,7 @@ export const IntegrationsPage: React.FC = () => {
         'OutboundMessage',
         'bulk-retry',
         `Bulk retried ${failedCount} failed notifications`,
-        null,
+        'Bulk delivery retry operation',
         { count: failedCount },
         undefined
       );

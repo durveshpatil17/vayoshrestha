@@ -82,11 +82,11 @@ export const ApprovalsPage: React.FC = () => {
       user.fullName,
       'NM',
       'APPROVE',
-      selectedItem.category,
+      selectedItem.category as any,
       selectedItem.id,
       `${actionType}d ${selectedItem.category}: ${selectedItem.title}. Audit note: ${comment || 'Standard approval'}`,
-      { status: 'Pending' },
-      { status: newStatus, comment },
+      comment || 'Standard approval',
+      { before: { status: 'Pending' }, after: { status: newStatus } } as any,
       undefined
     );
 

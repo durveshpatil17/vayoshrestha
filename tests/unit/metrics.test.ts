@@ -4,6 +4,10 @@ import {
   calculateUniqueParticipants,
   calculateTotalAttendance,
   isMemberActive,
+  isSeniorRegistered,
+  isSeniorActive,
+  calculateMedian,
+  calculatePercentage,
   AttendanceItem,
 } from '@/domain/metrics';
 
@@ -15,22 +19,56 @@ describe('Measurement & Reporting Definitions (Section 1)', () => {
     { id: 'm-4', membershipId: 'VV-PUN-26-00004' },
   ];
 
-  // Reference date: 2026-10-27
   const attendanceRecords: AttendanceItem[] = [
-    // m-1 attended 3 sessions in October 2026 (Active & Participant)
     { id: 'a-1', memberId: 'm-1', sessionDate: '2026-10-25', status: 'Present' },
     { id: 'a-2', memberId: 'm-1', sessionDate: '2026-10-20', status: 'Present' },
     { id: 'a-3', memberId: 'm-1', sessionDate: '2026-10-15', status: 'Present' },
-    // m-2 attended 1 session in October 2026 (Active & Participant)
     { id: 'a-4', memberId: 'm-2', sessionDate: '2026-10-10', status: 'Present' },
-    // m-3 attended in July 2026 (> 30 days ago, not active in current 30-day window)
     { id: 'a-5', memberId: 'm-3', sessionDate: '2026-07-15', status: 'Present' },
-    // m-4 has an absent mark
     { id: 'a-6', memberId: 'm-4', sessionDate: '2026-10-25', status: 'Absent' },
   ];
 
-  it('should verify Registered count is total membership records', () => {
-    expect(members.length).toBe(4);
+  it('verifies v2 Pilot canonical Registered condition', () => {
+    // Valid registered senior
+    expect(
+      isSeniorRegistered({
+        fullName: 'Ramesh Kulkarni',
+        primaryLanguage: 'Marathi',
+        emergencyContacts: [{ id: 'c1', name: 'Sunil', relationship: 'Son', phone: '9822011223', isPrimary: true, safetySmsConsent: true, priorityOrder: 1 }],
+        consent: { generalCommunications: true, safetySmsFallback: true, abdmLinkage: false, recordedAt: '2026-10-01', version: 'v1' },
+      })
+    ).toBe(true);
+
+    // Incomplete without emergency contacts
+    expect(
+      isSeniorRegistered({
+        fullName: 'Ramesh Kulkarni',
+        primaryLanguage: 'Marathi',
+        emergencyContacts: [],
+      })
+    ).toBe(false);
+  });
+
+  it('identifies Active senior who responded within 14 days', () => {
+    const now = '2026-10-28T10:00:00.000Z';
+    const logs = [
+      { seniorId: 'm-1', timestamp: '2026-10-25T10:00:00.000Z' }, // 3 days ago (active)
+      { seniorId: 'm-2', timestamp: '2026-10-01T10:00:00.000Z' }, // 27 days ago (>14d, inactive)
+    ];
+
+    expect(isSeniorActive('m-1', logs, now, 14)).toBe(true);
+    expect(isSeniorActive('m-2', logs, now, 14)).toBe(false);
+    expect(isSeniorActive('m-3', logs, now, 14)).toBe(false);
+  });
+
+  it('computes medians and percentages cleanly', () => {
+    expect(calculateMedian([10, 20, 30, 40, 50])).toBe(30);
+    expect(calculateMedian([10, 20, 30, 40])).toBe(25);
+    expect(calculateMedian([])).toBe(0);
+
+    expect(calculatePercentage(85, 100)).toBe(85);
+    expect(calculatePercentage(1, 3)).toBe(33.3);
+    expect(calculatePercentage(0, 0)).toBe(0);
   });
 
   it('should identify Active members (attended at least 1 session in last 30 days)', () => {
@@ -49,13 +87,11 @@ describe('Measurement & Reporting Definitions (Section 1)', () => {
   });
 
   it('should distinguish Total Attendance marks from Unique Participants', () => {
-    // Total attendance = count of present marks
     const total = calculateTotalAttendance(attendanceRecords);
-    expect(total).toBe(5); // 3 for m-1 + 1 for m-2 + 1 for m-3
+    expect(total).toBe(5);
 
-    // Unique participants = distinct members who attended at least once
     const unique = calculateUniqueParticipants(attendanceRecords);
-    expect(unique.count).toBe(3); // m-1, m-2, m-3
+    expect(unique.count).toBe(3);
     expect(unique.memberIds).toEqual(expect.arrayContaining(['m-1', 'm-2', 'm-3']));
   });
 });

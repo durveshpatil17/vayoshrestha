@@ -6,13 +6,13 @@ import { useAuthStore } from '@/store/authStore';
 
 describe('Can Component RBAC UI Gate', () => {
   beforeEach(() => {
-    // Reset to PM persona by default
-    useAuthStore.getState().switchPersona('PM');
+    // Reset to RA persona by default
+    useAuthStore.getState().switchPersona('RA');
   });
 
   it('renders children when the active user has capability permission', () => {
     render(
-      <Can capability="MEMBER_PROFILES" action="read">
+      <Can capability="SENIOR_PROFILES" action="read">
         <div data-testid="allowed-content">Senior Citizen Directory</div>
       </Can>
     );
@@ -25,7 +25,7 @@ describe('Can Component RBAC UI Gate', () => {
     useAuthStore.getState().switchPersona('VF');
 
     render(
-      <Can capability="MEMBER_PROFILES" action="delete">
+      <Can capability="SENIOR_PROFILES" action="delete">
         <div data-testid="delete-btn">Delete Profile</div>
       </Can>
     );
@@ -38,7 +38,7 @@ describe('Can Component RBAC UI Gate', () => {
 
     render(
       <Can
-        capability="MEMBER_PROFILES"
+        capability="SENIOR_PROFILES"
         action="create"
         fallback={<span data-testid="denied-fallback">No Creation Allowed</span>}
       >
@@ -50,19 +50,19 @@ describe('Can Component RBAC UI Gate', () => {
   });
 
   it('enforces scope isolation with resource prop', () => {
-    useAuthStore.getState().switchPersona('CC'); // CC assigned to Pune
-    const ownCentreResource = { id: 'm-1', centreId: 'HUB-PUN' };
-    const otherCentreResource = { id: 'm-2', centreId: 'HUB-NSK' };
+    useAuthStore.getState().switchPersona('CM'); // CM assigned to Pune
+    const ownCentreResource = { id: 'm-1', chapterId: 'HUB-PUN' };
+    const otherCentreResource = { id: 'm-2', chapterId: 'HUB-NSK' };
 
     const { rerender } = render(
-      <Can capability="MEMBER_PROFILES" action="read" resource={ownCentreResource}>
+      <Can capability="SENIOR_PROFILES" action="read" resource={ownCentreResource}>
         <div data-testid="centre-content">Pune Member Details</div>
       </Can>
     );
     expect(screen.getByTestId('centre-content')).toBeInTheDocument();
 
     rerender(
-      <Can capability="MEMBER_PROFILES" action="read" resource={otherCentreResource}>
+      <Can capability="SENIOR_PROFILES" action="read" resource={otherCentreResource}>
         <div data-testid="centre-content">Nashik Member Details</div>
       </Can>
     );

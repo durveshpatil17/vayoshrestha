@@ -241,29 +241,37 @@ export const LoginPage: React.FC = () => {
             </p>
 
             <div className="grid grid-cols-2 gap-1.5">
-              {(
-                [
-                  { role: 'PM', name: 'Arjun Nambiar', title: 'Prog. Manager' },
-                  { role: 'NM', name: 'Dr. Kalyani Sen', title: 'Director (MFA)' },
-                  { role: 'CC', name: 'Meera Joshi', title: 'Coord. Pune' },
-                  { role: 'VF', name: 'Pooja Shinde', title: 'Volunteer (Masked)' },
-                  { role: 'SA', name: 'Vikramaditya Rao', title: 'Sys. Admin (MFA)' },
-                  { role: 'SP', name: 'Dr. Anand Dighe', title: 'Clinic Partner' },
-                  { role: 'CT', name: 'Sr. Mary Fernandez', title: 'Care Expert' },
-                  { role: 'CD', name: 'Navin Singhal', title: 'CSR Reviewer' },
-                  { role: 'SC', name: 'Bhagwandas Sharma', title: 'Senior Elder' },
-                  { role: 'FM', name: 'Alok Sharma', title: 'Family Proxy' },
-                ] as { role: RoleCode; name: string; title: string }[]
-              ).map((p) => (
+              {[
+                { id: 'u-sa-1', role: 'SA', name: 'Rajesh Varma', title: 'System Admin (MFA)' },
+                { id: 'u-nm-1', role: 'NM', name: 'Vandana Sharma', title: 'NGO Management' },
+                { id: 'u-ra-west', role: 'RA', name: 'Arjun Nambiar', title: 'Reg. Admin (West)' },
+                { id: 'u-ra-south', role: 'RA', name: 'Priya Raman', title: 'Reg. Admin (South)' },
+                { id: 'u-cm-pun', role: 'CM', name: 'Sunita Patil', title: 'Chap. Mgr (Pune)' },
+                { id: 'u-cm-blr', role: 'CM', name: 'Karthik S.', title: 'Chap. Mgr (Bengaluru)' },
+                { id: 'u-vf-1', role: 'VF', name: 'Field Volunteer', title: 'Field Volunteer' },
+                { id: 'u-ct-1', role: 'CT', name: 'Care Responder', title: 'Care Responder' },
+                { id: 'u-cd-1', role: 'CD', name: 'CSR Reviewer', title: 'CSR / Donor (Agg)' },
+                { id: 'u-sc-1', role: 'SC', name: 'Senior Citizen', title: 'Senior Simulator' },
+              ].map((p) => (
                 <button
-                  key={p.role}
+                  key={p.id}
                   type="button"
-                  onClick={() => handlePersonaClick(p.role)}
+                  onClick={() => {
+                    if (p.role === 'SC') {
+                      switchPersona(p.role as any);
+                      navigate('/simulator');
+                    } else {
+                      switchPersona(p.role as any);
+                      navigate(returnTo);
+                    }
+                  }}
                   className="text-left px-2.5 py-1.5 rounded bg-bg-base border border-border-hairline hover:border-accent hover:bg-accent-tint/30 transition-all text-xs"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-text-primary text-[11px]">{p.title}</span>
-                    <span className="font-mono text-[9px] text-accent font-bold px-1 bg-accent-tint rounded">{p.role}</span>
+                    <span className="font-mono text-[9px] text-accent font-bold px-1 bg-accent-tint rounded">
+                      {p.role}
+                    </span>
                   </div>
                   <div className="text-[10px] text-text-muted truncate mt-0.5">{p.name}</div>
                 </button>

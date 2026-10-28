@@ -6,86 +6,87 @@ export const DefinitionsPage: React.FC = () => {
   const definitions = [
     {
       term: 'Registered Senior Citizen',
-      canonical: 'A senior citizen aged 60 and above who possesses a validated, unique Vayoshrestha membership ID (e.g. VV-PUN-26-00042) on file.',
-      rule: 'Count of all SeniorCitizen records with status != Suspended.',
-      example: 'Kamala Deshpande has a profile created on 10 Aug 2026. She is counted as Registered.',
+      canonical:
+        'A senior citizen aged 60 and above who has completed onboarding: full legal name + language preference + at least one validated next-of-kin emergency contact + explicit DPDP safety consent recorded.',
+      rule: 'Senior citizen record with consentRecorded == true and emergency contacts count >= 1.',
+      example: 'Ramesh Rao has completed the 7-step onboarding flow. His record is Registered.',
     },
     {
-      term: 'Active Member',
-      canonical: 'A registered senior citizen who has attended at least one programme session in the last 30 calendar days (rolling window configurable in Admin Settings).',
-      rule: 'SeniorCitizen with isActive == true (computed by attendance timestamp within 30 days).',
-      example: 'Senior attended gentle yoga 12 days ago: Active. Senior last attended 45 days ago: Inactive (Drop-off list).',
+      term: 'Active Senior (14-Day Window)',
+      canonical:
+        'A registered senior citizen who responded to any automated WhatsApp message (button tap or text reading) within the rolling 14-day window (window configurable in Admin Settings).',
+      rule: 'Senior Citizen with response timestamp >= (CurrentTime - 14 Days).',
+      example: 'Senior tapped "Taken" 5 days ago: Active. Senior last replied 18 days ago: Inactive.',
     },
     {
-      term: 'Participant',
-      canonical: 'A registered senior citizen who attended at least one programme session within the specifically selected reporting period filter.',
-      rule: 'Distinct count of memberIds appearing in attendance records between Period Start and Period End.',
-      example: 'In the month of September, Mohan attended 3 sessions. He counts as 1 Participant for September.',
+      term: 'Emergency SOS Alert Latency',
+      canonical:
+        'The precise elapsed duration in milliseconds from senior webhook trigger ingestion to real-time regional dashboard render across the event queue.',
+      rule: 'Measured latencyMs stamped on SosEvent across BroadcastChannel (simulated target < 1,000 ms).',
+      example: 'Senior taps SOS -> webhook queued -> board alerts in 184 ms.',
     },
     {
-      term: 'Total Attendance',
-      canonical: 'The cumulative count of physical attendance marks recorded across all sessions and hubs in the selected period.',
-      rule: 'Count of AttendanceRecord entries where status == "Present".',
-      example: 'If 20 elders attend Monday yoga and 15 elders attend Friday yoga, Total Attendance = 35 marks.',
+      term: 'Medication Confirmation Rate',
+      canonical:
+        'The operational proportion of automated daily medication reminder templates confirmed as Taken by seniors.',
+      rule: 'Formula: (Medication Confirmations "Taken") ÷ (Total Utility Reminders Delivered). Benchmark > 75%.',
+      example: '842 reminders delivered, 685 confirmed Taken = 81.4% confirmation rate.',
     },
     {
-      term: 'Unique Participants',
-      canonical: 'The count of distinct individual human senior citizens who attended at least one session in the selected period.',
-      rule: 'Unique Set size of memberIds who have at least one "Present" mark.',
-      example: 'If the same 15 elders attended both Monday and Friday, Total Attendance = 30, but Unique Participants = 15.',
+      term: 'Vitals Logging Rate',
+      canonical:
+        'The proportion of expected blood pressure or glucose readings successfully logged via text parser.',
+      rule: 'Formula: (Actual Readings Logged) ÷ (Expected Scheduled Readings). Benchmark > 60%.',
+      example: '1,000 enrolled seniors expected to log weekly: 642 logged = 64.2% adherence.',
     },
     {
-      term: 'Small-Number Suppression (<5)',
-      canonical: 'A strict DPDP statistical disclosure control rule where any aggregate cell with a count between 1 and 4 is replaced with "<5".',
-      rule: 'If count > 0 and count < 5, render as "<5" in all CSR/Donor views.',
-      example: 'A centre with 3 legal aid cases will display "<5" in donor reports to prevent re-identifying individuals.',
+      term: 'Cellular SMS Fallback',
+      canonical:
+        'An offline transactional SMS automatically pushed to registered Next-of-Kin when mobile data connectivity is interrupted mid-transaction during an SOS event.',
+      rule: 'Fired when networkStatusAtTrigger == "DISCONNECTED" or data receipt times out within 45 seconds.',
+      example: 'Senior loses mobile network; gateway immediately routes DLT-registered SMS to daughter.',
+    },
+    {
+      term: 'Differential Privacy: Small-Number Suppression (<5)',
+      canonical:
+        'Strict statistical disclosure control rule where any aggregate demographic or health cell with a count between 1 and 4 is rendered as "<5".',
+      rule: 'If count > 0 and count < 5, display "<5" in all CSR / Donor Reviewer views.',
+      example: 'A chapter with 3 critical flag cases displays "<5" to prevent individual re-identification.',
     },
   ];
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto">
+    <div className="space-y-6 max-w-5xl pb-16">
       <PageHeader
-        title="Institutional Measurement Definitions & Standards"
-        description="Canonical mathematical definitions governing all dashboards, charts, and donor reports (Section 1 Source of Truth)"
-        breadcrumb={[
-          { label: 'Reports', href: '/reports' },
-          { label: 'Metric Definitions' },
-        ]}
+        title="Pilot Measurement Definitions & Metric Standards"
+        description="Canonical mathematical formulations governing all pilot KPI cards, charts, and reports (Source of Truth)"
       />
 
-      <div className="p-4 bg-bg-subtle border border-border-hairline rounded text-xs text-text-muted flex items-start gap-3">
-        <ShieldCheck className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+      <div className="p-4 bg-surface-subtle border-l-4 border-accent rounded text-xs text-text-primary flex items-start gap-3">
+        <ShieldCheck className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
         <div>
-          <strong className="text-text-primary">Cardinal Rule:</strong> Total Attendance and Unique Participants must never be mixed up
-          in any chart or report label. Every indicator in Vayoshrestha strictly computes against these canonical definitions.
+          <strong className="text-accent font-bold block">
+            Institutional Measurement Integrity:
+          </strong>
+          Every metric displayed across Vayoshreshtha adheres strictly to these standardized pilot
+          specifications. No estimations or unsupported calculations are permitted.
         </div>
       </div>
 
       <div className="space-y-4">
-        {definitions.map((def) => (
-          <div
-            key={def.term}
-            className="bg-bg-base border border-border-hairline rounded p-5 space-y-3 hover:border-border-strong transition-all shadow-xs"
-          >
-            <div className="flex items-center justify-between border-b border-border-hairline pb-2">
-              <h3 className="font-serif text-base font-bold text-text-primary">{def.term}</h3>
-              <span className="font-mono text-[11px] px-2 py-0.5 bg-bg-subtle text-accent rounded font-medium">
-                Standard Metric
-              </span>
-            </div>
-
-            <p className="text-xs text-text-primary leading-relaxed">
-              <strong>Definition:</strong> {def.canonical}
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs bg-bg-subtle p-3 rounded border border-border-hairline">
+        {definitions.map((d) => (
+          <div key={d.term} className="bg-white border border-border-hairline rounded p-5 space-y-2">
+            <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-accent" />
+              {d.term}
+            </h3>
+            <p className="text-xs text-text-primary leading-relaxed">{d.canonical}</p>
+            <div className="p-2.5 bg-surface-subtle border border-border-hairline rounded text-[11px] font-mono space-y-1">
               <div>
-                <span className="text-text-muted block font-medium">Computation Logic:</span>
-                <span className="font-mono text-[11px] text-text-primary">{def.rule}</span>
+                <strong className="text-text-muted">Computation Rule:</strong> {d.rule}
               </div>
               <div>
-                <span className="text-text-muted block font-medium">Concrete Example:</span>
-                <span className="text-text-muted">{def.example}</span>
+                <strong className="text-text-muted">Standard Example:</strong> {d.example}
               </div>
             </div>
           </div>

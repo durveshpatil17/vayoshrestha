@@ -97,6 +97,7 @@ export interface RoleCapabilityRule {
   actions: ActionCode[];
   scope: ScopeQualifier;
   qualifiers?: string[];
+  maskedFields?: string[];
 }
 
 export type CapabilityCode =
@@ -157,10 +158,15 @@ export type CapabilityKey =
   | 'AUDIT_LOGS'
   | 'APPROVALS_QUEUE'
   | 'ONBOARDING_SCRIPT'
-  | 'INTEGRATION_MONITOR';
+  | 'INTEGRATION_MONITOR'
+  | 'MEMBER_PROFILES'
+  | 'ATTENDANCE'
+  | 'HEALTH_REQUESTS'
+  | 'usersAndRoles';
 
 export const CAPABILITY_MAP: Record<CapabilityKey, CapabilityCode> = {
   SYSTEM_SETTINGS: 'CAP-01',
+  usersAndRoles: 'CAP-01',
   OWN_ACCOUNT: 'CAP-02',
   CHAPTERS_ROSTERS: 'CAP-03',
   SENIOR_PROFILES: 'CAP-04',
@@ -188,6 +194,10 @@ export const CAPABILITY_MAP: Record<CapabilityKey, CapabilityCode> = {
   APPROVALS_QUEUE: 'CAP-26',
   ONBOARDING_SCRIPT: 'CAP-27',
   INTEGRATION_MONITOR: 'CAP-28',
+  // Backwards-compatible aliases
+  MEMBER_PROFILES: 'CAP-04',
+  ATTENDANCE: 'CAP-03',
+  HEALTH_REQUESTS: 'CAP-20',
 };
 
 export const REVERSE_CAPABILITY_MAP: Record<CapabilityCode, CapabilityKey> = Object.entries(

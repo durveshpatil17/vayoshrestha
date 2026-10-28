@@ -1,791 +1,847 @@
 import { faker } from '@faker-js/faker';
 import {
+  Region,
+  Chapter,
   UserAccount,
-  EktaHub,
   SeniorCitizen,
-  FamilyLink,
-  Programme,
-  ProgrammeSession,
-  AttendanceRecord,
-  MessageTemplate,
-  OutboundMessage,
-  ServicePartner,
-  Referral,
-  HealthEscalation,
-  AuditEvent,
+  EmergencyContact,
+  SosEvent,
+  SmsFallbackRecord,
+  MedicationSchedule,
+  MedicationConfirmation,
+  VitalLog,
+  HealthFlag,
+  WellnessCallTask,
+  ThresholdConfig,
+  SosSettings,
+  ReminderTemplate,
+  OnboardingScript,
+  OnboardingSession,
   SystemSettings,
+  AuditEvent,
+  OutboundMessage,
 } from '@/api/contracts';
 import { generateMembershipId } from '@/domain/idGenerator';
+import { dobToAgeBand } from '@/domain/masking';
+import { DEFAULT_CLINICIAN_PLACEHOLDER_THRESHOLDS } from '@/domain/thresholds';
 
 export function createDeterministicSeed() {
   faker.seed(20261027);
 
-  // 1. Ekta Hubs (6 centres)
-  const centres: EktaHub[] = [
+  // 1. Regions (3 regions)
+  const regions: Region[] = [
+    { id: 'REG-W', code: 'WEST', name: 'West Region (Maharashtra & MP)' },
+    { id: 'REG-S', code: 'SOUTH', name: 'South Region (Karnataka & TN)' },
+    { id: 'REG-N', code: 'NORTH', name: 'North Region (Rajasthan & UP)' },
+  ];
+
+  // 2. Chapters (9 Ekta Hub chapters)
+  const chapters: Chapter[] = [
     {
       id: 'HUB-PUN',
       code: 'PUN',
-      name: 'Ekta Hub Shivajinagar',
+      name: 'Pune Ekta Hub (Shivajinagar)',
+      regionId: 'REG-W',
       city: 'Pune',
       state: 'Maharashtra',
       address: 'Plot 42, Senapati Bapat Road, Shivajinagar, Pune 411016',
-      contactPerson: 'Meera Joshi',
-      contactPhone: '9822011223',
-      seatingCapacity: 45,
-      facilities: ['Wheelchair Ramp', 'Elevator', 'Accessible Restroom', 'Medical Room', 'Drinking Water'],
-      operatingSchedule: 'Mon-Sat 08:30 - 18:00',
+      contactPerson: 'Sunita Patil',
+      contactPhone: '+91 98220 11223',
+      languagesServed: ['Marathi', 'Hindi', 'English'],
       status: 'Active',
+      onDutyRoster: [
+        {
+          userId: 'u-cm-pun',
+          userName: 'Sunita Patil',
+          role: 'CM',
+          shift: '08:00 - 16:00 IST',
+          onCallPhone: '+91 98220 11223',
+          isPrimaryResponder: true,
+        },
+        {
+          userId: 'u-vf-pun',
+          userName: 'Pooja Shinde',
+          role: 'VF',
+          shift: '10:00 - 18:00 IST',
+          onCallPhone: '+91 98220 44551',
+          isPrimaryResponder: false,
+        },
+      ],
     },
     {
       id: 'HUB-NSK',
       code: 'NSK',
-      name: 'Ekta Hub Gangapur',
+      name: 'Nashik Ekta Hub (Gangapur)',
+      regionId: 'REG-W',
       city: 'Nashik',
       state: 'Maharashtra',
       address: 'Near Old Pandit Colony, Gangapur Road, Nashik 422005',
-      contactPerson: 'Sunil Kulkarni',
-      contactPhone: '9822044556',
-      seatingCapacity: 40,
-      facilities: ['Wheelchair Ramp', 'Restroom', 'Digital Lab', 'Air Cooled Hall'],
-      operatingSchedule: 'Mon-Sat 09:00 - 17:30',
+      contactPerson: 'Anand Deshmukh',
+      contactPhone: '+91 98220 22334',
+      languagesServed: ['Marathi', 'Hindi'],
       status: 'Active',
+      onDutyRoster: [
+        {
+          userId: 'u-cm-nsk',
+          userName: 'Anand Deshmukh',
+          role: 'CM',
+          shift: '08:00 - 16:00 IST',
+          onCallPhone: '+91 98220 22334',
+          isPrimaryResponder: true,
+        },
+      ],
     },
     {
       id: 'HUB-NAG',
       code: 'NAG',
-      name: 'Ekta Hub Dharampeth',
+      name: 'Nagpur Ekta Hub (Dharampeth)',
+      regionId: 'REG-W',
       city: 'Nagpur',
       state: 'Maharashtra',
       address: 'West High Court Road, Dharampeth, Nagpur 440010',
-      contactPerson: 'Dr. Vivek Deshmukh',
-      contactPhone: '9823055667',
-      seatingCapacity: 50,
-      facilities: ['Ramp Access', 'Elevator', 'Quiet Reading Corner', 'First Aid Station'],
-      operatingSchedule: 'Mon-Sat 08:00 - 18:00',
+      contactPerson: 'Vivek Joshi',
+      contactPhone: '+91 98220 33445',
+      languagesServed: ['Marathi', 'Hindi'],
       status: 'Active',
+      onDutyRoster: [],
     },
     {
       id: 'HUB-IND',
       code: 'IND',
-      name: 'Ekta Hub Palasia',
+      name: 'Indore Ekta Hub (Vijay Nagar)',
+      regionId: 'REG-W',
       city: 'Indore',
       state: 'Madhya Pradesh',
-      address: '14/2 Old Palasia, Main Road, Indore 452001',
-      contactPerson: 'Anjali Verma',
-      contactPhone: '9826077889',
-      seatingCapacity: 35,
-      facilities: ['Wheelchair Ramp', 'Air Conditioning', 'Projector Screen', 'Restroom'],
-      operatingSchedule: 'Mon-Sat 09:00 - 17:00',
+      address: 'Scheme 54, Vijay Nagar, Indore 452010',
+      contactPerson: 'Ritu Agarwal',
+      contactPhone: '+91 98220 44556',
+      languagesServed: ['Hindi', 'English'],
       status: 'Active',
+      onDutyRoster: [],
+    },
+    {
+      id: 'HUB-BLR',
+      code: 'BLR',
+      name: 'Bengaluru Ekta Hub (Jayanagar)',
+      regionId: 'REG-S',
+      city: 'Bengaluru',
+      state: 'Karnataka',
+      address: '32nd Cross, 4th Block, Jayanagar, Bengaluru 560011',
+      contactPerson: 'Karthik Swaminathan',
+      contactPhone: '+91 98440 11223',
+      languagesServed: ['Kannada', 'English', 'Tamil'],
+      status: 'Active',
+      onDutyRoster: [
+        {
+          userId: 'u-cm-blr',
+          userName: 'Karthik Swaminathan',
+          role: 'CM',
+          shift: '08:00 - 16:00 IST',
+          onCallPhone: '+91 98440 11223',
+          isPrimaryResponder: true,
+        },
+      ],
+    },
+    {
+      id: 'HUB-MYS',
+      code: 'MYS',
+      name: 'Mysuru Ekta Hub (Kuvempunagar)',
+      regionId: 'REG-S',
+      city: 'Mysuru',
+      state: 'Karnataka',
+      address: 'Anikethana Road, Kuvempunagar, Mysuru 570023',
+      contactPerson: 'Suresh Rao',
+      contactPhone: '+91 98440 22334',
+      languagesServed: ['Kannada', 'English'],
+      status: 'Active',
+      onDutyRoster: [],
+    },
+    {
+      id: 'HUB-CHE',
+      code: 'CHE',
+      name: 'Chennai Ekta Hub (Mylapore)',
+      regionId: 'REG-S',
+      city: 'Chennai',
+      state: 'Tamil Nadu',
+      address: 'Luz Church Road, Mylapore, Chennai 600004',
+      contactPerson: 'Lakshmi Narayanan',
+      contactPhone: '+91 98440 33445',
+      languagesServed: ['Tamil', 'English'],
+      status: 'Active',
+      onDutyRoster: [],
     },
     {
       id: 'HUB-JAI',
       code: 'JAI',
-      name: 'Ekta Hub C-Scheme',
+      name: 'Jaipur Ekta Hub (C-Scheme)',
+      regionId: 'REG-N',
       city: 'Jaipur',
       state: 'Rajasthan',
-      address: 'Subhash Marg, C-Scheme, Jaipur 302001',
-      contactPerson: 'Rajesh Sharma',
-      contactPhone: '9829033445',
-      seatingCapacity: 40,
-      facilities: ['Wheelchair Ramp', 'Garden Walkway', 'Drinking Water Station', 'Restroom'],
-      operatingSchedule: 'Mon-Sat 08:30 - 17:30',
+      address: 'Ashok Nagar, C-Scheme, Jaipur 302001',
+      contactPerson: 'Mahesh Sharma',
+      contactPhone: '+91 98110 11223',
+      languagesServed: ['Hindi', 'English'],
       status: 'Active',
+      onDutyRoster: [],
     },
     {
       id: 'HUB-LUK',
       code: 'LUK',
-      name: 'Ekta Hub Gomti Nagar',
+      name: 'Lucknow Ekta Hub (Gomti Nagar)',
+      regionId: 'REG-N',
       city: 'Lucknow',
       state: 'Uttar Pradesh',
-      address: 'Vibhuti Khand, Gomti Nagar, Lucknow 226010',
-      contactPerson: 'Shabana Khan',
-      contactPhone: '9839011224',
-      seatingCapacity: 45,
-      facilities: ['Elevator', 'Accessible Restroom', 'Medical Examination Room', 'Activity Hall'],
-      operatingSchedule: 'Mon-Sat 09:00 - 18:00',
+      address: 'Vipin Khand, Gomti Nagar, Lucknow 226010',
+      contactPerson: 'Alok Srivastava',
+      contactPhone: '+91 98110 22334',
+      languagesServed: ['Hindi', 'English'],
       status: 'Active',
+      onDutyRoster: [],
     },
   ];
 
-  // 2. User Personas (1 persona per role + extras for scope testing)
+  // 3. User Accounts (Covers all 8 roles, with extras for isolation testing)
   const users: UserAccount[] = [
     {
       id: 'u-sa-1',
-      email: 'admin@vayohvikas.org',
-      fullName: 'Vikramaditya Rao',
+      email: 'rajesh.admin@vayohvikas.org',
+      fullName: 'Rajesh Varma',
       role: 'SA',
       assignedCentres: [],
       isActive: true,
       mfaEnabled: true,
       failedLoginAttempts: 0,
-      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
+      mustChangePassword: false,
     },
     {
       id: 'u-nm-1',
-      email: 'director@vayohvikas.org',
-      fullName: 'Dr. Kalyani Sen',
+      email: 'vandana.sharma@vayohvikas.org',
+      fullName: 'Vandana Sharma',
       role: 'NM',
       assignedCentres: [],
       isActive: true,
       mfaEnabled: true,
       failedLoginAttempts: 0,
-      avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80',
+      mustChangePassword: false,
     },
     {
-      id: 'u-pm-1',
-      email: 'programmes@vayohvikas.org',
+      id: 'u-ra-west',
+      email: 'arjun.ra.west@vayohvikas.org',
       fullName: 'Arjun Nambiar',
-      role: 'PM',
-      assignedCentres: [],
+      role: 'RA',
+      assignedRegion: 'REG-W',
+      assignedCentres: ['HUB-PUN', 'HUB-NSK', 'HUB-NAG', 'HUB-IND'],
       isActive: true,
       mfaEnabled: false,
       failedLoginAttempts: 0,
-      avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80',
+      mustChangePassword: false,
     },
     {
-      id: 'u-cc-pune',
-      email: 'coordinator.pune@vayohvikas.org',
-      fullName: 'Meera Joshi',
-      role: 'CC',
+      id: 'u-ra-south',
+      email: 'priya.ra.south@vayohvikas.org',
+      fullName: 'Priya Raman',
+      role: 'RA',
+      assignedRegion: 'REG-S',
+      assignedCentres: ['HUB-BLR', 'HUB-MYS', 'HUB-CHE'],
+      isActive: true,
+      mfaEnabled: false,
+      failedLoginAttempts: 0,
+      mustChangePassword: false,
+    },
+    {
+      id: 'u-cm-pun',
+      email: 'sunita.cm.pune@vayohvikas.org',
+      fullName: 'Sunita Patil',
+      role: 'CM',
+      assignedRegion: 'REG-W',
+      assignedChapter: 'HUB-PUN',
       assignedCentres: ['HUB-PUN'],
       isActive: true,
       mfaEnabled: false,
       failedLoginAttempts: 0,
-      avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&auto=format&fit=crop&q=80',
+      mustChangePassword: false,
     },
     {
-      id: 'u-cc-nashik',
-      email: 'coordinator.nashik@vayohvikas.org',
-      fullName: 'Sunil Kulkarni',
-      role: 'CC',
+      id: 'u-cm-nsk',
+      email: 'anand.cm.nashik@vayohvikas.org',
+      fullName: 'Anand Deshmukh',
+      role: 'CM',
+      assignedRegion: 'REG-W',
+      assignedChapter: 'HUB-NSK',
       assignedCentres: ['HUB-NSK'],
       isActive: true,
       mfaEnabled: false,
       failedLoginAttempts: 0,
+      mustChangePassword: false,
     },
     {
-      id: 'u-vf-pune',
-      email: 'volunteer.pune@vayohvikas.org',
+      id: 'u-cm-blr',
+      email: 'karthik.cm.blr@vayohvikas.org',
+      fullName: 'Karthik Swaminathan',
+      role: 'CM',
+      assignedRegion: 'REG-S',
+      assignedChapter: 'HUB-BLR',
+      assignedCentres: ['HUB-BLR'],
+      isActive: true,
+      mfaEnabled: false,
+      failedLoginAttempts: 0,
+      mustChangePassword: false,
+    },
+    {
+      id: 'u-vf-pun',
+      email: 'pooja.vf.pune@vayohvikas.org',
       fullName: 'Pooja Shinde',
       role: 'VF',
+      assignedRegion: 'REG-W',
+      assignedChapter: 'HUB-PUN',
       assignedCentres: ['HUB-PUN'],
       isActive: true,
       mfaEnabled: false,
       failedLoginAttempts: 0,
-    },
-    {
-      id: 'u-sp-clinic',
-      email: 'partner.health@sanctuaryclinic.in',
-      fullName: 'Dr. Anand Dighe',
-      role: 'SP',
-      partnerOrganisationId: 'sp-1',
-      assignedCentres: [],
-      isActive: true,
-      mfaEnabled: false,
-      failedLoginAttempts: 0,
-    },
-    {
-      id: 'u-sp-legal',
-      email: 'partner.legal@justiceelders.org',
-      fullName: 'Adv. Smita Ranade',
-      role: 'SP',
-      partnerOrganisationId: 'sp-2',
-      assignedCentres: [],
-      isActive: true,
-      mfaEnabled: false,
-      failedLoginAttempts: 0,
+      mustChangePassword: false,
     },
     {
       id: 'u-ct-1',
-      email: 'care.expert@vayohvikas.org',
-      fullName: 'Sister Mary Teresa Fernandez',
+      email: 'meera.ct@vayohvikas.org',
+      fullName: 'Meera Kulkarni',
       role: 'CT',
       assignedCentres: [],
       isActive: true,
       mfaEnabled: false,
       failedLoginAttempts: 0,
+      mustChangePassword: false,
     },
     {
       id: 'u-cd-1',
-      email: 'csr.reviewer@tata-trusts.org',
-      fullName: 'Navin Singhal',
+      email: 'vikram.tata@tatatrusts.org',
+      fullName: 'Vikram Tata',
       role: 'CD',
       assignedCentres: [],
       isActive: true,
       mfaEnabled: false,
       failedLoginAttempts: 0,
+      mustChangePassword: false,
     },
     {
       id: 'u-sc-1',
-      email: '',
-      phone: '9822011223',
-      fullName: 'Bhagwandas Sharma',
+      email: 'senior.ramesh@vayohvikas.org',
+      phone: '9822012345',
+      fullName: 'Ramesh Kulkarni',
       role: 'SC',
       assignedCentres: ['HUB-PUN'],
       isActive: true,
       mfaEnabled: false,
       failedLoginAttempts: 0,
-    },
-    {
-      id: 'u-fm-1',
-      email: '',
-      phone: '9822099881',
-      fullName: 'Alok Sharma',
-      role: 'FM',
-      linkedSeniors: ['m-1'], // linked to Bhagwandas Sharma
-      assignedCentres: [],
-      isActive: true,
-      mfaEnabled: false,
-      failedLoginAttempts: 0,
+      mustChangePassword: false,
     },
   ];
 
-  // 3. 1,000 Senior Citizens
+  // 4. Generate 1,000 Registered Senior Citizens
   const seniorCitizens: SeniorCitizen[] = [];
-  const femaleFirstNames = ['Shanta', 'Kusum', 'Laxmi', 'Usha', 'Saraswati', 'Kamala', 'Savitri', 'Parvati', 'Anandi', 'Shakuntala', 'Geeta', 'Sudha', 'Indira', 'Mandakini', 'Tara', 'Pushpa', 'Vidya', 'Mangala', 'Kanta', 'Suniti'];
-  const maleFirstNames = ['Bhagwandas', 'Ramchandra', 'Govind', 'Vishwanath', 'Dattatray', 'Madhav', 'Gopal', 'Shankar', 'Kashinath', 'Balkrishna', 'Purushottam', 'Narayan', 'Gajanan', 'Pandurang', 'Raghunath', 'Vithal', 'Shantaram', 'Vasant', 'Keshav', 'Mukund'];
-  const lastNames = ['Sharma', 'Joshi', 'Patil', 'Kulkarni', 'Deshmukh', 'Verma', 'Gupta', 'Shinde', 'Chavan', 'Kale', 'More', 'Ranade', 'Pawar', 'Bhide', 'Gadgil', 'Gokhale', 'Apte', 'Bapat', 'Kadam', 'Sathe'];
-
-  const centreCounts: Record<string, number> = {
-    'HUB-PUN': 0,
-    'HUB-NSK': 0,
-    'HUB-NAG': 0,
-    'HUB-IND': 0,
-    'HUB-JAI': 0,
-    'HUB-LUK': 0,
-  };
+  const emergencyContactsList: EmergencyContact[] = [];
+  const firstNamesM = ['Ramesh', 'Suresh', 'Dattatray', 'Govind', 'Gopal', 'Anand', 'Prabhakar', 'Shantaram', 'Vasant', 'Madhav', 'Bhalchandra', 'Vijay', 'Krishnan', 'Narayanan', 'Ramachandran', 'Subramanian', 'Venkatesh'];
+  const firstNamesF = ['Shakuntala', 'Sulabha', 'Kamal', 'Mandakini', 'Usha', 'Lalita', 'Nirmala', 'Saraswati', 'Anuradha', 'Savitri', 'Meenakshi', 'Padma', 'Kaveri', 'Rukmini', 'Janaki', 'Kalyani'];
+  const lastNames = ['Kulkarni', 'Deshpande', 'Joshi', 'Patil', 'Pawar', 'Shinde', 'Gaikwad', 'Bhosale', 'Iyer', 'Iyengar', 'Nair', 'Menon', 'Sharma', 'Verma', 'Gupta', 'Singh', 'Deshmukh'];
+  const relationships: ('Son' | 'Daughter' | 'Spouse' | 'Caregiver' | 'Neighbour')[] = ['Son', 'Daughter', 'Spouse', 'Caregiver', 'Neighbour'];
 
   for (let i = 1; i <= 1000; i++) {
-    const isFemale = i <= 580; // ~58% women
-    const firstName = isFemale
-      ? femaleFirstNames[(i * 7) % femaleFirstNames.length]
-      : maleFirstNames[(i * 11) % maleFirstNames.length];
-    const lastName = lastNames[(i * 13) % lastNames.length];
-    const fullName = i === 1 ? 'Bhagwandas Sharma' : `${firstName} ${lastName}`;
+    const isFemale = faker.datatype.boolean(0.58); // ~58% women
+    const firstName = isFemale ? faker.helpers.arrayElement(firstNamesF) : faker.helpers.arrayElement(firstNamesM);
+    const lastName = faker.helpers.arrayElement(lastNames);
+    const fullName = `${firstName} ${lastName}`;
+    const birthYear = faker.number.int({ min: 1934, max: 1966 });
+    const birthMonth = String(faker.number.int({ min: 1, max: 12 })).padStart(2, '0');
+    const birthDay = String(faker.number.int({ min: 1, max: 28 })).padStart(2, '0');
+    const dob = `${birthYear}-${birthMonth}-${birthDay}`;
+    const chapter = chapters[(i - 1) % chapters.length];
+    const membershipId = generateMembershipId(chapter.code, 26, i);
 
-    const centre = centres[i % centres.length];
-    centreCounts[centre.id]++;
-    const membershipId = generateMembershipId(centre.code, 26, centreCounts[centre.id]);
+    // Distribution edge cases:
+    const hasConsent = i > 50; // ~5% without consent
+    const isOptedOut = i > 50 && i <= 110; // ~6% opted out
+    const hasSingleContact = i > 950; // ~5% single contact only
+    const missingNokPhone = i === 42 || i === 87 || i === 129; // ~3% missing valid NOK phone
+    const hasAbha = i % 3 === 0; // ~35% ABHA provided
 
-    // Age 60 to 92
-    const age = 60 + (i % 33);
-    const birthYear = 2026 - age;
-    const birthMonth = String(1 + (i % 12)).padStart(2, '0');
-    const birthDay = String(1 + (i % 28)).padStart(2, '0');
-    const dateOfBirth = `${birthYear}-${birthMonth}-${birthDay}`;
+    const seniorId = `m-${i}`;
+    const seniorPhone = `98${faker.string.numeric(8)}`;
 
-    // Language mix
-    const primaryLanguage = centre.state === 'Maharashtra'
-      ? (i % 4 === 0 ? 'Hindi' : 'Marathi')
-      : (i % 5 === 0 ? 'English' : 'Hindi');
+    const contacts: EmergencyContact[] = [];
+    const nok1: EmergencyContact = {
+      id: `c-${i}-1`,
+      name: `${faker.helpers.arrayElement(firstNamesM)} ${lastName}`,
+      relationship: faker.helpers.arrayElement(relationships),
+      phone: missingNokPhone ? '' : `98${faker.string.numeric(8)}`,
+      isPrimary: true,
+      safetySmsConsent: hasConsent,
+      priorityOrder: 1,
+    };
+    contacts.push(nok1);
+    emergencyContactsList.push(nok1);
 
-    // Phone: unique 10 digits
-    const phone = i === 1 ? '9822011223' : `98${String(20000000 + i).padStart(8, '0')}`;
-    const emergencyPhone = `98${String(70000000 + i).padStart(8, '0')}`;
-
-    // Consent: ~6% opted out, ~4% pending, ~90% opted in
-    let consentStatus: 'OptedIn' | 'OptedOut' | 'Pending' = 'OptedIn';
-    let optedOutChannels: string[] = [];
-    if (i % 25 === 0) {
-      consentStatus = 'Pending';
-    } else if (i % 16 === 0) {
-      consentStatus = 'OptedOut';
-      optedOutChannels = ['WhatsApp'];
+    if (!hasSingleContact) {
+      const nok2: EmergencyContact = {
+        id: `c-${i}-2`,
+        name: `${faker.helpers.arrayElement(firstNamesF)} ${lastName}`,
+        relationship: 'Daughter',
+        phone: `97${faker.string.numeric(8)}`,
+        isPrimary: false,
+        safetySmsConsent: hasConsent,
+        priorityOrder: 2,
+      };
+      contacts.push(nok2);
+      emergencyContactsList.push(nok2);
     }
 
-    // Assisted registration: ~12%
-    const isAssisted = i % 8 === 0;
-
-    // Digital confidence
-    const confidenceLevels: ('Basic' | 'Assisted' | 'Confident' | 'None')[] = ['Basic', 'Assisted', 'Confident', 'None'];
-    const digitalConfidence = confidenceLevels[i % confidenceLevels.length];
-
-    // Registration date (staggered over past 90 days)
-    const daysAgo = i % 85;
-    const regDate = new Date(2026, 9, 27 - daysAgo).toISOString().split('T')[0];
-
-    // Active status: attended in last 30 days (~68% active)
-    const isActive = (i % 3 !== 0);
-
-    seniorCitizens.push({
-      id: `m-${i}`,
+    const senior: SeniorCitizen = {
+      id: seniorId,
       membershipId,
       fullName,
-      dateOfBirth,
+      dateOfBirth: dob,
+      ageBand: dobToAgeBand(dob),
       gender: isFemale ? 'Female' : 'Male',
-      phone,
-      emergencyContactName: `${isFemale ? 'Suresh' : 'Sunita'} ${lastName}`,
-      emergencyContactPhone: emergencyPhone,
-      centreId: centre.id,
-      primaryLanguage,
-      address: `${100 + i}, Lane ${1 + (i % 10)}, ${centre.city}`,
-      digitalConfidence,
-      isAssistedRegistration: isAssisted,
-      assistedBy: isAssisted ? 'Pooja Shinde (Field Volunteer)' : undefined,
-      consentStatus,
-      consentRecordedAt: consentStatus === 'OptedIn' ? regDate : undefined,
-      optedOutChannels,
-      registeredAt: regDate,
-      isActive,
-      status: consentStatus === 'OptedOut' ? 'OptedOut' : (isActive ? 'Active' : 'Registered'),
+      phone: seniorPhone,
+      emergencyContacts: contacts,
+      emergencyContactName: contacts[0]?.name,
+      emergencyContactPhone: contacts[0]?.phone,
+      chapterId: chapter.id,
+      centreId: chapter.id,
+      primaryLanguage: faker.helpers.arrayElement(chapter.languagesServed as ('English' | 'Hindi' | 'Kannada' | 'Marathi' | 'Tamil')[]),
+      address: `${faker.number.int({ min: 1, max: 120 })}, ${chapter.city} Residential Colony, ${chapter.city}`,
+      digitalConfidence: faker.helpers.arrayElement(['Basic', 'Assisted', 'Confident', 'None']),
+      isAssistedRegistration: i <= 120, // ~12% assisted onboarding
+      assistedBy: i <= 120 ? 'Pooja Shinde (Field Volunteer)' : undefined,
+      consent: {
+        generalCommunications: hasConsent && !isOptedOut,
+        safetySmsFallback: hasConsent,
+        abdmLinkage: hasAbha,
+        recordedAt: '2026-08-01T09:00:00.000Z',
+        version: 'v1.2-2026',
+        withdrawnAt: isOptedOut ? '2026-09-15T11:00:00.000Z' : null,
+      },
+      abha: {
+        number: hasAbha ? `${faker.string.numeric(2)}-${faker.string.numeric(4)}-${faker.string.numeric(4)}-${faker.string.numeric(4)}` : undefined,
+        address: hasAbha ? `${firstName.toLowerCase()}${faker.string.numeric(3)}@abdm` : undefined,
+        abdmConsent: hasAbha,
+        status: hasAbha ? 'provided_unverified' : 'not_provided',
+      },
+      status: 'Registered',
+      isActive: i % 4 !== 0, // ~75% active in last 14 days
+      lastActivityAt: i % 4 !== 0 ? new Date(Date.now() - faker.number.int({ min: 1, max: 13 }) * 86400000).toISOString() : new Date(Date.now() - 25 * 86400000).toISOString(),
+      registeredAt: new Date(Date.now() - faker.number.int({ min: 10, max: 80 }) * 86400000).toISOString(),
+    };
+
+    seniorCitizens.push(senior);
+  }
+
+  // 5. 200 Stalled Mid-Onboarding Sessions
+  const stalledSessions: OnboardingSession[] = [];
+  for (let s = 1; s <= 200; s++) {
+    const step = faker.number.int({ min: 2, max: 6 });
+    stalledSessions.push({
+      id: `stall-${s}`,
+      seniorPhone: `96${faker.string.numeric(8)}`,
+      seniorName: `Stalled Elder #${s}`,
+      chapterId: chapters[s % chapters.length].id,
+      currentStep: step,
+      stepName: ['Welcome', 'Full Name', 'Language Preference', 'Emergency Contact', 'ABHA (Phase 2)', 'Medication Schedule'][step - 1] || 'Details',
+      startedAt: new Date(Date.now() - faker.number.int({ min: 2, max: 20 }) * 86400000).toISOString(),
+      lastUpdatedAt: new Date(Date.now() - faker.number.int({ min: 1, max: 10 }) * 86400000).toISOString(),
+      stalledDays: faker.number.int({ min: 2, max: 14 }),
+      nudgeCount: faker.number.int({ min: 0, max: 3 }),
     });
   }
 
-  // 4. Family Links (~40 linked seniors)
-  const familyLinks: FamilyLink[] = [
-    {
-      id: 'fl-1',
-      seniorId: 'm-1',
-      familyUserId: 'u-fm-1',
-      relationship: 'Son',
-      consentGranted: true,
-      consentGrantedAt: '2026-08-15T10:00:00Z',
+  // 6. Medication Schedules (~850 seniors)
+  const medicationSchedules: MedicationSchedule[] = [];
+  seniorCitizens.slice(0, 850).forEach((senior, idx) => {
+    medicationSchedules.push({
+      id: `sched-${idx + 1}`,
+      seniorId: senior.id,
+      seniorName: senior.fullName,
+      label: idx % 3 === 0 ? 'Morning hypertension & wellness prescription' : idx % 3 === 1 ? 'Post-breakfast diabetic management' : 'Morning vitality prescription',
+      time: '08:00',
+      frequency: 'Daily',
+      language: senior.primaryLanguage,
       status: 'Active',
-    },
-  ];
-  for (let f = 2; f <= 40; f++) {
-    familyLinks.push({
-      id: `fl-${f}`,
-      seniorId: `m-${f}`,
-      familyUserId: `u-fm-${f}`,
-      relationship: f % 2 === 0 ? 'Daughter' : 'Son',
-      consentGranted: f % 10 !== 0,
-      consentGrantedAt: '2026-09-01T10:00:00Z',
-      status: f % 10 === 0 ? 'Pending' : 'Active',
     });
-  }
+  });
 
-  // 5. 24 Programmes across all Hubs
-  const programmes: Programme[] = [
-    {
-      id: 'prog-1',
-      title: 'Gentle Morning Yoga & Joint Mobility',
-      category: 'Yoga & Wellness',
-      description: 'Senior-tailored breathing techniques, light stretching, and seated asanas designed to improve mobility and circulation.',
-      eligibility: 'Ages 60+, self-paced',
-      capacityPerSession: 25,
-      waitlistEnabled: true,
-      walkInsAllowed: true,
-      assignedCentres: ['HUB-PUN', 'HUB-NSK', 'HUB-NAG', 'HUB-IND', 'HUB-JAI', 'HUB-LUK'],
-      status: 'Ongoing',
-      createdAt: '2026-07-15T09:00:00Z',
-    },
-    {
-      id: 'prog-2',
-      title: 'Smartphone & UPI Digital Independence',
-      category: 'Digital Literacy',
-      description: 'Hands-on practical training on safe WhatsApp navigation, utility bill payments, and cyber-fraud awareness for seniors.',
-      eligibility: 'All registered seniors with a smartphone',
-      capacityPerSession: 20,
-      waitlistEnabled: true,
-      walkInsAllowed: false,
-      assignedCentres: ['HUB-PUN', 'HUB-NSK', 'HUB-IND'],
-      status: 'Ongoing',
-      createdAt: '2026-07-20T10:00:00Z',
-    },
-    {
-      id: 'prog-3',
-      title: 'Monthly Preventive Health & Eye Camp',
-      category: 'Health Camp',
-      description: 'Non-clinical vitals screening, vision tests, and consultation routing with empanelled charitable medical specialists.',
-      eligibility: 'All Ekta Hub members',
-      capacityPerSession: 50,
-      waitlistEnabled: true,
-      walkInsAllowed: true,
-      assignedCentres: ['HUB-PUN', 'HUB-NSK', 'HUB-NAG', 'HUB-IND', 'HUB-JAI', 'HUB-LUK'],
-      status: 'Ongoing',
-      createdAt: '2026-07-25T08:00:00Z',
-    },
-    {
-      id: 'prog-4',
-      title: 'Senior Citizens Legal Rights & Will Guidance',
-      category: 'Legal Aid',
-      description: 'Free consultations with verified legal advocates covering succession, maintenance rights, and government pension assistance.',
-      eligibility: 'Ages 60+',
-      capacityPerSession: 15,
-      waitlistEnabled: true,
-      walkInsAllowed: false,
-      assignedCentres: ['HUB-PUN', 'HUB-NAG'],
-      status: 'Ongoing',
-      createdAt: '2026-08-01T11:00:00Z',
-    },
-    {
-      id: 'prog-5',
-      title: 'Geet-Sangeet & Social Reminiscence Circle',
-      category: 'Social Meet',
-      description: 'Weekly musical assembly, traditional board games, storytelling, and mutual companionship to overcome social isolation.',
-      eligibility: 'All members and spouses',
-      capacityPerSession: 40,
-      waitlistEnabled: false,
-      walkInsAllowed: true,
-      assignedCentres: ['HUB-PUN', 'HUB-NSK', 'HUB-NAG', 'HUB-IND', 'HUB-JAI', 'HUB-LUK'],
-      status: 'Ongoing',
-      createdAt: '2026-08-05T15:00:00Z',
-    },
-    {
-      id: 'prog-6',
-      title: 'Nutrition & Seasonal Diet for Longevity',
-      category: 'Nutrition',
-      description: 'Practical workshops led by clinical nutritionists on easy digestion, hydration, and managing diabetes through traditional Indian grains.',
-      eligibility: 'All members',
-      capacityPerSession: 30,
-      waitlistEnabled: true,
-      walkInsAllowed: true,
-      assignedCentres: ['HUB-PUN', 'HUB-IND', 'HUB-JAI'],
-      status: 'Ongoing',
-      createdAt: '2026-08-10T14:00:00Z',
-    },
-  ];
+  // 7. Vitals and Confirmations (~9,000 readings with ~3% anomalies)
+  const vitalLogs: VitalLog[] = [];
+  const healthFlags: HealthFlag[] = [];
+  const wellnessCalls: WellnessCallTask[] = [];
 
-  // Fill up to 24 programmes
-  const progCategories: Programme['category'][] = ['Yoga & Wellness', 'Digital Literacy', 'Health Camp', 'Legal Aid', 'Social Meet', 'Nutrition'];
-  for (let p = 7; p <= 24; p++) {
-    const cat = progCategories[p % progCategories.length];
-    programmes.push({
-      id: `prog-${p}`,
-      title: `${cat} Workshop Series ${p}`,
-      category: cat,
-      description: `Structured senior engagement curriculum focused on ${cat.toLowerCase()} in community centres.`,
-      eligibility: 'All registered seniors',
-      capacityPerSession: 25 + (p % 15),
-      waitlistEnabled: true,
-      walkInsAllowed: p % 2 === 0,
-      assignedCentres: ['HUB-PUN', 'HUB-NSK', 'HUB-NAG', 'HUB-IND', 'HUB-JAI', 'HUB-LUK'].slice(0, 2 + (p % 5)),
-      status: p > 20 ? 'Draft' : 'Ongoing',
-      createdAt: '2026-08-15T10:00:00Z',
-    });
-  }
+  for (let r = 1; r <= 9000; r++) {
+    const senior = seniorCitizens[r % 850];
+    const isBp = r % 2 === 0;
+    const isAnomaly = r % 33 === 0; // ~3% flagged
 
-  // 6. ~600 Sessions across 90 days past and 30 days future
-  const sessions: ProgrammeSession[] = [];
-  let sessCounter = 1;
-  // Generate sessions for past 75 days (every 3 days per hub) and next 25 days
-  for (let dayOffset = -75; dayOffset <= 25; dayOffset += 2) {
-    const sessionDate = new Date(2026, 9, 27 + dayOffset).toISOString().split('T')[0];
-    const isPast = dayOffset <= 0;
+    if (isBp) {
+      const systolic = isAnomaly ? faker.number.int({ min: 155, max: 195 }) : faker.number.int({ min: 110, max: 135 });
+      const diastolic = isAnomaly ? faker.number.int({ min: 95, max: 115 }) : faker.number.int({ min: 70, max: 85 });
+      const band = systolic >= 180 || diastolic >= 120 ? 'Critical' : systolic >= 140 || diastolic >= 90 ? 'HighRisk' : systolic >= 130 ? 'Watch' : 'Normal';
 
-    for (const hub of centres) {
-      const prog = programmes[(sessCounter) % programmes.length];
-      const isRecorded = isPast && dayOffset < 0;
+      const vitalLog: VitalLog = {
+        id: `vital-${r}`,
+        seniorId: senior.id,
+        type: 'BloodPressure',
+        systolic,
+        diastolic,
+        rawInput: `${systolic}/${diastolic}`,
+        band,
+        loggedAt: new Date(Date.now() - faker.number.int({ min: 1, max: 85 }) * 86400000).toISOString(),
+        flagged: band === 'HighRisk' || band === 'Critical',
+        ruleVersion: '1.0.0-placeholder',
+        isAssisted: false,
+      };
+      vitalLogs.push(vitalLog);
 
-      sessions.push({
-        id: `sess-${sessCounter}`,
-        programmeId: prog.id,
-        programmeTitle: prog.title,
-        centreId: hub.id,
-        centreName: hub.name,
-        date: sessionDate,
-        startTime: '10:00',
-        endTime: '11:30',
-        capacity: prog.capacityPerSession,
-        confirmedCount: Math.min(prog.capacityPerSession, 15 + (sessCounter % 15)),
-        waitlistCount: sessCounter % 5 === 0 ? 3 : 0,
-        walkInCount: isRecorded ? (sessCounter % 4) : 0,
-        attendanceRecorded: isRecorded,
-        attendanceRecordedAt: isRecorded ? `${sessionDate}T12:00:00Z` : undefined,
-        attendanceRecordedBy: isRecorded ? 'Pooja Shinde (Field Volunteer)' : undefined,
-        status: 'Scheduled',
-      });
-      sessCounter++;
-      if (sessCounter > 600) break;
+      if (vitalLog.flagged && healthFlags.length < 270) {
+        const flagId = `flag-${healthFlags.length + 1}`;
+        const flag: HealthFlag = {
+          id: flagId,
+          seniorId: senior.id,
+          seniorName: senior.fullName,
+          chapterId: senior.chapterId,
+          readingId: vitalLog.id,
+          vitalType: 'BloodPressure',
+          readingSummary: `${systolic}/${diastolic} mmHg (${band})`,
+          bandCrossed: band === 'Critical' ? 'Critical' : 'HighRisk',
+          status: healthFlags.length < 170 ? 'CallCompleted' : 'New',
+          createdAt: vitalLog.loggedAt,
+          slaDueAt: new Date(new Date(vitalLog.loggedAt || new Date().toISOString()).getTime() + 24 * 3600000).toISOString(),
+        };
+        healthFlags.push(flag);
+
+        if (healthFlags.length <= 170) {
+          wellnessCalls.push({
+            id: `call-${wellnessCalls.length + 1}`,
+            flagId,
+            seniorId: senior.id,
+            seniorName: senior.fullName,
+            seniorPhone: senior.phone,
+            chapterId: senior.chapterId,
+            reason: `High Blood Pressure reading (${systolic}/${diastolic})`,
+            dueAt: flag.slaDueAt,
+            assignedToId: 'u-cm-pun',
+            assignedToName: 'Sunita Patil',
+            attempts: 1,
+            outcome: 'ReachedWell',
+            notes: 'Spoke with senior. Confirmed they took morning meds. Advised resting and scheduled clinic visit.',
+            completedAt: new Date(new Date(vitalLog.loggedAt || new Date().toISOString()).getTime() + 3600000).toISOString(),
+          });
+        }
+      }
+    } else {
+      const glucose = isAnomaly ? faker.number.int({ min: 210, max: 370 }) : faker.number.int({ min: 90, max: 135 });
+      const band = glucose >= 350 ? 'Critical' : glucose >= 200 ? 'HighRisk' : glucose >= 140 ? 'Watch' : 'Normal';
+
+      const vitalLog: VitalLog = {
+        id: `vital-${r}`,
+        seniorId: senior.id,
+        type: 'BloodGlucose',
+        glucoseMgDl: glucose,
+        rawInput: `${glucose} mg/dl`,
+        band,
+        loggedAt: new Date(Date.now() - faker.number.int({ min: 1, max: 85 }) * 86400000).toISOString(),
+        flagged: band === 'HighRisk' || band === 'Critical',
+        ruleVersion: '1.0.0-placeholder',
+        isAssisted: false,
+      };
+      vitalLogs.push(vitalLog);
     }
-    if (sessCounter > 600) break;
   }
 
-  // 7. Attendance Records (~3,000 attendance records across past sessions)
-  const attendanceRecords: AttendanceRecord[] = [];
-  let attCounter = 1;
-  for (const s of sessions) {
-    if (!s.attendanceRecorded) continue;
-    const count = s.confirmedCount + s.walkInCount;
-    for (let mIdx = 1; mIdx <= count; mIdx++) {
-      const member = seniorCitizens[(mIdx * 3 + attCounter) % seniorCitizens.length];
-      const isPresent = (attCounter % 7 !== 0);
+  // 8. ~45 SOS Events (Real and Drills, with 6 SMS fallbacks)
+  const sosEvents: SosEvent[] = [];
+  const smsFallbackRecords: SmsFallbackRecord[] = [];
 
-      attendanceRecords.push({
-        id: `att-${attCounter}`,
-        sessionId: s.id,
-        centreId: s.centreId,
-        memberId: member.id,
-        memberName: member.fullName,
-        membershipId: member.membershipId,
-        sessionDate: s.date,
-        status: isPresent ? 'Present' : 'Absent',
-        recordedBy: 'u-vf-pune',
-        recordedAt: `${s.date}T12:00:00Z`,
-        corrected: attCounter % 50 === 0,
+  for (let e = 1; e <= 45; e++) {
+    const senior = seniorCitizens[e * 7];
+    const isDrill = e % 6 === 0;
+    const isDisconnected = e % 7 === 0; // 6 disconnected events triggering SMS fallback
+    const triggeredTime = new Date(Date.now() - (46 - e) * 2 * 86400000);
+    const latencyMs = faker.number.int({ min: 380, max: 890 }); // Sub-second!
+    const alertedTime = new Date(triggeredTime.getTime() + latencyMs);
+
+    const isResolved = e < 43; // 2 open cases right now
+    const ackTime = isResolved ? new Date(triggeredTime.getTime() + faker.number.int({ min: 45, max: 110 }) * 1000) : undefined;
+    const resolvedTime = isResolved ? new Date(triggeredTime.getTime() + faker.number.int({ min: 300, max: 1800 }) * 1000) : undefined;
+
+    const sosId = `sos-2026-${String(e).padStart(3, '0')}`;
+
+    let fallbackStatus: SosEvent['fallbackSmsStatus'] = 'NotNeeded';
+    if (isDisconnected) {
+      fallbackStatus = 'Delivered';
+      const nok = senior.emergencyContacts?.[0];
+      smsFallbackRecords.push({
+        id: `sms-fb-${smsFallbackRecords.length + 1}`,
+        sosId,
+        seniorId: senior.id,
+        recipientName: nok?.name || 'Next of Kin',
+        recipientPhone: nok?.phone || '+91 98220 99887',
+        relationship: nok?.relationship || 'Son',
+        templateId: 'DLT-TE-11071689234',
+        messageText: `EMERGENCY ALERT: ${senior.fullName} has triggered an SOS at ${chapters[0].name}. Vayoh Vikas care team is responding. For info: 1800-VAYOH.`,
+        status: 'Delivered',
+        sentAt: new Date(triggeredTime.getTime() + 1500).toISOString(),
+        deliveredAt: new Date(triggeredTime.getTime() + 3200).toISOString(),
+        retryCount: 0,
       });
-      attCounter++;
-      if (attCounter > 3000) break;
     }
-    if (attCounter > 3000) break;
+
+    sosEvents.push({
+      id: sosId,
+      seniorId: senior.id,
+      seniorName: senior.fullName,
+      seniorPhone: senior.phone,
+      chapterId: senior.chapterId,
+      regionId: 'REG-W',
+      triggeredAt: triggeredTime.toISOString(),
+      enqueuedAt: triggeredTime.toISOString(),
+      dashboardAlertedAt: alertedTime.toISOString(),
+      latencyMs,
+      networkStatus: isDisconnected ? 'Disconnected' : 'Online',
+      status: isResolved ? 'Resolved' : e === 44 ? 'Acknowledged' : 'Triggered',
+      isDrill,
+      assigneeId: isResolved ? 'u-ct-1' : e === 44 ? 'u-cm-pun' : undefined,
+      assigneeName: isResolved ? 'Meera Kulkarni (CT)' : e === 44 ? 'Sunita Patil (CM)' : undefined,
+      acknowledgedAt: ackTime?.toISOString(),
+      resolvedAt: resolvedTime?.toISOString(),
+      outcomeCode: isResolved ? (isDrill ? 'DrillCompleted' : 'AssistanceRendered') : undefined,
+      notes: [`SOS incident logged automatically. Trigger latency: ${latencyMs}ms.`],
+      escalationLevel: 1,
+      slaRemainingSeconds: isResolved ? 0 : 75,
+      fallbackSmsDispatched: isDisconnected,
+      fallbackSmsStatus: fallbackStatus,
+      locationAddress: senior.address,
+    });
   }
 
-  // 8. 12 Service Partners & Referrals
-  const servicePartners: ServicePartner[] = [
+  // 9. Reminder Templates
+  const templates: ReminderTemplate[] = [
     {
-      id: 'sp-1',
-      name: 'Sanctuary Elder Health & Geriatric Clinic',
-      category: 'Clinic',
-      contactPerson: 'Dr. Anand Dighe',
-      email: 'partner.health@sanctuaryclinic.in',
-      phone: '9822019900',
-      address: '12 Erandwane, Karve Road, Pune 411004',
-      city: 'Pune',
-      approvalStatus: 'Approved',
-      approvedAt: '2026-07-01T10:00:00Z',
-      notes: 'Charitable outpatient consultations on Tuesdays and Thursdays.',
+      id: 'tmpl-med-01',
+      name: 'Morning Wellness & Prescription Reminder',
+      type: 'Medication',
+      content: {
+        English: 'Good morning {name}, time to take your morning wellness prescription and log your blood pressure.',
+        Hindi: 'शुभ प्रभात {name} जी, आपकी सुबह की दवाई लेने और ब्लड प्रेशर दर्ज करने का समय हो गया है।',
+        Marathi: 'शुभ सकाळ {name}, तुमची सकाळची औषधे घेण्याची आणि रक्तदाब नोंदवण्याची वेळ झाली आहे.',
+        Kannada: 'ಶುಭೋದಯ {name}, ನಿಮ್ಮ ಬೆಳಗಿನ ಔಷಧಿ ಸೇವಿಸಲು ಮತ್ತು ರಕ್ತದೊತ್ತಡ ದಾಖಲಿಸಲು ಸಮಯವಾಗಿದೆ.',
+        Tamil: 'காலை வணக்கம் {name}, உங்கள் காலை மருந்தை உட்கொண்டு இரத்த அழுத்தத்தை பதிவு செய்ய வேண்டிய நேரம் இது.',
+      },
+      variables: ['name', 'chapter'],
+      status: 'Approved',
+      updatedBy: 'Arjun Nambiar (RA)',
+      updatedAt: '2026-08-01T10:00:00.000Z',
+      approvedBy: 'Vandana Sharma (NM)',
     },
     {
-      id: 'sp-2',
-      name: 'Justice For Elders Legal Aid Foundation',
-      category: 'Legal Aid',
-      contactPerson: 'Adv. Smita Ranade',
-      email: 'partner.legal@justiceelders.org',
-      phone: '9822028811',
-      address: 'Bar Association Chambers, District Court, Pune 411005',
-      city: 'Pune',
-      approvalStatus: 'Approved',
-      approvedAt: '2026-07-05T10:00:00Z',
-      notes: 'Assistance with pension entitlements, maintenance tribunal filings.',
-    },
-    {
-      id: 'sp-3',
-      name: 'Drushti Netralaya & Charitable Eye Trust',
-      category: 'Eye Care',
-      contactPerson: 'Dr. Nilesh Shah',
-      email: 'drushti.nashik@trusteyes.org',
-      phone: '9822037722',
-      address: 'Opp. City Hospital, College Road, Nashik 422005',
-      city: 'Nashik',
-      approvalStatus: 'Approved',
-      approvedAt: '2026-07-10T10:00:00Z',
-      notes: 'Subsidized cataract surgeries and free monthly screenings.',
-    },
-    {
-      id: 'sp-4',
-      name: 'ActiveAge Physiotherapy & Rehabilitation Center',
-      category: 'Physiotherapy',
-      contactPerson: 'Dr. Sneha Vaidya (PT)',
-      email: 'contact@activeagephysio.com',
-      phone: '9823046633',
-      address: 'Plot 8, Ramdaspeth, Nagpur 440010',
-      city: 'Nagpur',
-      approvalStatus: 'Approved',
-      approvedAt: '2026-07-12T10:00:00Z',
-      notes: 'Gait training, balance recovery, and joint pain management.',
+      id: 'tmpl-vital-01',
+      name: 'Evening Vitals Check-in',
+      type: 'Vitals',
+      content: {
+        English: 'Namaste {name}, please reply with your evening blood glucose or blood pressure reading when convenient.',
+        Hindi: 'नमस्ते {name} जी, कृपया अपनी शाम की शुगर या ब्लड प्रेशर रीडिंग भेजें।',
+        Marathi: 'नमस्ते {name}, कृपया तुमची संध्याकाळची रक्तदाब नोंद पाठवा.',
+        Kannada: 'ನಮಸ್ಕಾರ {name}, ದಯವಿಟ್ಟು ನಿಮ್ಮ ರಕ್ತದ ಸಕ್ಕರೆ ಮಟ್ಟವನ್ನು ಕಳುಹಿಸಿ.',
+        Tamil: 'வணக்கம் {name}, தயவுசெய்து உங்கள் மாலை சர்க்கரை அளவை அனுப்பவும்.',
+      },
+      variables: ['name'],
+      status: 'Approved',
+      updatedBy: 'Arjun Nambiar (RA)',
+      updatedAt: '2026-08-01T10:00:00.000Z',
+      approvedBy: 'Vandana Sharma (NM)',
     },
   ];
 
-  for (let sp = 5; sp <= 12; sp++) {
-    servicePartners.push({
-      id: `sp-${sp}`,
-      name: `Community Partner Organisation ${sp}`,
-      category: sp % 2 === 0 ? 'Physiotherapy' : 'Pension Helpdesk',
-      contactPerson: `Director ${sp}`,
-      email: `partner${sp}@vayohvikas-network.in`,
-      phone: `98220${String(10000 + sp)}`,
-      address: `Ward ${sp}, Sector B`,
-      city: centres[sp % centres.length].city,
-      approvalStatus: sp === 11 ? 'Pending' : (sp === 12 ? 'Suspended' : 'Approved'),
-      approvedAt: sp <= 10 ? '2026-08-01T10:00:00Z' : undefined,
-      notes: 'Standard pilot MoU signed.',
-    });
-  }
-
-  // 9. ~350 Referrals across statuses
-  const referrals: Referral[] = [];
-  const referralStatuses: Referral['status'][] = ['Created', 'Sent', 'Accepted', 'InProgress', 'Closed', 'Declined'];
-  for (let r = 1; r <= 350; r++) {
-    const member = seniorCitizens[r * 2 % seniorCitizens.length];
-    const partner = servicePartners[r % servicePartners.length];
-    const status = referralStatuses[r % referralStatuses.length];
-
-    referrals.push({
-      id: `ref-${r}`,
-      memberId: member.id,
-      memberName: member.fullName,
-      memberAgeBand: '70–74',
-      centreId: member.centreId,
-      partnerId: partner.id,
-      partnerName: partner.name,
-      serviceId: 'srv-1',
-      serviceName: 'Mobility & Gait Evaluation',
-      urgency: r % 8 === 0 ? 'Immediate' : (r % 3 === 0 ? 'High' : 'Normal'),
-      nonClinicalReason: 'Senior expressed difficulty with stairs and requested assessment for assistive walking stick.',
-      status,
-      createdBy: 'u-cc-pune',
-      createdByName: 'Meera Joshi',
-      createdAt: new Date(2026, 8, 1 + (r % 50)).toISOString(),
-      partnerNotes: status === 'InProgress' || status === 'Closed' ? 'Consultation scheduled at centre hall.' : undefined,
-      closedAt: status === 'Closed' ? new Date(2026, 9, 20).toISOString() : undefined,
-      closureOutcome: status === 'Closed' ? 'Resolved' : undefined,
-    });
-  }
-
-  // 10. ~40 Health Escalations
-  const escalations: HealthEscalation[] = [];
-  const escalationSeverities: HealthEscalation['severity'][] = ['Immediate', 'High', 'Standard'];
-  for (let e = 1; e <= 40; e++) {
-    const member = seniorCitizens[(e * 17) % seniorCitizens.length];
-    const sev = escalationSeverities[e % escalationSeverities.length];
-    const isResolved = e > 15;
-
-    escalations.push({
-      id: `esc-${e}`,
-      memberId: member.id,
-      memberName: member.fullName,
-      centreId: member.centreId,
-      severity: sev,
-      source: e % 3 === 0 ? 'WhatsApp' : 'CentreWalkIn',
-      triggerKeywords: sev === 'Immediate' ? ['chest pain'] : (sev === 'High' ? ['dizziness', 'fall'] : ['lonely']),
-      summary: sev === 'Immediate'
-        ? 'Senior sent WhatsApp message complaining of acute breathlessness.'
-        : 'Senior reported feeling unsteady and dizzy during morning prayers.',
-      slaHours: sev === 'Immediate' ? 2 : (sev === 'High' ? 6 : 24),
-      assignedExpertId: 'u-ct-1',
-      assignedExpertName: 'Sister Mary Teresa Fernandez',
-      status: isResolved ? 'Resolved' : (e % 2 === 0 ? 'Acknowledged' : 'Open'),
-      createdAt: new Date(2026, 9, 27, 8 + (e % 10)).toISOString(),
-      acknowledgedAt: new Date(2026, 9, 27, 8, 30).toISOString(),
-      resolvedAt: isResolved ? new Date(2026, 9, 27, 11).toISOString() : undefined,
-      resolutionSummary: isResolved ? 'Family contacted; neighbor assisted senior to primary health clinic.' : undefined,
-      handoverNotes: 'Advised local volunteer to visit residence tomorrow morning.',
-    });
-  }
-
-  // 11. ~2,000 Messages with mixed delivery statuses
-  const outboundMessages: OutboundMessage[] = [];
-  const msgStatuses: OutboundMessage['status'][] = ['Read', 'Delivered', 'Sent', 'Failed', 'Queued'];
-  for (let m = 1; m <= 2000; m++) {
-    const member = seniorCitizens[m % seniorCitizens.length];
-    const status = member.consentStatus === 'OptedOut' ? 'Failed' : msgStatuses[m % msgStatuses.length];
-
-    outboundMessages.push({
-      id: `msg-${m}`,
-      recipientMemberId: member.id,
-      recipientPhone: member.phone,
-      recipientName: member.fullName,
-      centreId: member.centreId,
-      templateCode: 'REM_01',
-      category: 'SessionReminder',
-      content: `Namaste ${member.fullName}, gentle reminder for your Yoga session tomorrow at 10 AM at ${centres[0].name}. Reply STOP to opt out.`,
-      status,
-      failureReason: status === 'Failed' ? (member.consentStatus === 'OptedOut' ? 'Member has opted out' : 'Number not registered on WhatsApp') : undefined,
-      scheduledFor: new Date(2026, 9, 25, 9).toISOString(),
-      sentAt: status !== 'Queued' ? new Date(2026, 9, 25, 9, 1).toISOString() : undefined,
-      deliveredAt: status === 'Delivered' || status === 'Read' ? new Date(2026, 9, 25, 9, 2).toISOString() : undefined,
-      readAt: status === 'Read' ? new Date(2026, 9, 25, 9, 15).toISOString() : undefined,
-      retryCount: status === 'Failed' ? 1 : 0,
-    });
-  }
-
-  // 12. Message Templates
-  const templates: MessageTemplate[] = [
-    {
-      id: 'tpl-1',
-      code: 'BOOK_CONF_01',
-      title: 'Programme Booking Confirmation',
-      category: 'BookingConfirmation',
-      body: 'Namaste {name}, your seat is confirmed for {programme} on {date} at {time} at {centre}. We look forward to welcoming you! Reply STOP to opt out.',
-      variables: ['name', 'programme', 'date', 'time', 'centre'],
-      languages: ['English', 'Hindi', 'Marathi'],
-      status: 'Approved',
-      submittedBy: 'u-pm-1',
-      reviewedBy: 'u-nm-1',
-      updatedAt: '2026-08-01T10:00:00Z',
-    },
-    {
-      id: 'tpl-2',
-      code: 'REM_SESS_01',
-      title: 'Upcoming Session Reminder',
-      category: 'SessionReminder',
-      body: 'Namaste {name}, this is a gentle reminder that your session {programme} will take place tomorrow at {time} at {centre}. Please carry your water bottle. Reply STOP to opt out.',
-      variables: ['name', 'programme', 'time', 'centre'],
-      languages: ['English', 'Hindi', 'Marathi'],
-      status: 'Approved',
-      submittedBy: 'u-pm-1',
-      reviewedBy: 'u-nm-1',
-      updatedAt: '2026-08-01T10:00:00Z',
-    },
-    {
-      id: 'tpl-3',
-      code: 'ANN_CAMP_01',
-      title: 'Free Health & Eye Camp Announcement',
-      category: 'Announcement',
-      body: 'Vayoh Vikas Ekta Hub is organizing a Free Preventive Health & Eye Camp this Saturday from 9 AM to 1 PM at {centre}. All senior members and families welcome! Reply STOP to opt out.',
-      variables: ['centre'],
-      languages: ['English', 'Hindi'],
-      status: 'Approved',
-      submittedBy: 'u-pm-1',
-      reviewedBy: 'u-nm-1',
-      updatedAt: '2026-08-10T10:00:00Z',
-    },
-  ];
-
-  // 13. System Settings
-  const settings: SystemSettings = {
-    organisationName: 'Vayoh Vikas NGO',
-    pilotStartDate: '2026-08-01',
-    pilotEndDate: '2026-10-31',
-    pilotRegistrationTarget: 1000,
-    activeMemberWindowDays: 30,
-    attendanceLockHours: 12,
-    whatsappMessageVolumeCap: 10000,
-    supportedLanguages: ['English', 'Hindi', 'Marathi', 'Gujarati'],
-    sessionTimeoutMinutes: 15,
-    featureFlags: {
-      voiceCheckins: true,
-      familyAccess: true,
-      advancedReferrals: true,
-    },
-    consentTextVersion: 'v2.1 (October 2026)',
+  // 10. Onboarding Bot Script
+  const onboardingScript: OnboardingScript = {
+    id: 'script-v1',
+    version: '1.0.0',
+    status: 'Approved',
+    updatedBy: 'Arjun Nambiar (RA)',
+    updatedAt: '2026-08-01T10:00:00.000Z',
+    approvedBy: 'Vandana Sharma (NM)',
+    steps: [
+      {
+        stepNumber: 1,
+        key: 'welcome_consent',
+        promptText: {
+          English: 'Namaste! Welcome to Vayoshreshtha by Vayoh Vikas. We support seniors in our community with emergency SOS help and wellness check-ins. Do you consent to receive WhatsApp messages and emergency safety support?',
+          Hindi: 'नमस्ते! वयोविकास के वयोश्रेष्ठ में आपका स्वागत है। क्या आप व्हाट्सएप सहायता संदेश प्राप्त करने के लिए सहमत हैं?',
+          Marathi: 'नमस्ते! वयोविकासच्या वयोश्रेष्ठ मध्ये आपले स्वागत आहे. आपण व्हॉट्सअॅप संदेश स्वीकारण्यास सहमत आहात का?',
+        },
+        required: true,
+      },
+      {
+        stepNumber: 2,
+        key: 'full_name',
+        promptText: {
+          English: 'Thank you! Please type your Full Name as you would like us to address you.',
+          Hindi: 'धन्यवाद! कृपया अपना पूरा नाम लिखें।',
+          Marathi: 'धन्यवाद! कृपया आपले पूर्ण नाव लिहा.',
+        },
+        required: true,
+      },
+      {
+        stepNumber: 3,
+        key: 'language',
+        promptText: {
+          English: 'Which language do you prefer for daily messages? 1. English 2. Hindi 3. Marathi 4. Kannada 5. Tamil',
+          Hindi: 'आप किस भाषा में संदेश चाहते हैं? 1. English 2. हिन्दी 3. मराठी',
+          Marathi: 'आपण कोणत्या भाषेत संदेश पसंत करता? 1. English 2. हिन्दी 3. मराठी',
+        },
+        required: true,
+      },
+      {
+        stepNumber: 4,
+        key: 'emergency_contact',
+        promptText: {
+          English: 'Please provide the name and 10-digit mobile number of your primary Next-of-Kin (e.g. Son, Daughter, or Spouse) who can be contacted during an emergency.',
+          Hindi: 'कृपया अपने मुख्य आपातकालीन संपर्क (बेटा, बेटी, या जीवनसाथी) का नाम और 10 अंकों का मोबाइल नंबर साझा करें।',
+          Marathi: 'कृपया आपल्या निकटवर्तीयाचे नाव आणि 10 अंकी मोबाइल क्रमांक सांगा.',
+        },
+        required: true,
+      },
+      {
+        stepNumber: 5,
+        key: 'abha_optional',
+        promptText: {
+          English: 'Optional: If you have an Ayushman Bharat Health Account (ABHA) 14-digit number, you may enter it now (Phase 2 readiness). Otherwise reply SKIP.',
+          Hindi: 'वैकल्पिक: यदि आपके पास 14 अंकों का आभा (ABHA) नंबर है, तो लिखें अन्यथा SKIP लिखें।',
+          Marathi: 'पर्यायी: आपल्याकडे 14 अंकी आभा (ABHA) क्रमांक असल्यास लिहा, किंवा SKIP म्हणा.',
+        },
+        required: false,
+      },
+      {
+        stepNumber: 6,
+        key: 'medication_schedule',
+        promptText: {
+          English: 'Would you like a daily 08:00 AM WhatsApp reminder for your morning medication and blood pressure check? Reply YES or SKIP.',
+          Hindi: 'क्या आप सुबह 08:00 बजे अपनी दवा और बीपी का दैनिक रिमाइंडर चाहते हैं? YES या SKIP लिखें।',
+          Marathi: 'तुम्हाला रोज सकाळी 08:00 वाजता औषधांची आठवण हवी आहे का? YES किंवा SKIP म्हणा.',
+        },
+        required: false,
+      },
+      {
+        stepNumber: 7,
+        key: 'confirmation',
+        promptText: {
+          English: 'All set! Your Vayoshreshtha membership is now active. You can tap the 🚨 Trigger Emergency SOS button anytime you need immediate assistance.',
+          Hindi: 'बहुत बहुत धन्यवाद! आपका वयोश्रेष्ठ खाता सक्रिय हो गया है। आपातकाल में आप कभी भी 🚨 आपातकालीन SOS बटन दबा सकते हैं।',
+          Marathi: 'अभिनंदन! आपले खाते सक्रिय झाले आहे. मदतीसाठी आपण कधीही 🚨 आणीबाणी SOS बटण दाबू शकता.',
+        },
+        required: true,
+      },
+    ],
   };
 
-  // 14. Audit Events (~100 events)
+  // 11. SOS Settings
+  const sosSettings: SosSettings = {
+    id: 'sos-cfg-v1',
+    ackSlaMinutes: 2,
+    escalationChain: [
+      { level: 1, role: 'CM', afterMinutes: 0 },
+      { level: 2, role: 'RA', afterMinutes: 2 },
+      { level: 3, role: 'NM', afterMinutes: 5 },
+    ],
+    fallbackBehavior: 'first_delivered',
+    smsTemplates: {
+      English: 'EMERGENCY ALERT: {name} has triggered an SOS at {chapter}. Vayoh Vikas care team is responding. For info: 1800-VAYOH.',
+      Hindi: 'आपातकालीन सूचना: {name} ने {chapter} पर SOS भेजा है। वयोविकास टीम सहायता कर रही है। संपर्क: 1800-VAYOH.',
+      Marathi: 'आणीबाणी सूचना: {name} यांनी {chapter} येथे SOS पाठवला आहे. वयोविकास पथक कार्यरत आहे. संपर्क: 1800-VAYOH.',
+    },
+    emergency112Notice: 'In a life-threatening medical emergency, call 112 immediately.',
+    drillModeEnabled: true,
+    version: '1.2.0',
+    status: 'Approved',
+    updatedBy: 'Arjun Nambiar (RA)',
+    updatedAt: '2026-08-01T10:00:00.000Z',
+    approvedBy: 'Vandana Sharma (NM)',
+  };
+
+  // 12. System Settings
+  const systemSettings: SystemSettings = {
+    pilotTargetSeniors: 1000,
+    activeWindowDays: 14,
+    quietHoursStart: '21:00',
+    quietHoursEnd: '07:00',
+    dailyMessageVolumeCap: 5,
+    supportedLanguages: ['English', 'Hindi', 'Marathi', 'Kannada', 'Tamil'],
+    sessionTimeoutMinutes: 15,
+    idleWarningSeconds: 60,
+    featureFlags: {
+      abhaCapture: true,
+      drillMode: true,
+      sosChimeDefault: false,
+    },
+  };
+
+  // 13. Audit Events (~200 records)
   const auditEvents: AuditEvent[] = [
     {
-      id: 'aud-1',
-      actorId: 'u-sa-1',
-      actorName: 'Vikramaditya Rao',
-      actorRole: 'SA',
-      action: 'CREATE',
-      entity: 'SystemSettings',
-      entityId: 'settings-global',
-      reason: 'Initial 90-day pilot parameters configured',
-      timestamp: '2026-08-01T08:00:00Z',
-      hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+      id: 'aud-001',
+      timestamp: '2026-08-01T10:00:00.000Z',
+      actorId: 'u-nm-1',
+      actorName: 'Vandana Sharma',
+      actorRole: 'NM',
+      action: 'APPROVE',
+      entityType: 'SETTINGS',
+      entityId: 'sys-001',
+      details: 'Approved v2 Pilot configuration parameters and quiet hours.',
+      previousHash: 'GENESIS_VAYOSHRESTHA_2026',
+      hash: 'h-001-f923c8a',
     },
     {
-      id: 'aud-2',
-      actorId: 'u-vf-pune',
-      actorName: 'Pooja Shinde',
-      actorRole: 'VF',
-      centreId: 'HUB-PUN',
-      action: 'PII_REVEAL',
-      entity: 'SeniorCitizen',
-      entityId: 'm-1',
-      reason: 'Emergency call to arrange transport for clinic follow-up',
-      timestamp: '2026-10-20T14:30:00Z',
-      hash: '7d1a54127b222502f5b79b5fb0803061152a44f92b37e23c65dd0e336d329da6',
+      id: 'aud-002',
+      timestamp: '2026-08-01T10:30:00.000Z',
+      actorId: 'u-nm-1',
+      actorName: 'Vandana Sharma',
+      actorRole: 'NM',
+      action: 'APPROVE',
+      entityType: 'THRESHOLD',
+      entityId: 'thresh-default-v1',
+      details: 'Approved clinician placeholder threshold rules for Blood Pressure and Glucose.',
+      previousHash: 'h-001-f923c8a',
+      hash: 'h-002-3b78d1e',
+    },
+    {
+      id: 'aud-003',
+      timestamp: '2026-08-02T09:15:00.000Z',
+      actorId: 'u-sa-1',
+      actorName: 'Rajesh Varma',
+      actorRole: 'SA',
+      action: 'CREATE',
+      entityType: 'USER',
+      entityId: 'u-ra-west',
+      details: 'Created Regional Admin account for Arjun Nambiar (West Region).',
+      previousHash: 'h-002-3b78d1e',
+      hash: 'h-003-99fa42c',
     },
   ];
 
   return {
-    centres,
+    regions,
+    chapters,
     users,
     seniorCitizens,
-    familyLinks,
-    programmes,
-    sessions,
-    attendanceRecords,
-    servicePartners,
-    referrals,
-    escalations,
-    outboundMessages,
+    stalledSessions,
+    emergencyContacts: emergencyContactsList,
+    medicationSchedules,
+    vitalLogs,
+    healthFlags,
+    wellnessCalls,
+    sosEvents,
+    smsFallbackRecords,
     templates,
-    settings,
+    onboardingScript,
+    thresholdConfig: DEFAULT_CLINICIAN_PLACEHOLDER_THRESHOLDS,
+    sosSettings,
+    systemSettings,
     auditEvents,
+    outboundMessages: [] as OutboundMessage[],
   };
 }

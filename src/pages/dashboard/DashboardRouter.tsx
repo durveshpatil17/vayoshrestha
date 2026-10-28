@@ -1,14 +1,12 @@
 import React from 'react';
 import { useAuthStore } from '@/store/authStore';
-import { NmPmDashboard } from './NmPmDashboard';
-import { SaDashboard } from './SaDashboard';
-import { CcDashboard } from './CcDashboard';
+import { RanmDashboard } from './RanmDashboard';
+import { CmDashboard } from './CmDashboard';
 import { VfDashboard } from './VfDashboard';
-import { SpDashboard } from './SpDashboard';
 import { CtDashboard } from './CtDashboard';
+import { SaDashboard } from './SaDashboard';
 import { CdDashboard } from './CdDashboard';
-import { ScDashboard } from './ScDashboard';
-import { FmDashboard } from './FmDashboard';
+import { SimulatorPage } from '../simulator/SimulatorPage';
 
 export const DashboardRouter: React.FC = () => {
   const user = useAuthStore((s) => s.user);
@@ -19,23 +17,19 @@ export const DashboardRouter: React.FC = () => {
     case 'SA':
       return <SaDashboard />;
     case 'NM':
-    case 'PM':
-      return <NmPmDashboard />;
-    case 'CC':
-      return <CcDashboard />;
+    case 'RA':
+      return <RanmDashboard />;
+    case 'CM':
+      return <CmDashboard />;
     case 'VF':
       return <VfDashboard />;
-    case 'SP':
-      return <SpDashboard />;
     case 'CT':
       return <CtDashboard />;
     case 'CD':
       return <CdDashboard />;
     case 'SC':
-      return <ScDashboard />;
-    case 'FM':
-      return <FmDashboard />;
+      return <SimulatorPage />;
     default:
-      return <NmPmDashboard />;
+      return <RanmDashboard />;
   }
 };

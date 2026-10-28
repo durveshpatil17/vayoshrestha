@@ -48,19 +48,40 @@ describe('P4: Cross-Module Integration Flows (Mock API + Domain Engines + RBAC)'
       membershipId: newId,
       fullName: 'Ramesh Kulkarni',
       dateOfBirth: '1952-04-12',
+      ageBand: '70–74',
       gender: 'Male',
       phone: '9822199887',
       emergencyContactName: 'Sunil Kulkarni (Son)',
       emergencyContactPhone: '9822199888',
       centreId: 'HUB-PUN',
+      chapterId: 'HUB-PUN',
       primaryLanguage: 'Marathi',
       address: '14 Sadashiv Peth, Pune',
       digitalConfidence: 'None',
       isAssistedRegistration: true,
       assistedBy: 'Pooja Deshmukh (Field Volunteer)',
-      consentStatus: 'OptedIn',
-      consentRecordedAt: new Date().toISOString(),
-      optedOutChannels: [],
+      emergencyContacts: [
+        {
+          id: 'c-int-1',
+          name: 'Sunil Kulkarni (Son)',
+          relationship: 'Son',
+          phone: '9822199888',
+          isPrimary: true,
+          safetySmsConsent: true,
+          priorityOrder: 1,
+        },
+      ],
+      consent: {
+        generalCommunications: true,
+        safetySmsFallback: true,
+        abdmLinkage: false,
+        recordedAt: new Date().toISOString(),
+        version: 'v1.2-2026',
+      },
+      abha: {
+        abdmConsent: false,
+        status: 'not_provided',
+      },
       registeredAt: new Date().toISOString(),
       isActive: false,
       status: 'Registered',
@@ -77,11 +98,11 @@ describe('P4: Cross-Module Integration Flows (Mock API + Domain Engines + RBAC)'
       'Pooja Deshmukh',
       'VF',
       'CREATE',
-      'SeniorCitizen',
+      'SENIOR',
       newSenior.id,
       'Assisted on-site paper-to-digital registration at Ekta Hub Pune',
-      null,
-      { fullName: newSenior.fullName, membershipId: newSenior.membershipId },
+      undefined,
+      undefined,
       'HUB-PUN'
     );
 
@@ -94,7 +115,7 @@ describe('P4: Cross-Module Integration Flows (Mock API + Domain Engines + RBAC)'
     const auditFound = mockStore.getData().auditEvents.find((a) => a.id === auditEvent.id);
     expect(auditFound).toBeDefined();
     expect(auditFound?.action).toBe('CREATE');
-    expect(auditFound?.entity).toBe('SeniorCitizen');
+    expect(auditFound?.entityType).toBe('SENIOR');
   });
 
   it('Flow 2: Capacity Control → Waitlist → Cancellation → Promotion → Consent Block Check', () => {
@@ -251,28 +272,29 @@ describe('P4: Cross-Module Integration Flows (Mock API + Domain Engines + RBAC)'
   });
 
   it('Flow 5: Scope & Centre Isolation Enforcement across Roles', () => {
-    const ccPune: UserAccount = {
-      id: 'u-cc-pun',
+    const cmPune: UserAccount = {
+      id: 'u-cm-pun',
       fullName: 'Sunita Patil',
       email: 'pune.coordinator@vayohvikas.org',
-      role: 'CC',
+      role: 'CM',
+      assignedChapter: 'HUB-PUN',
       assignedCentres: ['HUB-PUN'],
       isActive: true,
       mfaEnabled: false,
       failedLoginAttempts: 0,
     };
 
-    const memberPune = { id: 'm-pun', centreId: 'HUB-PUN' };
-    const memberNashik = { id: 'm-nsk', centreId: 'HUB-NSK' };
+    const memberPune = { id: 'm-pun', chapterId: 'HUB-PUN', centreId: 'HUB-PUN' };
+    const memberNashik = { id: 'm-nsk', chapterId: 'HUB-NSK', centreId: 'HUB-NSK' };
 
-    // CC Pune CAN read Pune member
-    expect(authorize(ccPune, 'MEMBER_PROFILES', 'read', memberPune)).toBe(true);
+    // CM Pune CAN read Pune member
+    expect(authorize(cmPune, 'SENIOR_PROFILES', 'read', memberPune)).toBe(true);
 
-    // CC Pune CANNOT read Nashik member (Scope Isolation)
-    expect(authorize(ccPune, 'MEMBER_PROFILES', 'read', memberNashik)).toBe(false);
+    // CM Pune CANNOT read Nashik member (Scope Isolation)
+    expect(authorize(cmPune, 'SENIOR_PROFILES', 'read', memberNashik)).toBe(false);
 
-    // CC Pune CANNOT export Nashik attendance
-    expect(authorize(ccPune, 'ATTENDANCE', 'export', memberNashik)).toBe(false);
+    // CM Pune CANNOT export Nashik roster
+    expect(authorize(cmPune, 'CHAPTERS_ROSTERS', 'export', memberNashik)).toBe(false);
 
     // CSR Reviewer (CD) sees aggregates only, counts under 5 are suppressed
     const cdUser: UserAccount = {
@@ -286,8 +308,8 @@ describe('P4: Cross-Module Integration Flows (Mock API + Domain Engines + RBAC)'
       failedLoginAttempts: 0,
     };
 
-    expect(authorize(cdUser, 'CSR_REPORTS', 'read')).toBe(true);
-    expect(authorize(cdUser, 'MEMBER_PROFILES', 'read')).toBe(false);
+    expect(authorize(cdUser, 'PILOT_REPORTS', 'read')).toBe(true);
+    expect(authorize(cdUser, 'SENIOR_PROFILES', 'read')).toBe(false);
 
     // Small-number suppression rule: < 5 shown as "<5"
     expect(suppressSmallNumber(3)).toBe('<5');

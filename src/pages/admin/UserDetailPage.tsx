@@ -35,12 +35,11 @@ export const UserDetailPage: React.FC = () => {
       phone,
       fullName,
       role,
-      assignedCentres: role === 'CC' || role === 'VF' ? assignedCentres : [],
+      assignedCentres: role === 'CM' || role === 'VF' ? assignedCentres : [],
       isActive,
       mfaEnabled: role === 'SA' || role === 'NM',
       mustChangePassword: isNew,
       failedLoginAttempts: 0,
-      failedAttempts: 0,
     };
 
     mockStore.updateData((draft) => {
@@ -57,12 +56,11 @@ export const UserDetailPage: React.FC = () => {
       currentUser?.fullName || 'Admin',
       'SA',
       targetUser ? 'UPDATE' : 'CREATE',
-      'UserAccount',
+      'USER',
       u.id,
       `${targetUser ? 'Updated' : 'Invited'} user account: ${fullName} (${role})`,
-      targetUser,
-      u,
-      undefined
+      'Administrative user account modification',
+      { before: targetUser, after: u }
     );
 
     setSubmitted(true);
@@ -156,7 +154,7 @@ export const UserDetailPage: React.FC = () => {
             </div>
           </div>
 
-          {(role === 'CC' || role === 'VF') && (
+          {(role === 'CM' || role === 'VF') && (
             <div className="pt-2 border-t border-border-hairline">
               <label className="text-xs font-semibold text-text-primary block mb-1.5">
                 Assigned Ekta Hub Centres (FR-03 Scope Isolation)

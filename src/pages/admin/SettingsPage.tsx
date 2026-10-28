@@ -26,12 +26,11 @@ export const SettingsPage: React.FC = () => {
       user?.fullName || 'Admin',
       'SA',
       'UPDATE',
-      'SystemSettings',
+      'SETTINGS',
       'settings-global',
       'Updated institutional pilot parameters and feature flags',
-      data.settings,
-      settings,
-      undefined
+      'Administrative configuration change',
+      { before: data.settings, after: settings }
     );
 
     setSaved(true);

@@ -36,9 +36,7 @@ export const UserDirectoryPage: React.FC = () => {
       const target = draft.users.find((u) => u.id === userId);
       if (target) {
         target.failedLoginAttempts = 0;
-        target.failedAttempts = 0;
         target.lockoutUntil = null;
-        target.lockedUntil = null;
         target.isActive = true;
       }
     });
@@ -48,12 +46,11 @@ export const UserDirectoryPage: React.FC = () => {
       user?.fullName || 'Admin',
       'SA',
       'UPDATE',
-      'UserAccount',
+      'USER',
       userId,
       'Admin unlocked account and reset failed attempt counter',
-      null,
-      { locked: false },
-      undefined
+      'Admin security unlock',
+      { locked: false }
     );
 
     setUsers([...mockStore.getData().users]);

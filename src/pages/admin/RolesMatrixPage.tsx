@@ -9,7 +9,7 @@ import { ShieldCheck, ShieldAlert, CheckCircle2, Lock, AlertTriangle } from 'luc
 
 export const RolesMatrixPage: React.FC = () => {
   const { user } = useAuthStore();
-  const [activeRole, setActiveRole] = useState<RoleCode>('CC');
+  const [activeRole, setActiveRole] = useState<RoleCode>('CM');
   const [requestSent, setRequestSent] = useState(false);
 
   const capabilitiesList = Object.keys(PERMISSION_MATRIX) as CapabilityCode[];
@@ -20,10 +20,10 @@ export const RolesMatrixPage: React.FC = () => {
       user?.fullName || 'Admin',
       'SA',
       'UPDATE',
-      'PermissionMatrix',
+      'SETTINGS',
       activeRole,
       `Requested role permission matrix update for ${activeRole}. Forwarded to NM for approval.`,
-      null,
+      'Matrix policy update',
       { role: activeRole },
       undefined
     );

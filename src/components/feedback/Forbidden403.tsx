@@ -8,12 +8,14 @@ export interface Forbidden403Props {
   missingPermission?: string;
   requiredRole?: string;
   currentRole?: string;
+  message?: string;
 }
 
 export const Forbidden403: React.FC<Forbidden403Props> = ({
   missingPermission = 'ADMIN_ACCESS',
   requiredRole,
   currentRole,
+  message,
 }) => {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);

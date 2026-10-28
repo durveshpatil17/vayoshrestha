@@ -7,35 +7,49 @@ export interface AuthState {
   user: UserAccount | null;
   token: string | null;
   isAuthenticated: boolean;
-  activeCentreId: string | null;
+  activeRegionId: string | null;
+  activeChapterId: string | null;
+  activeCentreId: string | null; // backwards-compatible alias for activeChapterId
   textSize: 'normal' | 'large' | 'xlarge';
+  chimeEnabled: boolean;
   idleWarningOpen: boolean;
   idleCountdown: number;
+  openSosCount: number;
 
   // Actions
   loginWithPassword: (email: string, pass: string) => { success: boolean; requiresMfa?: boolean; error?: string };
   loginWithOtp: (phone: string, otp: string) => { success: boolean; error?: string };
   verifyMfa: (code: string) => { success: boolean; error?: string };
   switchPersona: (roleCode: RoleCode) => void;
-  setActiveCentre: (centreId: string) => void;
+  setActiveRegion: (regionId: string) => void;
+  setActiveChapter: (chapterId: string) => void;
+  setActiveCentre: (centreId: string) => void; // alias
   setTextSize: (size: 'normal' | 'large' | 'xlarge') => void;
+  toggleChime: () => void;
+  setOpenSosCount: (count: number) => void;
   logout: () => void;
   resetFailedAttempts: (email: string) => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => {
-  // Pre-seed initial default user for prototype immediate readiness: Programme Manager (Arjun Nambiar)
+export const useAuthStore = create<AuthState>((set, get) => {
+  // Pre-seed initial default user for prototype immediate readiness: Regional Admin (Arjun Nambiar)
   const defaultUsers = mockStore.getData().users;
-  const initialUser = defaultUsers.find((u) => u.role === 'PM') || defaultUsers[0];
+  const initialUser = defaultUsers.find((u) => u.role === 'RA') || defaultUsers[0];
+
+  const sosCount = mockStore.getData().sosEvents.filter((e) => e.status === 'Triggered' || e.status === 'Acknowledged').length;
 
   return {
     user: initialUser,
     token: 'mock-jwt-initial-token',
     isAuthenticated: true,
-    activeCentreId: initialUser.assignedCentres[0] || 'HUB-PUN',
+    activeRegionId: initialUser.assignedRegion || 'REG-W',
+    activeChapterId: initialUser.assignedChapter || initialUser.assignedCentres[0] || 'HUB-PUN',
+    activeCentreId: initialUser.assignedChapter || initialUser.assignedCentres[0] || 'HUB-PUN',
     textSize: 'normal',
+    chimeEnabled: false, // off by default per brief
     idleWarningOpen: false,
     idleCountdown: 60,
+    openSosCount: sosCount,
 
     loginWithPassword: (email, pass) => {
       const users = mockStore.getData().users;
@@ -71,38 +85,41 @@ export const useAuthStore = create<AuthState>((set) => {
         user: targetUser,
         token: `mock-jwt-token-${targetUser.id}`,
         isAuthenticated: true,
-        activeCentreId: targetUser.assignedCentres[0] || 'HUB-PUN',
+        activeRegionId: targetUser.assignedRegion || 'REG-W',
+        activeChapterId: targetUser.assignedChapter || targetUser.assignedCentres[0] || 'HUB-PUN',
+        activeCentreId: targetUser.assignedChapter || targetUser.assignedCentres[0] || 'HUB-PUN',
       });
 
       mockStore.writeAudit(
         targetUser.id,
         targetUser.fullName,
         targetUser.role,
-        'UPDATE',
-        'UserAccount',
+        'APPROVE',
+        'USER',
         targetUser.id,
-        'Staff login successful'
+        `User logged in successfully via password authentication.`
       );
 
       return { success: true };
     },
 
     loginWithOtp: (phone, otp) => {
-      const cleanPhone = phone.replace(/\D/g, '').slice(-10);
-      const users = mockStore.getData().users;
-      const targetUser = users.find((u) => u.phone && u.phone.includes(cleanPhone));
-
+      const cleanPhone = phone.replace(/\D/g, '');
       if (otp !== '123456') {
-        return { success: false, error: 'Invalid OTP. Please enter 123456.' };
+        return { success: false, error: 'Invalid OTP. Please enter the 6-digit verification code.' };
       }
 
-      const activeUser = targetUser || users.find((u) => u.role === 'SC')!;
+      const users = mockStore.getData().users;
+      const scUser = users.find((u) => u.role === 'SC') || users[0];
+
       set({
-        user: activeUser,
-        token: `mock-jwt-otp-${activeUser.id}`,
+        user: scUser,
+        token: `mock-otp-jwt-${cleanPhone}`,
         isAuthenticated: true,
-        activeCentreId: activeUser.assignedCentres[0] || 'HUB-PUN',
-        textSize: activeUser.role === 'SC' || activeUser.role === 'FM' ? 'large' : 'normal',
+        activeRegionId: 'REG-W',
+        activeChapterId: 'HUB-PUN',
+        activeCentreId: 'HUB-PUN',
+        textSize: 'large', // Senior mode default
       });
 
       return { success: true };
@@ -110,45 +127,45 @@ export const useAuthStore = create<AuthState>((set) => {
 
     verifyMfa: (code) => {
       if (code !== '123456') {
-        return { success: false, error: 'Invalid 6-digit TOTP code. Try 123456.' };
+        return { success: false, error: 'Invalid 6-digit MFA code.' };
       }
-      return { success: true };
+
+      const user = get().user;
+      if (user) {
+        set({ isAuthenticated: true, token: `mock-mfa-jwt-${user.id}` });
+        return { success: true };
+      }
+      return { success: false, error: 'Session expired. Please log in again.' };
     },
 
     switchPersona: (roleCode) => {
       const users = mockStore.getData().users;
-      const match = users.find((u) => u.role === roleCode);
-      if (match) {
-        set({
-          user: match,
-          token: `mock-jwt-persona-${match.id}`,
-          isAuthenticated: true,
-          activeCentreId: match.assignedCentres[0] || 'HUB-PUN',
-          textSize: roleCode === 'SC' || roleCode === 'FM' ? 'large' : 'normal',
-        });
+      const targetUser = users.find((u) => u.role === roleCode) || users[0];
 
-        mockStore.writeAudit(
-          match.id,
-          match.fullName,
-          match.role,
-          'UPDATE',
-          'Session',
-          match.id,
-          `Persona switched to ${roleCode}`
-        );
-      }
+      set({
+        user: targetUser,
+        token: `mock-jwt-${targetUser.id}`,
+        isAuthenticated: true,
+        activeRegionId: targetUser.assignedRegion || 'REG-W',
+        activeChapterId: targetUser.assignedChapter || targetUser.assignedCentres[0] || 'HUB-PUN',
+        activeCentreId: targetUser.assignedChapter || targetUser.assignedCentres[0] || 'HUB-PUN',
+        textSize: roleCode === 'SC' ? 'large' : 'normal',
+      });
     },
 
-    setActiveCentre: (centreId) => {
-      set({ activeCentreId: centreId });
-    },
-
-    setTextSize: (size) => {
-      set({ textSize: size });
-    },
+    setActiveRegion: (regionId) => set({ activeRegionId: regionId }),
+    setActiveChapter: (chapterId) => set({ activeChapterId: chapterId, activeCentreId: chapterId }),
+    setActiveCentre: (centreId) => set({ activeChapterId: centreId, activeCentreId: centreId }),
+    setTextSize: (size) => set({ textSize: size }),
+    toggleChime: () => set((state) => ({ chimeEnabled: !state.chimeEnabled })),
+    setOpenSosCount: (count) => set({ openSosCount: count }),
 
     logout: () => {
-      set({ user: null, token: null, isAuthenticated: false });
+      set({
+        user: null,
+        token: null,
+        isAuthenticated: false,
+      });
     },
 
     resetFailedAttempts: (email) => {

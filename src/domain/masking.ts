@@ -3,9 +3,10 @@
  * Compliant with DPDP Act, Concept Note, and Section 4
  */
 
-export function maskPhoneNumber(phone: string): string {
+export function maskPhoneNumber(phone?: string | null): string {
   if (!phone) return '';
   const str = String(phone).trim();
+  if (!str) return '';
   if (str.startsWith('•••')) return str;
 
   // Extract digits

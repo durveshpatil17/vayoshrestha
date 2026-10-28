@@ -1,0 +1,1186 @@
+{
+  "version": "3.0.0",
+  "generated": "2026-10-28",
+  "features": [
+    {
+      "id": "F-001",
+      "name": "Authentication & MFA",
+      "fr": "FR-01",
+      "routes": [
+        "/login",
+        "/mfa",
+        "/forgot-password",
+        "/reset-password/:token",
+        "/first-login"
+      ],
+      "roles": [
+        "ALL"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-002",
+      "name": "Session management & timeout",
+      "fr": "FR-02",
+      "routes": [
+        "/session-expired"
+      ],
+      "roles": [
+        "ALL"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-003",
+      "name": "Privacy consent",
+      "fr": "FR-03",
+      "routes": [
+        "/privacy"
+      ],
+      "roles": [
+        "ALL"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-004",
+      "name": "403 / 404 / offline",
+      "fr": "FR-04",
+      "routes": [
+        "/403",
+        "/404",
+        "/offline"
+      ],
+      "roles": [
+        "ALL"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-005",
+      "name": "Role-based dashboards",
+      "fr": "FR-05",
+      "routes": [
+        "/"
+      ],
+      "roles": [
+        "SA",
+        "NM",
+        "RA",
+        "CM",
+        "VF",
+        "CT",
+        "CD",
+        "PM",
+        "SP",
+        "SC",
+        "FM"
+      ],
+      "status": "Partial",
+      "notes": "PM,SP,SC,FM dashboards missing"
+    },
+    {
+      "id": "F-006",
+      "name": "SA dashboard",
+      "fr": "FR-05",
+      "routes": [
+        "/ (SA)"
+      ],
+      "roles": [
+        "SA"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-007",
+      "name": "NM dashboard",
+      "fr": "FR-05",
+      "routes": [
+        "/ (NM)"
+      ],
+      "roles": [
+        "NM"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-008",
+      "name": "RA dashboard",
+      "fr": "FR-05",
+      "routes": [
+        "/ (RA)"
+      ],
+      "roles": [
+        "RA"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-009",
+      "name": "CM dashboard",
+      "fr": "FR-05",
+      "routes": [
+        "/ (CM)"
+      ],
+      "roles": [
+        "CM"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-010",
+      "name": "VF dashboard",
+      "fr": "FR-05",
+      "routes": [
+        "/ (VF)"
+      ],
+      "roles": [
+        "VF"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-011",
+      "name": "CT dashboard",
+      "fr": "FR-05",
+      "routes": [
+        "/ (CT)"
+      ],
+      "roles": [
+        "CT"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-012",
+      "name": "CD dashboard",
+      "fr": "FR-05",
+      "routes": [
+        "/ (CD)"
+      ],
+      "roles": [
+        "CD"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-013",
+      "name": "PM dashboard",
+      "fr": "FR-05",
+      "routes": [
+        "/ (PM)"
+      ],
+      "roles": [
+        "PM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-014",
+      "name": "SP dashboard",
+      "fr": "FR-05",
+      "routes": [
+        "/ (SP)"
+      ],
+      "roles": [
+        "SP"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-015",
+      "name": "SC home portal",
+      "fr": "FR-05",
+      "routes": [
+        "/me"
+      ],
+      "roles": [
+        "SC"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-016",
+      "name": "FM home portal",
+      "fr": "FR-05",
+      "routes": [
+        "/family"
+      ],
+      "roles": [
+        "FM"
+      ],
+      "status": "Planned",
+      "notes": "Feature-flagged"
+    },
+    {
+      "id": "F-017",
+      "name": "RBAC permission matrix",
+      "fr": "FR-06",
+      "routes": [],
+      "roles": [
+        "ALL"
+      ],
+      "status": "Built",
+      "notes": "9 roles, needs PM/SP/FM"
+    },
+    {
+      "id": "F-018",
+      "name": "Field masking",
+      "fr": "FR-07",
+      "routes": [],
+      "roles": [
+        "VF",
+        "NK"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-019",
+      "name": "Maker-checker approvals",
+      "fr": "FR-08",
+      "routes": [
+        "/admin/approvals"
+      ],
+      "roles": [
+        "NM",
+        "SA"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-020",
+      "name": "Audit log",
+      "fr": "FR-09",
+      "routes": [
+        "/admin/audit-logs"
+      ],
+      "roles": [
+        "SA"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-021",
+      "name": "Senior onboarding wizard",
+      "fr": "FR-11",
+      "routes": [
+        "/onboarding",
+        "/onboarding/new",
+        "/onboarding/script"
+      ],
+      "roles": [
+        "CM",
+        "VF",
+        "RA"
+      ],
+      "status": "Built",
+      "notes": "4-step; needs expansion to 7-step"
+    },
+    {
+      "id": "F-022",
+      "name": "Senior profile",
+      "fr": "FR-12",
+      "routes": [
+        "/seniors",
+        "/seniors/:id",
+        "/seniors/:id/edit"
+      ],
+      "roles": [
+        "CM",
+        "VF",
+        "RA",
+        "NM"
+      ],
+      "status": "Built",
+      "notes": "Missing tabs"
+    },
+    {
+      "id": "F-023",
+      "name": "Duplicate detection",
+      "fr": "FR-13",
+      "routes": [
+        "/seniors/duplicates"
+      ],
+      "roles": [
+        "CM",
+        "RA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-024",
+      "name": "Membership card print",
+      "fr": "FR-14",
+      "routes": [
+        "/seniors/:id/card"
+      ],
+      "roles": [
+        "CM",
+        "VF"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-025",
+      "name": "Chapter (Ekta Hub) management",
+      "fr": "FR-15",
+      "routes": [
+        "/chapters",
+        "/chapters/new",
+        "/chapters/:id",
+        "/chapters/:id/edit"
+      ],
+      "roles": [
+        "SA",
+        "NM",
+        "RA",
+        "CM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-026",
+      "name": "Chapter detail tabs",
+      "fr": "FR-16",
+      "routes": [
+        "/chapters/:id"
+      ],
+      "roles": [
+        "SA",
+        "NM",
+        "RA",
+        "CM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-027",
+      "name": "Programme management",
+      "fr": "FR-17",
+      "routes": [
+        "/programmes",
+        "/programmes/new",
+        "/programmes/:id",
+        "/programmes/:id/edit"
+      ],
+      "roles": [
+        "PM",
+        "CM",
+        "NM",
+        "RA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-028",
+      "name": "Programme detail tabs",
+      "fr": "FR-18",
+      "routes": [
+        "/programmes/:id"
+      ],
+      "roles": [
+        "PM",
+        "CM",
+        "NM",
+        "RA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-029",
+      "name": "Session schedule calendar",
+      "fr": "FR-19",
+      "routes": [
+        "/schedule",
+        "/sessions/:id"
+      ],
+      "roles": [
+        "PM",
+        "CM",
+        "CT",
+        "VF"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-030",
+      "name": "Attendance marking",
+      "fr": "FR-20",
+      "routes": [
+        "/attendance",
+        "/attendance/session/:id"
+      ],
+      "roles": [
+        "CM",
+        "VF",
+        "CT"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-031",
+      "name": "Attendance corrections",
+      "fr": "FR-21",
+      "routes": [
+        "/attendance/corrections"
+      ],
+      "roles": [
+        "NM",
+        "CM"
+      ],
+      "status": "Planned",
+      "notes": "Maker≠checker"
+    },
+    {
+      "id": "F-032",
+      "name": "Attendance history heatmap",
+      "fr": "FR-22",
+      "routes": [
+        "/attendance/history"
+      ],
+      "roles": [
+        "CM",
+        "RA",
+        "NM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-033",
+      "name": "Emergency SOS board",
+      "fr": "FR-23",
+      "routes": [
+        "/sos",
+        "/sos/:id",
+        "/sos/history",
+        "/sos/settings",
+        "/sos/drills"
+      ],
+      "roles": [
+        "SA",
+        "NM",
+        "RA",
+        "CM",
+        "VF",
+        "CT",
+        "CD"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-034",
+      "name": "SOS fallback SMS",
+      "fr": "FR-24",
+      "routes": [
+        "/sms-log"
+      ],
+      "roles": [
+        "SA",
+        "NM"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-035",
+      "name": "WhatsApp communication hub",
+      "fr": "FR-25",
+      "routes": [
+        "/communication",
+        "/communication/delivery"
+      ],
+      "roles": [
+        "CM",
+        "NM",
+        "RA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-036",
+      "name": "Message templates",
+      "fr": "FR-26",
+      "routes": [
+        "/communication/templates",
+        "/communication/templates/new",
+        "/communication/templates/:id"
+      ],
+      "roles": [
+        "CM",
+        "NM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-037",
+      "name": "Announcements",
+      "fr": "FR-27",
+      "routes": [
+        "/communication/announcements",
+        "/communication/announcements/new"
+      ],
+      "roles": [
+        "CM",
+        "NM",
+        "RA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-038",
+      "name": "Consent management",
+      "fr": "FR-28",
+      "routes": [
+        "/communication/consents"
+      ],
+      "roles": [
+        "CM",
+        "NM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-039",
+      "name": "Service catalogue",
+      "fr": "FR-29",
+      "routes": [
+        "/services",
+        "/services/new",
+        "/services/:id"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-040",
+      "name": "Service requests",
+      "fr": "FR-30",
+      "routes": [
+        "/service-requests"
+      ],
+      "roles": [
+        "CM",
+        "VF",
+        "SP"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-041",
+      "name": "Referral management",
+      "fr": "FR-31",
+      "routes": [
+        "/referrals",
+        "/referrals/new",
+        "/referrals/:id"
+      ],
+      "roles": [
+        "CM",
+        "VF",
+        "SP"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-042",
+      "name": "Partner management",
+      "fr": "FR-32",
+      "routes": [
+        "/partners",
+        "/partners/new",
+        "/partners/:id"
+      ],
+      "roles": [
+        "PM",
+        "NM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-043",
+      "name": "Partner portal",
+      "fr": "FR-33",
+      "routes": [
+        "/partner/home",
+        "/partner/referrals",
+        "/partner/referrals/:id",
+        "/partner/profile",
+        "/partner/reports"
+      ],
+      "roles": [
+        "SP"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-044",
+      "name": "Feedback collection",
+      "fr": "FR-34",
+      "routes": [
+        "/feedback",
+        "/feedback/forms",
+        "/feedback/new"
+      ],
+      "roles": [
+        "CM",
+        "VF",
+        "CT"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-045",
+      "name": "Follow-ups & engagement",
+      "fr": "FR-35",
+      "routes": [
+        "/follow-ups",
+        "/engagement"
+      ],
+      "roles": [
+        "CM",
+        "VF",
+        "CT"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-046",
+      "name": "Medication & vital logs",
+      "fr": "FR-36",
+      "routes": [
+        "/health",
+        "/health/logs",
+        "/health/flags",
+        "/health/schedules",
+        "/health/reminders",
+        "/health/reminders/:id",
+        "/health/rules",
+        "/health/calls"
+      ],
+      "roles": [
+        "CM",
+        "VF",
+        "CT",
+        "SC"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-047",
+      "name": "Assisted health support",
+      "fr": "FR-37",
+      "routes": [
+        "/support/requests",
+        "/support/escalations",
+        "/support/escalations/:id",
+        "/support/rules",
+        "/support/voice-checkins",
+        "/support/handover"
+      ],
+      "roles": [
+        "CM",
+        "CT",
+        "RA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-048",
+      "name": "CSR reporting",
+      "fr": "FR-38",
+      "routes": [
+        "/reports/csr",
+        "/reports/csr/:id"
+      ],
+      "roles": [
+        "NM",
+        "CD"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-049",
+      "name": "Pilot report",
+      "fr": "FR-39",
+      "routes": [
+        "/reports/pilot",
+        "/reports/definitions"
+      ],
+      "roles": [
+        "NM",
+        "SA",
+        "RA"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-050",
+      "name": "Reports overview",
+      "fr": "FR-40",
+      "routes": [
+        "/reports",
+        "/reports/overview"
+      ],
+      "roles": [
+        "NM",
+        "RA",
+        "SA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-051",
+      "name": "Chapter reports",
+      "fr": "FR-41",
+      "routes": [
+        "/reports/chapters"
+      ],
+      "roles": [
+        "NM",
+        "RA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-052",
+      "name": "Programme reports",
+      "fr": "FR-42",
+      "routes": [
+        "/reports/programmes"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-053",
+      "name": "Senior reports",
+      "fr": "FR-43",
+      "routes": [
+        "/reports/seniors"
+      ],
+      "roles": [
+        "NM",
+        "RA",
+        "CM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-054",
+      "name": "Attendance reports",
+      "fr": "FR-44",
+      "routes": [
+        "/reports/attendance"
+      ],
+      "roles": [
+        "NM",
+        "RA",
+        "CM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-055",
+      "name": "Outcomes & impact",
+      "fr": "FR-45",
+      "routes": [
+        "/reports/outcomes"
+      ],
+      "roles": [
+        "NM",
+        "RA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-056",
+      "name": "Data exports",
+      "fr": "FR-46",
+      "routes": [
+        "/reports/exports"
+      ],
+      "roles": [
+        "NM",
+        "SA"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-057",
+      "name": "User management",
+      "fr": "FR-47",
+      "routes": [
+        "/admin/users",
+        "/admin/users/new",
+        "/admin/users/:id"
+      ],
+      "roles": [
+        "SA"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-058",
+      "name": "Role management",
+      "fr": "FR-48",
+      "routes": [
+        "/admin/roles"
+      ],
+      "roles": [
+        "SA"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-059",
+      "name": "Chapter admin",
+      "fr": "FR-49",
+      "routes": [
+        "/admin/chapters"
+      ],
+      "roles": [
+        "SA",
+        "NM"
+      ],
+      "status": "Built",
+      "notes": "Redirect to /chapters"
+    },
+    {
+      "id": "F-060",
+      "name": "System settings",
+      "fr": "FR-50",
+      "routes": [
+        "/admin/settings"
+      ],
+      "roles": [
+        "SA"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-061",
+      "name": "Integrations",
+      "fr": "FR-51",
+      "routes": [
+        "/admin/integrations"
+      ],
+      "roles": [
+        "SA"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-062",
+      "name": "Complaints management",
+      "fr": "FR-52",
+      "routes": [
+        "/admin/complaints",
+        "/complaints/new"
+      ],
+      "roles": [
+        "NM",
+        "CM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-063",
+      "name": "Data governance",
+      "fr": "FR-53",
+      "routes": [
+        "/admin/data-governance"
+      ],
+      "roles": [
+        "SA",
+        "NM"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-064",
+      "name": "ABHA profile structure",
+      "fr": "FR-54",
+      "routes": [
+        "/seniors/:id (ABHA tab)"
+      ],
+      "roles": [
+        "CM",
+        "VF"
+      ],
+      "status": "Planned",
+      "notes": "Phase 2 structure only, no verified state"
+    },
+    {
+      "id": "F-065",
+      "name": "Design system & tokens",
+      "fr": "FR-55",
+      "routes": [
+        "/design"
+      ],
+      "roles": [
+        "SA"
+      ],
+      "status": "Built",
+      "notes": "v3 tokens"
+    },
+    {
+      "id": "F-066",
+      "name": "WhatsApp simulator",
+      "fr": "—",
+      "routes": [
+        "/simulator"
+      ],
+      "roles": [
+        "SA",
+        "NM"
+      ],
+      "status": "Built",
+      "notes": "Needs 3rd SMS pane"
+    },
+    {
+      "id": "F-067",
+      "name": "Notifications centre",
+      "fr": "—",
+      "routes": [
+        "/notifications"
+      ],
+      "roles": [
+        "ALL"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-068",
+      "name": "Account settings",
+      "fr": "—",
+      "routes": [
+        "/account"
+      ],
+      "roles": [
+        "ALL"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-069",
+      "name": "Help centre",
+      "fr": "—",
+      "routes": [
+        "/help"
+      ],
+      "roles": [
+        "ALL"
+      ],
+      "status": "Built",
+      "notes": ""
+    },
+    {
+      "id": "F-070",
+      "name": "SC programmes list",
+      "fr": "—",
+      "routes": [
+        "/me/programmes"
+      ],
+      "roles": [
+        "SC"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-071",
+      "name": "SC bookings",
+      "fr": "—",
+      "routes": [
+        "/me/bookings"
+      ],
+      "roles": [
+        "SC"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-072",
+      "name": "SC messages",
+      "fr": "—",
+      "routes": [
+        "/me/messages"
+      ],
+      "roles": [
+        "SC"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-073",
+      "name": "SC services",
+      "fr": "—",
+      "routes": [
+        "/me/services"
+      ],
+      "roles": [
+        "SC"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-074",
+      "name": "SC profile",
+      "fr": "—",
+      "routes": [
+        "/me/profile"
+      ],
+      "roles": [
+        "SC"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-075",
+      "name": "SC health view",
+      "fr": "—",
+      "routes": [
+        "/me/health"
+      ],
+      "roles": [
+        "SC"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-076",
+      "name": "SC feedback",
+      "fr": "—",
+      "routes": [
+        "/me/feedback"
+      ],
+      "roles": [
+        "SC"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-077",
+      "name": "SC help",
+      "fr": "—",
+      "routes": [
+        "/me/help"
+      ],
+      "roles": [
+        "SC"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-078",
+      "name": "SC family links",
+      "fr": "—",
+      "routes": [
+        "/me/family"
+      ],
+      "roles": [
+        "SC"
+      ],
+      "status": "Planned",
+      "notes": ""
+    },
+    {
+      "id": "F-079",
+      "name": "FM senior overview",
+      "fr": "—",
+      "routes": [
+        "/family/:seniorId"
+      ],
+      "roles": [
+        "FM"
+      ],
+      "status": "Planned",
+      "notes": "Feature-flagged"
+    },
+    {
+      "id": "F-080",
+      "name": "FM family links",
+      "fr": "—",
+      "routes": [
+        "/family/links"
+      ],
+      "roles": [
+        "FM"
+      ],
+      "status": "Planned",
+      "notes": "Feature-flagged"
+    }
+  ]
+}

@@ -239,7 +239,7 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-64 bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
+    <aside className="w-[248px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
       {/* Home Link */}
       <div className="p-3 border-b border-border-subtle">
         <NavLink

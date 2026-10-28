@@ -1,0 +1,13 @@
+{
+  "version": "3.0.0",
+  "snapshot_date": "2026-10-28",
+  "counts": {
+    "routes_registered": 47,
+    "routes_manifest": 120,
+    "ledger_built": 31,
+    "ledger_planned": 49,
+    "tests_passing": 95,
+    "permission_cells": 9
+  },
+  "note": "Snapshot taken at v3 start. Ratchet check script: npm run ratchet"
+}

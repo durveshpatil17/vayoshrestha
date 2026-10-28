@@ -173,12 +173,12 @@ export const DesignGalleryPage: React.FC = () => {
                       <div className="text-text-secondary tabular-nums text-xs">#F8F9FA</div>
                     </div>
                     <div className="p-2.5 rounded-control bg-accent text-white">
-                      <div className="font-semibold">Horizon Blue</div>
-                      <div className="text-white tabular-nums text-xs">#0070F2</div>
+                      <div className="font-semibold">Forest Green</div>
+                      <div className="text-white tabular-nums text-xs">#1F5F4B</div>
                     </div>
                     <div className="p-2.5 rounded-control bg-accent-tint text-accent border border-border">
                       <div className="font-semibold">Accent Tint</div>
-                      <div className="text-accent tabular-nums text-xs">#EAF3FE</div>
+                      <div className="text-accent tabular-nums text-xs">#E5F2EC</div>
                     </div>
                     <div className="p-2.5 rounded-control bg-positive-tint text-positive border border-border">
                       <div className="font-semibold">Positive</div>
@@ -214,7 +214,7 @@ export const DesignGalleryPage: React.FC = () => {
             </Card>
 
             {/* Buttons Matrix */}
-            <Card title="2. Controls: Buttons (40px Height, 8px Radius, Horizon Blue #0070F2)">
+            <Card title="2. Controls: Buttons (40px Height, 6px Radius, Forest Green #1F5F4B)">
               <div className="space-y-4">
                 <div className="flex flex-wrap items-center gap-3">
                   <Button variant="primary" icon={<Plus className="w-4 h-4" strokeWidth={1.5} />}>
@@ -451,7 +451,7 @@ export const DesignGalleryPage: React.FC = () => {
                         fontSize: '12px',
                       }}
                     />
-                    <Bar dataKey="completed" fill="#0070F2" name="Completed Prompts" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="completed" fill="#1F5F4B" name="Completed Prompts" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="missed" fill="#E76500" name="Missed Prompts" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>

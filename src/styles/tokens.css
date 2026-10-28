@@ -1,5 +1,9 @@
-@import '@fontsource/open-sans/400.css';
-@import '@fontsource/open-sans/600.css';
+/* === v3 Design Tokens — Vayoshreshtha === */
+/* Fonts */
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/source-serif-4/600.css';
 @import '@fontsource/noto-sans-devanagari/400.css';
 @import '@fontsource/noto-sans-devanagari/600.css';
 @import '@fontsource/noto-sans-kannada/400.css';
@@ -8,72 +12,69 @@
 @import '@fontsource/noto-sans-tamil/600.css';
 
 :root {
-  /* Surfaces: Page #F5F6F7, surface #FFFFFF */
-  --canvas:            #F5F6F7;   /* page background behind cards */
+  /* Surfaces */
+  --canvas:            #F7F6F3;   /* page background */
   --surface:           #FFFFFF;   /* cards, tables, forms, shell */
-  --surface-subtle:    #F8F9FA;   /* table header, read-only fields */
-  --surface-hover:     #F3F8FE;   /* row hover (light blue tint) */
-  --surface-selected:  #EAF3FE;   /* selected row / nav item (Horizon blue tint) */
+  --surface-subtle:    #F2F1EE;   /* table header, read-only fields */
+  --surface-hover:     #EDECEA;   /* row hover */
+  --surface-selected:  #E5F2EC;   /* selected row / nav item (green tint) */
 
-  /* Lines: 1px border #D5DADD */
-  --border-subtle:     #E8ECEF;   /* row dividers, card inner dividers */
-  --border:            #D5DADD;   /* 1px border */
-  --border-strong:     #B0B8BE;   /* input hover */
+  /* Borders */
+  --border-subtle:     #EAE9E6;   /* row dividers, card inner */
+  --border:            #E4E2DC;   /* 1px hairline border */
+  --border-strong:     #CFCBC2;   /* input hover, strong separators */
 
-  /* Text: #1D2D3E, secondary #556B82 */
-  --text:              #1D2D3E;
-  --text-secondary:    #556B82;
-  --text-tertiary:     #8494A5;
-  --text-disabled:     #A9B4BE;
+  /* Text */
+  --text:              #1C1B19;
+  --text-secondary:    #5F5C55;
+  --text-tertiary:     #8A8780;
+  --text-disabled:     #A19D94;
   --text-on-accent:    #FFFFFF;
 
-  /* One accent: Horizon blue #0070F2 */
-  --accent:            #0070F2;
-  --accent-hover:      #005FD1;
-  --accent-active:     #004EB0;
-  --accent-tint:       #EAF3FE;
-  --focus-ring:        #0070F2;
+  /* One accent: forest green */
+  --accent:            #1F5F4B;
+  --accent-hover:      #1A5242;
+  --accent-active:     #154038;
+  --accent-tint:       #E5F2EC;
+  --focus-ring:        #1F5F4B;
 
-  /* Semantic: negative #D20A0A, critical #E76500, positive #256F3A, informative #0070F2 */
-  --negative:          #D20A0A;  --negative-tint:    #FDEDED;
-  --critical:          #E76500;  --critical-tint:    #FDF3EB;
-  --positive:          #256F3A;  --positive-tint:    #EDF6EE;
-  --informative:       #0070F2;  --informative-tint: #EAF3FE;
+  /* Semantic */
+  --negative:          #B42318;  --negative-tint:    #FDECEA;
+  --critical:          #9A5B0A;  --critical-tint:    #FEF3E2;
+  --positive:          #2F7D4F;  --positive-tint:    #EAF5EE;
+  --informative:       #1F5F4B;  --informative-tint: #E5F2EC;
 
-  /* Chart categorical set */
-  --chart-1:           #0070F2;
-  --chart-2:           #0E8E8E;
-  --chart-3:           #E76500;
-  --chart-4:           #556B82;
-  --chart-5:           #256F3A;
-  --chart-6:           #C99A00;
-  --chart-grid:        #E8ECEF;
+  /* SOS severity (only place saturated fills appear) */
+  --sos-critical:      #B42318;
+  --sos-high:          #9A5B0A;
+  --sos-medium:        #1F5F4B;
+  --sos-low:           #5F5C55;
 
-  /* Radius: 8px on controls, 12px on containers */
-  --radius-control:    8px;
-  --radius-card:       12px;
-  --radius-container:  12px;
-  --radius-chip:       4px;
+  /* Radius */
+  --radius-sm:    4px;
+  --radius-md:    6px;
+  --radius-lg:    8px;
+  --radius-xl:    12px;
 
-  /* Elevation: Shadows ONLY on popovers and drawers; NO shadows on cards */
-  --shadow-xs:         none;
-  --shadow-menu:       0 4px 16px rgba(29, 45, 62, 0.12);
-  --shadow-dialog:     0 12px 32px rgba(29, 45, 62, 0.18);
-  --overlay:           rgba(29, 45, 62, 0.40);
+  /* Spacing grid: 4px base */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
 
-  /* Spacing: 4px base, Page padding 32px */
-  --space-1:           4px;
-  --space-2:           8px;
-  --space-3:           12px;
-  --space-4:           16px;
-  --space-5:           20px;
-  --space-6:           24px;
-  --space-8:           32px;
-  --space-10:          40px;
+  /* Shell */
+  --topbar-height:  56px;
+  --sidebar-width:  248px;
 
-  /* Layout dimensions */
-  --shell-height:      52px;
-  --sidebar-width:     256px;
-  --row-height:        48px;
-  --control-height:    40px;
+  /* Page */
+  --page-padding: 32px;
+
+  /* Elevation: only popovers and drawers */
+  --shadow-popover: 0 4px 16px 0 rgba(28,27,25,0.12);
+  --shadow-drawer:  0 0 24px 0 rgba(28,27,25,0.10);
 }

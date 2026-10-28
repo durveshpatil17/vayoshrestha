@@ -46,15 +46,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles: Record<string, string> = {
       primary:
-        'bg-accent text-text-on-accent hover:bg-accent-hover active:bg-accent-active disabled:bg-surface-subtle disabled:text-text-disabled',
+        'bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)] active:bg-[var(--accent-active)] disabled:bg-surface-subtle disabled:text-text-disabled',
       default:
-        'bg-surface text-accent border border-border-strong hover:bg-surface-hover hover:border-accent active:bg-accent-tint disabled:bg-surface-subtle disabled:text-text-disabled disabled:border-border-subtle',
+        'bg-surface text-[var(--text)] border border-[var(--border)] hover:bg-surface-hover hover:border-[var(--border-strong)] active:bg-[var(--accent-tint)] disabled:bg-surface-subtle disabled:text-text-disabled disabled:border-border-subtle',
       ghost:
-        'bg-transparent text-accent hover:bg-surface-hover active:bg-accent-tint disabled:text-text-disabled',
+        'bg-transparent hover:bg-surface-hover text-[var(--text-secondary)] active:bg-[var(--accent-tint)] disabled:text-text-disabled',
       destructive:
-        'bg-surface text-negative border border-negative hover:bg-negative-tint active:bg-negative-tint/80 disabled:bg-surface-subtle disabled:text-text-disabled disabled:border-border-subtle',
+        'bg-surface text-[var(--negative)] border border-[var(--negative)] hover:bg-[var(--negative-tint)] active:bg-[var(--negative-tint)] disabled:bg-surface-subtle disabled:text-text-disabled disabled:border-border-subtle',
       'destructive-confirm':
-        'bg-negative text-text-on-accent hover:opacity-90 active:opacity-95 disabled:bg-surface-subtle disabled:text-text-disabled',
+        'bg-[var(--negative)] text-white hover:opacity-90 active:opacity-95 disabled:bg-surface-subtle disabled:text-text-disabled',
     };
 
     const sizeStyles: Record<string, string> = {

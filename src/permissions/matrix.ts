@@ -3,7 +3,7 @@
  * Codifies Section 6.2 of the Master Specification into a typed, machine-readable matrix.
  */
 
-export type RoleCode = 'SA' | 'NM' | 'RA' | 'CM' | 'VF' | 'CT' | 'CD' | 'SC' | 'NK';
+export type RoleCode = 'SA' | 'NM' | 'RA' | 'CM' | 'VF' | 'CT' | 'CD' | 'SC' | 'NK' | 'PM' | 'SP' | 'FM';
 
 export interface RoleDefinition {
   code: RoleCode;
@@ -75,6 +75,27 @@ export const ROLES: Record<RoleCode, RoleDefinition> = {
     name: 'Next-of-Kin',
     description: 'Pre-registered family contact receiving transactional fallback SMS during data drops.',
     scopeDescription: 'No web login. Contact appears strictly as an SMS recipient.',
+    isStaff: false,
+  },
+  PM: {
+    code: 'PM',
+    name: 'Programme Manager',
+    description: 'Manages programmes, sessions, service catalogue, and partner relationships organisation-wide.',
+    scopeDescription: 'Organisation-wide access to programme and service data.',
+    isStaff: true,
+  },
+  SP: {
+    code: 'SP',
+    name: 'Service Partner',
+    description: 'External service partner organisation with access to assigned referrals and their own reports.',
+    scopeDescription: 'Assigned referrals only. External portal access.',
+    isStaff: false,
+  },
+  FM: {
+    code: 'FM',
+    name: 'Family Member',
+    description: 'Family member of a registered senior with consent-gated read access.',
+    scopeDescription: 'Linked senior(s) only, with explicit consent. Feature-flagged.',
     isStaff: false,
   },
 };
@@ -221,6 +242,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-02: Own account & security
@@ -234,6 +258,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['read', 'update'], scope: 'own' },
     SC: DENIED,
     NK: DENIED,
+    PM: { allowed: true, actions: ["read", "update"], scope: "own" },
+    SP: { allowed: true, actions: ["read", "update"], scope: "own" },
+    FM: { allowed: true, actions: ["read", "update"], scope: "own" },
   },
 
   // CAP-03: Chapters, regions, duty rosters
@@ -247,6 +274,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
     SC: DENIED,
     NK: DENIED,
+    PM: { allowed: true, actions: ["read", "update"], scope: "all" },
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-04: Senior profiles
@@ -260,6 +290,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: { allowed: true, actions: ['read', 'update'], scope: 'own' },
     NK: DENIED,
+    PM: { allowed: true, actions: ["read"], scope: "masked" },
+    SP: DENIED,
+    FM: { allowed: true, actions: ["read"], scope: "assigned" },
   },
 
   // CAP-05: Onboarding (funnel, sessions, assisted onboarding)
@@ -273,6 +306,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
     SC: { allowed: true, actions: ['create'], scope: 'own' },
     NK: DENIED,
+    PM: { allowed: true, actions: ["read"], scope: "all" },
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-06: Consent, language, opt-out
@@ -286,6 +322,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: { allowed: true, actions: ['read', 'update'], scope: 'own' },
     NK: DENIED,
+    PM: { allowed: true, actions: ["read"], scope: "all" },
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-07: Emergency contacts (next-of-kin)
@@ -299,6 +338,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: { allowed: true, actions: ['create', 'read', 'update'], scope: 'own' },
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-08: ABHA number, ABHA address, ABDM consent (structure only, Phase 2)
@@ -312,6 +354,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: { allowed: true, actions: ['read', 'update'], scope: 'own' },
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-09: Trigger SOS
@@ -325,6 +370,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: { allowed: true, actions: ['create'], scope: 'own' },
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-10: SOS alerts and cases
@@ -338,6 +386,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
     SC: { allowed: true, actions: ['read'], scope: 'own', qualifiers: ['status_only'] },
     NK: DENIED,
+    PM: { allowed: true, actions: ["read"], scope: "aggregates_only" },
+    SP: DENIED,
+    FM: { allowed: true, actions: ["read"], scope: "assigned", qualifiers: ["status_only"] },
   },
 
   // CAP-11: SOS escalation chain & SMS fallback log
@@ -351,6 +402,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-12: SOS settings (SLA, escalation chain, fallback behaviour, SMS wording)
@@ -364,6 +418,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-13: Drill mode events
@@ -377,6 +434,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: { allowed: true, actions: ["read"], scope: "all" },
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-14: Medication schedules (label + time)
@@ -390,6 +450,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: { allowed: true, actions: ['read', 'update'], scope: 'own', qualifiers: ['preferred_time'] },
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: { allowed: true, actions: ["read"], scope: "assigned" },
   },
 
   // CAP-15: Reminder templates (per language)
@@ -403,6 +466,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: { allowed: true, actions: ["read", "update"], scope: "all" },
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-16: Reminder & message delivery status
@@ -416,6 +482,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
     SC: DENIED,
     NK: DENIED,
+    PM: { allowed: true, actions: ["read"], scope: "all" },
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-17: Medication confirmations (adherence log)
@@ -429,6 +498,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
     SC: { allowed: true, actions: ['create', 'read'], scope: 'own' },
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: { allowed: true, actions: ["read"], scope: "assigned" },
   },
 
   // CAP-18: Vitals log (BP, glucose)
@@ -442,6 +514,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
     SC: { allowed: true, actions: ['create', 'read'], scope: 'own' },
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: { allowed: true, actions: ["read"], scope: "assigned" },
   },
 
   // CAP-19: Threshold rules (risk bands)
@@ -455,6 +530,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-20: Health flags / anomaly queue
@@ -468,6 +546,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
     SC: DENIED,
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-21: Wellness check-in calls (tasks and outcomes)
@@ -481,6 +562,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-22: Dashboards
@@ -494,6 +578,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
     SC: DENIED,
     NK: DENIED,
+    PM: { allowed: true, actions: ["read"], scope: "all" },
+    SP: { allowed: true, actions: ["read"], scope: "assigned" },
+    FM: DENIED,
   },
 
   // CAP-23: Pilot outcome reports
@@ -507,6 +594,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
     SC: DENIED,
     NK: DENIED,
+    PM: { allowed: true, actions: ["read", "export"], scope: "all" },
+    SP: { allowed: true, actions: ["read"], scope: "aggregates_only" },
+    FM: DENIED,
   },
 
   // CAP-24: Data exports (any)
@@ -520,6 +610,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: { allowed: true, actions: ['export'], scope: 'aggregates_only', qualifiers: ['pilot_summary'] },
     SC: { allowed: true, actions: ['export'], scope: 'own', qualifiers: ['my_data'] },
     NK: DENIED,
+    PM: { allowed: true, actions: ["export"], scope: "all" },
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-25: Audit logs
@@ -533,6 +626,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-26: Approvals queue
@@ -546,6 +642,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: { allowed: true, actions: ["read"], scope: "own" },
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-27: Onboarding script (WhatsApp flow)
@@ -559,6 +658,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: { allowed: true, actions: ["read"], scope: "all" },
+    SP: DENIED,
+    FM: DENIED,
   },
 
   // CAP-28: Integration & queue monitor
@@ -572,6 +674,9 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     CD: DENIED,
     SC: DENIED,
     NK: DENIED,
+    PM: DENIED,
+    SP: DENIED,
+    FM: DENIED,
   },
 };
 

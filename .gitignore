@@ -25,3 +25,5 @@ dist-ssr
 
 # Coverage directory
 coverage
+test-results/
+playwright-report/

@@ -11,18 +11,24 @@ export interface AuthUser {
   id: string;
   role: RoleCode;
   name?: string;
-  assignedCentres?: string[];
+  assignedRegion?: string;
+  assignedChapter?: string;
+  assignedCentres?: string[]; // backwards compatible with chapter/centre id
+  assignedSeniors?: string[];
   linkedSeniors?: string[];
 }
 
 export interface ResourceContext {
   id?: string;
+  regionId?: string;
+  chapterId?: string;
   centreId?: string;
   authorId?: string;
   requesterId?: string;
   assignedTo?: string;
   memberId?: string;
   status?: string;
+  resolvedAt?: string; // ISO date string when case was resolved
 }
 
 /**
@@ -45,13 +51,11 @@ export function hasPermission(
 
 /**
  * Authorizes a user against a capability, action, and resource context.
- * Enforces scope isolation:
- * - 'assigned_centres': CC and VF can only access resources matching assigned centres
- * - 'own': SC can only access own record
- * - 'linked_only': FM can only access linked seniors
- * - 'assigned_items': SP / CT can only access items assigned to them
- * - 'aggregates_only': CD can only read aggregate reporting
- * - Maker-checker: user cannot approve resource they authored/requested
+ * Enforces:
+ * - Default deny
+ * - Scope isolation (region, chapter, own, assigned, open_case_only)
+ * - Maker-checker rule (cannot approve own item)
+ * - CT 24h post-closure case expiry rule
  */
 export function authorize(
   user: AuthUser | null | undefined,
@@ -86,24 +90,27 @@ export function authorize(
     case 'all':
       return true;
 
-    case 'assigned_centres': {
-      if (!resource || !resource.centreId) return true; // generic view
-      const userCentres = user.assignedCentres || [];
-      return userCentres.includes(resource.centreId);
+    case 'region': {
+      if (!resource || !resource.regionId) return true; // generic view
+      return user.assignedRegion === resource.regionId;
+    }
+
+    case 'chapter': {
+      const targetChapter = resource?.chapterId || resource?.centreId;
+      if (!targetChapter) return true; // generic view
+      if (user.assignedChapter && user.assignedChapter === targetChapter) return true;
+      if (user.assignedCentres && user.assignedCentres.includes(targetChapter)) return true;
+      return false;
     }
 
     case 'own': {
-      if (!resource || !resource.id) return true;
-      return resource.id === user.id;
+      if (!resource) return true;
+      const targetId = resource.id || resource.memberId;
+      if (!targetId) return true;
+      return targetId === user.id;
     }
 
-    case 'linked_only': {
-      if (!resource || !resource.id) return true;
-      const linked = user.linkedSeniors || [];
-      return linked.includes(resource.id);
-    }
-
-    case 'assigned_items': {
+    case 'assigned': {
       if (!resource) return true;
       if (resource.assignedTo && resource.assignedTo !== user.id) {
         return false;
@@ -111,11 +118,25 @@ export function authorize(
       return true;
     }
 
-    case 'aggregates_only':
+    case 'open_case_only': {
+      if (!resource) return true;
+      // If case is closed, check if 24 hours have elapsed
+      if (resource.status === 'Resolved' || resource.status === 'Closed' || resource.status === 'Cancelled') {
+        if (resource.resolvedAt) {
+          const resolvedTime = new Date(resource.resolvedAt).getTime();
+          const elapsed = Date.now() - resolvedTime;
+          const twentyFourHoursMs = 24 * 60 * 60 * 1000;
+          if (elapsed > twentyFourHoursMs) {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      }
       return true;
+    }
 
-    case 'published_only':
-    case 'public_only':
+    case 'aggregates_only':
       return true;
 
     case 'masked':

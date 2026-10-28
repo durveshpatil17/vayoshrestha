@@ -1,15 +1,16 @@
-# VAYOSHRESHTHA — Design System & Visual Specification
+# VAYOSHRESHTHA — Design System & Visual Specification (v2 Pilot)
 
-This document codifies the design language for the Vayoshreshtha eldercare ecosystem, built for Vayoh Vikas.
+This document codifies the design language for the Vayoshreshtha eldercare ecosystem for the NGO Vayoh Vikas.
 
 ---
 
 ## 1. Aesthetic Philosophy & Brand Voice
-The visual design conveys **institutional trustworthiness, editorial calm, and accessibility**.
-- **Dense and functional** for staff who manage registrations, attendance, and audit trails.
-- **Spacious and crystal clear** for senior citizens and family members navigating programmes and help requests.
+The visual design conveys **institutional trustworthiness, editorial calm, and operational precision**.
+- **Dense and functional** for staff who manage registrations, SOS emergencies, vital logs, and audit trails.
+- **Spacious and crystal clear** for senior citizens navigating the WhatsApp channel.
 - **Strictly White Theme**: Crisp backgrounds `#FFFFFF` with muted surfaces `#F7F6F3` and subtle 1px border lines `#E4E2DC`.
-- **Zero Decorative Noise**: No glassmorphism, no neon glows, no gradient buttons, no blue accents, no floating 3D spheres, no stock photography.
+- **Zero Decorative Noise**: No glassmorphism, no neon glows, no gradient buttons, no blue accents, no floating 3D spheres, no stock photography, no emoji in app chrome.
+- **SOS Urgency Without Strobing**: The SOS board achieves urgency through clean typographic hierarchy, a persistent red banner, a distinct row highlight, an optional chime (off by default, toggle in top bar), and a browser tab title badge `(🚨 X)`. Respects `prefers-reduced-motion`.
 
 ---
 
@@ -32,13 +33,13 @@ The visual design conveys **institutional trustworthiness, editorial calm, and a
 | Semantic Success BG| `--color-success-bg` | `#EAF5EE` | Success badge background |
 | Semantic Warning | `--color-warning` | `#9A5B0A` | Pending approvals, SLA due soon |
 | Semantic Warning BG| `--color-warning-bg` | `#FEF3E2` | Warning badge background |
-| Semantic Danger | `--color-danger` | `#B42318` | Destructive actions, SLA breached, errors |
+| Semantic Danger | `--color-danger` | `#B42318` | Destructive actions, SLA breached, critical SOS |
 | Semantic Danger BG | `--color-danger-bg` | `#FDECEA` | Danger badge background |
 | Neutral / Info | `--color-info` | `#3F3D38` | Informational notices (Warm grey, never blue) |
 | Neutral / Info BG | `--color-info-bg` | `#F0EEE9` | Info container background |
 
 ### Earthy Categorical Chart Palette
-Calibrated for high contrast, color-blind safety, and direct label support:
+Calibrated for high contrast, color-blind safety, direct labels, and pattern fills:
 1. **Forest Green**: `#1F5F4B`
 2. **Ochre / Warm Amber**: `#B7791F`
 3. **Terracotta / Rust**: `#B4533A`
@@ -53,51 +54,60 @@ Calibrated for high contrast, color-blind safety, and direct label support:
 ### Fonts
 - **Headings (Editorial Anchor)**: `Source Serif 4`, weights 600 (Semi-bold), letter-spacing `-0.015em`.
 - **UI & Data Body**: `IBM Plex Sans`, weights 400 (Regular), 500 (Medium), 600 (Semi-bold).
-- **Tabular Numerals**: Standard `font-feature-settings: "tnum" 1` for all counts, percentages, and financial values.
-- **Indian Regional Text**: `Noto Sans Devanagari` fallback for Hindi and Marathi scripts.
+- **Tabular Numerals**: Standard `font-feature-settings: "tnum" 1` for all counts, timestamps, percentages, and metrics.
+- **Indian Regional Text**: `Noto Sans Devanagari / Kannada / Tamil` fallback.
 
 ### Scale Rules
 - **Staff Interfaces**: Base font 14px / line-height 20px. Target size >= 32px.
-- **Senior & Family Interfaces (`/me/*`, `/family/*`)**: Base font 18px / line-height 26px. Target size >= 48px.
-- **Accessibility Text Scaler**: Header toggle offering standard, medium (+2px), and large (+4px) text modes.
+- **Senior Mode (Simulator)**: 18px base text scalable to 22px (`.senior-text-normal`, `.senior-text-large`, `.senior-text-xlarge`).
 
 ---
 
-## 4. Layout Dimensions & 8-pt Grid
-- **Global Canvas**: Optimized for 1440×900 desktop (min-width 1280px).
-- **Prototype Watermark Ribbon**: Fixed 26px top banner: *"Vayoshreshtha Prototype · Synthetic Data Only · Vayoh Vikas NGO"*.
-- **Top Application Bar**: Fixed height 56px with Centre Switcher, Global Member Search, Notifications, Help, and Account Profile.
-- **Left Navigation Sidebar**: Fixed width 248px with collapsible role-filtered capability groups. Active links have a 2px left accent bar (`#1F5F4B`).
-- **Content Max Width**: 1280px centred with 24px horizontal padding.
-- **Border Radii**: 6px for interactive inputs, cards, and buttons; 4px for tags, chips, and small badges.
-- **Shadows**: Pure 1px hairline borders for resting states. Elevation shadows strictly reserved for modals (`box-shadow: 0 10px 25px -5px rgba(28, 27, 25, 0.1)`).
+## 4. Layout & Navigation Chrome
+
+- **Left Sidebar (248px)**: Grouped navigation links, permission-filtered, with a 2px forest green accent bar indicating the active route.
+- **Top Bar (56px)**:
+  - Chapter/Region switcher limited to assigned scope (`RA` sees own region; `CM`/`VF` sees own chapter).
+  - Global senior search (name, phone-last-4, membership ID, with masking and scope).
+  - **SOS Status Indicator**: Live counter pill showing open alerts (e.g. `🚨 2 Open`), clicking navigates directly to `/sos`.
+  - Notification bell with unread badge.
+  - Chime toggle (Muted by default; respects user preference).
+  - Help link and User Profile dropdown.
+- **Prototype Ribbon**: Fixed 20px banner across the top: *"Prototype · synthetic data only"*.
+- **Content Area**: Max width 1280px on 1440×900 desktop viewport, with standardized PageHeader (breadcrumb, serif title, subtitle, primary action button).
 
 ---
 
-## 5. Reusable Component Rules
+## 5. UI Component Patterns
 
-1. **Four States Required on Every View**:
-   - **Loading**: Structured skeleton placeholders matching layout dimensions (no spinning loaders).
-   - **Empty**: Contextual single-sentence explanation + primary action button.
-   - **Error**: Clear error message + "Retry Request" button.
-   - **403 Forbidden**: Explicit badge citing the missing permission and active role, with a "Return to Dashboard" CTA.
-2. **Standard List Views**:
-   - Filter bar with quick search, multi-select dropdowns, active chips, and clear filters.
-   - Sticky table header, column sorting, pagination controls (25 / 50 / 100).
-   - Checkbox multi-select with floating bulk-action toolbar.
-3. **Standard Detail Views**:
-   - Breadcrumb navigation.
-   - Header with prominent status chip, key metadata tags, and primary action buttons.
-   - Tabbed panels for deep information architecture (Overview, Attendance, Consents, Audit).
-4. **Forms & Inputs**:
-   - Single-column flow up to 640px max width.
-   - Labels positioned above fields with distinct helper and error text.
-   - Destructive dialogs require typed confirmation string (e.g., "DEACTIVATE").
+### Data Lists & Tables
+- Title + count header, filter bar (search input, status/language filters, saved views).
+- Sticky header table, sortable columns, row hover actions, pagination (25/50/100).
+- Virtualised rendering for large rosters.
+- Permission-gated export modal requiring a typed business reason.
+
+### Status Chips
+- Clean typography with subtle tinted backgrounds (e.g., `#EAF5EE` for active, `#FEF3E2` for watch/pending).
+- Critical SOS severity is the only place solid `#B42318` fill is utilized.
+
+### The Four Universal States
+Every data view must explicitly handle all four states:
+1. **Loading**: Structural skeletons mimicking the target layout.
+2. **Empty**: One descriptive sentence + one obvious primary call-to-action.
+3. **Error**: Plain explanation of failure + "Retry" button.
+4. **No-Permission (403)**: Specific notice stating missing capability and user's current role, with a clear link to return.
+
+### Simulator Styling
+- Phone frame layout representing the WhatsApp chat interface without proprietary brand marks.
+- Green message bubbles (`#E8F1ED`), quick-reply action buttons, timestamps (IST format `5:30 PM`), and checkmark delivery indicators.
 
 ---
 
-## 6. Accessibility & WCAG 2.2 AA Compliance
-- Focus ring: 2px solid `#1F5F4B` with 2px offset.
-- Contrast ratio: Minimum 4.5:1 for standard text, 3:1 for large text and key UI borders.
-- Full keyboard operability for dialogs, dropdowns, and virtualized tables.
-- All icons paired with screen-reader labels or visible text.
+## 6. Design Checklist (Verified in Every Loop)
+- [ ] Visual hierarchy instantly obvious in under 3 seconds.
+- [ ] Exactly one primary action button per view.
+- [ ] All table numbers tabular and right-aligned.
+- [ ] No truncated labels or broken wrapping.
+- [ ] All four states (loading, empty, error, 403) cleanly handled.
+- [ ] Zero banned styles (no purple/blue gradients, no neon glows, no glassmorphism).
+- [ ] WCAG 2.2 AA contrast passed (≥ 4.5:1 text, visible 2px focus ring).

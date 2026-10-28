@@ -112,3 +112,4 @@ export const ConsentsPage: React.FC = () => {
     </div>
   );
 };
+

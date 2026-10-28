@@ -6,8 +6,13 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['IBM Plex Sans', 'Noto Sans Devanagari', 'Noto Sans Kannada', 'Noto Sans Tamil', ...defaultTheme.fontFamily.sans],
-        serif: ['Source Serif 4', 'IBM Plex Sans', ...defaultTheme.fontFamily.serif],
+        sans: [
+          'Open Sans',
+          'Noto Sans Devanagari',
+          'Noto Sans Kannada',
+          'Noto Sans Tamil',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
       colors: {
         canvas:    'var(--canvas)',
@@ -31,19 +36,24 @@ export default {
         'critical-tint': 'var(--critical-tint)',
         positive:  'var(--positive)',
         'positive-tint': 'var(--positive-tint)',
+        informative: 'var(--informative)',
+        'informative-tint': 'var(--informative-tint)',
       },
       borderRadius: {
-        DEFAULT: 'var(--radius-md)',
-        sm: 'var(--radius-sm)',
-        md: 'var(--radius-md)',
-        lg: 'var(--radius-lg)',
-        xl: 'var(--radius-xl)',
+        DEFAULT: '8px',
+        control: '8px',
+        container: '12px',
+        sm: '4px',
+        md: '8px',
+        lg: '8px',
+        xl: '12px',
+        chip: '16px',
       },
       spacing: {
         '4.5': '18px',
         '13': '52px',
         '14': '56px',
-        '62': '248px',
+        '64': '256px',
       },
       boxShadow: {
         popover: 'var(--shadow-popover)',

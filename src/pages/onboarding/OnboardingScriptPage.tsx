@@ -205,20 +205,20 @@ export const OnboardingScriptPage: React.FC = () => {
             </div>
 
             {/* Simulated Chat Feed */}
-            <div className="p-4 bg-[#F2EFE9] space-y-3 min-h-[360px] max-h-[420px] overflow-y-auto rounded-b-lg">
+            <div className="p-4 bg-surface-subtle space-y-3 min-h-[360px] max-h-[420px] overflow-y-auto rounded-b-lg">
               <div className="text-[10px] text-center text-text-muted">Today</div>
 
               {script.steps.slice(0, activeStepIndex + 1).map((st) => (
                 <div key={st.stepNumber} className="space-y-2">
                   {/* Bot Message Bubble */}
-                  <div className="max-w-[85%] bg-white p-3 rounded-lg shadow-2xs border border-black/5 text-xs text-text-primary">
+                  <div className="max-w-[85%] bg-white p-3 rounded-lg border border-border text-xs text-text">
                     <p>{st.promptText[selectedLanguage] || st.promptText.English}</p>
                     <span className="text-[9px] text-text-muted block text-right mt-1">9:42 AM</span>
                   </div>
 
                   {/* Simulated Senior Reply (Placeholder preview) */}
                   {st.stepNumber <= activeStepIndex && (
-                    <div className="max-w-[80%] ml-auto bg-[#E8F1ED] p-2.5 rounded-lg shadow-2xs text-xs text-text-primary text-right">
+                    <div className="max-w-[80%] ml-auto bg-surface-selected p-2.5 rounded-lg text-xs text-text text-right">
                       <p>
                         {st.stepNumber === 1
                           ? 'YES, I consent'

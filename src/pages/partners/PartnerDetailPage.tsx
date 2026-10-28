@@ -108,3 +108,4 @@ export const PartnerDetailPage: React.FC = () => {
     </div>
   );
 };
+

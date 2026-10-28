@@ -127,3 +127,4 @@ export const ComplaintNewPage: React.FC = () => {
     </div>
   );
 };
+

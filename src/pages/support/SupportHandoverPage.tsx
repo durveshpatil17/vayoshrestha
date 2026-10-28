@@ -66,3 +66,4 @@ export const SupportHandoverPage: React.FC = () => {
     </div>
   );
 };
+

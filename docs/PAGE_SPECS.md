@@ -8,7 +8,7 @@ This document contains interaction, layout, and authorization specifications for
 
 ### 1. `/login`
 - **Roles**: All Staff (SA, NM, RA, CM, VF, CT, CD)
-- **Layout**: Centred card (max-width 420px) on subtle background `#F7F6F3`.
+- **Layout**: Centred card (max-width 420px) on subtle background `#F5F6F7`.
 - **Elements**: 
   - Vayoh Vikas institutional crest, title "Vayoshreshtha Staff Portal".
   - Email and password input with show/hide password toggle.
@@ -44,8 +44,8 @@ This document contains interaction, layout, and authorization specifications for
 ## Group B: Shell & Global Chrome
 
 ### 7. Global App Shell
-- **Sidebar (248px)**: Role-filtered navigation links with 2px forest green active indicator bar.
-- **Top Bar (56px)**:
+- **Sidebar (256px)**: Role-filtered navigation links with Horizon blue `#0070F2` selection fill and text.
+- **Top Bar (52px)**:
   - **Scope Switcher**: Regional Admins see assigned region; Chapter Managers and Volunteers see assigned chapter.
   - **Global Senior Search**: Debounced search by Name, Phone last 4, or Member ID, obeying field masking and scope isolation.
   - **Live SOS Indicator**: Real-time counter pill (e.g. `🚨 2 Open`) linked directly to `/sos`.

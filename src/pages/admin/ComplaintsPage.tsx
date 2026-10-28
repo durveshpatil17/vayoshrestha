@@ -55,3 +55,4 @@ export const ComplaintsPage: React.FC = () => {
     </div>
   );
 };
+

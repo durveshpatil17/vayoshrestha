@@ -116,3 +116,4 @@ export const CommunicationHubPage: React.FC = () => {
     </div>
   );
 };
+

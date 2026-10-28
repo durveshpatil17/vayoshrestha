@@ -69,3 +69,4 @@ export const TemplateDetailPage: React.FC = () => {
     </div>
   );
 };
+

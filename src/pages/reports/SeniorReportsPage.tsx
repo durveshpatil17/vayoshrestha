@@ -65,3 +65,4 @@ export const SeniorReportsPage: React.FC = () => {
     </div>
   );
 };
+

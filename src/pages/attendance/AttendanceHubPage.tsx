@@ -82,3 +82,4 @@ export const AttendanceHubPage: React.FC = () => {
     </div>
   );
 };
+

@@ -33,7 +33,7 @@ export const ChapterDetailPage: React.FC = () => {
   if (!chapter) {
     return (
       <div className="p-8 text-center">
-        <h2 className="text-xl font-serif font-semibold">Chapter not found</h2>
+        <h2 className="text-xl font-semibold">Chapter not found</h2>
         <Link to="/chapters" className="text-[var(--accent)] text-sm mt-2 inline-block">Back to chapters</Link>
       </div>
     );
@@ -321,3 +321,4 @@ export const ChapterDetailPage: React.FC = () => {
     </div>
   );
 };
+

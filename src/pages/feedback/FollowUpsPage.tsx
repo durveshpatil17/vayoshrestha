@@ -53,3 +53,4 @@ export const FollowUpsPage: React.FC = () => {
     </div>
   );
 };
+

@@ -23,3 +23,4 @@ try {
   console.error('❌  ledger-check failed:', err.message);
   process.exit(1);
 }
+

@@ -63,3 +63,4 @@ export const DataGovernancePage: React.FC = () => {
     </div>
   );
 };
+

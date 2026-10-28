@@ -43,3 +43,4 @@ export const AttendanceReportsPage: React.FC = () => {
     </div>
   );
 };
+

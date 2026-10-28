@@ -119,3 +119,4 @@ export const ReferralNewPage: React.FC = () => {
     </div>
   );
 };
+

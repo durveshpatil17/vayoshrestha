@@ -32,3 +32,4 @@ try {
   console.error('❌  route-manifest-check failed:', err.message);
   process.exit(1);
 }
+

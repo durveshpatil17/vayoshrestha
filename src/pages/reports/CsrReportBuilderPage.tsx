@@ -64,11 +64,11 @@ export const CsrReportBuilderPage: React.FC = () => {
       </Card>
 
       {/* Generated Report Preview (Printable) */}
-      <div className="p-8 rounded-xl bg-surface border border-[var(--border)] space-y-6 shadow-sm">
+      <div className="p-8 rounded-xl bg-surface border border-[var(--border)] space-y-6">
         <div className="border-b border-[var(--border)] pb-4 flex items-start justify-between">
           <div>
             <span className="text-xs text-[var(--text-secondary)] font-semibold block">Vayoh Vikas NGO</span>
-            <h2 className="text-xl font-serif font-semibold text-[var(--text)] mt-1">CSR Impact & Milestone Compliance Report</h2>
+            <h2 className="text-xl font-semibold text-[var(--text)] mt-1">CSR Impact & Milestone Compliance Report</h2>
             <div className="text-xs text-[var(--text-secondary)] mt-0.5">
               Grantee: <strong>Vayoh Vikas</strong> • Donor: <strong>{donor}</strong> • Period: <strong>{cycle}</strong>
             </div>

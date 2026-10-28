@@ -10,8 +10,8 @@ export const ScPortal: React.FC = () => {
     <div className={`max-w-3xl mx-auto space-y-6 py-6 px-4 ${largeText ? 'text-lg' : 'text-base'}`}>
       <div className="bg-surface rounded-xl border border-[var(--border)] p-6 flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-serif font-semibold text-[var(--text)]">
-            Namaste, Kamala Ji 🙏
+          <h1 className="text-2xl font-semibold text-[var(--text)]">
+            Namaste, Kamala Ji
           </h1>
           <p className="text-sm text-[var(--text-secondary)] mt-1">
             Ekta Hub: <strong>Pune Centre</strong> • Member ID: <span className="tabular-nums">VV-PUN-0012</span>
@@ -73,7 +73,7 @@ export const ScPortal: React.FC = () => {
       </div>
 
       <div className="bg-surface rounded-xl border border-[var(--border)] p-6">
-        <h2 className="text-lg font-serif font-semibold text-[var(--text)] mb-3">Need assistance?</h2>
+        <h2 className="text-lg font-semibold text-[var(--text)] mb-3">Need assistance?</h2>
         <p className="text-sm text-[var(--text-secondary)] mb-4">
           Your Ekta Hub coordinator is here to support you at any time.
         </p>
@@ -93,3 +93,4 @@ export const ScPortal: React.FC = () => {
     </div>
   );
 };
+

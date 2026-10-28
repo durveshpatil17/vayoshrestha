@@ -109,3 +109,4 @@ export const AttendanceHistoryPage: React.FC = () => {
     </div>
   );
 };
+

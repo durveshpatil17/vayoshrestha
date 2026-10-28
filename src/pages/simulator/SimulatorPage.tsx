@@ -688,7 +688,7 @@ export const SimulatorPage: React.FC = () => {
                       msg.sender === 'USER'
                         ? 'bg-[#DCF8C6] text-[#111]'
                         : msg.isSosAck
-                        ? 'bg-[#FDECEA] border border-danger/30 text-danger font-medium'
+                        ? 'bg-negative-tint border border-negative/30 text-negative font-medium'
                         : 'bg-white text-[#111] border border-black/5'
                     }`}
                   >
@@ -807,7 +807,7 @@ export const SimulatorPage: React.FC = () => {
             <span className="text-[10px] text-success tabular-nums">● LIVE</span>
           </div>
 
-          <div className="bg-[#1C1B19] text-[#E4E2DC] rounded-xl p-3 tabular-nums text-[11px] h-[650px] overflow-y-auto border border-[#3F3D38] space-y-2.5">
+          <div className="bg-[#1C1B19] text-[#D5DADD] rounded-xl p-3 tabular-nums text-[11px] h-[650px] overflow-y-auto border border-[#3F3D38] space-y-2.5">
             <div className="text-[10px] text-[#888] border-b border-[#333] pb-1.5">
               // Event pipeline telemetry (BroadcastChannel & Gateway logs)
             </div>

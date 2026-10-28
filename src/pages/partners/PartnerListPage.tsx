@@ -59,3 +59,4 @@ export const PartnerListPage: React.FC = () => {
     </div>
   );
 };
+

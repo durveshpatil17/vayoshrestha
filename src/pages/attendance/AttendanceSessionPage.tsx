@@ -185,3 +185,4 @@ export const AttendanceSessionPage: React.FC = () => {
     </div>
   );
 };
+

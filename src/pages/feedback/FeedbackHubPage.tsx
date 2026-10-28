@@ -73,3 +73,4 @@ export const FeedbackHubPage: React.FC = () => {
     </div>
   );
 };
+

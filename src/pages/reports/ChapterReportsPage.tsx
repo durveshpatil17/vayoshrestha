@@ -64,3 +64,4 @@ export const ChapterReportsPage: React.FC = () => {
     </div>
   );
 };
+

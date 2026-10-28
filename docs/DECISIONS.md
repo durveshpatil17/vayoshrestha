@@ -113,3 +113,23 @@ This document records architectural, UX, data-model, security, and scope decisio
     3. `scripts/ratchet-check.mjs` verifying that metrics (`routes_registered`, `ledger_built`, `tests_passing`, `permission_cells`) never decrease.
 - **Rationale**: Ensures continuous cumulative growth and prevents unintended code regressions.
 
+---
+
+## Decision 011: SAP Fiori Horizon Shell + AWS Cloudscape Data Patterns (White Theme Realignment)
+- **Date**: 2026-10-28
+- **Context**: Per user instruction (PATCH 1, 2, and 3), Section 4 of the master prompt was completely replaced with the SAP Fiori Horizon Shell and AWS Cloudscape Data Patterns specification. The old "Banned: any blue accent / blue links" rules and previous tokens were deleted.
+- **Decision**:
+  - Replaced design tokens with official Fiori/Cloudscape variables:
+    - Canvas `#F5F6F7`, Surface `#FFFFFF`, Border 1px `#D5DADD`, Text `#1D2D3E`, Secondary text `#556B82`.
+    - Single accent: Horizon blue `#0070F2` (hover `#005FD1`, active `#004EB0`, tint `#EBF4FE`).
+    - Semantic: Negative `#D20A0A` (`#FDEDED`), Critical `#E76500` (`#FEF3EB`), Positive `#256F3A` (`#EDF7ED`), Informative `#0070F2` (`#EBF4FE`).
+    - Radius: 8px on controls, 12px on containers. Shadows only on popovers and drawers.
+    - 4px spacing grid. Page padding 32px.
+  - Typography: ONE family, Open Sans (self-hosted), with Noto Sans Devanagari, Kannada, and Tamil at matching weights. Sizes 12 / 14 / 16 / 20 / 28. Weights 400 and 600 only. Banned serif and monospace.
+  - Shell (Fiori): 52px white shell bar with 1px bottom border, 256px side navigation with light blue tint fill and blue text for selected items.
+  - Dashboards (Patch 3): At most 3 to 4 numeric tiles for persona primary measures, everything else as Cloudscape key-value lists or tables. "Needs attention" as actionable row lists.
+  - Loop Protocol (Patch 2): Replaced steps 5 to 7 with the strict Gate (tsc, ESLint, design-lint, unit/integration tests, axe zero serious/critical, Playwright layout check at 1440x900) and design critique (Pattern test and Flop test, score >= 8).
+  - Design Lint: Updated `scripts/design-lint.mjs` to strictly enforce these tokens and fail on hex colors outside tokens, serif, monospace, gradients, uppercase/tracking, and shadows outside popovers/drawers.
+- **Rationale**: Complies with Patch 1, Patch 2, and Patch 3 requirements for enterprise-grade product precision.
+
+

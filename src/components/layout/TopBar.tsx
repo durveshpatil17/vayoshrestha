@@ -102,7 +102,7 @@ export const TopBar: React.FC = () => {
     : [];
 
   return (
-    <header className="h-[56px] bg-surface border-b border-border px-8 flex items-center justify-between gap-6 z-20 shrink-0 select-none">
+    <header className="h-[52px] bg-surface border-b border-border px-8 flex items-center justify-between gap-6 z-20 shrink-0 select-none">
       {/* Left: Brand mark + Scope switcher */}
       <div className="flex items-center gap-6">
         <div className="flex items-baseline gap-2 cursor-pointer" onClick={() => navigate('/')}>

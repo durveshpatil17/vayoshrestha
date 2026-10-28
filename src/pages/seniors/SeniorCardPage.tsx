@@ -42,10 +42,10 @@ export const SeniorCardPage: React.FC = () => {
       />
 
       {/* Printable ID Card (Standard 85.6mm x 53.98mm credit card proportion) */}
-      <div className="p-6 rounded-2xl bg-surface border-2 border-[var(--border)] shadow-sm space-y-4 max-w-md mx-auto">
+      <div className="p-6 rounded-2xl bg-surface border-2 border-[var(--border)] space-y-4 max-w-md mx-auto">
         <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[var(--surface-selected)] flex items-center justify-center text-[var(--accent)] font-serif font-semibold">
+            <div className="w-8 h-8 rounded-full bg-[var(--surface-selected)] flex items-center justify-center text-[var(--accent)] font-semibold">
               व
             </div>
             <div>

@@ -136,3 +136,4 @@ export const SessionDetailPage: React.FC = () => {
     </div>
   );
 };
+

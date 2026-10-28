@@ -64,3 +64,4 @@ export const SupportRequestsPage: React.FC = () => {
     </div>
   );
 };
+

@@ -67,7 +67,7 @@ export const Sidebar: React.FC = () => {
   // Dedicated sidebar for Senior Citizen (SC)
   if (user.role === 'SC') {
     return (
-      <aside className="w-[248px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
+      <aside className="w-[256px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
         <div className="p-3 border-b border-border-subtle">
           <NavLink
             to="/"
@@ -210,7 +210,7 @@ export const Sidebar: React.FC = () => {
   // Dedicated sidebar for Family Member (FM)
   if (user.role === 'FM') {
     return (
-      <aside className="w-[248px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
+      <aside className="w-[256px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
         <div className="p-3 border-b border-border-subtle">
           <NavLink
             to="/"
@@ -262,7 +262,7 @@ export const Sidebar: React.FC = () => {
   // Dedicated sidebar for External Service Partner (SP)
   if (user.role === 'SP') {
     return (
-      <aside className="w-[248px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
+      <aside className="w-[256px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
         <div className="p-3 border-b border-border-subtle">
           <NavLink
             to="/partner/home"
@@ -675,7 +675,7 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-[248px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
+    <aside className="w-[256px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
       {/* Home Link */}
       <div className="p-3 border-b border-border-subtle">
         <NavLink

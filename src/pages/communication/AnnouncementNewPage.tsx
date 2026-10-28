@@ -110,3 +110,4 @@ export const AnnouncementNewPage: React.FC = () => {
     </div>
   );
 };
+

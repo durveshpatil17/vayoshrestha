@@ -104,7 +104,7 @@ export const ExportDialog: React.FC<ExportDialogProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-      <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 shadow-xl space-y-4">
+      <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 shadow-popover space-y-4">
         <div className="flex items-center justify-between border-b border-border-hairline pb-3">
           <h3 className="font-semibold text-base text-text-primary flex items-center gap-2">
             <Download className="w-4 h-4 text-accent" />

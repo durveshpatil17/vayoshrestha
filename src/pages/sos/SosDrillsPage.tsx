@@ -123,7 +123,7 @@ export const SosDrillsPage: React.FC = () => {
             <CheckCircle2 className="w-4 h-4 text-accent" />
             {feedback}
           </span>
-          <button onClick={() => setFeedback(null)} className="font-bold underline ml-2">
+          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
             Dismiss
           </button>
         </div>
@@ -133,7 +133,7 @@ export const SosDrillsPage: React.FC = () => {
       <div className="p-4 bg-amber-50 border border-amber-200 rounded text-xs text-amber-900 flex items-start gap-3">
         <Info className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
         <div>
-          <span className="font-bold text-amber-950 block">Audit & Reporting Isolation:</span>
+          <span className="font-semibold text-amber-950 block">Audit & Reporting Isolation:</span>
           All drill events are tagged with <code>isDrill = true</code> and are automatically excluded
           from real donor KPI reports, official incident rates, and SLA breach penalties.
         </div>
@@ -144,7 +144,7 @@ export const SosDrillsPage: React.FC = () => {
         onSubmit={handleLaunchDrill}
         className="bg-white border border-border-hairline rounded p-5 space-y-4"
       >
-        <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+        <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
           <Radio className="w-4 h-4 text-accent" />
           Launch New Operational Drill
         </h3>
@@ -209,7 +209,7 @@ export const SosDrillsPage: React.FC = () => {
       {/* Drill Results Log */}
       <div className="bg-white border border-border-hairline rounded overflow-hidden">
         <div className="p-4 border-b border-border-hairline flex items-center justify-between">
-          <h3 className="font-serif font-bold text-sm text-text-primary">
+          <h3 className="font-semibold text-sm text-text-primary">
             Past Drill Exercises ({drillEvents.length})
           </h3>
           <span className="text-xs text-text-muted">Filtered by isDrill = true</span>
@@ -242,8 +242,8 @@ export const SosDrillsPage: React.FC = () => {
 
                   return (
                     <tr key={ev.id} className="hover:bg-surface-subtle">
-                      <td className="py-2.5 px-4 font-mono font-bold text-text-primary">{ev.id}</td>
-                      <td className="py-2.5 px-4 font-mono text-text-muted">
+                      <td className="py-2.5 px-4 tabular-nums font-semibold text-text-primary">{ev.id}</td>
+                      <td className="py-2.5 px-4 tabular-nums text-text-muted">
                         {new Date(ev.triggeredAt).toLocaleString('en-IN', {
                           timeZone: 'Asia/Kolkata',
                           dateStyle: 'short',
@@ -254,12 +254,12 @@ export const SosDrillsPage: React.FC = () => {
                         <span className="font-medium text-text-primary block">
                           {senior?.fullName || 'Test Senior'}
                         </span>
-                        <span className="text-[11px] font-mono text-text-muted">
+                        <span className="text-[11px] tabular-nums text-text-muted">
                           {senior ? maskPhoneNumber(senior.phoneNumber) : 'N/A'}
                         </span>
                       </td>
                       <td className="py-2.5 px-4">{ev.chapterId}</td>
-                      <td className="py-2.5 px-4 font-mono text-accent">{ev.latencyMs} ms</td>
+                      <td className="py-2.5 px-4 tabular-nums text-accent">{ev.latencyMs} ms</td>
                       <td className="py-2.5 px-4">
                         {ev.cellularFallbackTriggered ? (
                           <span className="text-accent font-medium text-[11px]">SMS Dispatched</span>

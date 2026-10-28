@@ -90,25 +90,25 @@ export const SosHistoryPage: React.FC = () => {
       {/* Aggregate metric cards */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-bold text-text-muted uppercase">Total Logged</span>
-          <div className="text-xl font-bold font-mono text-text-primary mt-1">{totalEvents}</div>
+          <span className="text-[11px] font-semibold text-text-muted">Total Logged</span>
+          <div className="text-xl font-semibold tabular-nums text-text-primary mt-1">{totalEvents}</div>
           <span className="text-[10px] text-text-muted">Over 90-day pilot</span>
         </div>
         <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-bold text-text-muted uppercase">Real vs Drills</span>
-          <div className="text-xl font-bold font-mono text-accent mt-1">
+          <span className="text-[11px] font-semibold text-text-muted">Real vs Drills</span>
+          <div className="text-xl font-semibold tabular-nums text-accent mt-1">
             {realEvents} / {drillEvents}
           </div>
           <span className="text-[10px] text-text-muted">Excludes unverified</span>
         </div>
         <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-bold text-text-muted uppercase">Avg Alert Latency</span>
-          <div className="text-xl font-bold font-mono text-accent mt-1">{avgLatency} ms</div>
+          <span className="text-[11px] font-semibold text-text-muted">Avg Alert Latency</span>
+          <div className="text-xl font-semibold tabular-nums text-accent mt-1">{avgLatency} ms</div>
           <span className="text-[10px] text-success">Target: &lt; 1,000 ms</span>
         </div>
         <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-bold text-text-muted uppercase">SLA Compliance</span>
-          <div className="text-xl font-bold font-mono text-text-primary mt-1">
+          <span className="text-[11px] font-semibold text-text-muted">SLA Compliance</span>
+          <div className="text-xl font-semibold tabular-nums text-text-primary mt-1">
             {totalEvents > 0
               ? `${Math.round(((totalEvents - slaBreachedCount) / totalEvents) * 100)}%`
               : '100%'}
@@ -116,8 +116,8 @@ export const SosHistoryPage: React.FC = () => {
           <span className="text-[10px] text-text-muted">{slaBreachedCount} breaches</span>
         </div>
         <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-bold text-text-muted uppercase">Resolved Cases</span>
-          <div className="text-xl font-bold font-mono text-success mt-1">
+          <span className="text-[11px] font-semibold text-text-muted">Resolved Cases</span>
+          <div className="text-xl font-semibold tabular-nums text-success mt-1">
             {resolvedEvents.length}
           </div>
           <span className="text-[10px] text-text-muted">Confirmed safe</span>
@@ -195,8 +195,8 @@ export const SosHistoryPage: React.FC = () => {
 
                 return (
                   <tr key={ev.id} className="hover:bg-surface-subtle transition-colors">
-                    <td className="py-3 px-4 font-mono font-bold text-text-primary">{ev.id}</td>
-                    <td className="py-3 px-4 font-mono text-text-muted">
+                    <td className="py-3 px-4 tabular-nums font-semibold text-text-primary">{ev.id}</td>
+                    <td className="py-3 px-4 tabular-nums text-text-muted">
                       {new Date(ev.triggeredAt).toLocaleString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                         dateStyle: 'short',
@@ -207,23 +207,23 @@ export const SosHistoryPage: React.FC = () => {
                       <span className="font-medium text-text-primary block">
                         {senior?.fullName || 'Unknown'}
                       </span>
-                      <span className="text-[11px] font-mono text-text-muted">
+                      <span className="text-[11px] tabular-nums text-text-muted">
                         {senior ? maskPhoneNumber(senior.phoneNumber) : 'N/A'}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-text-primary">{ev.chapterId}</td>
                     <td className="py-3 px-4">
                       {ev.isDrill ? (
-                        <span className="px-2 py-0.5 text-[10px] bg-slate-100 text-slate-700 rounded font-semibold uppercase">
+                        <span className="px-2 py-0.5 text-[10px] bg-slate-100 text-slate-700 rounded font-semibold">
                           Drill
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 text-[10px] bg-red-100 text-red-700 rounded font-semibold uppercase">
+                        <span className="px-2 py-0.5 text-[10px] bg-red-100 text-red-700 rounded font-semibold">
                           Real
                         </span>
                       )}
                     </td>
-                    <td className="py-3 px-4 font-mono text-text-primary font-medium">
+                    <td className="py-3 px-4 tabular-nums text-text-primary font-medium">
                       {ev.latencyMs} ms
                     </td>
                     <td className="py-3 px-4">
@@ -237,7 +237,7 @@ export const SosHistoryPage: React.FC = () => {
                     </td>
                     <td className="py-3 px-4">
                       {ev.slaBreached ? (
-                        <span className="text-[11px] font-bold text-danger">Breached</span>
+                        <span className="text-[11px] font-semibold text-danger">Breached</span>
                       ) : (
                         <span className="text-[11px] text-success">Within SLA</span>
                       )}

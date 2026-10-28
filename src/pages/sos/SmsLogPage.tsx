@@ -85,7 +85,7 @@ export const SmsLogPage: React.FC = () => {
       {feedback && (
         <div className="p-3 bg-accent-tint border border-accent/20 rounded text-xs text-accent flex items-center justify-between">
           <span>{feedback}</span>
-          <button onClick={() => setFeedback(null)} className="font-bold underline ml-2">
+          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
             Dismiss
           </button>
         </div>
@@ -149,7 +149,7 @@ export const SmsLogPage: React.FC = () => {
               ) : (
                 filtered.map((rec) => (
                   <tr key={rec.id} className="hover:bg-surface-subtle">
-                    <td className="py-2.5 px-4 font-mono text-text-muted">
+                    <td className="py-2.5 px-4 tabular-nums text-text-muted">
                       {new Date(rec.dispatchedAt || rec.sentAt || Date.now()).toLocaleString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                         dateStyle: 'short',
@@ -159,17 +159,17 @@ export const SmsLogPage: React.FC = () => {
                     <td className="py-2.5 px-4">
                       <button
                         onClick={() => navigate(`/sos/${rec.sosEventId || rec.sosId}`)}
-                        className="font-mono font-bold text-accent hover:underline"
+                        className="tabular-nums font-semibold text-accent hover:underline"
                       >
                         {rec.sosEventId || rec.sosId}
                       </button>
                     </td>
-                    <td className="py-2.5 px-4 font-mono text-text-primary">
+                    <td className="py-2.5 px-4 tabular-nums text-text-primary">
                       {user?.role === 'SA'
                         ? (rec.recipientPhoneNumber || rec.recipientPhone || 'N/A')
                         : maskPhoneNumber(rec.recipientPhoneNumber || rec.recipientPhone || '')}
                     </td>
-                    <td className="py-2.5 px-4 font-mono text-[11px] text-text-muted">
+                    <td className="py-2.5 px-4 tabular-nums text-[11px] text-text-muted">
                       {rec.dltTemplateId}
                     </td>
                     <td className="py-2.5 px-4">
@@ -187,7 +187,7 @@ export const SmsLogPage: React.FC = () => {
                     <td className="py-2.5 px-4 text-text-muted text-[11px]">
                       {rec.triggerReason}
                     </td>
-                    <td className="py-2.5 px-4 font-mono text-text-muted">
+                    <td className="py-2.5 px-4 tabular-nums text-text-muted">
                       {rec.retryCount || 0}
                     </td>
                     <td className="py-2.5 px-4 text-right">

@@ -11,10 +11,10 @@ export const NotFoundPage: React.FC = () => {
       <div className="w-14 h-14 rounded-full bg-bg-subtle text-text-muted flex items-center justify-center mb-4 border border-border-hairline">
         <FileQuestion className="w-7 h-7" />
       </div>
-      <span className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">
+      <span className="text-xs font-semibold text-text-muted mb-1">
         HTTP 404
       </span>
-      <h1 className="font-serif text-2xl font-semibold text-text-primary mb-2">
+      <h1 className="text-2xl font-semibold text-text-primary mb-2">
         Page Not Found
       </h1>
       <p className="text-xs text-text-muted mb-6 leading-relaxed">

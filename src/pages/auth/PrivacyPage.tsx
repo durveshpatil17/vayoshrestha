@@ -18,10 +18,10 @@ export const PrivacyPage: React.FC = () => {
             <Shield className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">
+            <span className="text-xs font-semibold text-text-muted">
               Governance & Data Protection
             </span>
-            <h1 className="font-serif text-3xl font-semibold text-text-primary tracking-tight">
+            <h1 className="text-3xl font-semibold text-text-primary">
               Privacy & Consent Notice
             </h1>
           </div>
@@ -35,14 +35,14 @@ export const PrivacyPage: React.FC = () => {
 
         <div className="space-y-6 text-sm text-text-primary leading-relaxed">
           <section className="p-4 bg-bg-subtle rounded border border-border-hairline">
-            <h2 className="font-serif text-base font-semibold mb-2">1. Our Core Commitment to Senior Citizens</h2>
+            <h2 className="text-base font-semibold mb-2">1. Our Core Commitment to Senior Citizens</h2>
             <p className="text-xs text-text-muted leading-relaxed">
               At Vayoh Vikas, technology exists to support human field delivery, not replace it. We collect only minimal essential information to coordinate community programmes, ensure session safety, and facilitate voluntary health or legal assistance.
             </p>
           </section>
 
           <section>
-            <h2 className="font-serif text-lg font-semibold mb-3">2. Data Minimisation Principles</h2>
+            <h2 className="text-lg font-semibold mb-3">2. Data Minimisation Principles</h2>
             <ul className="space-y-2 text-xs text-text-muted">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />
@@ -60,7 +60,7 @@ export const PrivacyPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="font-serif text-lg font-semibold mb-3">3. Purpose of Processing</h2>
+            <h2 className="text-lg font-semibold mb-3">3. Purpose of Processing</h2>
             <p className="text-xs text-text-muted leading-relaxed mb-2">
               We process senior citizen information strictly for:
             </p>
@@ -73,7 +73,7 @@ export const PrivacyPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="font-serif text-lg font-semibold mb-3">4. Right to Withdraw Consent & "STOP" Messaging</h2>
+            <h2 className="text-lg font-semibold mb-3">4. Right to Withdraw Consent & "STOP" Messaging</h2>
             <p className="text-xs text-text-muted leading-relaxed">
               Any senior citizen or authorized proxy can withdraw communication consent at any time. Sending the word <strong>STOP</strong> to the Vayoh Vikas WhatsApp channel immediately halts automated messages without affecting community centre access.
             </p>
@@ -82,7 +82,7 @@ export const PrivacyPage: React.FC = () => {
           <section className="p-4 bg-bg-subtle rounded border border-border-hairline text-xs text-text-muted">
             <h3 className="font-semibold text-text-primary mb-1">Grievance Officer Contact</h3>
             <p>Adv. Smita Ranade · Data Protection Officer, Vayoh Vikas NGO</p>
-            <p>Email: <span className="font-mono text-text-primary">grievance@vayohvikas.org</span> · Phone: +91 98220 00100</p>
+            <p>Email: <span className="tabular-nums text-text-primary">grievance@vayohvikas.org</span> · Phone: +91 98220 00100</p>
           </section>
         </div>
       </main>

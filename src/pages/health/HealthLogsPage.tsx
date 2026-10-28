@@ -26,7 +26,7 @@ export const HealthLogsPage: React.FC = () => {
     return (
       <div className="p-8 text-center bg-white border border-border-hairline rounded max-w-md mx-auto my-12">
         <ShieldAlert className="w-8 h-8 text-danger mx-auto mb-3" />
-        <h3 className="font-serif font-bold text-base text-text-primary">
+        <h3 className="font-semibold text-base text-text-primary">
           Access Restricted: 403 Forbidden
         </h3>
         <p className="text-xs text-text-muted mt-1 leading-relaxed">
@@ -190,7 +190,7 @@ export const HealthLogsPage: React.FC = () => {
                       log.isFlagged ? 'bg-danger-surface/20' : ''
                     }`}
                   >
-                    <td className="py-2.5 px-4 font-mono text-text-muted">
+                    <td className="py-2.5 px-4 tabular-nums text-text-muted">
                       {new Date(log.recordedAt || log.loggedAt || Date.now()).toLocaleString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                         dateStyle: 'short',
@@ -198,10 +198,10 @@ export const HealthLogsPage: React.FC = () => {
                       })}
                     </td>
                     <td className="py-2.5 px-4">
-                      <span className="font-bold text-text-primary block">
+                      <span className="font-semibold text-text-primary block">
                         {senior?.fullName || 'Senior'}
                       </span>
-                      <span className="text-[11px] font-mono text-text-muted">
+                      <span className="text-[11px] tabular-nums text-text-muted">
                         {senior?.memberId}
                       </span>
                     </td>
@@ -213,7 +213,7 @@ export const HealthLogsPage: React.FC = () => {
                         ? 'Blood Glucose'
                         : 'Medication'}
                     </td>
-                    <td className="py-2.5 px-4 font-mono font-bold text-text-primary">
+                    <td className="py-2.5 px-4 tabular-nums font-semibold text-text-primary">
                       {log.systolic
                         ? `${log.systolic}/${log.diastolic} mmHg`
                         : log.glucoseValue
@@ -232,12 +232,12 @@ export const HealthLogsPage: React.FC = () => {
                         label={log.riskBand || 'NORMAL'}
                       />
                     </td>
-                    <td className="py-2.5 px-4 font-mono text-[11px] text-text-muted">
+                    <td className="py-2.5 px-4 tabular-nums text-[11px] text-text-muted">
                       "{log.rawText}"
                     </td>
                     <td className="py-2.5 px-4 text-right">
                       {log.isFlagged ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] text-danger font-bold">
+                        <span className="inline-flex items-center gap-1 text-[11px] text-danger font-semibold">
                           <AlertCircle className="w-3 h-3" /> Flagged
                         </span>
                       ) : (

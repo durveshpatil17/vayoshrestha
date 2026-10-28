@@ -188,17 +188,17 @@ export const SosBoardPage: React.FC = () => {
     <div className="space-y-6 max-w-7xl pb-16">
       {/* Non-strobing persistent red banner for active critical alerts */}
       {openEvents.length > 0 && (
-        <div className="bg-danger text-white rounded p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm border border-danger-dark">
+        <div className="bg-danger text-white rounded p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-danger-dark">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-white/10 rounded-full flex-shrink-0">
               <AlertOctagon className="w-6 h-6 text-white" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-sm tracking-wide uppercase">
+                <span className="font-semibold text-sm">
                   Active Emergency Alert ({openEvents.length})
                 </span>
-                <span className="px-2 py-0.5 bg-white/20 text-white rounded text-[11px] font-mono">
+                <span className="px-2 py-0.5 bg-white/20 text-white rounded text-[11px] tabular-nums">
                   SLA: 2 Min Max Response
                 </span>
               </div>
@@ -216,7 +216,7 @@ export const SosBoardPage: React.FC = () => {
                 setStatusFilter('ACTIVE_ONLY');
                 setTick((t) => t + 1);
               }}
-              className="bg-white text-danger hover:bg-white/90 font-bold border-transparent text-xs"
+              className="bg-white text-danger hover:bg-white/90 font-semibold border-transparent text-xs"
             >
               Focus Active Alerts
             </Button>
@@ -377,13 +377,13 @@ export const SosBoardPage: React.FC = () => {
                       {/* Age & SLA countdown */}
                       <td className="py-3 px-4">
                         <div className="flex flex-col">
-                          <span className="font-mono text-text-primary font-bold">
+                          <span className="tabular-nums text-text-primary font-semibold">
                             {getAgeDisplay(ev.triggeredAt)}
                           </span>
                           {ev.status !== 'RESOLVED' && ev.status !== 'CANCELLED_BY_SENIOR' && (
                             <span
-                              className={`text-[10px] font-mono mt-0.5 ${
-                                isSlaBreached ? 'text-danger font-bold' : 'text-text-muted'
+                              className={`text-[10px] tabular-nums mt-0.5 ${
+                                isSlaBreached ? 'text-danger font-semibold' : 'text-text-muted'
                               }`}
                             >
                               {isSlaBreached ? '⚠️ SLA BREACHED' : 'Ack SLA: < 2 min'}
@@ -398,12 +398,12 @@ export const SosBoardPage: React.FC = () => {
                           <span className="font-medium text-text-primary flex items-center gap-1.5">
                             {senior?.fullName || 'Unknown Senior'}
                             {ev.isDrill && (
-                              <span className="px-1.5 py-0.2 text-[9px] bg-slate-200 text-slate-700 rounded font-semibold uppercase">
+                              <span className="px-1.5 py-0.2 text-[9px] bg-slate-200 text-slate-700 rounded font-semibold">
                                 Drill
                               </span>
                             )}
                           </span>
-                          <span className="text-[11px] font-mono text-text-muted">
+                          <span className="text-[11px] tabular-nums text-text-muted">
                             {senior ? maskPhoneNumber(senior.phoneNumber) : 'N/A'}
                           </span>
                         </div>
@@ -476,7 +476,7 @@ export const SosBoardPage: React.FC = () => {
                               variant="primary"
                               size="sm"
                               onClick={() => handleAcknowledge(ev)}
-                              className="text-xs bg-danger hover:bg-danger/90 text-white font-bold px-2 py-1 h-7"
+                              className="text-xs bg-danger hover:bg-danger/90 text-white font-semibold px-2 py-1 h-7"
                             >
                               Acknowledge
                             </Button>
@@ -519,8 +519,8 @@ export const SosBoardPage: React.FC = () => {
       {/* Assignment Modal */}
       {assignModalEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="bg-white border border-border-hairline rounded-lg max-w-sm w-full p-5 shadow-xl space-y-4">
-            <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+          <div className="bg-white border border-border-hairline rounded-lg max-w-sm w-full p-5 space-y-4">
+            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
               <UserCheck className="w-4 h-4 text-accent" />
               Assign Case Responder
             </h3>

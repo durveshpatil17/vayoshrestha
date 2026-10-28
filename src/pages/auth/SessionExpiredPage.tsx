@@ -13,12 +13,12 @@ export const SessionExpiredPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-bg-base flex flex-col justify-between">
       <div className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-md bg-bg-base border border-border-strong rounded p-8 shadow-sm text-center">
+        <div className="w-full max-w-md bg-bg-base border border-border-strong rounded p-8 text-center">
           <div className="w-12 h-12 rounded-full bg-warning-bg text-warning flex items-center justify-center mx-auto mb-4 border border-warning/30">
             <Clock className="w-6 h-6" />
           </div>
 
-          <h2 className="font-serif text-2xl font-semibold text-text-primary tracking-tight mb-2">
+          <h2 className="text-2xl font-semibold text-text-primary mb-2">
             Session Expired
           </h2>
           <p className="text-xs text-text-muted mb-6 leading-relaxed">

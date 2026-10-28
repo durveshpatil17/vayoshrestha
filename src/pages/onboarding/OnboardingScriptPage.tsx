@@ -94,7 +94,7 @@ export const OnboardingScriptPage: React.FC = () => {
         {/* Left: Step Sequencer & Editor (7 cols) */}
         <div className="col-span-7 space-y-4">
           <div className="bg-white border border-border-hairline rounded p-4">
-            <div className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
+            <div className="text-xs font-semibold text-text-muted mb-3">
               Onboarding Script Sequence ({script.steps.length} Steps)
             </div>
 
@@ -185,9 +185,9 @@ export const OnboardingScriptPage: React.FC = () => {
 
         {/* Right: Live Interactive Phone Simulator Preview (5 cols) */}
         <div className="col-span-5">
-          <div className="bg-bg-subtle border border-border-hairline rounded-2xl p-4 shadow-sm max-w-sm mx-auto">
+          <div className="bg-bg-subtle border border-border-hairline rounded-2xl p-4 max-w-sm mx-auto">
             {/* Phone Bezel Top */}
-            <div className="flex justify-between items-center px-4 py-1 text-[10px] font-mono text-text-muted border-b border-border-hairline pb-2">
+            <div className="flex justify-between items-center px-4 py-1 text-[10px] tabular-nums text-text-muted border-b border-border-hairline pb-2">
               <span>9:41 AM</span>
               <div className="w-16 h-3 bg-border-hairline rounded-full" />
               <span>5G 100%</span>
@@ -195,7 +195,7 @@ export const OnboardingScriptPage: React.FC = () => {
 
             {/* Chat Header */}
             <div className="p-3 bg-white border-b border-border-hairline flex items-center gap-3 mt-2 rounded-t-lg">
-              <div className="w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center text-xs font-bold font-serif">
+              <div className="w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center text-xs font-semibold">
                 V
               </div>
               <div>

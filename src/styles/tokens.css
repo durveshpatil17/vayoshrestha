@@ -1,71 +1,67 @@
-@import '@fontsource/source-sans-3/400.css';
-@import '@fontsource/source-sans-3/500.css';
-@import '@fontsource/source-sans-3/600.css';
+@import '@fontsource/open-sans/400.css';
+@import '@fontsource/open-sans/600.css';
 @import '@fontsource/noto-sans-devanagari/400.css';
-@import '@fontsource/noto-sans-devanagari/500.css';
 @import '@fontsource/noto-sans-devanagari/600.css';
 @import '@fontsource/noto-sans-kannada/400.css';
-@import '@fontsource/noto-sans-kannada/500.css';
 @import '@fontsource/noto-sans-kannada/600.css';
 @import '@fontsource/noto-sans-tamil/400.css';
-@import '@fontsource/noto-sans-tamil/500.css';
 @import '@fontsource/noto-sans-tamil/600.css';
 
 :root {
-  /* Surfaces: cool, never warm */
-  --canvas:            #F5F7FA;   /* page background behind cards */
+  /* Surfaces: Page #F5F6F7, surface #FFFFFF */
+  --canvas:            #F5F6F7;   /* page background behind cards */
   --surface:           #FFFFFF;   /* cards, tables, forms, shell */
-  --surface-subtle:    #F8FAFC;   /* table header, read-only fields, hover on white */
-  --surface-hover:     #F2F6FC;   /* row hover (very light accent tint) */
-  --surface-selected:  #E8F1FC;   /* selected row / nav item */
+  --surface-subtle:    #F8F9FA;   /* table header, read-only fields */
+  --surface-hover:     #F3F8FE;   /* row hover (light blue tint) */
+  --surface-selected:  #EAF3FE;   /* selected row / nav item (Horizon blue tint) */
 
-  /* Lines: always light */
-  --border-subtle:     #EDF0F3;   /* row dividers, card inner dividers */
-  --border:            #DDE2E8;   /* card edges, inputs at rest */
-  --border-strong:     #C3CBD4;   /* input hover, focused-adjacent */
+  /* Lines: 1px border #D5DADD */
+  --border-subtle:     #E8ECEF;   /* row dividers, card inner dividers */
+  --border:            #D5DADD;   /* 1px border */
+  --border-strong:     #B0B8BE;   /* input hover */
 
-  /* Text: blue-grey, never pure black */
+  /* Text: #1D2D3E, secondary #556B82 */
   --text:              #1D2D3E;
   --text-secondary:    #556B82;
-  --text-tertiary:     #758CA5;   /* icons and non-essential hints only */
+  --text-tertiary:     #8494A5;
   --text-disabled:     #A9B4BE;
   --text-on-accent:    #FFFFFF;
 
-  /* Accent: one enterprise blue, solid colours only */
-  --accent:            #0064D9;
-  --accent-hover:      #0057BF;
-  --accent-active:     #004BA6;
-  --accent-tint:       #EBF3FD;
-  --focus-ring:        #0064D9;
+  /* One accent: Horizon blue #0070F2 */
+  --accent:            #0070F2;
+  --accent-hover:      #005FD1;
+  --accent-active:     #004EB0;
+  --accent-tint:       #EAF3FE;
+  --focus-ring:        #0070F2;
 
-  /* Semantic (icon + text first, tint for backgrounds) */
-  --positive:          #107E3E;  --positive-tint: #EFF9F3;
-  --critical:          #B25A00;  --critical-tint: #FFF6EB;   /* warning */
-  --negative:          #C4161C;  --negative-tint: #FEF0F0;   /* error / SOS */
-  --neutral:           #556B82;  --neutral-tint:  #F1F4F7;
-  --information:       #0064D9;  --information-tint: #EBF3FD;
+  /* Semantic: negative #D20A0A, critical #E76500, positive #256F3A, informative #0070F2 */
+  --negative:          #D20A0A;  --negative-tint:    #FDEDED;
+  --critical:          #E76500;  --critical-tint:    #FDF3EB;
+  --positive:          #256F3A;  --positive-tint:    #EDF6EE;
+  --informative:       #0070F2;  --informative-tint: #EAF3FE;
 
-  /* Chart categorical set (no purple; always direct-labelled or patterned) */
-  --chart-1:           #0064D9;
+  /* Chart categorical set */
+  --chart-1:           #0070F2;
   --chart-2:           #0E8E8E;
-  --chart-3:           #E9730C;
-  --chart-4:           #6C7A89;
-  --chart-5:           #5B9E2D;
+  --chart-3:           #E76500;
+  --chart-4:           #556B82;
+  --chart-5:           #256F3A;
   --chart-6:           #C99A00;
-  --chart-grid:        #EDF0F3;
+  --chart-grid:        #E8ECEF;
 
-  /* Radius */
-  --radius-control:    6px;
-  --radius-card:       8px;
+  /* Radius: 8px on controls, 12px on containers */
+  --radius-control:    8px;
+  --radius-card:       12px;
+  --radius-container:  12px;
   --radius-chip:       4px;
 
-  /* Elevation: cards use a hairline + xs; only floating layers get real shadow */
-  --shadow-xs:         0 1px 2px rgba(16, 24, 40, 0.04);
-  --shadow-menu:       0 4px 12px rgba(16, 24, 40, 0.10);
-  --shadow-dialog:     0 12px 32px rgba(16, 24, 40, 0.16);
+  /* Elevation: Shadows ONLY on popovers and drawers; NO shadows on cards */
+  --shadow-xs:         none;
+  --shadow-menu:       0 4px 16px rgba(29, 45, 62, 0.12);
+  --shadow-dialog:     0 12px 32px rgba(29, 45, 62, 0.18);
   --overlay:           rgba(29, 45, 62, 0.40);
 
-  /* Spacing: 4px base */
+  /* Spacing: 4px base, Page padding 32px */
   --space-1:           4px;
   --space-2:           8px;
   --space-3:           12px;
@@ -75,27 +71,9 @@
   --space-8:           32px;
   --space-10:          40px;
 
-  /* Motion */
-  --ease:              cubic-bezier(0.2, 0, 0, 1);
-  --dur-fast:          100ms;
-  --dur:               150ms;
-  --dur-slow:          220ms;
-
-  /* Density variables */
-  --row-height:        40px;
-  --control-height:    32px;
-  --nav-item-height:   36px;
-}
-
-[data-density="compact"] {
-  --row-height:        32px;
-  --control-height:    28px;
-  --nav-item-height:   32px;
-}
-
-[data-density="spacious"] {
+  /* Layout dimensions */
+  --shell-height:      52px;
+  --sidebar-width:     256px;
   --row-height:        48px;
-  --control-height:    36px;
-  --nav-item-height:   40px;
+  --control-height:    40px;
 }
-

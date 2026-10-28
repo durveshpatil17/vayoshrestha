@@ -73,7 +73,7 @@ export const RolesMatrixPage: React.FC = () => {
             onClick={() => setActiveRole(code as RoleCode)}
             className={`px-3 py-1.5 rounded text-xs font-medium transition-all ${
               activeRole === code
-                ? 'bg-accent text-white shadow-xs'
+                ? 'bg-accent text-white '
                 : 'bg-bg-base border border-border-hairline text-text-muted hover:text-text-primary'
             }`}
           >
@@ -83,17 +83,17 @@ export const RolesMatrixPage: React.FC = () => {
       </div>
 
       {/* Active Role Capabilities Grid */}
-      <div className="bg-bg-base border border-border-hairline rounded p-5 space-y-4 shadow-sm">
+      <div className="bg-bg-base border border-border-hairline rounded p-5 space-y-4">
         <div className="flex items-center justify-between border-b border-border-hairline pb-3">
           <div>
-            <h3 className="font-serif text-base font-semibold text-text-primary">
+            <h3 className="text-base font-semibold text-text-primary">
               Capabilities for {ROLES[activeRole].name} ({activeRole})
             </h3>
             <p className="text-xs text-text-muted mt-0.5">
               Scope of Access: <strong>{ROLES[activeRole].scopeDescription}</strong> • {ROLES[activeRole].description}
             </p>
           </div>
-          <span className="font-mono text-xs text-text-muted">{capabilitiesList.length} Total Capabilities</span>
+          <span className="tabular-nums text-xs text-text-muted">{capabilitiesList.length} Total Capabilities</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -111,7 +111,7 @@ export const RolesMatrixPage: React.FC = () => {
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <span className="font-medium text-text-primary font-mono text-[11px]">{capKey}</span>
+                  <span className="font-medium text-text-primary tabular-nums text-[11px]">{capKey}</span>
                   {hasAccess ? (
                     <span className="font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded text-[10px]">
                       {rule.actions.join(', ')}

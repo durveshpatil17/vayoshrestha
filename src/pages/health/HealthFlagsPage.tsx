@@ -30,7 +30,7 @@ export const HealthFlagsPage: React.FC = () => {
     return (
       <div className="p-8 text-center bg-white border border-border-hairline rounded max-w-md mx-auto my-12">
         <ShieldAlert className="w-8 h-8 text-danger mx-auto mb-3" />
-        <h3 className="font-serif font-bold text-base text-text-primary">
+        <h3 className="font-semibold text-base text-text-primary">
           Access Restricted: 403 Forbidden
         </h3>
         <p className="text-xs text-text-muted mt-1 leading-relaxed">
@@ -131,7 +131,7 @@ export const HealthFlagsPage: React.FC = () => {
       {feedback && (
         <div className="p-3 bg-accent-tint border border-accent/20 rounded text-xs text-accent flex items-center justify-between">
           <span>{feedback}</span>
-          <button onClick={() => setFeedback(null)} className="font-bold underline ml-2">
+          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
             Dismiss
           </button>
         </div>
@@ -179,7 +179,7 @@ export const HealthFlagsPage: React.FC = () => {
                         flag.status === 'NEW' ? 'bg-danger-surface/20' : ''
                       }`}
                     >
-                      <td className="py-2.5 px-4 font-mono text-text-muted">
+                      <td className="py-2.5 px-4 tabular-nums text-text-muted">
                         {new Date(flag.flaggedAt || Date.now()).toLocaleString('en-IN', {
                           timeZone: 'Asia/Kolkata',
                           dateStyle: 'short',
@@ -187,15 +187,15 @@ export const HealthFlagsPage: React.FC = () => {
                         })}
                       </td>
                       <td className="py-2.5 px-4">
-                        <span className="font-bold text-text-primary block">
+                        <span className="font-semibold text-text-primary block">
                           {senior?.fullName || 'Senior'}
                         </span>
-                        <span className="text-[11px] font-mono text-text-muted">
+                        <span className="text-[11px] tabular-nums text-text-muted">
                           {senior ? maskPhoneNumber(senior.phoneNumber) : 'N/A'}
                         </span>
                       </td>
                       <td className="py-2.5 px-4 text-text-primary">{flag.chapterId}</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-danger">
+                      <td className="py-2.5 px-4 tabular-nums font-semibold text-danger">
                         {flag.readingValue}
                       </td>
                       <td className="py-2.5 px-4">
@@ -204,7 +204,7 @@ export const HealthFlagsPage: React.FC = () => {
                           label={flag.bandCrossed || 'FLAG'}
                         />
                       </td>
-                      <td className="py-2.5 px-4 font-mono text-[11px] text-text-muted">
+                      <td className="py-2.5 px-4 tabular-nums text-[11px] text-text-muted">
                         {flag.ruleVersion}
                       </td>
                       <td className="py-2.5 px-4">
@@ -246,10 +246,10 @@ export const HealthFlagsPage: React.FC = () => {
       {/* Wellness Call Modal */}
       {activeCallFlag && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="bg-white border border-border-hairline rounded-lg max-w-lg w-full p-6 shadow-xl space-y-4">
+          <div className="bg-white border border-border-hairline rounded-lg max-w-lg w-full p-6 space-y-4">
             <div className="flex items-center gap-2">
               <PhoneCall className="w-5 h-5 text-accent" />
-              <h3 className="font-serif font-bold text-base text-text-primary">
+              <h3 className="font-semibold text-base text-text-primary">
                 Wellness Check-in Call Script & Outcome
               </h3>
             </div>
@@ -259,7 +259,7 @@ export const HealthFlagsPage: React.FC = () => {
               const senior = data.seniorCitizens.find((s) => s.id === activeCallFlag.seniorId);
               return (
                 <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs space-y-1">
-                  <div className="font-bold text-text-primary">
+                  <div className="font-semibold text-text-primary">
                     Senior: {senior?.fullName} ({senior?.memberId})
                   </div>
                   <div className="text-text-muted">
@@ -275,7 +275,7 @@ export const HealthFlagsPage: React.FC = () => {
 
             {/* Non-clinical script */}
             <div className="p-3 bg-accent-tint/40 border border-accent/20 rounded text-xs space-y-1">
-              <span className="font-bold text-accent block">Suggested Conversational Script:</span>
+              <span className="font-semibold text-accent block">Suggested Conversational Script:</span>
               <p className="italic text-text-primary leading-relaxed">
                 "Hello, I am calling from Vayoh Vikas hub. We noticed you logged a reading earlier today.
                 We just wanted to check how you are feeling right now, whether you had water and your

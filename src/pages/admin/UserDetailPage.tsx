@@ -92,12 +92,12 @@ export const UserDetailPage: React.FC = () => {
       {submitted ? (
         <div className="bg-emerald-50 border border-emerald-200 rounded p-8 text-center space-y-2">
           <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
-          <h3 className="font-serif text-lg font-semibold text-emerald-900">User Account Recorded!</h3>
+          <h3 className="text-lg font-semibold text-emerald-900">User Account Recorded!</h3>
           <p className="text-xs text-emerald-800">Redirecting to user directory...</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="bg-bg-base border border-border-hairline rounded p-6 space-y-5">
-          <h3 className="font-serif text-base font-semibold text-text-primary">Identity & Role Credentials</h3>
+          <h3 className="text-base font-semibold text-text-primary">Identity & Role Credentials</h3>
 
           <div className="grid grid-cols-2 gap-4">
             <div>

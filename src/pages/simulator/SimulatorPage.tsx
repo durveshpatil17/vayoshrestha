@@ -582,14 +582,14 @@ export const SimulatorPage: React.FC = () => {
           <Terminal className="w-4 h-4 text-accent flex-shrink-0" />
           <span className="text-text-primary">
             <strong>Cross-Tab Sync Active:</strong> Open{' '}
-            <a href="/sos" target="_blank" rel="noreferrer" className="underline font-bold text-accent">
+            <a href="/sos" target="_blank" rel="noreferrer" className="underline font-semibold text-accent">
               /sos in another browser tab
             </a>{' '}
             to watch alerts arrive in under 1 second via BroadcastChannel.
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <label className="flex items-center gap-2 cursor-pointer bg-white px-2.5 py-1 rounded border border-border-hairline shadow-xs">
+          <label className="flex items-center gap-2 cursor-pointer bg-white px-2.5 py-1 rounded border border-border-hairline">
             <input
               type="checkbox"
               checked={simulateDisconnect}
@@ -597,7 +597,7 @@ export const SimulatorPage: React.FC = () => {
               className="text-danger rounded"
             />
             <span
-              className={`text-xs font-bold ${
+              className={`text-xs font-semibold ${
                 simulateDisconnect ? 'text-danger' : 'text-text-muted'
               }`}
             >
@@ -640,23 +640,23 @@ export const SimulatorPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* PANE 1: Senior Citizen WhatsApp Phone Frame (5 cols) */}
         <div className="lg:col-span-5 space-y-2">
-          <div className="text-xs font-bold text-text-muted uppercase tracking-wider flex items-center justify-between">
+          <div className="text-xs font-semibold text-text-muted flex items-center justify-between">
             <span className="flex items-center gap-1.5">
               <Smartphone className="w-3.5 h-3.5 text-accent" />
               Pane 1: Senior WhatsApp Chat
             </span>
-            <span className="text-[10px] text-text-muted font-mono">{activeSenior?.phoneNumber}</span>
+            <span className="text-[10px] text-text-muted tabular-nums">{activeSenior?.phoneNumber}</span>
           </div>
 
-          <div className="bg-[#ECE5DD] border border-[#DDD4C9] rounded-2xl overflow-hidden shadow-md flex flex-col h-[650px] font-sans">
+          <div className="bg-[#ECE5DD] border border-[#DDD4C9] rounded-2xl overflow-hidden flex flex-col h-[650px] font-sans">
             {/* Phone Top Chrome */}
-            <div className="bg-[#075E54] text-white p-3 flex items-center justify-between shadow-xs">
+            <div className="bg-[#075E54] text-white p-3 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center font-bold text-xs text-white">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center font-semibold text-xs text-white">
                   VV
                 </div>
                 <div>
-                  <div className="font-bold text-xs leading-none">Vayoh Vikas Support</div>
+                  <div className="font-semibold text-xs leading-none">Vayoh Vikas Support</div>
                   <div className="text-[10px] text-white/80 mt-0.5 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online
                   </div>
@@ -684,7 +684,7 @@ export const SimulatorPage: React.FC = () => {
                   }`}
                 >
                   <div
-                    className={`rounded-lg p-2.5 text-xs max-w-[85%] shadow-xs leading-relaxed ${
+                    className={`rounded-lg p-2.5 text-xs max-w-[85%]  leading-relaxed ${
                       msg.sender === 'USER'
                         ? 'bg-[#DCF8C6] text-[#111]'
                         : msg.isSosAck
@@ -693,7 +693,7 @@ export const SimulatorPage: React.FC = () => {
                     }`}
                   >
                     <p className="whitespace-pre-wrap">{msg.text}</p>
-                    <div className="flex items-center justify-end gap-1 text-[9px] text-gray-500 font-mono mt-1">
+                    <div className="flex items-center justify-end gap-1 text-[9px] text-gray-500 tabular-nums mt-1">
                       <span>{msg.timestamp}</span>
                       {msg.sender === 'USER' && (
                         <CheckCheck className="w-3 h-3 text-[#34B7F1]" />
@@ -709,9 +709,9 @@ export const SimulatorPage: React.FC = () => {
                           key={opt}
                           type="button"
                           onClick={() => handleSendMessage(opt)}
-                          className={`w-full py-1.5 px-3 text-xs font-semibold rounded shadow-xs text-center transition-colors ${
+                          className={`w-full py-1.5 px-3 text-xs font-semibold rounded  text-center transition-colors ${
                             opt.includes('SOS')
-                              ? 'bg-danger text-white hover:bg-danger/90 font-bold'
+                              ? 'bg-danger text-white hover:bg-danger/90 font-semibold'
                               : 'bg-white hover:bg-gray-50 border border-gray-200 text-[#00A884]'
                           }`}
                         >
@@ -737,7 +737,7 @@ export const SimulatorPage: React.FC = () => {
               />
               <button
                 onClick={() => handleSendMessage()}
-                className="w-8 h-8 rounded-full bg-[#075E54] hover:bg-[#064e46] text-white flex items-center justify-center shadow-xs"
+                className="w-8 h-8 rounded-full bg-[#075E54] hover:bg-[#064e46] text-white flex items-center justify-center"
               >
                 <Send className="w-4 h-4 ml-0.5" />
               </button>
@@ -747,18 +747,18 @@ export const SimulatorPage: React.FC = () => {
 
         {/* PANE 2: Next-of-Kin SMS Phone Frame (3 cols) */}
         <div className="lg:col-span-3 space-y-2">
-          <div className="text-xs font-bold text-text-muted uppercase tracking-wider flex items-center justify-between">
+          <div className="text-xs font-semibold text-text-muted flex items-center justify-between">
             <span className="flex items-center gap-1.5">
               <Radio className="w-3.5 h-3.5 text-accent" />
               Pane 2: NOK SMS Phone
             </span>
-            <span className="text-[10px] text-text-muted font-mono">Cellular</span>
+            <span className="text-[10px] text-text-muted tabular-nums">Cellular</span>
           </div>
 
-          <div className="bg-[#1C1B19] text-white rounded-2xl overflow-hidden shadow-md flex flex-col h-[650px] font-sans border-4 border-[#333]">
+          <div className="bg-[#1C1B19] text-white rounded-2xl overflow-hidden flex flex-col h-[650px] font-sans border-4 border-[#333]">
             {/* SMS Header */}
             <div className="bg-[#2A2926] p-3 text-center border-b border-[#3F3D38]">
-              <div className="font-bold text-xs">Messages (Next-of-Kin)</div>
+              <div className="font-semibold text-xs">Messages (Next-of-Kin)</div>
               <div className="text-[10px] text-text-muted mt-0.5">Transactional Carrier Channel</div>
             </div>
 
@@ -775,14 +775,14 @@ export const SimulatorPage: React.FC = () => {
               ) : (
                 smsMessages.map((sms) => (
                   <div key={sms.id} className="space-y-1">
-                    <div className="text-[10px] text-[#A19D94] flex items-center justify-between font-mono">
+                    <div className="text-[10px] text-[#A19D94] flex items-center justify-between tabular-nums">
                       <span>Sender: {sms.senderId}</span>
                       <span>{sms.timestamp}</span>
                     </div>
                     <div className="p-3 bg-[#2A2926] border border-danger/40 rounded-lg text-xs leading-relaxed text-red-200">
                       {sms.text}
                     </div>
-                    <div className="text-[9px] text-[#888] font-mono text-right">
+                    <div className="text-[9px] text-[#888] tabular-nums text-right">
                       Priority {sms.priority} Recipient · DLT Verified
                     </div>
                   </div>
@@ -799,15 +799,15 @@ export const SimulatorPage: React.FC = () => {
 
         {/* PANE 3: System Event Ticker (4 cols) */}
         <div className="lg:col-span-4 space-y-2">
-          <div className="text-xs font-bold text-text-muted uppercase tracking-wider flex items-center justify-between">
+          <div className="text-xs font-semibold text-text-muted flex items-center justify-between">
             <span className="flex items-center gap-1.5">
               <Terminal className="w-3.5 h-3.5 text-accent" />
               Pane 3: System Event Ticker
             </span>
-            <span className="text-[10px] text-success font-mono">● LIVE</span>
+            <span className="text-[10px] text-success tabular-nums">● LIVE</span>
           </div>
 
-          <div className="bg-[#1C1B19] text-[#E4E2DC] rounded-xl p-3 font-mono text-[11px] h-[650px] overflow-y-auto border border-[#3F3D38] space-y-2.5">
+          <div className="bg-[#1C1B19] text-[#E4E2DC] rounded-xl p-3 tabular-nums text-[11px] h-[650px] overflow-y-auto border border-[#3F3D38] space-y-2.5">
             <div className="text-[10px] text-[#888] border-b border-[#333] pb-1.5">
               // Event pipeline telemetry (BroadcastChannel & Gateway logs)
             </div>
@@ -818,12 +818,12 @@ export const SimulatorPage: React.FC = () => {
               systemLogs.map((log) => (
                 <div key={log.id} className="space-y-0.5 border-b border-[#2C2B28] pb-1.5">
                   <div className="flex items-center justify-between text-[10px] text-[#A19D94]">
-                    <span className="text-accent font-bold">[{log.type}]</span>
+                    <span className="text-accent font-semibold">[{log.type}]</span>
                     <span>{log.timestamp}</span>
                   </div>
                   <p className="text-white/90 leading-tight">{log.message}</p>
                   {log.latencyMs !== undefined && (
-                    <div className="text-[10px] text-emerald-400 font-bold">
+                    <div className="text-[10px] text-emerald-400 font-semibold">
                       ⚡ Measured Latency: {log.latencyMs} ms (&lt; 1,000 ms target)
                     </div>
                   )}

@@ -29,7 +29,7 @@ export const HealthOverviewPage: React.FC = () => {
     return (
       <div className="p-8 text-center bg-white border border-border-hairline rounded max-w-md mx-auto my-12">
         <ShieldAlert className="w-8 h-8 text-danger mx-auto mb-3" />
-        <h3 className="font-serif font-bold text-base text-text-primary">
+        <h3 className="font-semibold text-base text-text-primary">
           Access Restricted: 403 Forbidden
         </h3>
         <p className="text-xs text-text-muted mt-1 leading-relaxed">
@@ -67,7 +67,7 @@ export const HealthOverviewPage: React.FC = () => {
       {/* Clinician Review & Non-Medical Notice Banner */}
       <div className="p-4 bg-surface-subtle border-l-4 border-accent rounded text-xs text-text-primary flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
         <div>
-          <span className="font-bold text-accent block">
+          <span className="font-semibold text-accent block">
             Institutional Wellness Logging — Not a Medical Diagnostic Device
           </span>
           <span className="text-text-muted">
@@ -117,12 +117,12 @@ export const HealthOverviewPage: React.FC = () => {
         {/* Medication Confirmation Rate */}
         <div className="p-4 bg-white border border-border-hairline rounded">
           <div className="flex items-center justify-between text-text-muted">
-            <span className="text-[11px] font-bold uppercase tracking-wider">
+            <span className="text-[11px] font-semibold">
               Medication Confirmation
             </span>
             <Pill className="w-4 h-4 text-accent" />
           </div>
-          <div className="text-2xl font-bold font-mono text-accent mt-2">81.4%</div>
+          <div className="text-2xl font-semibold tabular-nums text-accent mt-2">81.4%</div>
           <div className="flex items-center justify-between text-[11px] text-text-muted mt-1">
             <span>Taken vs Reminders Pushed</span>
             <span className="text-success font-medium">Target: &gt;75%</span>
@@ -132,12 +132,12 @@ export const HealthOverviewPage: React.FC = () => {
         {/* Vitals Logging Rate */}
         <div className="p-4 bg-white border border-border-hairline rounded">
           <div className="flex items-center justify-between text-text-muted">
-            <span className="text-[11px] font-bold uppercase tracking-wider">
+            <span className="text-[11px] font-semibold">
               Vitals Logging Rate
             </span>
             <HeartPulse className="w-4 h-4 text-accent" />
           </div>
-          <div className="text-2xl font-bold font-mono text-text-primary mt-2">64.2%</div>
+          <div className="text-2xl font-semibold tabular-nums text-text-primary mt-2">64.2%</div>
           <div className="flex items-center justify-between text-[11px] text-text-muted mt-1">
             <span>{totalReadings.toLocaleString()} readings recorded</span>
             <span className="text-success font-medium">Target: &gt;60%</span>
@@ -147,12 +147,12 @@ export const HealthOverviewPage: React.FC = () => {
         {/* High-Risk Anomaly Flags */}
         <div className="p-4 bg-white border border-border-hairline rounded">
           <div className="flex items-center justify-between text-text-muted">
-            <span className="text-[11px] font-bold uppercase tracking-wider">
+            <span className="text-[11px] font-semibold">
               Open Anomaly Flags
             </span>
             <AlertCircle className="w-4 h-4 text-warning" />
           </div>
-          <div className="text-2xl font-bold font-mono text-warning mt-2">
+          <div className="text-2xl font-semibold tabular-nums text-warning mt-2">
             {openFlags.length}
           </div>
           <div className="flex items-center justify-between text-[11px] text-text-muted mt-1">
@@ -164,12 +164,12 @@ export const HealthOverviewPage: React.FC = () => {
         {/* Pending Check-in Calls */}
         <div className="p-4 bg-white border border-border-hairline rounded">
           <div className="flex items-center justify-between text-text-muted">
-            <span className="text-[11px] font-bold uppercase tracking-wider">
+            <span className="text-[11px] font-semibold">
               Wellness Check-in Calls
             </span>
             <PhoneCall className="w-4 h-4 text-accent" />
           </div>
-          <div className="text-2xl font-bold font-mono text-text-primary mt-2">
+          <div className="text-2xl font-semibold tabular-nums text-text-primary mt-2">
             {pendingCalls.length}
           </div>
           <div className="flex items-center justify-between text-[11px] text-text-muted mt-1">
@@ -187,7 +187,7 @@ export const HealthOverviewPage: React.FC = () => {
       {/* Chapter Breakdown Table */}
       <div className="bg-white border border-border-hairline rounded overflow-hidden">
         <div className="p-4 border-b border-border-hairline flex items-center justify-between">
-          <h3 className="font-serif font-bold text-sm text-text-primary">
+          <h3 className="font-semibold text-sm text-text-primary">
             Chapter Hub Preventive Health Performance
           </h3>
           <Button
@@ -223,31 +223,31 @@ export const HealthOverviewPage: React.FC = () => {
                 return (
                   <tr key={ch.id} className="hover:bg-surface-subtle">
                     <td className="py-3 px-4">
-                      <span className="font-bold text-text-primary block">{ch.name}</span>
-                      <span className="text-[11px] text-text-muted font-mono">{ch.id}</span>
+                      <span className="font-semibold text-text-primary block">{ch.name}</span>
+                      <span className="text-[11px] text-text-muted tabular-nums">{ch.id}</span>
                     </td>
-                    <td className="py-3 px-4 font-mono">{chapterSchedules.length} seniors</td>
+                    <td className="py-3 px-4 tabular-nums">{chapterSchedules.length} seniors</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-accent">
+                        <span className="tabular-nums font-semibold text-accent">
                           {78 + (idx % 7)}%
                         </span>
                         <span className="text-[10px] text-success">Good</span>
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="font-mono">{60 + (idx % 8)}%</span>
+                      <span className="tabular-nums">{60 + (idx % 8)}%</span>
                     </td>
                     <td className="py-3 px-4">
                       {chapterFlags.length > 0 ? (
-                        <span className="px-2 py-0.5 rounded text-[11px] bg-warning/10 text-warning font-bold">
+                        <span className="px-2 py-0.5 rounded text-[11px] bg-warning/10 text-warning font-semibold">
                           {chapterFlags.length} active
                         </span>
                       ) : (
                         <span className="text-text-muted">0</span>
                       )}
                     </td>
-                    <td className="py-3 px-4 font-mono">{chapterCalls.length} calls</td>
+                    <td className="py-3 px-4 tabular-nums">{chapterCalls.length} calls</td>
                     <td className="py-3 px-4 text-right">
                       <Button
                         variant="outline"

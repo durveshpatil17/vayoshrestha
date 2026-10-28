@@ -164,7 +164,7 @@ export const HealthSchedulesPage: React.FC = () => {
       {feedback && (
         <div className="p-3 bg-accent-tint border border-accent/20 rounded text-xs text-accent flex items-center justify-between">
           <span>{feedback}</span>
-          <button onClick={() => setFeedback(null)} className="font-bold underline ml-2">
+          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
             Dismiss
           </button>
         </div>
@@ -246,10 +246,10 @@ export const HealthSchedulesPage: React.FC = () => {
                 return (
                   <tr key={sched.id} className="hover:bg-surface-subtle">
                     <td className="py-2.5 px-4">
-                      <span className="font-bold text-text-primary block">
+                      <span className="font-semibold text-text-primary block">
                         {senior?.fullName || 'Senior'}
                       </span>
-                      <span className="text-[11px] font-mono text-text-muted">
+                      <span className="text-[11px] tabular-nums text-text-muted">
                         {senior?.memberId}
                       </span>
                     </td>
@@ -257,7 +257,7 @@ export const HealthSchedulesPage: React.FC = () => {
                     <td className="py-2.5 px-4 font-medium text-text-primary">
                       {sched.medicationLabel}
                     </td>
-                    <td className="py-2.5 px-4 font-mono text-accent font-bold">
+                    <td className="py-2.5 px-4 tabular-nums text-accent font-semibold">
                       {sched.scheduledTime} IST
                     </td>
                     <td className="py-2.5 px-4 text-text-muted capitalize">
@@ -301,8 +301,8 @@ export const HealthSchedulesPage: React.FC = () => {
       {/* Add Schedule Modal */}
       {addModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 shadow-xl space-y-4">
-            <h3 className="font-serif font-bold text-base text-text-primary flex items-center gap-2">
+          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 space-y-4">
+            <h3 className="font-semibold text-base text-text-primary flex items-center gap-2">
               <Plus className="w-4 h-4 text-accent" />
               Add Medication Reminder Schedule
             </h3>
@@ -347,7 +347,7 @@ export const HealthSchedulesPage: React.FC = () => {
                     type="time"
                     value={scheduledTime}
                     onChange={(e) => setScheduledTime(e.target.value)}
-                    className="w-full px-3 py-2 border border-border-hairline rounded font-mono"
+                    className="w-full px-3 py-2 border border-border-hairline rounded tabular-nums"
                     required
                   />
                 </div>

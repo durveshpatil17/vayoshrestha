@@ -72,11 +72,14 @@ This document contains interaction, layout, and authorization specifications for
 
 ### 11. Regional Admin & NGO Management Home (`RA`, `NM`)
 - **Elements**:
-  - Live critical-alert strip (flashes persistent red if any open unacknowledged SOS exists).
-  - Primary KPI Row: Registered seniors (vs 1,000 pilot target), Active seniors (14-day window), Open SOS cases, Median time to acknowledge (seconds), Reminders delivered today, Medication confirmation rate, Open anomaly flags, Stalled onboardings.
-  - Chapter comparison table (Pune, Bengaluru, Nashik, etc.).
-  - 90-day pilot timeline progress bar.
-  - "Needs Attention" triage list: Unacknowledged SOS, SLA breaches, failed SMS fallbacks, overdue wellness calls.
+  - Live critical-alert strip.
+  - 4 headline numeric tiles (Registered vs 1,000, open SOS, median time to acknowledge, medication confirmation rate).
+  - A key-value list for the remaining measures (Active, reminders delivered today, open anomaly flags, stalled onboardings).
+  - Chapter comparison table.
+  - 90-day pilot timeline.
+  - "Needs attention" row list.
+
+*Rule for every role home*: At most 4 headline tiles, everything else as lists or tables.
 
 ### 12. Chapter Manager Home (`CM`)
 - **Elements**: Chapter-scoped operational overview: Open SOS within hub, Today's medication reminders & responses, Flags awaiting wellness calls, Stalled onboarding funnel, Today's duty roster.

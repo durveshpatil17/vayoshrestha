@@ -184,7 +184,7 @@ export const SeniorListPage: React.FC = () => {
       </div>
 
       {/* Directory Table */}
-      <div className="bg-white border border-border-hairline rounded overflow-hidden shadow-xs">
+      <div className="bg-white border border-border-hairline rounded overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-bg-subtle text-text-muted font-semibold border-b border-border-hairline">
@@ -220,7 +220,7 @@ export const SeniorListPage: React.FC = () => {
                       onClick={() => navigate(`/seniors/${senior.id}`)}
                       className="hover:bg-bg-subtle/50 cursor-pointer transition-colors"
                     >
-                      <td className="px-4 py-3 font-mono font-medium text-accent">
+                      <td className="px-4 py-3 tabular-nums font-medium text-accent">
                         {senior.memberId || senior.membershipId}
                       </td>
                       <td className="px-4 py-3 font-medium text-text-primary">
@@ -229,10 +229,10 @@ export const SeniorListPage: React.FC = () => {
                           <span className="text-[10px] text-text-muted font-normal">Assisted by volunteer</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 font-mono text-text-muted">
+                      <td className="px-4 py-3 tabular-nums text-text-muted">
                         {senior.ageBand || (senior.age ? `${senior.age} yrs` : 'Senior')}
                       </td>
-                      <td className="px-4 py-3 font-mono text-text-primary">
+                      <td className="px-4 py-3 tabular-nums text-text-primary">
                         {displayPhone}
                       </td>
                       <td className="px-4 py-3 text-text-muted">
@@ -253,7 +253,7 @@ export const SeniorListPage: React.FC = () => {
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-3 font-mono">
+                      <td className="px-4 py-3 tabular-nums">
                         {senior.abha?.number || senior.abha?.abhaNumber ? (
                           <span className="text-[11px] text-accent">
                             {maskAbhaNumber(senior.abha?.number || senior.abha?.abhaNumber || '')}
@@ -296,7 +296,7 @@ export const SeniorListPage: React.FC = () => {
             >
               Previous
             </Button>
-            <span className="font-mono">
+            <span className="tabular-nums">
               Page {currentPage} of {totalPages}
             </span>
             <Button

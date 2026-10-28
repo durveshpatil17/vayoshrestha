@@ -3,17 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { mockStore } from '@/mock/store';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/Button';
-import { StatusChip } from '@/components/ui/StatusChip';
+import { Card } from '@/components/ui/Card';
+import { KpiTile } from '@/components/ui/KpiTile';
+import { MessageStrip } from '@/components/ui/MessageStrip';
 import { suppressSmallNumber } from '@/domain/masking';
 import {
   FileText,
-  ShieldCheck,
-  Building2,
-  Calendar,
-  HeartPulse,
-  Pill,
-  Radio,
-  ArrowRight,
   Info,
 } from 'lucide-react';
 
@@ -22,131 +17,161 @@ export const CdDashboard: React.FC = () => {
   const data = mockStore.getData();
 
   const totalRegistered = data.seniorCitizens.length;
-  const activeSeniors = Math.round(totalRegistered * 0.88);
   const totalSos = data.sosEvents.filter((e) => !e.isDrill).length;
   const totalReadings = data.vitalLogs.length;
 
   return (
     <div className="space-y-6 max-w-6xl pb-16">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <PageHeader
-          title="CSR Grant & Donor Audit Portal"
-          description="Verified aggregate eldercare impact metrics, pilot outcome evaluations, and grant compliance indicators."
+      {/* 1. Anonymization Protocol Notice */}
+      <MessageStrip
+        type="informative"
+        message="Funder privacy and differential anonymization protocol: This portal presents verified cohort aggregates only. Zero personally identifiable information is accessible. Demographic slices with fewer than 5 individuals are systematically suppressed to eliminate re-identification risk."
+      />
+
+      {/* 2. Page Header */}
+      <PageHeader
+        title="CSR Grant and Donor Audit Portal"
+        description="Verified aggregate eldercare impact metrics, pilot outcome evaluations, and grant compliance indicators."
+        actions={
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate('/reports/definitions')}
+              className="gap-1.5"
+            >
+              <Info className="w-4 h-4" strokeWidth={1.5} />
+              Indicator Definitions
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => navigate('/reports/pilot')}
+              className="gap-1.5"
+            >
+              <FileText className="w-4 h-4" strokeWidth={1.5} />
+              Full Pilot Report
+            </Button>
+          </div>
+        }
+      />
+
+      {/* 3. Exactly 4 Headline Numeric Indicators */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <KpiTile
+          title="Registered seniors"
+          value={suppressSmallNumber(totalRegistered)}
+          statusLine="Target: 1,000 seniors"
+          status="positive"
         />
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => navigate('/reports/definitions')}
-            className="text-xs gap-1"
-          >
-            <Info className="w-3.5 h-3.5" />
-            Indicator Definitions
-          </Button>
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={() => navigate('/reports/pilot')}
-            className="text-xs gap-1.5 bg-accent"
-          >
-            <FileText className="w-3.5 h-3.5" />
-            Full Pilot Report
-          </Button>
-        </div>
+        <KpiTile
+          title="Active engagement rate"
+          value="88.0%"
+          statusLine="Responded in last 14 days"
+          status="positive"
+        />
+        <KpiTile
+          title="SOS incidents resolved"
+          value={suppressSmallNumber(totalSos)}
+          statusLine="Real-world emergencies resolved"
+          status="positive"
+        />
+        <KpiTile
+          title="Medication confirmation"
+          value="81.4%"
+          statusLine="Exceeds > 75.0% benchmark"
+          status="positive"
+        />
       </div>
 
-      {/* Aggregate Only & Small-Number Suppression Banner */}
-      <div className="p-4 bg-surface-subtle border-l-4 border-accent rounded text-xs text-text-primary flex items-start gap-3">
-        <ShieldCheck className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-        <div>
-          <span className="font-bold text-accent block">
-            Funder Privacy & Differential Anonymization Protocol
-          </span>
-          <span className="text-text-muted">
-            This portal displays verified aggregates only. Zero personally identifiable information
-            (names, phone numbers, addresses, ABHA numbers) is accessible to donors. Any demographic
-            slice with fewer than 5 individuals is systematically suppressed to{' '}
-            <strong className="font-mono text-text-primary">&lt;5</strong> to eliminate
-            re-identification risk.
-          </span>
-        </div>
-      </div>
-
-      {/* Verified Headline Indicators */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-bold text-text-muted uppercase">Registered Seniors</span>
-          <div className="text-2xl font-bold font-mono text-text-primary mt-1">
-            {suppressSmallNumber(totalRegistered)}
+      {/* 4. Secondary Grant Metrics (Key-Value List) */}
+      <Card
+        title="Grant compliance indicators"
+        subtitle="Operational metrics monitored under corporate social responsibility guidelines"
+        padding="md"
+      >
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-2">
+          <div>
+            <div className="text-xs text-text-secondary">Vital signs logged</div>
+            <div className="text-xl font-semibold text-text tabular-nums mt-1">{suppressSmallNumber(totalReadings)}</div>
+            <div className="text-xs text-text-secondary mt-0.5">Systolic BP and glucose entries</div>
           </div>
-          <span className="text-[10px] text-success">Target: 1,000 seniors</span>
-        </div>
-
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-bold text-text-muted uppercase">Active Rate (14d)</span>
-          <div className="text-2xl font-bold font-mono text-accent mt-1">88.0%</div>
-          <span className="text-[10px] text-text-muted">Responded in last 14d</span>
-        </div>
-
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-bold text-text-muted uppercase">SOS Responded</span>
-          <div className="text-2xl font-bold font-mono text-text-primary mt-1">
-            {suppressSmallNumber(totalSos)}
+          <div>
+            <div className="text-xs text-text-secondary">Pilot elapsed duration</div>
+            <div className="text-xl font-semibold text-text tabular-nums mt-1">42 / 90 days</div>
+            <div className="text-xs text-text-secondary mt-0.5">Multi-chapter field evaluation</div>
           </div>
-          <span className="text-[10px] text-text-muted">Real incidents resolved</span>
+          <div>
+            <div className="text-xs text-text-secondary">Operating chapters</div>
+            <div className="text-xl font-semibold text-text tabular-nums mt-1">{data.chapters.length} hubs</div>
+            <div className="text-xs text-text-secondary mt-0.5">Tier 1 and Tier 2 cities in India</div>
+          </div>
+          <div>
+            <div className="text-xs text-text-secondary">Audit compliance score</div>
+            <div className="text-xl font-semibold text-positive tabular-nums mt-1">100%</div>
+            <div className="text-xs text-text-secondary mt-0.5">Dual-authorization sign-offs verified</div>
+          </div>
         </div>
+      </Card>
 
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-bold text-text-muted uppercase">Med. Confirmation</span>
-          <div className="text-2xl font-bold font-mono text-accent mt-1">81.4%</div>
-          <span className="text-[10px] text-success">Exceeds &gt;75% benchmark</span>
-        </div>
-      </div>
-
-      {/* Chapter Overview (Aggregates with <5 suppression) */}
-      <div className="bg-white border border-border-hairline rounded overflow-hidden">
-        <div className="p-4 border-b border-border-hairline flex items-center justify-between">
-          <h3 className="font-serif font-bold text-sm text-text-primary">
-            Aggregated Chapter Performance Overview
-          </h3>
-          <span className="text-xs text-text-muted">Synthetic Pilot Dataset</span>
+      {/* 5. Chapter Overview Table */}
+      <Card padding="none">
+        <div className="p-4 border-b border-border flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-semibold text-text">
+              Aggregated chapter performance overview
+            </h3>
+            <p className="text-xs text-text-secondary mt-0.5">
+              Verified outcomes by regional implementation partner chapter
+            </p>
+          </div>
+          <span className="text-xs text-text-secondary tabular-nums">
+            {data.chapters.length} chapters
+          </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-surface-subtle border-b border-border-hairline text-text-muted font-medium">
-                <th className="py-2.5 px-4">Chapter Hub</th>
-                <th className="py-2.5 px-4">City</th>
-                <th className="py-2.5 px-4">Enrolled Seniors</th>
-                <th className="py-2.5 px-4">Active Rate</th>
-                <th className="py-2.5 px-4">Medication Confirmation</th>
-                <th className="py-2.5 px-4">Vitals Logged</th>
+              <tr className="bg-surface-subtle border-b border-border text-text-secondary font-semibold h-10">
+                <th className="py-2 px-4">Chapter hub</th>
+                <th className="py-2 px-4">City</th>
+                <th className="py-2 px-4 text-right">Enrolled seniors</th>
+                <th className="py-2 px-4 text-right">Active rate</th>
+                <th className="py-2 px-4 text-right">Medication confirmation</th>
+                <th className="py-2 px-4 text-right">Vitals logged</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-hairline">
+            <tbody className="divide-y divide-border">
               {data.chapters.map((ch, idx) => {
                 const seniorsCount = data.seniorCitizens.filter((s) => s.chapterId === ch.id).length;
 
                 return (
-                  <tr key={ch.id} className="hover:bg-surface-subtle">
-                    <td className="py-2.5 px-4 font-bold text-text-primary">{ch.name}</td>
-                    <td className="py-2.5 px-4 text-text-muted">{ch.city}</td>
-                    <td className="py-2.5 px-4 font-mono font-medium">
+                  <tr
+                    key={ch.id}
+                    className="h-12 hover:bg-surface-hover transition-colors"
+                  >
+                    <td className="py-2 px-4 font-semibold text-text">{ch.name}</td>
+                    <td className="py-2 px-4 text-text-secondary">{ch.city}</td>
+                    <td className="py-2 px-4 text-right tabular-nums text-text">
                       {suppressSmallNumber(seniorsCount)}
                     </td>
-                    <td className="py-2.5 px-4 font-mono text-accent font-bold">
+                    <td className="py-2 px-4 text-right tabular-nums text-accent font-semibold">
                       {85 + (idx % 8)}%
                     </td>
-                    <td className="py-2.5 px-4 font-mono">{79 + (idx % 7)}%</td>
-                    <td className="py-2.5 px-4 font-mono">{suppressSmallNumber(850 + idx * 80)}</td>
+                    <td className="py-2 px-4 text-right tabular-nums text-text">
+                      {79 + (idx % 7)}%
+                    </td>
+                    <td className="py-2 px-4 text-right tabular-nums text-text">
+                      {suppressSmallNumber(850 + idx * 80)}
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

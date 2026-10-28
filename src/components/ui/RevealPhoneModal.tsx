@@ -64,14 +64,14 @@ export const RevealPhoneModal: React.FC<RevealPhoneModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-bg-base border border-border-strong rounded shadow-xl max-w-md w-full p-6 text-left">
+      <div className="bg-bg-base border border-border-strong rounded max-w-md w-full p-6 text-left">
         <div className="flex items-start justify-between pb-3 mb-4 border-b border-border-hairline">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-accent-tint text-accent flex items-center justify-center">
               <Shield className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-serif text-base font-semibold text-text-primary">
+              <h3 className="text-base font-semibold text-text-primary">
                 Unmask Senior Phone Number
               </h3>
               <p className="text-xs text-text-muted">{memberName} ({memberId})</p>

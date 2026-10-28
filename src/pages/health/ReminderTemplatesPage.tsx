@@ -98,7 +98,7 @@ export const ReminderTemplatesPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <ShieldCheck className="w-5 h-5 text-accent" />
           <div>
-            <span className="font-bold text-xs text-text-primary block">
+            <span className="font-semibold text-xs text-text-primary block">
               Maker-Checker Operational Governance
             </span>
             <span className="text-xs text-text-muted">
@@ -118,7 +118,7 @@ export const ReminderTemplatesPage: React.FC = () => {
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono text-text-muted">{tpl.id}</span>
+                <span className="text-[11px] tabular-nums text-text-muted">{tpl.id}</span>
                 <StatusChip
                   status={tpl.approvalStatus === 'APPROVED' ? 'success' : 'warning'}
                   label={tpl.approvalStatus}
@@ -126,7 +126,7 @@ export const ReminderTemplatesPage: React.FC = () => {
               </div>
 
               <div>
-                <h3 className="font-serif font-bold text-sm text-text-primary">{tpl.title}</h3>
+                <h3 className="font-semibold text-sm text-text-primary">{tpl.title}</h3>
                 <p className="text-[11px] text-text-muted mt-1">
                   Category: <strong>{tpl.category}</strong>
                 </p>
@@ -153,7 +153,7 @@ export const ReminderTemplatesPage: React.FC = () => {
             </div>
 
             <div className="pt-3 border-t border-border-hairline flex items-center justify-between">
-              <span className="text-[10px] text-text-muted font-mono">
+              <span className="text-[10px] text-text-muted tabular-nums">
                 {tpl.approvedBy ? `Approved by ${tpl.approvedBy}` : 'Awaiting NM Review'}
               </span>
               <Button

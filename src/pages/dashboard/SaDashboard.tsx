@@ -3,17 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { mockStore } from '@/mock/store';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/Button';
-import { StatusChip } from '@/components/ui/StatusChip';
+import { Card } from '@/components/ui/Card';
+import { KpiTile } from '@/components/ui/KpiTile';
+import { StatusIndicator } from '@/components/ui/StatusIndicator';
+import { MessageStrip } from '@/components/ui/MessageStrip';
 import {
-  Server,
-  Radio,
-  Clock,
   RotateCcw,
-  ShieldAlert,
-  ShieldCheck,
-  HardDrive,
-  Users,
-  AlertTriangle,
   ArrowRight,
 } from 'lucide-react';
 
@@ -46,158 +41,177 @@ export const SaDashboard: React.FC = () => {
 
   return (
     <div className="space-y-6 max-w-7xl pb-16">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <PageHeader
-          title="System Administration & Infrastructure Health"
-          description="In-browser event queue telemetry, mock gateway connectivity, security lockout control, and storage quotas."
-        />
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => navigate('/admin/integrations')}
-            className="text-xs"
-          >
-            Integration Monitor
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleResetData}
-            className="text-xs gap-1.5 text-danger border-danger/30 hover:bg-danger-surface"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            Reset Demo Data
-          </Button>
-        </div>
-      </div>
-
+      {/* 1. Reset Feedback */}
       {resetFeedback && (
-        <div className="p-3 bg-success-surface border border-success/30 rounded text-xs text-success">
-          {resetFeedback}
-        </div>
+        <MessageStrip
+          type="positive"
+          message={resetFeedback}
+          onDismiss={() => setResetFeedback(null)}
+        />
       )}
 
-      {/* Non-Clinical Role Isolation Notice */}
-      <div className="p-4 bg-surface-subtle border-l-4 border-accent rounded text-xs text-text-primary flex items-start gap-3">
-        <ShieldCheck className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-        <div>
-          <span className="font-bold text-accent block">
-            System Administrator Scope & Clinical Privacy Boundary
-          </span>
-          <span className="text-text-muted">
-            The System Administrator (SA) role exercises organisation-wide control over user
-            accounts, role permissions, integrations, and cryptographic audit hash chains. In strict
-            accordance with data minimisation mandates, <strong>SA is denied all access</strong> to
-            personal senior health logs, vital readings, and clinical threshold records.
-          </span>
-        </div>
+      {/* 2. Privacy Boundary Notice */}
+      <MessageStrip
+        type="informative"
+        message="System administrator clinical boundary: Organisation-wide control is limited to user identity, RBAC rules, telemetry, and cryptographic audit hash chains. In strict compliance with data minimisation laws, personal senior health logs and vital readings are inaccessible to this role."
+      />
+
+      {/* 3. Page Header */}
+      <PageHeader
+        title="System Administration and Infrastructure Health"
+        description="In-browser event queue telemetry, mock gateway connectivity, security lockout control, and storage quotas."
+        actions={
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate('/admin/integrations')}
+            >
+              Integration Monitor
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleResetData}
+              className="gap-1.5 text-negative hover:bg-negative-tint border-border"
+            >
+              <RotateCcw className="w-3.5 h-3.5" strokeWidth={1.5} />
+              Reset Demo Data
+            </Button>
+          </div>
+        }
+      />
+
+      {/* 4. Exactly 4 Headline Numeric Tiles */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <KpiTile
+          title="In-browser queue latency"
+          value="210"
+          unit="ms"
+          statusLine="BroadcastChannel active"
+          status="positive"
+        />
+        <KpiTile
+          title="Gateway connectivity"
+          value="100%"
+          statusLine="All mock webhooks operational"
+          status="positive"
+        />
+        <KpiTile
+          title="Security lockouts"
+          value={lockedUsers}
+          statusLine={lockedUsers === 0 ? 'Zero locked accounts' : 'Accounts currently in lockout'}
+          status={lockedUsers === 0 ? 'positive' : 'critical'}
+        />
+        <KpiTile
+          title="Storage quota consumed"
+          value={storageKb}
+          unit="KB"
+          statusLine="< 5 MB browser quota"
+          status="positive"
+        />
       </div>
 
-      {/* 4 Infrastructure Telemetry Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-text-muted">In-Browser Queue</span>
-            <span className="w-2 h-2 rounded-full bg-success" />
+      {/* 5. Needs Attention Row List */}
+      <Card
+        title="Needs attention"
+        subtitle="System infrastructure alerts requiring administrative inspection"
+        padding="none"
+      >
+        <div className="divide-y divide-border">
+          <div className="p-4 flex items-center justify-between gap-4 hover:bg-surface-hover transition-colors">
+            <div className="flex items-center gap-3 min-w-0">
+              <StatusIndicator
+                status={failedFallbacks > 0 ? 'critical' : 'positive'}
+                label={failedFallbacks > 0 ? 'Warning' : 'Normal'}
+              />
+              <div className="min-w-0">
+                <p className="text-sm text-text font-semibold truncate">
+                  {failedFallbacks > 0
+                    ? `${failedFallbacks} failed cellular SMS fallback transmission(s)`
+                    : 'All cellular SMS fallbacks successfully dispatched'}
+                </p>
+                <p className="text-xs text-text-secondary mt-0.5">
+                  Cellular fallback carrier simulation
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="text-xs text-text-secondary tabular-nums">Live</span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/admin/integrations')}
+              >
+                Inspect Gateways
+              </Button>
+            </div>
           </div>
-          <div className="text-base font-bold text-text-primary">BroadcastChannel Active</div>
-          <span className="text-[11px] text-accent font-mono mt-1 block">
-            Measured Latency: 140–280 ms
-          </span>
         </div>
+      </Card>
 
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-text-muted">WhatsApp Gateway Mock</span>
-            <span className="w-2 h-2 rounded-full bg-success" />
+      {/* 6. Recent Audit Events Table */}
+      <Card padding="none">
+        <div className="p-4 border-b border-border flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-semibold text-text">
+              Recent security and operational audit events
+            </h3>
+            <p className="text-xs text-text-secondary mt-0.5">
+              Append-only tamper-evident audit trail entries
+            </p>
           </div>
-          <div className="text-base font-bold text-text-primary">Cloud API Simulator</div>
-          <span className="text-[11px] text-text-muted mt-1 block">Webhook Signature Verified</span>
-        </div>
-
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-text-muted">Cellular SMS Gateway</span>
-            <span
-              className={`w-2 h-2 rounded-full ${
-                failedFallbacks > 0 ? 'bg-warning' : 'bg-success'
-              }`}
-            />
-          </div>
-          <div className="text-base font-bold text-text-primary">DLT Carrier Mock</div>
-          <span className="text-[11px] text-text-muted mt-1 block">
-            {failedFallbacks} failed dispatches ({data.smsFallbackRecords.length} total)
-          </span>
-        </div>
-
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-text-muted">Browser Storage Quota</span>
-            <HardDrive className="w-3.5 h-3.5 text-accent" />
-          </div>
-          <div className="text-base font-bold text-text-primary">{storageKb} KB Used</div>
-          <span className="text-[11px] text-text-muted mt-1 block">
-            Key: vayoshrestha_store_v2 (&lt; 5MB quota)
-          </span>
-        </div>
-      </div>
-
-      {/* Security & Audit Events Stream */}
-      <div className="bg-white border border-border-hairline rounded overflow-hidden">
-        <div className="p-4 border-b border-border-hairline flex items-center justify-between">
-          <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
-            <Clock className="w-4 h-4 text-accent" />
-            Recent Security & Operational Audit Events
-          </h3>
           <Button
             variant="outline"
             size="sm"
             onClick={() => navigate('/admin/audit-logs')}
-            className="text-xs gap-1"
+            className="gap-1"
           >
             <span>Full Audit Trail</span>
-            <ArrowRight className="w-3 h-3" />
+            <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
           </Button>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-surface-subtle border-b border-border-hairline text-text-muted font-medium">
-                <th className="py-2.5 px-4">Timestamp (IST)</th>
-                <th className="py-2.5 px-4">Actor</th>
-                <th className="py-2.5 px-4">Role</th>
-                <th className="py-2.5 px-4">Action</th>
-                <th className="py-2.5 px-4">Entity</th>
-                <th className="py-2.5 px-4">Details</th>
+              <tr className="bg-surface-subtle border-b border-border text-text-secondary font-semibold h-10">
+                <th className="py-2 px-4">Timestamp (IST)</th>
+                <th className="py-2 px-4">Actor</th>
+                <th className="py-2 px-4">Role</th>
+                <th className="py-2 px-4">Action</th>
+                <th className="py-2 px-4">Entity</th>
+                <th className="py-2 px-4">Details</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-hairline">
+            <tbody className="divide-y divide-border">
               {recentAudit.map((ev) => (
-                <tr key={ev.id} className="hover:bg-surface-subtle">
-                  <td className="py-2.5 px-4 font-mono text-text-muted">
+                <tr
+                  key={ev.id}
+                  className="h-12 hover:bg-surface-hover transition-colors"
+                >
+                  <td className="py-2 px-4 tabular-nums text-text-secondary">
                     {new Date(ev.timestamp).toLocaleTimeString('en-IN', {
                       timeZone: 'Asia/Kolkata',
                     })}
                   </td>
-                  <td className="py-2.5 px-4 font-mono">{ev.actorId}</td>
-                  <td className="py-2.5 px-4">
-                    <span className="px-1.5 py-0.2 bg-surface-subtle border border-border-hairline rounded text-[10px] font-mono">
+                  <td className="py-2 px-4 tabular-nums text-text font-medium">{ev.actorId}</td>
+                  <td className="py-2 px-4">
+                    <span className="px-1.5 py-0.5 bg-surface-subtle border border-border rounded-chip text-[11px] text-text font-medium">
                       {ev.actorRole}
                     </span>
                   </td>
-                  <td className="py-2.5 px-4 font-semibold text-text-primary">{ev.action}</td>
-                  <td className="py-2.5 px-4 font-mono text-[11px] text-text-muted">
+                  <td className="py-2 px-4 font-semibold text-text">{ev.action}</td>
+                  <td className="py-2 px-4 tabular-nums text-[11px] text-text-secondary">
                     {ev.entityType} ({ev.entityId})
                   </td>
-                  <td className="py-2.5 px-4 text-text-muted max-w-xs truncate">{ev.details}</td>
+                  <td className="py-2 px-4 text-text-secondary max-w-xs truncate">{ev.details}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

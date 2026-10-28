@@ -11,11 +11,10 @@ import {
   ChevronDown,
   User,
   LogOut,
-  Type,
-  Volume2,
-  VolumeX,
   AlertTriangle,
   X,
+  Volume2,
+  VolumeX,
 } from 'lucide-react';
 import { maskPhoneNumber } from '@/domain/masking';
 
@@ -27,8 +26,6 @@ export const TopBar: React.FC = () => {
     setActiveChapter,
     switchPersona,
     logout,
-    textSize,
-    setTextSize,
     chimeEnabled,
     toggleChime,
     openSosCount,
@@ -43,7 +40,7 @@ export const TopBar: React.FC = () => {
   const chapters = mockStore.getData().chapters;
   const seniorCitizens = mockStore.getData().seniorCitizens;
 
-  // Real-time SOS count monitoring & document title update
+  // Real-time SOS count monitoring
   useEffect(() => {
     const updateCount = () => {
       const active = mockStore
@@ -51,9 +48,9 @@ export const TopBar: React.FC = () => {
         .sosEvents.filter((e) => e.status === 'Triggered' || e.status === 'Acknowledged');
       setOpenSosCount(active.length);
       if (active.length > 0) {
-        document.title = `(🚨 ${active.length}) Vayoshreshtha — Emergency SOS`;
+        document.title = `(🚨 ${active.length}) Vayoshrestha — Emergency SOS`;
       } else {
-        document.title = 'Vayoshreshtha — Digital Senior-Care Platform';
+        document.title = 'Vayoshrestha — Digital Senior-Care Platform';
       }
     };
 
@@ -61,6 +58,18 @@ export const TopBar: React.FC = () => {
     const interval = setInterval(updateCount, 3000);
     return () => clearInterval(interval);
   }, [setOpenSosCount]);
+
+  // Handle Ctrl+K shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Scope switcher filtering
   const availableChapters = chapters.filter((c) => {
@@ -76,274 +85,252 @@ export const TopBar: React.FC = () => {
 
   const currentChapter = chapters.find((c) => c.id === activeChapterId) || availableChapters[0] || chapters[0];
 
-  // Debounced search adhering to scope
-  const searchResults =
-    searchQuery.trim().length >= 2
-      ? seniorCitizens
-          .filter((s) => {
-            if (user?.role === 'CM' || user?.role === 'VF') {
-              if (user.assignedChapter && s.chapterId !== user.assignedChapter) return false;
-            }
-            const q = searchQuery.toLowerCase();
-            const memId = (s.memberId || s.membershipId || '').toLowerCase();
-            const ph = s.phoneNumber || s.phone || '';
-            return (
-              s.fullName.toLowerCase().includes(q) ||
-              memId.includes(q) ||
-              ph.includes(q)
-            );
-          })
-          .slice(0, 5)
-      : [];
+  const searchResults = searchQuery.trim()
+    ? seniorCitizens
+        .filter((s) => {
+          if (user?.role === 'CM' || user?.role === 'VF') {
+            if (s.chapterId !== activeChapterId) return false;
+          }
+          const q = searchQuery.toLowerCase();
+          return (
+            s.fullName.toLowerCase().includes(q) ||
+            Boolean(s.phoneNumber && s.phoneNumber.includes(q)) ||
+            s.id.toLowerCase().includes(q)
+          );
+        })
+        .slice(0, 5)
+    : [];
 
   return (
-    <header className="h-14 bg-bg-base border-b border-border-hairline px-6 flex items-center justify-between shrink-0 sticky top-0 z-30">
-      {/* Left: Brand & Chapter Scope Switcher */}
+    <header className="h-[52px] bg-surface border-b border-border px-8 flex items-center justify-between gap-6 z-20 shrink-0 select-none">
+      {/* Left: Brand mark + Scope switcher */}
       <div className="flex items-center gap-6">
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
-          <div className="w-8 h-8 rounded bg-accent flex items-center justify-center text-white font-serif font-bold text-lg">
-            V
-          </div>
-          <div>
-            <span className="font-serif font-bold text-base text-text-primary tracking-tight">Vayoshreshtha</span>
-            <span className="text-[10px] block text-text-muted font-sans -mt-1">Vayoh Vikas Eldercare</span>
-          </div>
+        <div className="flex items-baseline gap-2 cursor-pointer" onClick={() => navigate('/')}>
+          <span className="text-base font-semibold text-text tracking-normal">
+            Vayoshrestha
+          </span>
+          <span className="text-xs text-text-secondary font-normal">
+            Vayoh Vikas
+          </span>
         </div>
 
-        {/* Chapter / Hub Switcher */}
-        {user?.role !== 'SC' && user?.role !== 'CD' && (
-          <div className="relative">
-            <button
-              onClick={() => setChapterMenuOpen(!chapterMenuOpen)}
-              className="flex items-center gap-2 px-2.5 py-1.5 text-xs font-medium text-text-primary bg-bg-subtle hover:bg-bg-active rounded border border-border-hairline transition-colors"
-            >
-              <Building2 className="w-3.5 h-3.5 text-accent" />
-              <span>{currentChapter?.name || 'All Chapters'}</span>
-              {availableChapters.length > 1 && <ChevronDown className="w-3 h-3 text-text-muted" />}
-            </button>
+        {/* Scope Switcher dropdown */}
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setChapterMenuOpen(!chapterMenuOpen)}
+            className="h-8 px-2.5 rounded-control bg-surface border border-border text-xs text-text flex items-center gap-2 hover:bg-surface-hover transition-colors"
+          >
+            <Building2 className="w-4 h-4 text-text-secondary stroke-[1.5]" />
+            <span className="font-semibold text-text max-w-[150px] truncate">
+              {currentChapter ? currentChapter.name : 'All Chapters'}
+            </span>
+            <ChevronDown className="w-3.5 h-3.5 text-text-secondary stroke-[1.5]" />
+          </button>
 
-            {chapterMenuOpen && availableChapters.length > 1 && (
-              <div className="absolute left-0 mt-1 w-64 bg-white rounded shadow-lg border border-border-hairline py-1 z-50">
-                <div className="px-3 py-1.5 text-[11px] font-semibold text-text-muted uppercase tracking-wider border-b border-border-hairline">
-                  Assigned Chapters ({availableChapters.length})
-                </div>
-                {availableChapters.map((c) => (
+          {chapterMenuOpen && (
+            <div className="absolute left-0 top-9 w-64 bg-surface border border-border rounded-control shadow-menu py-1 z-30 animate-in fade-in-0 duration-150">
+              <div className="px-3 py-1.5 text-xs text-text-secondary font-semibold border-b border-border-subtle">
+                Assigned Chapters
+              </div>
+              <div className="max-h-56 overflow-y-auto">
+                {availableChapters.map((ch) => (
                   <button
-                    key={c.id}
+                    key={ch.id}
+                    type="button"
                     onClick={() => {
-                      setActiveChapter(c.id);
+                      setActiveChapter(ch.id);
                       setChapterMenuOpen(false);
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-bg-subtle ${
-                      c.id === activeChapterId ? 'font-semibold text-accent bg-accent-tint/30' : 'text-text-primary'
+                    className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-surface-hover ${
+                      ch.id === activeChapterId ? 'text-accent font-semibold bg-surface-selected' : 'text-text'
                     }`}
                   >
-                    <span>{c.name}</span>
-                    <span className="text-[10px] text-text-muted">{c.code}</span>
+                    <span className="truncate">{ch.name}</span>
+                    <span className="text-text-secondary font-normal text-[11px]">{ch.city}</span>
                   </button>
                 ))}
               </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Center: Global Search (320px with Ctrl K hint) */}
+      <div className="relative w-80">
+        <div className="relative flex items-center">
+          <Search className="w-4 h-4 text-text-secondary absolute left-3 pointer-events-none stroke-[1.5]" />
+          <input
+            type="text"
+            placeholder="Search senior, ID or phone..."
+            value={searchQuery}
+            onFocus={() => setSearchOpen(true)}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full h-8 pl-9 pr-14 rounded-control bg-surface border border-border text-xs text-text placeholder:text-text-disabled focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent-tint transition-all"
+          />
+          <kbd className="absolute right-2 px-1.5 py-0.5 text-[10px] font-normal text-text-secondary bg-surface-subtle border border-border rounded pointer-events-none">
+            Ctrl K
+          </kbd>
+        </div>
+
+        {searchOpen && searchQuery.trim() && (
+          <div className="absolute left-0 top-9 w-full bg-surface border border-border rounded-control shadow-menu py-1 z-30">
+            {searchResults.length === 0 ? (
+              <div className="px-3 py-2 text-xs text-text-secondary">
+                No matching seniors found.
+              </div>
+            ) : (
+              searchResults.map((senior) => (
+                <button
+                  key={senior.id}
+                  type="button"
+                  onClick={() => {
+                    navigate(`/seniors/${senior.id}`);
+                    setSearchOpen(false);
+                    setSearchQuery('');
+                  }}
+                  className="w-full text-left px-3 py-2 text-xs hover:bg-surface-hover flex items-center justify-between"
+                >
+                  <div>
+                    <div className="font-semibold text-text">{senior.fullName}</div>
+                    <div className="text-text-secondary text-[11px]">
+                      {maskPhoneNumber(senior.phoneNumber)} · {senior.chapterId}
+                    </div>
+                  </div>
+                  <span className="text-[11px] text-accent font-semibold">View</span>
+                </button>
+              ))
             )}
           </div>
         )}
       </div>
 
-      {/* Middle: Global Senior Search */}
-      <div className="relative flex-1 max-w-md mx-6">
-        <div className="relative">
-          <Search className="w-4 h-4 text-text-muted absolute left-3 top-2.5" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-              setSearchOpen(true);
-            }}
-            placeholder="Search seniors by name, phone last 4, or ID..."
-            className="w-full bg-bg-subtle border border-border-hairline rounded pl-9 pr-8 py-1.5 text-xs text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent focus:bg-white transition-colors"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setSearchOpen(false);
-              }}
-              className="absolute right-2.5 top-2.5 text-text-muted hover:text-text-primary"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-          )}
-        </div>
-
-        {searchOpen && searchResults.length > 0 && (
-          <div className="absolute left-0 right-0 mt-1 bg-white rounded shadow-lg border border-border-hairline py-1 z-50">
-            {searchResults.map((senior) => (
-              <div
-                key={senior.id}
-                onClick={() => {
-                  navigate(`/seniors/${senior.id}`);
-                  setSearchOpen(false);
-                  setSearchQuery('');
-                }}
-                className="px-3 py-2 hover:bg-bg-subtle cursor-pointer border-b border-border-hairline last:border-0"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium text-xs text-text-primary">{senior.fullName}</span>
-                  <span className="text-[10px] font-mono text-text-muted">{senior.memberId || senior.membershipId}</span>
-                </div>
-                <div className="text-[11px] text-text-muted flex gap-3 mt-0.5">
-                  <span>Phone: {user?.role === 'VF' ? maskPhoneNumber(senior.phoneNumber || senior.phone || '') : (senior.phoneNumber || senior.phone || '')}</span>
-                  <span>Chapter: {senior.chapterId}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Right: SOS Status Pill, Chime Toggle, Text Scale, Profile */}
+      {/* Right Controls: SOS chip, notifications, help, user profile */}
       <div className="flex items-center gap-3">
-        {/* Real-time SOS Board Quick Pill */}
+        {/* SOS Status Chip: neutral when 0 open alerts, solid red with count when there are */}
         <button
+          type="button"
           onClick={() => navigate('/sos')}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold transition-colors ${
+          className={`h-8 px-3 rounded-control text-xs font-semibold flex items-center gap-2 transition-colors ${
             openSosCount > 0
-              ? 'bg-danger text-white animate-pulse'
-              : 'bg-bg-subtle text-text-muted hover:text-text-primary border border-border-hairline'
+              ? 'bg-negative text-text-on-accent hover:opacity-90'
+              : 'bg-surface-subtle text-text-secondary border border-border hover:bg-surface-hover'
           }`}
-          title="Open Live SOS Board"
         >
-          <AlertTriangle className="w-3.5 h-3.5" />
-          <span>{openSosCount > 0 ? `🚨 ${openSosCount} Open SOS` : 'SOS Board'}</span>
+          <AlertTriangle className={`w-4 h-4 stroke-[1.5] ${openSosCount > 0 ? 'text-white' : 'text-text-secondary'}`} />
+          <span>
+            {openSosCount > 0 ? `${openSosCount} open SOS` : 'SOS status: Normal'}
+          </span>
         </button>
 
-        {/* Chime Audio Toggle */}
+        {/* Chime Toggle */}
         <button
+          type="button"
           onClick={toggleChime}
-          className={`p-2 rounded text-text-muted hover:text-text-primary hover:bg-bg-subtle transition-colors ${
-            chimeEnabled ? 'text-accent' : ''
+          className={`h-8 px-2.5 rounded-control border border-border text-xs flex items-center gap-1.5 transition-colors ${
+            chimeEnabled ? 'bg-surface-selected text-accent border-accent/30' : 'bg-surface text-text-secondary hover:bg-surface-hover'
           }`}
-          title={chimeEnabled ? 'SOS Alert Chime Enabled (Click to Mute)' : 'SOS Alert Chime Muted (Click to Enable)'}
+          title={chimeEnabled ? 'SOS audio chime is enabled' : 'SOS audio chime is muted'}
         >
-          {chimeEnabled ? <Volume2 className="w-4 h-4 text-accent" /> : <VolumeX className="w-4 h-4 text-text-muted" />}
+          {chimeEnabled ? <Volume2 className="w-4 h-4 stroke-[1.5]" /> : <VolumeX className="w-4 h-4 stroke-[1.5]" />}
+          <span className="hidden sm:inline text-xs">{chimeEnabled ? 'Chime on' : 'Chime off'}</span>
         </button>
 
-        {/* Text Scaling for Seniors */}
-        {user?.role === 'SC' && (
-          <div className="flex items-center border border-border-hairline rounded bg-bg-subtle p-0.5">
-            <button
-              onClick={() => setTextSize('normal')}
-              className={`px-2 py-0.5 text-xs rounded ${textSize === 'normal' ? 'bg-white font-bold text-accent shadow-xs' : 'text-text-muted'}`}
-            >
-              18px
-            </button>
-            <button
-              onClick={() => setTextSize('large')}
-              className={`px-2 py-0.5 text-xs rounded ${textSize === 'large' ? 'bg-white font-bold text-accent shadow-xs' : 'text-text-muted'}`}
-            >
-              20px
-            </button>
-            <button
-              onClick={() => setTextSize('xlarge')}
-              className={`px-2 py-0.5 text-xs rounded ${textSize === 'xlarge' ? 'bg-white font-bold text-accent shadow-xs' : 'text-text-muted'}`}
-            >
-              22px
-            </button>
-          </div>
-        )}
-
-        {/* Notification Bell */}
+        {/* Notifications Link */}
         <button
+          type="button"
           onClick={() => navigate('/notifications')}
-          className="p-2 text-text-muted hover:text-text-primary hover:bg-bg-subtle rounded transition-colors relative"
+          className="h-8 px-2.5 rounded-control bg-surface border border-border text-xs text-text-secondary hover:text-text hover:bg-surface-hover flex items-center gap-1.5 transition-colors"
           title="Notifications"
         >
-          <Bell className="w-4 h-4" />
-          {openSosCount > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-danger" />}
+          <Bell className="w-4 h-4 stroke-[1.5]" />
+          <span>Alerts</span>
         </button>
 
-        {/* Help */}
+        {/* Help Link */}
         <button
+          type="button"
           onClick={() => navigate('/help')}
-          className="p-2 text-text-muted hover:text-text-primary hover:bg-bg-subtle rounded transition-colors"
-          title="Operating Help & SOPs"
+          className="h-8 px-2.5 rounded-control bg-surface border border-border text-xs text-text-secondary hover:text-text hover:bg-surface-hover flex items-center gap-1.5 transition-colors"
+          title="Operational manuals and SOPs"
         >
-          <HelpCircle className="w-4 h-4" />
+          <HelpCircle className="w-4 h-4 stroke-[1.5]" />
+          <span>Help</span>
         </button>
 
-        <div className="h-4 w-px bg-border-hairline mx-1" />
-
-        {/* User Account Menu with Role Persona Switcher */}
+        {/* User Account Menu with Role Switcher */}
         <div className="relative">
           <button
+            type="button"
             onClick={() => setUserMenuOpen(!userMenuOpen)}
-            className="flex items-center gap-2 pl-2 pr-1.5 py-1 rounded hover:bg-bg-subtle text-left transition-colors"
+            className="h-8 px-2.5 rounded-control bg-surface border border-border flex items-center gap-2 hover:bg-surface-hover transition-colors"
           >
-            <div className="w-7 h-7 rounded-full bg-accent-tint text-accent flex items-center justify-center font-bold text-xs">
+            <div className="w-5 h-5 rounded-full bg-surface-subtle text-text-secondary border border-border flex items-center justify-center text-[10px] font-semibold">
               {user?.fullName?.charAt(0) || 'U'}
             </div>
-            <div className="hidden sm:block">
-              <span className="block text-xs font-semibold text-text-primary leading-tight">
-                {user?.fullName || 'Guest'}
-              </span>
-              <span className="block text-[10px] text-text-muted leading-none">
-                {ROLES[user?.role || 'SA']?.name || user?.role}
+            <div className="text-left hidden lg:block">
+              <span className="text-xs font-semibold text-text block truncate max-w-[120px]">
+                {user?.fullName}
               </span>
             </div>
-            <ChevronDown className="w-3.5 h-3.5 text-text-muted" />
+            <ChevronDown className="w-3.5 h-3.5 text-text-secondary stroke-[1.5]" />
           </button>
 
           {userMenuOpen && (
-            <div className="absolute right-0 mt-1 w-64 bg-white rounded shadow-lg border border-border-hairline py-1 z-50">
-              <div className="px-3 py-2 border-b border-border-hairline bg-bg-subtle/50">
-                <div className="font-semibold text-xs text-text-primary">{user?.fullName}</div>
-                <div className="text-[11px] text-text-muted">{user?.email}</div>
-                <div className="text-[10px] font-mono text-accent mt-0.5">Role: {user?.role}</div>
+            <div className="absolute right-0 top-9 w-64 bg-surface border border-border rounded-control shadow-menu py-1 z-30 animate-in fade-in-0 duration-150">
+              <div className="px-3 py-2 border-b border-border-subtle">
+                <div className="font-semibold text-xs text-text">{user?.fullName}</div>
+                <div className="text-[11px] text-text-secondary">{user?.email}</div>
+                <div className="text-[11px] text-accent font-semibold mt-0.5">
+                  Role: {ROLES[user?.role || 'RA']?.name}
+                </div>
               </div>
 
-              {/* Quick Persona Switcher for Evaluation */}
-              <div className="px-3 py-1 text-[10px] font-semibold text-text-muted uppercase tracking-wider border-b border-border-hairline">
-                Prototype Quick Persona Switch
+              {/* Persona Switcher for Prototype Testing */}
+              <div className="px-3 py-1.5 text-xs text-text-secondary font-semibold border-b border-border-subtle">
+                Switch Role Persona:
               </div>
-              <div className="max-h-48 overflow-y-auto">
-                {(['RA', 'CM', 'VF', 'CT', 'NM', 'SA', 'CD', 'SC'] as RoleCode[]).map((r) => (
-                  <button
-                    key={r}
-                    onClick={() => {
-                      switchPersona(r);
-                      setUserMenuOpen(false);
-                      navigate('/');
-                    }}
-                    className={`w-full text-left px-3 py-1.5 text-xs flex items-center justify-between hover:bg-bg-subtle ${
-                      user?.role === r ? 'font-semibold text-accent bg-accent-tint/30' : 'text-text-primary'
-                    }`}
-                  >
-                    <span>{ROLES[r].name}</span>
-                    <span className="text-[10px] text-text-muted font-mono">{r}</span>
-                  </button>
-                ))}
-              </div>
-
-              <div className="border-t border-border-hairline mt-1 pt-1">
+              {(['RA', 'CM', 'VF', 'CT', 'SA', 'CD'] as RoleCode[]).map((r) => (
                 <button
+                  key={r}
+                  type="button"
                   onClick={() => {
-                    navigate('/account');
+                    switchPersona(r);
                     setUserMenuOpen(false);
+                    navigate('/');
                   }}
-                  className="w-full text-left px-3 py-1.5 text-xs text-text-primary hover:bg-bg-subtle flex items-center gap-2"
+                  className={`w-full text-left px-3 py-1.5 text-xs flex items-center justify-between hover:bg-surface-hover ${
+                    user?.role === r ? 'text-accent font-semibold bg-surface-selected' : 'text-text'
+                  }`}
                 >
-                  <User className="w-3.5 h-3.5 text-text-muted" />
-                  <span>My Account</span>
+                  <span>{ROLES[r].name}</span>
+                  <span className="text-[11px] text-text-secondary">{r}</span>
+                </button>
+              ))}
+
+              <div className="border-t border-border-subtle pt-1 mt-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUserMenuOpen(false);
+                    navigate('/account');
+                  }}
+                  className="w-full text-left px-3 py-1.5 text-xs text-text hover:bg-surface-hover flex items-center gap-2"
+                >
+                  <User className="w-3.5 h-3.5 stroke-[1.5]" />
+                  <span>Account settings</span>
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
+                    setUserMenuOpen(false);
                     logout();
                     navigate('/login');
                   }}
-                  className="w-full text-left px-3 py-1.5 text-xs text-danger hover:bg-danger-bg flex items-center gap-2"
+                  className="w-full text-left px-3 py-1.5 text-xs text-negative hover:bg-negative-tint flex items-center gap-2"
                 >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span>Sign Out</span>
+                  <LogOut className="w-3.5 h-3.5 stroke-[1.5]" />
+                  <span>Sign out</span>
                 </button>
               </div>
             </div>

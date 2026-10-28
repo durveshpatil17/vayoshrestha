@@ -60,7 +60,7 @@ export const HelpPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left Column: FAQs (2 cols) */}
         <div className="md:col-span-2 space-y-4">
-          <h3 className="font-serif text-lg font-semibold text-text-primary mb-3">
+          <h3 className="text-lg font-semibold text-text-primary mb-3">
             Frequently Answered Questions
           </h3>
 
@@ -97,7 +97,7 @@ export const HelpPage: React.FC = () => {
         {/* Right Column: Support Channels & Emergency (1 col) */}
         <div className="space-y-4">
           <div className="p-5 bg-bg-subtle border border-border-hairline rounded space-y-3">
-            <h3 className="font-serif text-sm font-semibold text-text-primary flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
               <Phone className="w-4 h-4 text-accent" />
               Central Operations Helpline
             </h3>
@@ -106,13 +106,13 @@ export const HelpPage: React.FC = () => {
             </p>
             <div className="p-3 bg-bg-base rounded border border-border-hairline text-xs space-y-1">
               <div className="font-semibold text-text-primary">Vayoh Vikas Field Desk</div>
-              <div className="text-accent font-mono font-bold">+91 98220 11999</div>
+              <div className="text-accent tabular-nums font-semibold">+91 98220 11999</div>
               <div className="text-[11px] text-text-muted">Mon–Sat: 08:30 to 18:00 IST</div>
             </div>
           </div>
 
           <div className="p-5 bg-bg-base border border-border-hairline rounded space-y-3">
-            <h3 className="font-serif text-sm font-semibold text-text-primary flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
               <FileText className="w-4 h-4 text-accent" />
               Institutional Resources
             </h3>

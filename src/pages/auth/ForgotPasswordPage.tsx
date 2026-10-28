@@ -25,12 +25,12 @@ export const ForgotPasswordPage: React.FC = () => {
       </div>
 
       <div className="flex-1 flex items-center justify-center p-6 my-8">
-        <div className="w-full max-w-md bg-bg-base border border-border-strong rounded p-8 shadow-sm text-left">
+        <div className="w-full max-w-md bg-bg-base border border-border-strong rounded p-8 text-left">
           <div className="w-12 h-12 rounded-full bg-accent-tint text-accent flex items-center justify-center mb-4 border border-accent/20">
             <KeyRound className="w-6 h-6" />
           </div>
 
-          <h2 className="font-serif text-2xl font-semibold text-text-primary tracking-tight mb-2">
+          <h2 className="text-2xl font-semibold text-text-primary mb-2">
             Reset Account Password
           </h2>
 

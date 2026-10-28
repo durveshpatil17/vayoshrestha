@@ -82,8 +82,8 @@ export const SettingsPage: React.FC = () => {
 
       <form onSubmit={handleSaveSettings} className="space-y-6">
         {/* Pilot Parameters */}
-        <div className="bg-bg-base border border-border-hairline rounded p-6 space-y-4 shadow-sm">
-          <h3 className="font-serif text-base font-semibold text-text-primary">1. Pilot Scope & Targets (FR-50)</h3>
+        <div className="bg-bg-base border border-border-hairline rounded p-6 space-y-4">
+          <h3 className="text-base font-semibold text-text-primary">1. Pilot Scope & Targets (FR-50)</h3>
 
           <div className="grid grid-cols-2 gap-4 text-xs">
             <div>
@@ -102,7 +102,7 @@ export const SettingsPage: React.FC = () => {
                 type="number"
                 value={settings.pilotRegistrationTarget}
                 onChange={(e) => setSettings({ ...settings, pilotRegistrationTarget: parseInt(e.target.value, 10) || 1000 })}
-                className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent font-mono"
+                className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent tabular-nums"
               />
             </div>
 
@@ -129,8 +129,8 @@ export const SettingsPage: React.FC = () => {
         </div>
 
         {/* Operating Window Configurations */}
-        <div className="bg-bg-base border border-border-hairline rounded p-6 space-y-4 shadow-sm">
-          <h3 className="font-serif text-base font-semibold text-text-primary">2. Canonical Window Thresholds</h3>
+        <div className="bg-bg-base border border-border-hairline rounded p-6 space-y-4">
+          <h3 className="text-base font-semibold text-text-primary">2. Canonical Window Thresholds</h3>
 
           <div className="grid grid-cols-3 gap-4 text-xs">
             <div>
@@ -139,7 +139,7 @@ export const SettingsPage: React.FC = () => {
                 type="number"
                 value={settings.activeMemberWindowDays}
                 onChange={(e) => setSettings({ ...settings, activeMemberWindowDays: parseInt(e.target.value, 10) || 30 })}
-                className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent font-mono"
+                className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent tabular-nums"
               />
               <span className="text-[11px] text-text-muted mt-1 block">Default: 30 days</span>
             </div>
@@ -150,7 +150,7 @@ export const SettingsPage: React.FC = () => {
                 type="number"
                 value={settings.attendanceLockHours}
                 onChange={(e) => setSettings({ ...settings, attendanceLockHours: parseInt(e.target.value, 10) || 24 })}
-                className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent font-mono"
+                className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent tabular-nums"
               />
               <span className="text-[11px] text-text-muted mt-1 block">Corrections needed after lock</span>
             </div>
@@ -161,7 +161,7 @@ export const SettingsPage: React.FC = () => {
                 type="number"
                 value={settings.whatsappMessageVolumeCap}
                 onChange={(e) => setSettings({ ...settings, whatsappMessageVolumeCap: parseInt(e.target.value, 10) || 10000 })}
-                className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent font-mono"
+                className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent tabular-nums"
               />
               <span className="text-[11px] text-text-muted mt-1 block">10,000 monthly pilot limit</span>
             </div>
@@ -169,9 +169,9 @@ export const SettingsPage: React.FC = () => {
         </div>
 
         {/* Feature Flags */}
-        <div className="bg-bg-base border border-border-hairline rounded p-6 space-y-4 shadow-sm">
+        <div className="bg-bg-base border border-border-hairline rounded p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-border-hairline pb-2">
-            <h3 className="font-serif text-base font-semibold text-text-primary">3. Post-Pilot Feature Flags</h3>
+            <h3 className="text-base font-semibold text-text-primary">3. Post-Pilot Feature Flags</h3>
             <span className="text-xs text-text-muted">Gated for pilot stability</span>
           </div>
 

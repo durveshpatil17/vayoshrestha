@@ -25,7 +25,7 @@ export const Forbidden403: React.FC<Forbidden403Props> = ({
       <div className="w-12 h-12 rounded-full bg-critical-tint border border-critical/30 flex items-center justify-center text-critical mb-4">
         <ShieldDismiss24Regular className="w-6 h-6" />
       </div>
-      <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1">
+      <span className="text-xs font-semibold text-text-secondary mb-1">
         HTTP 403
       </span>
       <h1 className="text-page-title text-text mb-2">
@@ -33,7 +33,7 @@ export const Forbidden403: React.FC<Forbidden403Props> = ({
       </h1>
       <p className="text-sm text-text-secondary mb-6 leading-relaxed">
         Your role <strong className="text-text font-semibold">{effectiveRole}</strong> lacks the required permission:{' '}
-        <code className="bg-surface-subtle px-1.5 py-0.5 rounded-chip text-xs border border-border-subtle font-mono text-text">
+        <code className="bg-surface-subtle px-1.5 py-0.5 rounded-chip text-xs border border-border-subtle tabular-nums text-text">
           {missingPermission}
         </code>
         {requiredRole && <> (requires role {requiredRole})</>}.

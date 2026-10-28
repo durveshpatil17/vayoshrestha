@@ -133,7 +133,7 @@ export const ApprovalsPage: React.FC = () => {
               <tr key={item.id} className="hover:bg-bg-subtle/40">
                 <td className="py-3.5 px-4">
                   <div className="font-semibold text-text-primary">{item.title}</div>
-                  <div className="font-mono text-[11px] text-accent mt-0.5">{item.category}</div>
+                  <div className="tabular-nums text-[11px] text-accent mt-0.5">{item.category}</div>
                 </td>
                 <td className="py-3.5 px-4 text-text-muted">{item.submittedBy}</td>
                 <td className="py-3.5 px-4 max-w-sm text-text-muted leading-relaxed">
@@ -182,9 +182,9 @@ export const ApprovalsPage: React.FC = () => {
       {/* Review Modal */}
       {selectedItem && actionType && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-          <div className="bg-bg-base rounded-md border border-border-hairline max-w-md w-full p-6 space-y-4 shadow-xl text-xs">
+          <div className="bg-bg-base rounded-md border border-border-hairline max-w-md w-full p-6 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-border-hairline pb-3">
-              <h3 className="font-serif text-lg font-semibold text-text-primary">{actionType} {selectedItem.category}</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{actionType} {selectedItem.category}</h3>
               <button onClick={() => setSelectedItem(null)} className="text-text-muted hover:text-text-primary">✕</button>
             </div>
 

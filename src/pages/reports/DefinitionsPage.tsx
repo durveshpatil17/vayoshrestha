@@ -65,7 +65,7 @@ export const DefinitionsPage: React.FC = () => {
       <div className="p-4 bg-surface-subtle border-l-4 border-accent rounded text-xs text-text-primary flex items-start gap-3">
         <ShieldCheck className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
         <div>
-          <strong className="text-accent font-bold block">
+          <strong className="text-accent font-semibold block">
             Institutional Measurement Integrity:
           </strong>
           Every metric displayed across Vayoshreshtha adheres strictly to these standardized pilot
@@ -76,12 +76,12 @@ export const DefinitionsPage: React.FC = () => {
       <div className="space-y-4">
         {definitions.map((d) => (
           <div key={d.term} className="bg-white border border-border-hairline rounded p-5 space-y-2">
-            <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-accent" />
               {d.term}
             </h3>
             <p className="text-xs text-text-primary leading-relaxed">{d.canonical}</p>
-            <div className="p-2.5 bg-surface-subtle border border-border-hairline rounded text-[11px] font-mono space-y-1">
+            <div className="p-2.5 bg-surface-subtle border border-border-hairline rounded text-[11px] tabular-nums space-y-1">
               <div>
                 <strong className="text-text-muted">Computation Rule:</strong> {d.rule}
               </div>

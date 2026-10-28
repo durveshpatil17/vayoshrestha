@@ -77,13 +77,13 @@ export const AccountPage: React.FC = () => {
       {activeTab === 'profile' && (
         <div className="max-w-xl bg-bg-base border border-border-hairline rounded p-6 space-y-4">
           <div className="flex items-center gap-4 pb-4 border-b border-border-hairline">
-            <div className="w-14 h-14 rounded-full bg-accent-tint text-accent border border-accent/20 flex items-center justify-center font-serif text-xl font-bold">
+            <div className="w-14 h-14 rounded-full bg-accent-tint text-accent border border-accent/20 flex items-center justify-center text-xl font-semibold">
               {user?.fullName?.charAt(0) || 'U'}
             </div>
             <div>
               <h3 className="text-base font-semibold text-text-primary">{user?.fullName}</h3>
               <p className="text-xs text-text-muted">{user?.email || user?.phone}</p>
-              <span className="inline-block mt-1 text-[11px] font-mono text-accent bg-accent-tint px-2 py-0.5 rounded font-semibold">
+              <span className="inline-block mt-1 text-[11px] tabular-nums text-accent bg-accent-tint px-2 py-0.5 rounded font-semibold">
                 {user?.role} · {ROLES[user?.role || 'SA']?.name}
               </span>
             </div>
@@ -111,7 +111,7 @@ export const AccountPage: React.FC = () => {
         <div className="max-w-xl space-y-6">
           {/* Password Change Form */}
           <div className="bg-bg-base border border-border-hairline rounded p-6">
-            <h3 className="font-serif text-base font-semibold text-text-primary mb-1">
+            <h3 className="text-base font-semibold text-text-primary mb-1">
               Change Password
             </h3>
             <p className="text-xs text-text-muted mb-4">
@@ -158,7 +158,7 @@ export const AccountPage: React.FC = () => {
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <Shield className="w-4 h-4 text-accent" />
-                <h3 className="font-serif text-sm font-semibold text-text-primary">
+                <h3 className="text-sm font-semibold text-text-primary">
                   Two-Factor Authentication (MFA)
                 </h3>
               </div>
@@ -179,7 +179,7 @@ export const AccountPage: React.FC = () => {
         <div className="max-w-xl bg-bg-base border border-border-hairline rounded p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="font-serif text-base font-semibold text-text-primary">
+              <h3 className="text-base font-semibold text-text-primary">
                 Active Devices & Sessions
               </h3>
               <p className="text-xs text-text-muted">Devices currently authenticated to your account.</p>
@@ -198,7 +198,7 @@ export const AccountPage: React.FC = () => {
                   <div className="text-[11px] text-text-muted">Pune, Maharashtra · IP 103.21.124.8 · Active now</div>
                 </div>
               </div>
-              <span className="text-[10px] font-bold text-success bg-success-bg px-2 py-0.5 rounded">
+              <span className="text-[10px] font-semibold text-success bg-success-bg px-2 py-0.5 rounded">
                 This Device
               </span>
             </div>
@@ -210,7 +210,7 @@ export const AccountPage: React.FC = () => {
       {activeTab === 'preferences' && (
         <div className="max-w-xl bg-bg-base border border-border-hairline rounded p-6 space-y-6">
           <div>
-            <h3 className="font-serif text-base font-semibold text-text-primary mb-1">
+            <h3 className="text-base font-semibold text-text-primary mb-1">
               Accessibility Text Scale
             </h3>
             <p className="text-xs text-text-muted mb-3">
@@ -245,7 +245,7 @@ export const AccountPage: React.FC = () => {
           </div>
 
           <div className="pt-4 border-t border-border-hairline">
-            <h3 className="font-serif text-base font-semibold text-text-primary mb-1">
+            <h3 className="text-base font-semibold text-text-primary mb-1">
               Language Preference
             </h3>
             <div className="grid grid-cols-2 gap-2 mt-2">

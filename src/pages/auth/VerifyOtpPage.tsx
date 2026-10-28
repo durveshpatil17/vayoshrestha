@@ -87,17 +87,17 @@ export const VerifyOtpPage: React.FC = () => {
       </div>
 
       <div className="flex-1 flex items-center justify-center p-6 my-8">
-        <div className="w-full max-w-md bg-bg-base border border-border-strong rounded p-8 shadow-sm text-center">
+        <div className="w-full max-w-md bg-bg-base border border-border-strong rounded p-8 text-center">
           <div className="w-12 h-12 rounded-full bg-accent-tint text-accent flex items-center justify-center mx-auto mb-4 border border-accent/20">
             <ShieldCheck className="w-6 h-6" />
           </div>
 
-          <h2 className="font-serif text-2xl font-semibold text-text-primary tracking-tight mb-2">
+          <h2 className="text-2xl font-semibold text-text-primary mb-2">
             Verify One-Time Password
           </h2>
           <p className="text-xs text-text-muted mb-6 leading-relaxed">
             A 6-digit verification code has been dispatched via SMS to{' '}
-            <strong className="text-text-primary font-mono">{phone}</strong>.
+            <strong className="text-text-primary tabular-nums">{phone}</strong>.
           </p>
 
           {error && (
@@ -120,13 +120,13 @@ export const VerifyOtpPage: React.FC = () => {
                   onChange={(e) => handleChange(idx, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(idx, e)}
                   disabled={attemptsLeft <= 0}
-                  className="w-11 h-12 text-center text-lg font-bold font-mono border border-border-strong rounded bg-bg-base text-text-primary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent disabled:bg-bg-subtle"
+                  className="w-11 h-12 text-center text-lg font-semibold tabular-nums border border-border-strong rounded bg-bg-base text-text-primary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent disabled:bg-bg-subtle"
                 />
               ))}
             </div>
 
-            <p className="text-xs text-text-muted font-mono">
-              Demo Valid OTP: <span className="font-bold text-text-primary">123456</span>
+            <p className="text-xs text-text-muted tabular-nums">
+              Demo Valid OTP: <span className="font-semibold text-text-primary">123456</span>
             </p>
 
             <Button
@@ -143,7 +143,7 @@ export const VerifyOtpPage: React.FC = () => {
           <div className="mt-6 pt-4 border-t border-border-hairline flex items-center justify-between text-xs text-text-muted">
             <span>Didn't receive the code?</span>
             {resendTimer > 0 ? (
-              <span className="font-mono text-text-disabled">Resend in {resendTimer}s</span>
+              <span className="tabular-nums text-text-disabled">Resend in {resendTimer}s</span>
             ) : (
               <button
                 type="button"

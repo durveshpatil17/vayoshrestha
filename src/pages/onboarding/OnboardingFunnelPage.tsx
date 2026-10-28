@@ -92,7 +92,7 @@ export const OnboardingFunnelPage: React.FC = () => {
             <CheckCircle className="w-4 h-4" />
             <span>{nudgeSuccessToast}</span>
           </div>
-          <button onClick={() => setNudgeSuccessToast(null)} className="text-xs font-bold">&times;</button>
+          <button onClick={() => setNudgeSuccessToast(null)} className="text-xs font-semibold">&times;</button>
         </div>
       )}
 
@@ -100,22 +100,22 @@ export const OnboardingFunnelPage: React.FC = () => {
       <div className="grid grid-cols-4 gap-4">
         <div className="bg-white border border-border-hairline rounded p-4">
           <div className="text-xs text-text-muted font-medium">Pilot Onboarding Target</div>
-          <div className="text-2xl font-serif font-bold text-text-primary mt-1">1,000</div>
+          <div className="text-2xl font-semibold text-text-primary mt-1">1,000</div>
           <div className="text-[11px] text-text-muted mt-0.5">Fixed 90-day pilot cohort</div>
         </div>
         <div className="bg-white border border-border-hairline rounded p-4">
           <div className="text-xs text-text-muted font-medium">Completed Registrations</div>
-          <div className="text-2xl font-serif font-bold text-accent mt-1 tabular-nums">{totalRegistered}</div>
+          <div className="text-2xl font-semibold text-accent mt-1 tabular-nums">{totalRegistered}</div>
           <div className="text-[11px] text-success mt-0.5">100% of pilot target reached</div>
         </div>
         <div className="bg-white border border-border-hairline rounded p-4">
           <div className="text-xs text-text-muted font-medium">Stalled in Funnel</div>
-          <div className="text-2xl font-serif font-bold text-warning mt-1 tabular-nums">{totalStalled}</div>
+          <div className="text-2xl font-semibold text-warning mt-1 tabular-nums">{totalStalled}</div>
           <div className="text-[11px] text-text-muted mt-0.5">Incomplete applicant sessions</div>
         </div>
         <div className="bg-white border border-border-hairline rounded p-4">
           <div className="text-xs text-text-muted font-medium">Funnel Completion Rate</div>
-          <div className="text-2xl font-serif font-bold text-text-primary mt-1 tabular-nums">
+          <div className="text-2xl font-semibold text-text-primary mt-1 tabular-nums">
             {Math.round((totalRegistered / totalStarted) * 100)}%
           </div>
           <div className="text-[11px] text-text-muted mt-0.5">Started to fully onboarded</div>
@@ -149,7 +149,7 @@ export const OnboardingFunnelPage: React.FC = () => {
         <div className="space-y-3">
           {funnelSteps.map((s, idx) => (
             <div key={s.step} className="flex items-center gap-4">
-              <div className="w-6 h-6 rounded-full bg-bg-subtle text-text-muted flex items-center justify-center text-xs font-bold shrink-0 border border-border-hairline">
+              <div className="w-6 h-6 rounded-full bg-bg-subtle text-text-muted flex items-center justify-center text-xs font-semibold shrink-0 border border-border-hairline">
                 {s.step}
               </div>
               <div className="w-48 text-xs font-medium text-text-primary truncate shrink-0">
@@ -164,7 +164,7 @@ export const OnboardingFunnelPage: React.FC = () => {
                   {s.count.toLocaleString()} applicants ({s.pct}%)
                 </span>
               </div>
-              <div className="w-16 text-right text-xs font-mono text-text-muted shrink-0">
+              <div className="w-16 text-right text-xs tabular-nums text-text-muted shrink-0">
                 {idx > 0 ? `-${funnelSteps[idx - 1].count - s.count}` : '100%'}
               </div>
             </div>
@@ -199,7 +199,7 @@ export const OnboardingFunnelPage: React.FC = () => {
                 <tr key={row.id} className="hover:bg-bg-subtle/50 transition-colors">
                   <td className="px-4 py-3 font-medium text-text-primary">
                     <div>{row.seniorName || 'Unknown Elder'}</div>
-                    <div className="text-[11px] text-text-muted font-mono">{row.seniorPhone}</div>
+                    <div className="text-[11px] text-text-muted tabular-nums">{row.seniorPhone}</div>
                   </td>
                   <td className="px-4 py-3 text-text-muted">{row.chapterId}</td>
                   <td className="px-4 py-3">
@@ -208,7 +208,7 @@ export const OnboardingFunnelPage: React.FC = () => {
                       Step {row.currentStep}: {row.stepName}
                     </span>
                   </td>
-                  <td className="px-4 py-3 font-mono text-text-muted tabular-nums">
+                  <td className="px-4 py-3 tabular-nums text-text-muted tabular-nums">
                     {row.stalledDays} days ago
                   </td>
                   <td className="px-4 py-3 text-text-muted tabular-nums">

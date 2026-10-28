@@ -42,7 +42,7 @@ export const SosCaseDetailPage: React.FC = () => {
     return (
       <div className="p-8 text-center bg-white border border-border-hairline rounded max-w-md mx-auto my-12">
         <AlertTriangle className="w-8 h-8 text-warning mx-auto mb-3" />
-        <h3 className="font-serif font-bold text-base text-text-primary">SOS Case Not Found</h3>
+        <h3 className="font-semibold text-base text-text-primary">SOS Case Not Found</h3>
         <p className="text-xs text-text-muted mt-1">The requested SOS incident ID does not exist.</p>
         <Button variant="outline" size="sm" className="mt-4" onClick={() => navigate('/sos')}>
           Return to SOS Board
@@ -154,7 +154,7 @@ export const SosCaseDetailPage: React.FC = () => {
           <span>{actionFeedback}</span>
           <button
             onClick={() => setActionFeedback(null)}
-            className="text-xs font-bold text-accent hover:underline ml-2"
+            className="text-xs font-semibold text-accent hover:underline ml-2"
           >
             Dismiss
           </button>
@@ -165,7 +165,7 @@ export const SosCaseDetailPage: React.FC = () => {
       <div className="bg-white border border-border-hairline rounded p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <h2 className="font-serif font-bold text-lg text-text-primary">
+            <h2 className="font-semibold text-lg text-text-primary">
               Emergency Case: {event.id}
             </h2>
             <StatusChip
@@ -181,7 +181,7 @@ export const SosCaseDetailPage: React.FC = () => {
               label={event.status}
             />
             {event.isDrill && (
-              <span className="px-2 py-0.5 text-xs bg-slate-200 text-slate-700 rounded font-semibold uppercase">
+              <span className="px-2 py-0.5 text-xs bg-slate-200 text-slate-700 rounded font-semibold">
                 Simulated Drill
               </span>
             )}
@@ -203,7 +203,7 @@ export const SosCaseDetailPage: React.FC = () => {
               variant="primary"
               size="sm"
               onClick={handleAcknowledge}
-              className="bg-danger hover:bg-danger/90 text-white font-bold text-xs"
+              className="bg-danger hover:bg-danger/90 text-white font-semibold text-xs"
             >
               Acknowledge Alert
             </Button>
@@ -226,11 +226,11 @@ export const SosCaseDetailPage: React.FC = () => {
         {/* Enqueue-to-Dashboard Latency */}
         <div className="bg-white border border-border-hairline rounded p-4 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-text-muted">
+            <span className="text-[11px] font-semibold text-text-muted">
               Alert Delivery Latency
             </span>
             <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-2xl font-mono font-bold text-accent">
+              <span className="text-2xl tabular-nums font-semibold text-accent">
                 {event.latencyMs} ms
               </span>
               <span className="text-xs text-success font-medium">✓ Sub-second Target Met</span>
@@ -245,16 +245,16 @@ export const SosCaseDetailPage: React.FC = () => {
         {/* Cellular Fallback Status */}
         <div className="bg-white border border-border-hairline rounded p-4 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-text-muted">
+            <span className="text-[11px] font-semibold text-text-muted">
               Cellular Fallback Trigger
             </span>
             <div className="flex items-baseline gap-2 mt-1">
               {event.cellularFallbackTriggered ? (
-                <span className="text-base font-bold text-danger flex items-center gap-1.5">
+                <span className="text-base font-semibold text-danger flex items-center gap-1.5">
                   <WifiOff className="w-4 h-4" /> Dispatched to NOK
                 </span>
               ) : (
-                <span className="text-base font-bold text-success flex items-center gap-1.5">
+                <span className="text-base font-semibold text-success flex items-center gap-1.5">
                   <Wifi className="w-4 h-4" /> Data Channel Stable
                 </span>
               )}
@@ -274,7 +274,7 @@ export const SosCaseDetailPage: React.FC = () => {
         <div className="lg:col-span-2 space-y-6">
           {/* Incident Timeline */}
           <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-            <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
               <Clock className="w-4 h-4 text-accent" />
               Incident Timeline
             </h3>
@@ -286,7 +286,7 @@ export const SosCaseDetailPage: React.FC = () => {
                   <span className="font-medium text-xs text-text-primary">
                     1. 🚨 SOS Triggered by Senior
                   </span>
-                  <span className="font-mono text-[11px] text-text-muted">
+                  <span className="tabular-nums text-[11px] text-text-muted">
                     {new Date(event.triggeredAt).toLocaleTimeString('en-IN', {
                       timeZone: 'Asia/Kolkata',
                     })}
@@ -303,7 +303,7 @@ export const SosCaseDetailPage: React.FC = () => {
                   <span className="font-medium text-xs text-text-primary">
                     2. Webhook Ingested & Dashboard Alerted
                   </span>
-                  <span className="font-mono text-[11px] text-text-muted">
+                  <span className="tabular-nums text-[11px] text-text-muted">
                     +{event.latencyMs} ms
                   </span>
                 </div>
@@ -319,7 +319,7 @@ export const SosCaseDetailPage: React.FC = () => {
                     <span className="font-medium text-xs text-warning">
                       3. Cellular Fallback Dispatched
                     </span>
-                    <span className="font-mono text-[11px] text-text-muted">
+                    <span className="tabular-nums text-[11px] text-text-muted">
                       {event.cellularFallbackDelivered ? 'Delivered' : 'Pending Carrier'}
                     </span>
                   </div>
@@ -337,7 +337,7 @@ export const SosCaseDetailPage: React.FC = () => {
                     <span className="font-medium text-xs text-text-primary">
                       4. Alert Acknowledged
                     </span>
-                    <span className="font-mono text-[11px] text-text-muted">
+                    <span className="tabular-nums text-[11px] text-text-muted">
                       {new Date(event.acknowledgedAt).toLocaleTimeString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                       })}
@@ -361,7 +361,7 @@ export const SosCaseDetailPage: React.FC = () => {
                   <div className="w-2.5 h-2.5 rounded-full bg-success absolute -left-[21px] top-1"></div>
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-xs text-success">5. Case Resolved</span>
-                    <span className="font-mono text-[11px] text-text-muted">
+                    <span className="tabular-nums text-[11px] text-text-muted">
                       {new Date(event.resolvedAt).toLocaleTimeString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                       })}
@@ -379,7 +379,7 @@ export const SosCaseDetailPage: React.FC = () => {
           {event.cellularFallbackTriggered && fallbackRecord && (
             <div className="bg-white border border-border-hairline rounded p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+                <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
                   <Radio className="w-4 h-4 text-accent" />
                   Cellular SMS Fallback Record
                 </h3>
@@ -389,10 +389,10 @@ export const SosCaseDetailPage: React.FC = () => {
                 />
               </div>
 
-              <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs space-y-1.5 font-mono">
+              <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs space-y-1.5 tabular-nums">
                 <div className="flex justify-between">
                   <span className="text-text-muted">Recipient NOK:</span>
-                  <span className="font-bold text-text-primary">
+                  <span className="font-semibold text-text-primary">
                     {fallbackRecord.recipientPhoneNumber}
                   </span>
                 </div>
@@ -430,12 +430,12 @@ export const SosCaseDetailPage: React.FC = () => {
 
           {/* Location & Case Notes */}
           <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-            <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
               <FileText className="w-4 h-4 text-accent" />
               Operator Notes & Action Log
             </h3>
 
-            <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs font-mono whitespace-pre-wrap max-h-48 overflow-y-auto">
+            <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs tabular-nums whitespace-pre-wrap max-h-48 overflow-y-auto">
               {event.notes || 'No notes logged yet.'}
             </div>
 
@@ -461,7 +461,7 @@ export const SosCaseDetailPage: React.FC = () => {
           {/* Senior Profile Summary */}
           <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
             <div className="flex items-center justify-between border-b border-border-hairline pb-3">
-              <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+              <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
                 <User className="w-4 h-4 text-accent" />
                 Senior Profile
               </h3>
@@ -479,15 +479,15 @@ export const SosCaseDetailPage: React.FC = () => {
               <div className="space-y-2 text-xs">
                 <div>
                   <span className="text-text-muted">Full Legal Name:</span>
-                  <div className="font-bold text-text-primary text-sm">{senior.fullName}</div>
+                  <div className="font-semibold text-text-primary text-sm">{senior.fullName}</div>
                 </div>
                 <div>
                   <span className="text-text-muted">Member ID:</span>
-                  <div className="font-mono text-text-primary">{senior.memberId}</div>
+                  <div className="tabular-nums text-text-primary">{senior.memberId}</div>
                 </div>
                 <div>
                   <span className="text-text-muted">Direct Mobile:</span>
-                  <div className="font-mono text-text-primary flex items-center justify-between">
+                  <div className="tabular-nums text-text-primary flex items-center justify-between">
                     <span>{senior.phoneNumber}</span>
                     <Button
                       variant="outline"
@@ -523,7 +523,7 @@ export const SosCaseDetailPage: React.FC = () => {
 
           {/* Emergency Contacts with One-Click Call */}
           <div className="bg-white border border-border-hairline rounded p-5 space-y-3">
-            <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
               <PhoneCall className="w-4 h-4 text-accent" />
               Emergency Contacts (NOK)
             </h3>
@@ -543,7 +543,7 @@ export const SosCaseDetailPage: React.FC = () => {
                     className="p-3 bg-surface-subtle border border-border-hairline rounded space-y-1.5"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-xs text-text-primary">
+                      <span className="font-semibold text-xs text-text-primary">
                         {c.name} ({c.relationship})
                       </span>
                       <span className="text-[10px] bg-white px-1.5 py-0.5 rounded border border-border-hairline">
@@ -551,7 +551,7 @@ export const SosCaseDetailPage: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-mono text-text-primary">{c.phoneNumber}</span>
+                      <span className="tabular-nums text-text-primary">{c.phoneNumber}</span>
                       <Button
                         variant="outline"
                         size="sm"
@@ -569,7 +569,7 @@ export const SosCaseDetailPage: React.FC = () => {
 
           {/* Map-less Static Location Pin */}
           <div className="bg-white border border-border-hairline rounded p-5 space-y-3">
-            <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
               <MapPin className="w-4 h-4 text-accent" />
               Last Known Hub Location
             </h3>
@@ -589,8 +589,8 @@ export const SosCaseDetailPage: React.FC = () => {
       {/* Resolve Case Modal */}
       {resolveModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 shadow-xl space-y-4">
-            <h3 className="font-serif font-bold text-base text-text-primary flex items-center gap-2">
+          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 space-y-4">
+            <h3 className="font-semibold text-base text-text-primary flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-success" />
               Resolve Emergency Case
             </h3>

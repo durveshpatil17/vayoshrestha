@@ -56,7 +56,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   const activeFilters = filters.filter((f) => f.value && f.value !== 'ALL');
 
   return (
-    <div className="bg-surface border border-border rounded-card p-3 mb-4 shadow-xs space-y-2.5">
+    <div className="bg-surface border border-border rounded-card p-3 mb-4 space-y-2.5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         {/* Left side: Saved Views + Search + Filters */}
         <div className="flex flex-wrap items-center gap-2 flex-1">

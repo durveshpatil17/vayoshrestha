@@ -8,10 +8,10 @@ export const OfflinePage: React.FC = () => {
       <div className="w-14 h-14 rounded-full bg-warning-bg text-warning flex items-center justify-center mb-4 border border-warning/30">
         <WifiOff className="w-7 h-7" />
       </div>
-      <span className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-1">
+      <span className="text-xs font-semibold text-text-muted mb-1">
         Connectivity Interrupted
       </span>
-      <h1 className="font-serif text-2xl font-semibold text-text-primary mb-2">
+      <h1 className="text-2xl font-semibold text-text-primary mb-2">
         Working in Offline Mode
       </h1>
       <p className="text-xs text-text-muted mb-6 leading-relaxed">

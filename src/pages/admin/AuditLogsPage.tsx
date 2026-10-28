@@ -92,10 +92,10 @@ export const AuditLogsPage: React.FC = () => {
                 <th className="py-2.5 px-4 text-right">Inspection</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-hairline text-xs font-mono">
+            <tbody className="divide-y divide-border-hairline text-xs tabular-nums">
               {auditEvents.map((ev) => (
                 <tr key={ev.id} className="hover:bg-surface-subtle">
-                  <td className="py-2.5 px-4 text-text-muted font-mono">
+                  <td className="py-2.5 px-4 text-text-muted tabular-nums">
                     {new Date(ev.timestamp).toLocaleTimeString('en-IN', {
                       timeZone: 'Asia/Kolkata',
                     })}
@@ -114,7 +114,7 @@ export const AuditLogsPage: React.FC = () => {
                   <td className="py-2.5 px-4 font-sans text-text-muted max-w-xs truncate">
                     {ev.details || ev.reason || 'Standard operation'}
                   </td>
-                  <td className="py-2.5 px-4 text-text-muted text-[10px] font-mono">
+                  <td className="py-2.5 px-4 text-text-muted text-[10px] tabular-nums">
                     {ev.hash ? `${ev.hash.slice(0, 10)}...` : '✓ Chain Valid'}
                   </td>
                   <td className="py-2.5 px-4 text-right font-sans">
@@ -135,14 +135,14 @@ export const AuditLogsPage: React.FC = () => {
       {/* Diff Viewer Modal */}
       {selectedEvent && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-md border border-border-hairline max-w-lg w-full p-6 space-y-4 shadow-xl text-xs">
+          <div className="bg-white rounded-md border border-border-hairline max-w-lg w-full p-6 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-border-hairline pb-3">
-              <h3 className="font-serif text-base font-bold text-text-primary">
+              <h3 className="text-base font-semibold text-text-primary">
                 Audit Event Inspection
               </h3>
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="text-text-muted hover:text-text-primary font-bold"
+                className="text-text-muted hover:text-text-primary font-semibold"
               >
                 ✕
               </button>
@@ -152,7 +152,7 @@ export const AuditLogsPage: React.FC = () => {
               <div className="p-3 bg-surface-subtle rounded border border-border-hairline space-y-1 text-xs">
                 <div>
                   <strong>Event ID:</strong>{' '}
-                  <span className="font-mono text-text-primary">{selectedEvent.id}</span>
+                  <span className="tabular-nums text-text-primary">{selectedEvent.id}</span>
                 </div>
                 <div>
                   <strong>Actor:</strong> {selectedEvent.actorName || selectedEvent.actorId} (
@@ -170,7 +170,7 @@ export const AuditLogsPage: React.FC = () => {
                 </div>
                 <div>
                   <strong>Cryptographic Hash:</strong>{' '}
-                  <span className="font-mono text-[10px] break-all">
+                  <span className="tabular-nums text-[10px] break-all">
                     {selectedEvent.hash || 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'}
                   </span>
                 </div>
@@ -179,7 +179,7 @@ export const AuditLogsPage: React.FC = () => {
               {selectedEvent.diff && (
                 <div>
                   <span className="font-semibold text-text-primary block mb-1">State Diff:</span>
-                  <pre className="p-3 bg-surface-subtle border border-border-hairline rounded font-mono text-[11px] overflow-x-auto whitespace-pre-wrap max-h-40">
+                  <pre className="p-3 bg-surface-subtle border border-border-hairline rounded tabular-nums text-[11px] overflow-x-auto whitespace-pre-wrap max-h-40">
                     {JSON.stringify(selectedEvent.diff, null, 2)}
                   </pre>
                 </div>

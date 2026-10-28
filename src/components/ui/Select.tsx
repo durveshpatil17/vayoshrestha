@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronDown16Regular, ErrorCircle16Regular } from '@fluentui/react-icons';
+import { ChevronDown, AlertCircle } from 'lucide-react';
 
 export interface SelectOption {
   value: string;
@@ -18,11 +18,11 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     const selectId = id || (label ? label.toLowerCase().replace(/[^a-z0-9]+/g, '-') : undefined);
 
     return (
-      <div className="w-full flex flex-col gap-1 text-left">
+      <div className="w-full flex flex-col gap-1.5 text-left">
         {label && (
-          <label htmlFor={selectId} className="text-label flex items-center gap-0.5">
+          <label htmlFor={selectId} className="text-label flex items-center gap-1 font-semibold text-text-secondary text-xs">
             {label}
-            {required && <span className="text-negative font-medium">*</span>}
+            {required && <span className="text-negative font-semibold">*</span>}
           </label>
         )}
         <div className="relative flex items-center">
@@ -31,7 +31,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             ref={ref}
             disabled={disabled}
             required={required}
-            className={`w-full h-8 appearance-none rounded-control bg-surface border text-sm text-text transition-colors duration-fast pl-2.5 pr-8 ${
+            className={`w-full h-10 appearance-none rounded-control bg-surface border text-sm text-text transition-colors pl-3 pr-10 ${
               error
                 ? 'border-negative focus:border-negative focus:ring-2 focus:ring-negative/20'
                 : disabled
@@ -46,17 +46,17 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
               </option>
             ))}
           </select>
-          <span className="absolute right-2.5 pointer-events-none text-text-tertiary flex items-center">
-            <ChevronDown16Regular />
+          <span className="absolute right-3 pointer-events-none text-text-tertiary flex items-center">
+            <ChevronDown className="w-5 h-5 stroke-[1.5]" />
           </span>
         </div>
         {error ? (
-          <p className="text-caption text-negative flex items-center gap-1 mt-0.5">
-            <ErrorCircle16Regular className="shrink-0" />
+          <p className="text-xs text-negative flex items-center gap-1.5 mt-0.5">
+            <AlertCircle className="w-4 h-4 shrink-0 stroke-[1.5]" />
             <span>{error}</span>
           </p>
         ) : helperText ? (
-          <p className="text-caption text-text-secondary mt-0.5">{helperText}</p>
+          <p className="text-xs text-text-secondary mt-0.5">{helperText}</p>
         ) : null}
       </div>
     );

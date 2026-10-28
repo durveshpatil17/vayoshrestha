@@ -108,7 +108,7 @@ export const ChaptersPage: React.FC = () => {
       {feedback && (
         <div className="p-3 bg-accent-tint border border-accent/20 rounded text-xs text-accent flex items-center justify-between">
           <span>{feedback}</span>
-          <button onClick={() => setFeedback(null)} className="font-bold underline ml-2">
+          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
             Dismiss
           </button>
         </div>
@@ -122,7 +122,7 @@ export const ChaptersPage: React.FC = () => {
             onClick={() => setSelectedChapterId(ch.id)}
             className={`px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap transition-colors ${
               selectedChapterId === ch.id
-                ? 'bg-accent text-white font-bold'
+                ? 'bg-accent text-white font-semibold'
                 : 'bg-white border border-border-hairline text-text-primary hover:bg-surface-subtle'
             }`}
           >
@@ -137,7 +137,7 @@ export const ChaptersPage: React.FC = () => {
           {/* Chapter Metadata Card (Left 1 col) */}
           <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
             <div className="flex items-center justify-between border-b border-border-hairline pb-3">
-              <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+              <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
                 <Building2 className="w-4 h-4 text-accent" />
                 Hub Information
               </h3>
@@ -147,13 +147,13 @@ export const ChaptersPage: React.FC = () => {
             <div className="space-y-3 text-xs">
               <div>
                 <span className="text-text-muted">Hub Name & Code:</span>
-                <div className="font-bold text-text-primary text-sm mt-0.5">
+                <div className="font-semibold text-text-primary text-sm mt-0.5">
                   {selectedChapter.name} ({selectedChapter.code})
                 </div>
               </div>
               <div>
                 <span className="text-text-muted">Assigned Region:</span>
-                <div className="font-mono text-text-primary font-bold">
+                <div className="tabular-nums text-text-primary font-semibold">
                   {selectedChapter.regionId}
                 </div>
               </div>
@@ -169,7 +169,7 @@ export const ChaptersPage: React.FC = () => {
               </div>
               <div>
                 <span className="text-text-muted">Lead Coordinator:</span>
-                <div className="text-text-primary font-bold mt-0.5">
+                <div className="text-text-primary font-semibold mt-0.5">
                   {selectedChapter.contactPerson} ({selectedChapter.contactPhone})
                 </div>
               </div>
@@ -180,7 +180,7 @@ export const ChaptersPage: React.FC = () => {
           <div className="lg:col-span-2 bg-white border border-border-hairline rounded p-5 space-y-4">
             <div className="flex items-center justify-between border-b border-border-hairline pb-3">
               <div>
-                <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+                <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
                   <UserCheck className="w-4 h-4 text-accent" />
                   On-Duty Emergency Response Roster
                 </h3>
@@ -204,13 +204,13 @@ export const ChaptersPage: React.FC = () => {
                   >
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-text-primary">{member.userName}</span>
+                        <span className="font-semibold text-text-primary">{member.userName}</span>
                         {member.isPrimaryResponder && (
-                          <span className="px-1.5 py-0.2 text-[9px] bg-accent text-white rounded font-bold uppercase">
+                          <span className="px-1.5 py-0.2 text-[9px] bg-accent text-white rounded font-semibold">
                             Primary On-Call
                           </span>
                         )}
-                        <span className="px-1.5 py-0.2 text-[10px] bg-white border border-border-hairline rounded text-text-muted font-mono">
+                        <span className="px-1.5 py-0.2 text-[10px] bg-white border border-border-hairline rounded text-text-muted tabular-nums">
                           {member.role}
                         </span>
                       </div>
@@ -218,7 +218,7 @@ export const ChaptersPage: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <span className="font-mono text-text-primary font-bold">
+                      <span className="tabular-nums text-text-primary font-semibold">
                         {member.onCallPhone}
                       </span>
                     </div>
@@ -233,8 +233,8 @@ export const ChaptersPage: React.FC = () => {
       {/* Add Roster Member Modal */}
       {rosterModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 shadow-xl space-y-4">
-            <h3 className="font-serif font-bold text-base text-text-primary flex items-center gap-2">
+          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 space-y-4">
+            <h3 className="font-semibold text-base text-text-primary flex items-center gap-2">
               <UserCheck className="w-4 h-4 text-accent" />
               Add On-Duty Emergency Responder
             </h3>
@@ -288,7 +288,7 @@ export const ChaptersPage: React.FC = () => {
                   value={newRosterPhone}
                   onChange={(e) => setNewRosterPhone(e.target.value)}
                   placeholder="+919844011223"
-                  className="w-full px-3 py-2 border border-border-hairline rounded font-mono"
+                  className="w-full px-3 py-2 border border-border-hairline rounded tabular-nums"
                   required
                 />
               </div>

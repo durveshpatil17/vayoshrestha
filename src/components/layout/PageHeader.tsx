@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -33,23 +33,42 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 }) => {
   const effectiveCrumbs = breadcrumbs || breadcrumb;
   const effectivePrimaryAction = primaryAction || actions;
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className={`pb-6 mb-6 border-b border-border-hairline ${className}`}>
-      {/* Breadcrumbs */}
-      {effectiveCrumbs && effectiveCrumbs.length > 0 && (
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-text-muted mb-2">
+    <div
+      className={`pb-4 mb-6 border-b border-border transition-all duration-150 ${
+        isScrolled
+          ? 'sticky top-0 z-20 bg-surface/95 backdrop-blur-none border-b border-border shadow-none py-2'
+          : 'bg-transparent'
+      } ${className}`}
+    >
+      {/* Breadcrumbs on top (back links live here) */}
+      {effectiveCrumbs && effectiveCrumbs.length > 0 && !isScrolled && (
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-text-secondary mb-2">
           {effectiveCrumbs.map((crumb, idx) => {
             const targetUrl = crumb.to || crumb.href;
             return (
               <React.Fragment key={idx}>
-                {idx > 0 && <ChevronRight className="w-3 h-3 text-border-strong" />}
+                {idx > 0 && <ChevronRight className="w-3.5 h-3.5 text-text-tertiary" strokeWidth={1.5} />}
                 {targetUrl ? (
-                  <Link to={targetUrl} className="hover:text-text-primary transition-colors">
+                  <Link to={targetUrl} className="hover:text-accent hover:underline transition-colors">
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span className="text-text-primary font-medium">{crumb.label}</span>
+                  <span className="text-text font-semibold">{crumb.label}</span>
                 )}
               </React.Fragment>
             );
@@ -57,17 +76,21 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         </nav>
       )}
 
-      {/* Main Title Row & Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
+      {/* Main Row: Title (28/600), Subtitle, Actions right */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="min-w-0">
           <div className="flex items-center gap-3">
-            <h1 className="font-serif text-2xl font-semibold text-text-primary tracking-tight">
+            <h1
+              className={`font-semibold text-text transition-all ${
+                isScrolled ? 'text-lg leading-tight' : 'text-[28px] leading-[36px]'
+              }`}
+            >
               {title}
             </h1>
-            {statusBadge && <div className="inline-flex">{statusBadge}</div>}
+            {statusBadge && <div className="inline-flex shrink-0">{statusBadge}</div>}
           </div>
-          {description && (
-            <p className="text-sm text-text-muted mt-1 leading-normal max-w-3xl">
+          {description && !isScrolled && (
+            <p className="text-sm text-text-secondary mt-1 truncate max-w-3xl">
               {description}
             </p>
           )}

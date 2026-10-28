@@ -5,6 +5,7 @@ export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 't
   subtitle?: React.ReactNode;
   action?: React.ReactNode;
   noPadding?: boolean;
+  padding?: 'none' | 'sm' | 'md' | 'lg';
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -12,27 +13,39 @@ export const Card: React.FC<CardProps> = ({
   subtitle,
   action,
   noPadding = false,
+  padding,
   children,
   className = '',
   ...props
 }) => {
   const hasHeader = Boolean(title || subtitle || action);
 
+  let paddingClass = 'p-6';
+  if (noPadding || padding === 'none') {
+    paddingClass = '';
+  } else if (padding === 'sm') {
+    paddingClass = 'p-3';
+  } else if (padding === 'md') {
+    paddingClass = 'p-5';
+  } else if (padding === 'lg') {
+    paddingClass = 'p-8';
+  }
+
   return (
     <div
-      className={`bg-surface border border-border rounded-card shadow-xs transition-colors duration-fast ${className}`}
+      className={`bg-surface border border-border rounded-[12px] transition-colors ${className}`}
       {...props}
     >
       {hasHeader && (
-        <div className="px-5 py-3.5 border-b border-border-subtle flex items-center justify-between gap-4">
+        <div className="px-6 py-4 border-b border-border flex items-center justify-between gap-4">
           <div className="min-w-0">
             {title && (
-              <h3 className="text-card-title text-text truncate">
+              <h3 className="text-base leading-6 font-semibold text-text truncate">
                 {title}
               </h3>
             )}
             {subtitle && (
-              <p className="text-caption text-text-secondary mt-0.5 truncate">
+              <p className="text-xs text-text-secondary mt-0.5 truncate">
                 {subtitle}
               </p>
             )}
@@ -40,7 +53,7 @@ export const Card: React.FC<CardProps> = ({
           {action && <div className="shrink-0 flex items-center gap-2">{action}</div>}
         </div>
       )}
-      <div className={noPadding ? '' : 'p-5'}>{children}</div>
+      <div className={paddingClass}>{children}</div>
     </div>
   );
 };

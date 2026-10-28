@@ -1,103 +1,97 @@
 import React from 'react';
-import { Info16Regular } from '@fluentui/react-icons';
+import { Info } from 'lucide-react';
 import { Tooltip, TooltipProvider } from './Tooltip';
 
 export interface KpiTileProps {
-  label: string;
+  label?: string;
+  title?: string;
   value: string | number;
   unitOrTarget?: string;
+  unit?: string;
+  statusLine?: string;
+  status?: 'positive' | 'negative' | 'critical' | 'neutral' | 'informative';
   delta?: {
     value: number;
     trend: 'up' | 'down' | 'neutral';
     label?: string;
   };
   definition?: string;
-  sparklineData?: number[];
   className?: string;
 }
 
 export const KpiTile: React.FC<KpiTileProps> = ({
   label,
+  title,
   value,
   unitOrTarget,
+  unit,
+  statusLine,
+  status,
   delta,
   definition,
-  sparklineData,
   className = '',
 }) => {
+  const displayLabel = title || label || '';
+  const displayUnit = unitOrTarget || unit;
+
   return (
     <div
-      className={`bg-surface border border-border rounded-card p-4 shadow-xs flex flex-col justify-between ${className}`}
+      className={`bg-surface border border-border rounded-[12px] p-5 flex flex-col justify-between ${className}`}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-label truncate">{label}</span>
+        <span className="text-xs font-semibold text-text-secondary truncate">{displayLabel}</span>
         {definition && (
           <TooltipProvider>
             <Tooltip content={definition}>
               <button
                 type="button"
-                className="text-text-tertiary hover:text-text-secondary focus:outline-none focus:ring-1 focus:ring-accent rounded p-0.5"
-                aria-label={`Metric definition: ${label}`}
+                className="text-text-tertiary hover:text-text-secondary focus:outline-none rounded p-0.5"
+                aria-label={`Metric definition: ${displayLabel}`}
               >
-                <Info16Regular className="w-3.5 h-3.5" />
+                <Info className="w-4 h-4 stroke-[1.5]" />
               </button>
             </Tooltip>
           </TooltipProvider>
         )}
       </div>
 
-      <div className="my-2 flex items-baseline gap-2">
-        <span className="text-kpi-value text-text">{value}</span>
-        {unitOrTarget && (
-          <span className="text-xs text-text-secondary font-normal">
-            {unitOrTarget}
-          </span>
+      <div className="my-2.5 flex items-baseline gap-2">
+        <span className="text-[28px] leading-[36px] font-semibold text-text tabular-nums">{value}</span>
+        {displayUnit && (
+          <span className="text-xs text-text-secondary font-medium tabular-nums">{displayUnit}</span>
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-2 pt-1 border-t border-border-subtle mt-1">
-        {delta ? (
-          <div className="flex items-center gap-1.5 text-xs">
-            <span
-              className={`inline-flex items-center px-1.5 py-0.5 rounded-chip text-[11px] font-medium tabular-nums ${
-                delta.trend === 'up'
-                  ? 'bg-positive-tint text-positive'
-                  : delta.trend === 'down'
-                  ? 'bg-critical-tint text-critical'
-                  : 'bg-neutral-tint text-neutral'
-              }`}
-            >
-              {delta.trend === 'up' && '▲ +'}
-              {delta.trend === 'down' && '▼ '}
-              {delta.value}%
-            </span>
-            <span className="text-caption text-text-secondary">
-              {delta.label || 'vs last period'}
-            </span>
-          </div>
-        ) : (
-          <div />
+      <div className="pt-2 border-t border-border flex items-center justify-between text-xs">
+        {statusLine && (
+          <span
+            className={`truncate ${
+              status === 'positive'
+                ? 'text-positive'
+                : status === 'negative'
+                ? 'text-negative'
+                : status === 'critical'
+                ? 'text-critical'
+                : 'text-text-secondary'
+            }`}
+          >
+            {statusLine}
+          </span>
         )}
-
-        {sparklineData && sparklineData.length > 1 && (
-          <div className="w-16 h-6 flex items-end gap-0.5" aria-hidden="true">
-            {sparklineData.map((val, idx) => {
-              const max = Math.max(...sparklineData);
-              const min = Math.min(...sparklineData);
-              const range = max - min || 1;
-              const heightPct = Math.max(15, Math.round(((val - min) / range) * 100));
-              return (
-                <div
-                  key={idx}
-                  className="flex-1 bg-accent/70 rounded-t-xs"
-                  style={{ height: `${heightPct}%` }}
-                />
-              );
-            })}
-          </div>
+        {delta && (
+          <span
+            className={`tabular-nums font-semibold shrink-0 ${
+              delta.trend === 'up'
+                ? 'text-positive'
+                : delta.trend === 'down'
+                ? 'text-negative'
+                : 'text-text-secondary'
+            }`}
+          >
+            {delta.trend === 'up' ? '↑' : delta.trend === 'down' ? '↓' : '→'} {Math.abs(delta.value)}%
+          </span>
         )}
       </div>
     </div>
   );
 };
-

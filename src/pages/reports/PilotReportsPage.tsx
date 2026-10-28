@@ -120,14 +120,14 @@ export const PilotReportsPage: React.FC = () => {
       <div className="bg-white border border-border-hairline rounded p-5 space-y-3">
         <div className="flex items-center justify-between text-xs">
           <div>
-            <span className="font-bold text-sm text-text-primary block">
+            <span className="font-semibold text-sm text-text-primary block">
               Cohort Enrollment: {displayCount(registeredSeniors)} / 1,000 Target
             </span>
             <span className="text-text-muted">
               90-day pilot across 9 Ekta Hub chapters in South, West, and North regions.
             </span>
           </div>
-          <span className="font-mono text-xl font-bold text-accent">
+          <span className="tabular-nums text-xl font-semibold text-accent">
             {Math.round((registeredSeniors / 1000) * 100)}%
           </span>
         </div>
@@ -143,20 +143,20 @@ export const PilotReportsPage: React.FC = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {/* Module 3: Civic & Profile */}
         <div className="p-4 bg-white border border-border-hairline rounded space-y-1">
-          <span className="text-[11px] font-bold text-text-muted uppercase flex items-center gap-1">
+          <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1">
             <Users className="w-3.5 h-3.5 text-accent" /> Registered Seniors
           </span>
-          <div className="text-2xl font-bold font-mono text-text-primary">
+          <div className="text-2xl font-semibold tabular-nums text-text-primary">
             {displayCount(registeredSeniors)}
           </div>
           <p className="text-[10px] text-text-muted">Completed Onboarding + NOK Consent</p>
         </div>
 
         <div className="p-4 bg-white border border-border-hairline rounded space-y-1">
-          <span className="text-[11px] font-bold text-text-muted uppercase flex items-center gap-1">
+          <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1">
             <Clock className="w-3.5 h-3.5 text-success" /> Active Engagement
           </span>
-          <div className="text-2xl font-bold font-mono text-success">
+          <div className="text-2xl font-semibold tabular-nums text-success">
             {isCD ? '88%' : `${displayCount(activeSeniors)} (88%)`}
           </div>
           <p className="text-[10px] text-text-muted">Replied within rolling 14-day window</p>
@@ -164,10 +164,10 @@ export const PilotReportsPage: React.FC = () => {
 
         {/* Module 1: SOS */}
         <div className="p-4 bg-white border border-border-hairline rounded space-y-1">
-          <span className="text-[11px] font-bold text-text-muted uppercase flex items-center gap-1">
+          <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1">
             <AlertOctagon className="w-3.5 h-3.5 text-danger" /> SOS Triggers (Real / Drill)
           </span>
-          <div className="text-2xl font-bold font-mono text-danger">
+          <div className="text-2xl font-semibold tabular-nums text-danger">
             {displayCount(realSos)} / {displayCount(drillSos)}
           </div>
           <p className="text-[10px] text-text-muted">
@@ -176,45 +176,45 @@ export const PilotReportsPage: React.FC = () => {
         </div>
 
         <div className="p-4 bg-white border border-border-hairline rounded space-y-1">
-          <span className="text-[11px] font-bold text-text-muted uppercase flex items-center gap-1">
+          <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1">
             <Radio className="w-3.5 h-3.5 text-accent" /> Avg Alert Latency
           </span>
-          <div className="text-2xl font-bold font-mono text-accent">184 ms</div>
+          <div className="text-2xl font-semibold tabular-nums text-accent">184 ms</div>
           <p className="text-[10px] text-success">Sub-second target verified</p>
         </div>
 
         {/* Module 2: Preventive Health */}
         <div className="p-4 bg-white border border-border-hairline rounded space-y-1">
-          <span className="text-[11px] font-bold text-text-muted uppercase flex items-center gap-1">
+          <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1">
             <Pill className="w-3.5 h-3.5 text-accent" /> Med. Confirmation Rate
           </span>
-          <div className="text-2xl font-bold font-mono text-accent">81.4%</div>
+          <div className="text-2xl font-semibold tabular-nums text-accent">81.4%</div>
           <p className="text-[10px] text-success">Taken ÷ Delivered (Target &gt; 75%)</p>
         </div>
 
         <div className="p-4 bg-white border border-border-hairline rounded space-y-1">
-          <span className="text-[11px] font-bold text-text-muted uppercase flex items-center gap-1">
+          <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1">
             <HeartPulse className="w-3.5 h-3.5 text-accent" /> Vitals Logging Rate
           </span>
-          <div className="text-2xl font-bold font-mono text-text-primary">64.2%</div>
+          <div className="text-2xl font-semibold tabular-nums text-text-primary">64.2%</div>
           <p className="text-[10px] text-success">Readings Logged ÷ Expected (&gt; 60%)</p>
         </div>
 
         <div className="p-4 bg-white border border-border-hairline rounded space-y-1">
-          <span className="text-[11px] font-bold text-text-muted uppercase flex items-center gap-1">
+          <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1">
             <Clock className="w-3.5 h-3.5 text-warning" /> Anomaly Flags Raised
           </span>
-          <div className="text-2xl font-bold font-mono text-warning">
+          <div className="text-2xl font-semibold tabular-nums text-warning">
             {displayCount(openFlags + 35)}
           </div>
           <p className="text-[10px] text-text-muted">High BP/Glucose band triggers</p>
         </div>
 
         <div className="p-4 bg-white border border-border-hairline rounded space-y-1">
-          <span className="text-[11px] font-bold text-text-muted uppercase flex items-center gap-1">
+          <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1">
             <CheckCircle className="w-3.5 h-3.5 text-accent" /> Completed Wellness Calls
           </span>
-          <div className="text-2xl font-bold font-mono text-text-primary">
+          <div className="text-2xl font-semibold tabular-nums text-text-primary">
             {displayCount(completedCalls + 32)}
           </div>
           <p className="text-[10px] text-text-muted">Median time to call: 18 min</p>
@@ -224,7 +224,7 @@ export const PilotReportsPage: React.FC = () => {
       {/* Chapter Breakdown Table */}
       <div className="bg-white border border-border-hairline rounded overflow-hidden">
         <div className="p-4 border-b border-border-hairline flex items-center justify-between">
-          <h3 className="font-serif font-bold text-sm text-text-primary">
+          <h3 className="font-semibold text-sm text-text-primary">
             Chapter Hub Outcome Matrix
           </h3>
           <span className="text-xs text-text-muted">{chapters.length} chapter hubs</span>
@@ -252,20 +252,20 @@ export const PilotReportsPage: React.FC = () => {
                 return (
                   <tr key={ch.id} className="hover:bg-surface-subtle">
                     <td className="py-2.5 px-4">
-                      <span className="font-bold text-text-primary block">{ch.name}</span>
-                      <span className="text-[11px] font-mono text-text-muted">{ch.id}</span>
+                      <span className="font-semibold text-text-primary block">{ch.name}</span>
+                      <span className="text-[11px] tabular-nums text-text-muted">{ch.id}</span>
                     </td>
                     <td className="py-2.5 px-4 text-text-muted">{ch.regionId}</td>
-                    <td className="py-2.5 px-4 font-mono font-medium">
+                    <td className="py-2.5 px-4 tabular-nums font-medium">
                       {displayCount(chSeniors)}
                     </td>
-                    <td className="py-2.5 px-4 font-mono text-accent font-bold">
+                    <td className="py-2.5 px-4 tabular-nums text-accent font-semibold">
                       {86 + (idx % 7)}%
                     </td>
-                    <td className="py-2.5 px-4 font-mono">{displayCount(chSos)}</td>
-                    <td className="py-2.5 px-4 font-mono text-accent">{79 + (idx % 6)}%</td>
-                    <td className="py-2.5 px-4 font-mono">{62 + (idx % 7)}%</td>
-                    <td className="py-2.5 px-4 font-mono text-text-muted">
+                    <td className="py-2.5 px-4 tabular-nums">{displayCount(chSos)}</td>
+                    <td className="py-2.5 px-4 tabular-nums text-accent">{79 + (idx % 6)}%</td>
+                    <td className="py-2.5 px-4 tabular-nums">{62 + (idx % 7)}%</td>
+                    <td className="py-2.5 px-4 tabular-nums text-text-muted">
                       {displayCount(12 + idx * 3)}
                     </td>
                   </tr>

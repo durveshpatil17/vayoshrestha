@@ -122,7 +122,7 @@ export const UserNewPage: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@vayohvikas.org"
-              className="w-full px-3 py-2 border border-border-hairline rounded focus:outline-none focus:border-accent font-mono"
+              className="w-full px-3 py-2 border border-border-hairline rounded focus:outline-none focus:border-accent tabular-nums"
               required
             />
           </div>

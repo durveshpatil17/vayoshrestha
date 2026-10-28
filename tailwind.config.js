@@ -44,13 +44,9 @@ export default {
           DEFAULT: 'var(--negative)',
           tint: 'var(--negative-tint)',
         },
-        neutral: {
-          DEFAULT: 'var(--neutral)',
-          tint: 'var(--neutral-tint)',
-        },
-        information: {
-          DEFAULT: 'var(--information)',
-          tint: 'var(--information-tint)',
+        informative: {
+          DEFAULT: 'var(--informative)',
+          tint: 'var(--informative-tint)',
         },
         chart: {
           1: 'var(--chart-1)',
@@ -68,20 +64,17 @@ export default {
         chip: 'var(--radius-chip)',
       },
       boxShadow: {
-        xs: 'var(--shadow-xs)',
+        xs: 'none',
         menu: 'var(--shadow-menu)',
         dialog: 'var(--shadow-dialog)',
       },
       fontFamily: {
         sans: [
-          '"Source Sans 3"',
+          '"Open Sans"',
           '"Noto Sans Devanagari"',
           '"Noto Sans Kannada"',
           '"Noto Sans Tamil"',
           'system-ui',
-          '"Segoe UI"',
-          'Roboto',
-          'Arial',
           'sans-serif',
         ],
       },
@@ -94,14 +87,6 @@ export default {
         6: 'var(--space-6)',
         8: 'var(--space-8)',
         10: 'var(--space-10)',
-      },
-      transitionTimingFunction: {
-        DEFAULT: 'var(--ease)',
-      },
-      transitionDuration: {
-        fast: 'var(--dur-fast)',
-        DEFAULT: 'var(--dur)',
-        slow: 'var(--dur-slow)',
       },
     },
   },

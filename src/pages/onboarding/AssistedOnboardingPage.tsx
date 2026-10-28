@@ -165,11 +165,11 @@ export const AssistedOnboardingPage: React.FC = () => {
   if (submittedSenior) {
     return (
       <div className="max-w-2xl mx-auto space-y-6 py-6">
-        <div className="bg-white border border-border-hairline rounded p-8 text-center shadow-sm">
+        <div className="bg-white border border-border-hairline rounded p-8 text-center">
           <div className="w-14 h-14 bg-success-bg text-success rounded-full flex items-center justify-center mx-auto mb-4 border border-success/30">
             <Check className="w-8 h-8" />
           </div>
-          <h2 className="text-xl font-serif font-bold text-text-primary">
+          <h2 className="text-xl font-semibold text-text-primary">
             Registration Completed Successfully
           </h2>
           <p className="text-xs text-text-muted mt-1">
@@ -180,10 +180,10 @@ export const AssistedOnboardingPage: React.FC = () => {
           <div className="mt-6 p-6 border-2 border-dashed border-border-strong rounded-lg bg-bg-subtle text-left max-w-md mx-auto">
             <div className="flex justify-between items-start border-b border-border-hairline pb-3">
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-wider text-accent block">Vayoh Vikas</span>
-                <span className="font-serif font-bold text-sm text-text-primary">Vayoshreshtha Member Card</span>
+                <span className="text-[10px] font-semibold text-accent block">Vayoh Vikas</span>
+                <span className="font-semibold text-sm text-text-primary">Vayoshreshtha Member Card</span>
               </div>
-              <span className="px-2 py-0.5 text-[10px] font-mono font-bold bg-accent text-white rounded">
+              <span className="px-2 py-0.5 text-[10px] tabular-nums font-semibold bg-accent text-white rounded">
                 PILOT 2026
               </span>
             </div>
@@ -196,7 +196,7 @@ export const AssistedOnboardingPage: React.FC = () => {
               <div className="grid grid-cols-2 gap-2">
                 <div>
                   <span className="text-text-muted block text-[10px]">Membership ID:</span>
-                  <span className="font-mono font-bold text-accent">{submittedSenior.membershipId}</span>
+                  <span className="tabular-nums font-semibold text-accent">{submittedSenior.membershipId}</span>
                 </div>
                 <div>
                   <span className="text-text-muted block text-[10px]">Primary Chapter:</span>
@@ -258,7 +258,7 @@ export const AssistedOnboardingPage: React.FC = () => {
         <div className="p-4 bg-warning-bg border border-warning/40 text-warning rounded text-xs flex gap-3">
           <AlertTriangle className="w-5 h-5 shrink-0" />
           <div>
-            <div className="font-bold">Possible Duplicate Record Detected</div>
+            <div className="font-semibold">Possible Duplicate Record Detected</div>
             <div>{duplicateWarning}</div>
           </div>
         </div>
@@ -280,7 +280,7 @@ export const AssistedOnboardingPage: React.FC = () => {
               key={title}
               className={`text-xs flex items-center gap-1.5 ${
                 step === i + 1
-                  ? 'font-bold text-accent'
+                  ? 'font-semibold text-accent'
                   : step > i + 1
                   ? 'text-success font-medium'
                   : 'text-text-muted'
@@ -481,7 +481,7 @@ export const AssistedOnboardingPage: React.FC = () => {
               <h3 className="text-sm font-semibold text-text-primary">
                 Step 5: Ayushman Bharat Health Account (ABHA) — Structure Only
               </h3>
-              <span className="px-2 py-0.5 text-[10px] font-bold rounded bg-bg-subtle text-text-muted border border-border-hairline">
+              <span className="px-2 py-0.5 text-[10px] font-semibold rounded bg-bg-subtle text-text-muted border border-border-hairline">
                 Phase 2 Ready
               </span>
             </div>
@@ -567,7 +567,7 @@ export const AssistedOnboardingPage: React.FC = () => {
               </div>
               <div className="flex justify-between border-b border-border-hairline pb-1.5">
                 <span className="text-text-muted">Phone Number:</span>
-                <span className="font-mono text-text-primary">{formatIndianMobile(phone)}</span>
+                <span className="tabular-nums text-text-primary">{formatIndianMobile(phone)}</span>
               </div>
               <div className="flex justify-between border-b border-border-hairline pb-1.5">
                 <span className="text-text-muted">Chapter:</span>

@@ -24,7 +24,6 @@ export const StatusChip: React.FC<StatusChipProps> = ({
 }) => {
   const raw = (status || variant || 'neutral').toLowerCase();
 
-  // Normalize legacy status names
   let normalized = raw;
   if (['active', 'approved', 'success', 'resolved'].includes(raw)) {
     normalized = 'positive';
@@ -34,24 +33,24 @@ export const StatusChip: React.FC<StatusChipProps> = ({
     normalized = 'critical-sos';
   } else if (['danger', 'rejected', 'failed', 'unacknowledged', 'negative'].includes(raw)) {
     normalized = 'negative';
-  } else if (['info', 'registered', 'accent'].includes(raw)) {
+  } else if (['info', 'registered', 'accent', 'informative'].includes(raw)) {
     normalized = 'accent';
   }
 
   const variantStyles: Record<string, string> = {
-    neutral: 'bg-neutral-tint text-neutral border border-border-subtle',
+    neutral: 'bg-surface-subtle text-text-secondary border border-border',
     accent: 'bg-accent-tint text-accent border border-accent/20',
     positive: 'bg-positive-tint text-positive border border-positive/20',
     critical: 'bg-critical-tint text-critical border border-critical/20',
     negative: 'bg-negative-tint text-negative border border-negative/20',
-    'critical-sos': 'bg-negative text-text-on-accent border border-negative font-medium shadow-xs',
+    'critical-sos': 'bg-negative text-text-on-accent border border-negative font-semibold',
   };
 
   const style = variantStyles[normalized] || variantStyles.neutral;
 
   return (
     <span
-      className={`inline-flex items-center px-1.5 py-0.5 rounded-chip text-xs font-medium ${style} ${className}`}
+      className={`inline-flex items-center px-2 py-0.5 rounded-chip text-xs font-semibold ${style} ${className}`}
     >
       {label}
     </span>

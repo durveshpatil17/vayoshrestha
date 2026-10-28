@@ -72,3 +72,11 @@ src/
 | **P6: Security Pentest**| `docs/SECURITY_FINDINGS.md` (Report only; no code changes) | Numbered list of findings across 11 attack vectors |
 | **P7: Scale & Break** | `docs/SCALE_REPORT.md` (Report only; no code changes) | Benchmarks for 1k, 5k, 10k, 50k, 145k; bottleneck ranking; <1s latency audit |
 | **P8: Handover** | `README.md`, `docs/DEMO_SCRIPT.md`, final master handover summary | Complete delivery |
+
+---
+
+## 5. Loop Protocol Steps 5 to 7
+
+5. **Gate**: tsc, ESLint, design-lint, unit and integration tests, axe (zero serious or critical), AND a Playwright layout check at 1440x900 for every page and allowed role: no element overlaps the shell bar or page header, no horizontal scroll, no truncated labels.
+6. **Design critique**: score each page 1 to 10 on hierarchy, spacing and rhythm, typography (incl. Indic scripts), token consistency, correct Fiori/Cloudscape pattern use, state polish, and alignment. Then run two tests: Pattern test (would an SAP or AWS designer accept this as correct use of the pattern?) and Flop test (could this pass as a default shadcn/Tailwind dashboard? Name the elements that fail).
+7. **A page is done only if every score is 8 or higher and both tests pass.** Otherwise fix the top 3 weaknesses and repeat, up to 5 times. After 5, log the issue in `docs/STATE.md` as a visible blocker, not as done.

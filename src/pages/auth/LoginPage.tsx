@@ -84,10 +84,10 @@ export const LoginPage: React.FC = () => {
         <div className="w-full max-w-md">
           {/* Brand Header */}
           <div className="text-center mb-8">
-            <div className="w-12 h-12 rounded bg-accent text-white font-serif font-bold text-2xl flex items-center justify-center mx-auto mb-3 shadow-xs">
+            <div className="w-12 h-12 rounded bg-accent text-white font-semibold text-2xl flex items-center justify-center mx-auto mb-3">
               V
             </div>
-            <h1 className="font-serif text-2xl font-semibold text-text-primary tracking-tight">
+            <h1 className="text-2xl font-semibold text-text-primary">
               Vayoshreshtha Ecosystem
             </h1>
             <p className="text-xs text-text-muted mt-1">
@@ -96,7 +96,7 @@ export const LoginPage: React.FC = () => {
           </div>
 
           {/* Authentication Box */}
-          <div className="bg-bg-base border border-border-strong rounded p-6 shadow-sm">
+          <div className="bg-bg-base border border-border-strong rounded p-6">
             {/* Mode Switcher Tabs */}
             <div className="flex border-b border-border-hairline mb-6">
               <button
@@ -180,7 +180,7 @@ export const LoginPage: React.FC = () => {
                       <Lock className="w-3 h-3" /> Caps Lock is ON
                     </p>
                   )}
-                  <p className="text-[11px] text-text-muted mt-1 font-mono">
+                  <p className="text-[11px] text-text-muted mt-1 tabular-nums">
                     Demo Staff Password: <span className="font-semibold text-text-primary">Demo@1234</span>
                   </p>
                 </div>
@@ -231,7 +231,7 @@ export const LoginPage: React.FC = () => {
           {/* Prototype Quick Access Switcher Panel */}
           <div className="mt-6 bg-bg-subtle border border-border-hairline rounded p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-semibold text-text-muted uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1.5">
                 <Shield className="w-3.5 h-3.5 text-accent" />
                 Prototype 1-Click Access Panel (10 Personas)
               </span>
@@ -269,7 +269,7 @@ export const LoginPage: React.FC = () => {
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-text-primary text-[11px]">{p.title}</span>
-                    <span className="font-mono text-[9px] text-accent font-bold px-1 bg-accent-tint rounded">
+                    <span className="tabular-nums text-[9px] text-accent font-semibold px-1 bg-accent-tint rounded">
                       {p.role}
                     </span>
                   </div>

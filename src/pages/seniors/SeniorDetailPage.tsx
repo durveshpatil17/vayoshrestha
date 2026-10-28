@@ -47,7 +47,7 @@ export const SeniorDetailPage: React.FC = () => {
     return (
       <div className="p-8 text-center bg-white border border-border-hairline rounded max-w-md mx-auto my-12">
         <AlertTriangle className="w-8 h-8 text-warning mx-auto mb-3" />
-        <h3 className="font-serif font-bold text-base text-text-primary">Senior Citizen Not Found</h3>
+        <h3 className="font-semibold text-base text-text-primary">Senior Citizen Not Found</h3>
         <p className="text-xs text-text-muted mt-1">The requested profile ID does not exist in the active registry.</p>
         <Button variant="outline" size="sm" className="mt-4" onClick={() => navigate('/seniors')}>
           Return to Directory
@@ -120,20 +120,20 @@ export const SeniorDetailPage: React.FC = () => {
             <CheckCircle className="w-4 h-4" />
             <span>{testSmsSent}</span>
           </div>
-          <button onClick={() => setTestSmsSent(null)} className="text-xs font-bold">&times;</button>
+          <button onClick={() => setTestSmsSent(null)} className="text-xs font-semibold">&times;</button>
         </div>
       )}
 
       {/* Header Profile Identity Strip */}
       <div className="bg-white border border-border-hairline rounded p-5 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center font-serif text-lg font-bold">
+          <div className="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center text-lg font-semibold">
             {senior.fullName.charAt(0)}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-base font-serif font-bold text-text-primary">{senior.fullName}</h2>
-              <span className="font-mono text-xs px-2 py-0.5 rounded bg-bg-subtle text-accent font-semibold border border-border-hairline">
+              <h2 className="text-base font-semibold text-text-primary">{senior.fullName}</h2>
+              <span className="tabular-nums text-xs px-2 py-0.5 rounded bg-bg-subtle text-accent font-semibold border border-border-hairline">
                 {senior.membershipId}
               </span>
             </div>
@@ -156,7 +156,7 @@ export const SeniorDetailPage: React.FC = () => {
             </span>
           )}
           {senior.abha.status === 'provided_unverified' && (
-            <span className="px-2.5 py-1 text-xs font-mono font-medium rounded bg-bg-subtle text-accent border border-border-hairline">
+            <span className="px-2.5 py-1 text-xs tabular-nums font-medium rounded bg-bg-subtle text-accent border border-border-hairline">
               ABHA: {maskAbhaNumber(senior.abha.number || '')}
             </span>
           )}
@@ -202,7 +202,7 @@ export const SeniorDetailPage: React.FC = () => {
             </div>
             <div className="flex justify-between">
               <span className="text-text-muted">Date of Birth:</span>
-              <span className="font-mono text-text-primary">{senior.dateOfBirth} (Age band: {senior.ageBand})</span>
+              <span className="tabular-nums text-text-primary">{senior.dateOfBirth} (Age band: {senior.ageBand})</span>
             </div>
             <div className="flex justify-between">
               <span className="text-text-muted">Gender:</span>
@@ -211,7 +211,7 @@ export const SeniorDetailPage: React.FC = () => {
             <div className="flex justify-between items-center">
               <span className="text-text-muted">Primary Phone:</span>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-text-primary font-medium">{displayPhone}</span>
+                <span className="tabular-nums text-text-primary font-medium">{displayPhone}</span>
                 {isPhoneMasked && (
                   <button
                     onClick={() => setUnmaskModalOpen(true)}
@@ -242,7 +242,7 @@ export const SeniorDetailPage: React.FC = () => {
             </div>
             <div className="flex justify-between">
               <span className="text-text-muted">Enrolled Date:</span>
-              <span className="font-mono text-text-primary">
+              <span className="tabular-nums text-text-primary">
                 {new Date(senior.registeredAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
               </span>
             </div>
@@ -291,12 +291,12 @@ export const SeniorDetailPage: React.FC = () => {
                           Priority {c.priorityOrder} ({c.relationship})
                         </span>
                         {c.isPrimary && (
-                          <span className="text-[10px] px-2 py-0.5 rounded bg-accent text-white font-bold">
+                          <span className="text-[10px] px-2 py-0.5 rounded bg-accent text-white font-semibold">
                             Primary Next-of-Kin
                           </span>
                         )}
                       </div>
-                      <div className="text-text-muted font-mono mt-1">
+                      <div className="text-text-muted tabular-nums mt-1">
                         Phone: {c.phone || '<Missing Number>'}
                       </div>
                       <div className="text-[11px] text-success mt-0.5">
@@ -369,7 +369,7 @@ export const SeniorDetailPage: React.FC = () => {
               <h3 className="font-semibold text-sm text-text-primary">Ayushman Bharat Health Account (ABHA)</h3>
               <p className="text-xs text-text-muted">Structured repository field for Phase 2 ABDM federation.</p>
             </div>
-            <span className="px-2.5 py-1 text-xs font-bold rounded bg-bg-subtle text-text-muted border border-border-hairline">
+            <span className="px-2.5 py-1 text-xs font-semibold rounded bg-bg-subtle text-text-muted border border-border-hairline">
               Phase 2 Preparation
             </span>
           </div>
@@ -381,7 +381,7 @@ export const SeniorDetailPage: React.FC = () => {
           <div className="space-y-3 max-w-md">
             <div>
               <span className="text-text-muted block text-[11px]">14-Digit ABHA Number:</span>
-              <span className="font-mono text-sm font-bold text-text-primary">
+              <span className="tabular-nums text-sm font-semibold text-text-primary">
                 {senior.abha.number ? maskAbhaNumber(senior.abha.number) : 'Not Provided'}
               </span>
             </div>
@@ -393,7 +393,7 @@ export const SeniorDetailPage: React.FC = () => {
             </div>
             <div>
               <span className="text-text-muted block text-[11px]">ABHA Address / Virtual Handle:</span>
-              <span className="font-mono text-text-primary">{senior.abha.address || 'None'}</span>
+              <span className="tabular-nums text-text-primary">{senior.abha.address || 'None'}</span>
             </div>
 
             <div className="pt-2">
@@ -421,14 +421,14 @@ export const SeniorDetailPage: React.FC = () => {
               {seniorSosEvents.map((evt) => (
                 <div key={evt.id} className="p-3 text-xs flex items-center justify-between hover:bg-bg-subtle">
                   <div>
-                    <span className="font-mono font-semibold text-accent">{evt.id}</span>
+                    <span className="tabular-nums font-semibold text-accent">{evt.id}</span>
                     <span className="text-text-muted ml-2">Triggered: {new Date(evt.triggeredAt).toLocaleString('en-IN')}</span>
                     <div className="text-[11px] text-text-muted mt-0.5">
                       Network: {evt.networkStatus} · Fallback SMS: {evt.fallbackSmsStatus}
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-success-bg text-success">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-success-bg text-success">
                       {evt.status}
                     </span>
                     <Button variant="outline" size="sm" onClick={() => navigate(`/sos/${evt.id}`)}>
@@ -492,10 +492,10 @@ export const SeniorDetailPage: React.FC = () => {
                 <div key={a.id} className="p-3 bg-bg-subtle rounded border border-border-hairline">
                   <div className="flex justify-between">
                     <span className="font-semibold text-text-primary">{a.action}: {a.details}</span>
-                    <span className="text-text-muted font-mono text-[10px]">{a.timestamp}</span>
+                    <span className="text-text-muted tabular-nums text-[10px]">{a.timestamp}</span>
                   </div>
                   <div className="text-[11px] text-text-muted mt-1">
-                    Actor: {a.actorName} ({a.actorRole}) · Hash: <span className="font-mono text-accent">{a.hash}</span>
+                    Actor: {a.actorName} ({a.actorRole}) · Hash: <span className="tabular-nums text-accent">{a.hash}</span>
                   </div>
                 </div>
               ))

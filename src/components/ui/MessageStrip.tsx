@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {
-  Info16Regular,
-  CheckmarkCircle16Regular,
-  Warning16Regular,
-  ErrorCircle16Regular,
-  Dismiss16Regular,
-} from '@fluentui/react-icons';
+  Info,
+  CheckCircle2,
+  AlertTriangle,
+  AlertCircle,
+  X,
+} from 'lucide-react';
 
-export type MessageStripType = 'information' | 'positive' | 'critical' | 'negative';
+export type MessageStripType = 'informative' | 'information' | 'positive' | 'critical' | 'negative';
 
 export interface MessageStripProps {
   type?: MessageStripType;
@@ -21,7 +21,7 @@ export interface MessageStripProps {
 }
 
 export const MessageStrip: React.FC<MessageStripProps> = ({
-  type = 'information',
+  type = 'informative',
   title,
   message,
   actionText,
@@ -34,52 +34,54 @@ export const MessageStrip: React.FC<MessageStripProps> = ({
 
   if (dismissed) return null;
 
+  const normalized = type === 'information' ? 'informative' : type;
+
   const typeConfigs: Record<
-    MessageStripType,
+    string,
     { bg: string; border: string; text: string; icon: React.ReactNode }
   > = {
-    information: {
-      bg: 'bg-information-tint',
-      border: 'border-accent/30',
-      text: 'text-information',
-      icon: <Info16Regular className="shrink-0 text-information mt-0.5" />,
+    informative: {
+      bg: 'bg-informative-tint',
+      border: 'border-informative/30',
+      text: 'text-informative',
+      icon: <Info className="w-5 h-5 shrink-0 text-informative stroke-[1.5] mt-0.5" />,
     },
     positive: {
       bg: 'bg-positive-tint',
       border: 'border-positive/30',
       text: 'text-positive',
-      icon: <CheckmarkCircle16Regular className="shrink-0 text-positive mt-0.5" />,
+      icon: <CheckCircle2 className="w-5 h-5 shrink-0 text-positive stroke-[1.5] mt-0.5" />,
     },
     critical: {
       bg: 'bg-critical-tint',
       border: 'border-critical/30',
       text: 'text-critical',
-      icon: <Warning16Regular className="shrink-0 text-critical mt-0.5" />,
+      icon: <AlertTriangle className="w-5 h-5 shrink-0 text-critical stroke-[1.5] mt-0.5" />,
     },
     negative: {
       bg: 'bg-negative-tint',
       border: 'border-negative/30',
       text: 'text-negative',
-      icon: <ErrorCircle16Regular className="shrink-0 text-negative mt-0.5" />,
+      icon: <AlertCircle className="w-5 h-5 shrink-0 text-negative stroke-[1.5] mt-0.5" />,
     },
   };
 
-  const config = typeConfigs[type] || typeConfigs.information;
+  const config = typeConfigs[normalized] || typeConfigs.informative;
 
   return (
     <div
       role="status"
-      className={`w-full rounded-control border ${config.border} ${config.bg} p-3 flex items-start gap-2.5 transition-opacity duration-fast ${className}`}
+      className={`w-full rounded-control border ${config.border} ${config.bg} p-3.5 flex items-start gap-3 transition-opacity ${className}`}
     >
       {config.icon}
-      <div className="flex-1 text-sm text-text">
+      <div className="flex-1 text-sm text-text leading-relaxed">
         {title && <span className="font-semibold mr-1.5 text-text">{title}</span>}
         <span className="text-text-secondary">{message}</span>
         {actionText && (
           <button
             type="button"
             onClick={onAction}
-            className="ml-2 font-medium text-accent hover:underline focus:outline-none focus:ring-1 focus:ring-accent"
+            className="ml-2 font-semibold text-accent hover:underline focus:outline-none"
           >
             {actionText}
           </button>
@@ -92,13 +94,12 @@ export const MessageStrip: React.FC<MessageStripProps> = ({
             setDismissed(true);
             onDismiss?.();
           }}
-          className="text-text-tertiary hover:text-text p-0.5 rounded focus:outline-none focus:ring-1 focus:ring-focus-ring"
+          className="text-text-secondary hover:text-text p-1 rounded-control focus:outline-none focus:ring-1 focus:ring-focus-ring"
           aria-label="Dismiss message"
         >
-          <Dismiss16Regular />
+          <X className="w-4 h-4 stroke-[1.5]" />
         </button>
       )}
     </div>
   );
 };
-

@@ -1,65 +1,70 @@
 import React from 'react';
 import {
-  CheckmarkCircle16Regular,
-  Warning16Regular,
-  ErrorCircle16Regular,
-  Clock16Regular,
-  Info16Regular,
-} from '@fluentui/react-icons';
+  CheckCircle2,
+  AlertTriangle,
+  AlertCircle,
+  Clock,
+  Info,
+} from 'lucide-react';
 
 export type StatusIndicatorType =
   | 'positive'
   | 'critical'
   | 'negative'
   | 'neutral'
+  | 'informative'
   | 'information';
 
 export interface StatusIndicatorProps {
-  type: StatusIndicatorType;
+  type?: StatusIndicatorType;
+  status?: StatusIndicatorType;
   label: string;
   className?: string;
 }
 
 export const StatusIndicator: React.FC<StatusIndicatorProps> = ({
   type,
+  status,
   label,
   className = '',
 }) => {
+  const effectiveType = status || type || 'neutral';
+  const normalized = effectiveType === 'information' ? 'informative' : effectiveType;
+
   const configs: Record<
-    StatusIndicatorType,
+    string,
     { icon: React.ReactNode; colorClass: string }
   > = {
     positive: {
-      icon: <CheckmarkCircle16Regular className="shrink-0 text-positive" />,
+      icon: <CheckCircle2 className="w-5 h-5 shrink-0 text-positive stroke-[1.5]" />,
       colorClass: 'text-positive',
     },
     critical: {
-      icon: <Warning16Regular className="shrink-0 text-critical" />,
+      icon: <AlertTriangle className="w-5 h-5 shrink-0 text-critical stroke-[1.5]" />,
       colorClass: 'text-critical',
     },
     negative: {
-      icon: <ErrorCircle16Regular className="shrink-0 text-negative" />,
+      icon: <AlertCircle className="w-5 h-5 shrink-0 text-negative stroke-[1.5]" />,
       colorClass: 'text-negative',
     },
     neutral: {
-      icon: <Clock16Regular className="shrink-0 text-neutral" />,
-      colorClass: 'text-neutral',
+      icon: <Clock className="w-5 h-5 shrink-0 text-text-secondary stroke-[1.5]" />,
+      colorClass: 'text-text-secondary',
     },
-    information: {
-      icon: <Info16Regular className="shrink-0 text-information" />,
-      colorClass: 'text-information',
+    informative: {
+      icon: <Info className="w-5 h-5 shrink-0 text-informative stroke-[1.5]" />,
+      colorClass: 'text-informative',
     },
   };
 
-  const config = configs[type] || configs.neutral;
+  const current = configs[normalized] || configs.neutral;
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 text-sm font-medium ${config.colorClass} ${className}`}
+      className={`inline-flex items-center gap-2 text-xs font-normal ${current.colorClass} ${className}`}
     >
-      {config.icon}
+      {current.icon}
       <span>{label}</span>
     </span>
   );
 };
-

@@ -29,7 +29,7 @@ export const WellnessCallsPage: React.FC = () => {
     return (
       <div className="p-8 text-center bg-white border border-border-hairline rounded max-w-md mx-auto my-12">
         <ShieldAlert className="w-8 h-8 text-danger mx-auto mb-3" />
-        <h3 className="font-serif font-bold text-base text-text-primary">
+        <h3 className="font-semibold text-base text-text-primary">
           Access Restricted: 403 Forbidden
         </h3>
         <p className="text-xs text-text-muted mt-1">
@@ -117,7 +117,7 @@ export const WellnessCallsPage: React.FC = () => {
       {feedback && (
         <div className="p-3 bg-accent-tint border border-accent/20 rounded text-xs text-accent flex items-center justify-between">
           <span>{feedback}</span>
-          <button onClick={() => setFeedback(null)} className="font-bold underline ml-2">
+          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
             Dismiss
           </button>
         </div>
@@ -177,17 +177,17 @@ export const WellnessCallsPage: React.FC = () => {
 
                 return (
                   <tr key={call.id} className="hover:bg-surface-subtle">
-                    <td className="py-2.5 px-4 font-mono text-text-muted">
+                    <td className="py-2.5 px-4 tabular-nums text-text-muted">
                       {new Date(call.createdAt || Date.now()).toLocaleDateString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                         dateStyle: 'medium',
                       })}
                     </td>
                     <td className="py-2.5 px-4">
-                      <span className="font-bold text-text-primary block">
+                      <span className="font-semibold text-text-primary block">
                         {senior?.fullName || 'Senior'}
                       </span>
-                      <span className="text-[11px] font-mono text-text-muted">
+                      <span className="text-[11px] tabular-nums text-text-muted">
                         {senior ? maskPhoneNumber(senior.phoneNumber) : 'N/A'}
                       </span>
                     </td>
@@ -196,7 +196,7 @@ export const WellnessCallsPage: React.FC = () => {
                     <td className="py-2.5 px-4 text-text-muted">
                       {call.assignedVolunteerId || 'Chapter Staff'}
                     </td>
-                    <td className="py-2.5 px-4 font-mono text-accent">
+                    <td className="py-2.5 px-4 tabular-nums text-accent">
                       {new Date(call.dueDate || call.dueAt || Date.now()).toLocaleDateString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                         dateStyle: 'short',

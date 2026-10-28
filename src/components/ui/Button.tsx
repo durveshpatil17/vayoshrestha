@@ -6,9 +6,9 @@ export type ButtonVariant =
   | 'ghost'
   | 'destructive'
   | 'destructive-confirm'
-  | 'outline' // alias for default
-  | 'secondary' // alias for default
-  | 'danger'; // alias for destructive
+  | 'outline'
+  | 'secondary'
+  | 'danger';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -32,9 +32,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    // 32px height, 6px radius, 14px/500 font
+    // 8px radius on controls, 14px/600 font
     const baseStyles =
-      'inline-flex items-center justify-center font-medium rounded-control transition-colors duration-fast ease-in-out select-none focus-visible:outline-2 focus-visible:outline-focus-ring focus-visible:outline-offset-2 disabled:cursor-not-allowed text-sm';
+      'inline-flex items-center justify-center font-semibold rounded-control transition-colors duration-150 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-focus-ring focus-visible:outline-offset-2 disabled:cursor-not-allowed text-sm';
 
     // Normalize legacy aliases
     let normalized = variant;
@@ -58,10 +58,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizeStyles: Record<string, string> = {
-      sm: 'h-7 px-2.5 gap-1.5 text-xs',
-      md: 'h-8 px-3 gap-1.5 text-sm',
-      lg: 'h-9 px-4 gap-2 text-sm',
-      icon: 'w-8 h-8 p-0 shrink-0 text-sm',
+      sm: 'h-8 px-3 gap-1.5 text-xs',
+      md: 'h-10 px-4 gap-2 text-sm',
+      lg: 'h-11 px-5 gap-2.5 text-sm',
+      icon: 'w-10 h-10 p-0 shrink-0 text-sm',
     };
 
     return (
@@ -74,7 +74,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading ? (
           <svg
-            className="w-3.5 h-3.5 animate-spin shrink-0"
+            className="w-4 h-4 animate-spin shrink-0"
             viewBox="0 0 16 16"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             />
           </svg>
         ) : (
-          icon && <span className="inline-flex shrink-0">{icon}</span>
+          icon && <span className="inline-flex shrink-0 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:stroke-[1.5]">{icon}</span>
         )}
         {children && <span>{children}</span>}
       </button>

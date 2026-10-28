@@ -30,7 +30,7 @@ export const SeniorEditPage: React.FC = () => {
     return (
       <div className="p-8 text-center bg-white border border-border-hairline rounded max-w-md mx-auto my-12">
         <AlertTriangle className="w-8 h-8 text-warning mx-auto mb-3" />
-        <h3 className="font-serif font-bold text-base text-text-primary">Senior Citizen Not Found</h3>
+        <h3 className="font-semibold text-base text-text-primary">Senior Citizen Not Found</h3>
         <p className="text-xs text-text-muted mt-1">Cannot edit an unknown profile record.</p>
         <Button variant="outline" size="sm" className="mt-4" onClick={() => navigate('/seniors')}>
           Return to Registry
@@ -219,7 +219,7 @@ export const SeniorEditPage: React.FC = () => {
         {/* Core Personal Details */}
         <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-border-hairline pb-3">
-            <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
               <User className="w-4 h-4 text-accent" />
               Senior Demographics
             </h3>
@@ -291,7 +291,7 @@ export const SeniorEditPage: React.FC = () => {
         <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-border-hairline pb-3">
             <div>
-              <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+              <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
                 <Phone className="w-4 h-4 text-accent" />
                 Emergency Contacts (Next-of-Kin)
               </h3>
@@ -363,7 +363,7 @@ export const SeniorEditPage: React.FC = () => {
                       updated[idx].phoneNumber = e.target.value;
                       setContacts(updated);
                     }}
-                    className="text-xs px-2.5 py-1.5 border border-border-hairline rounded bg-white font-mono"
+                    className="text-xs px-2.5 py-1.5 border border-border-hairline rounded bg-white tabular-nums"
                     required
                   />
                 </div>
@@ -385,7 +385,7 @@ export const SeniorEditPage: React.FC = () => {
 
         {/* Audit Justification Field */}
         <div className="bg-white border border-border-hairline rounded p-5 space-y-3">
-          <label className="block text-xs font-bold text-text-primary">
+          <label className="block text-xs font-semibold text-text-primary">
             Audit Reason for Profile Modification <span className="text-danger">*</span>
           </label>
           <p className="text-[11px] text-text-muted">
@@ -439,10 +439,10 @@ export const SeniorEditPage: React.FC = () => {
       {/* Deactivate Modal */}
       {deactivateModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 shadow-xl space-y-4">
+          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 space-y-4">
             <div className="flex items-center gap-2 text-danger">
               <AlertTriangle className="w-5 h-5 flex-shrink-0" />
-              <h3 className="font-serif font-bold text-base text-text-primary">
+              <h3 className="font-semibold text-base text-text-primary">
                 Confirm Profile Deactivation
               </h3>
             </div>
@@ -466,14 +466,14 @@ export const SeniorEditPage: React.FC = () => {
 
             <div className="space-y-2">
               <label className="block text-xs font-medium text-text-primary">
-                Type <span className="font-mono font-bold text-danger">DEACTIVATE</span> to confirm:
+                Type <span className="tabular-nums font-semibold text-danger">DEACTIVATE</span> to confirm:
               </label>
               <input
                 type="text"
                 placeholder="DEACTIVATE"
                 value={deactivateConfirmText}
                 onChange={(e) => setDeactivateConfirmText(e.target.value)}
-                className="w-full text-xs px-3 py-2 border border-border-hairline rounded font-mono"
+                className="w-full text-xs px-3 py-2 border border-border-hairline rounded tabular-nums"
               />
             </div>
 

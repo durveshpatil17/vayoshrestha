@@ -117,7 +117,7 @@ export const SosSettingsPage: React.FC = () => {
       {feedback && (
         <div className="p-3 bg-success-surface border border-success/30 rounded text-xs text-success flex items-center justify-between">
           <span>{feedback}</span>
-          <button onClick={() => setFeedback(null)} className="font-bold underline ml-2">
+          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
             Dismiss
           </button>
         </div>
@@ -129,7 +129,7 @@ export const SosSettingsPage: React.FC = () => {
           <ShieldCheck className="w-5 h-5 text-accent" />
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-text-primary">Maker-Checker Policy:</span>
+              <span className="text-xs font-semibold text-text-primary">Maker-Checker Policy:</span>
               <StatusChip
                 status={currentSettings.approvalStatus === 'APPROVED' ? 'success' : 'warning'}
                 label={currentSettings.approvalStatus || 'APPROVED'}
@@ -158,7 +158,7 @@ export const SosSettingsPage: React.FC = () => {
       <form onSubmit={handleSave} className="space-y-6">
         {/* SLA and Timings */}
         <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-          <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+          <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
             <Clock className="w-4 h-4 text-accent" />
             Acknowledgement SLA & Auto-Escalation Ladder
           </h3>
@@ -176,7 +176,7 @@ export const SosSettingsPage: React.FC = () => {
                   value={slaMinutes}
                   onChange={(e) => setSlaMinutes(Number(e.target.value))}
                   disabled={!canEdit}
-                  className="w-20 px-2.5 py-1.5 border border-border-hairline rounded font-mono"
+                  className="w-20 px-2.5 py-1.5 border border-border-hairline rounded tabular-nums"
                   required
                 />
                 <span className="text-text-muted">minutes</span>
@@ -198,7 +198,7 @@ export const SosSettingsPage: React.FC = () => {
                   value={escalationStep1}
                   onChange={(e) => setEscalationStep1(Number(e.target.value))}
                   disabled={!canEdit}
-                  className="w-20 px-2.5 py-1.5 border border-border-hairline rounded font-mono"
+                  className="w-20 px-2.5 py-1.5 border border-border-hairline rounded tabular-nums"
                   required
                 />
                 <span className="text-text-muted">minutes</span>
@@ -220,7 +220,7 @@ export const SosSettingsPage: React.FC = () => {
                   value={escalationStep2}
                   onChange={(e) => setEscalationStep2(Number(e.target.value))}
                   disabled={!canEdit}
-                  className="w-20 px-2.5 py-1.5 border border-border-hairline rounded font-mono"
+                  className="w-20 px-2.5 py-1.5 border border-border-hairline rounded tabular-nums"
                   required
                 />
                 <span className="text-text-muted">minutes</span>
@@ -234,7 +234,7 @@ export const SosSettingsPage: React.FC = () => {
 
         {/* Cellular Fallback Strategy */}
         <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-          <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+          <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
             <Radio className="w-4 h-4 text-accent" />
             Cellular Fallback Routing Behavior
           </h3>
@@ -251,7 +251,7 @@ export const SosSettingsPage: React.FC = () => {
                 className="mt-0.5 text-accent"
               />
               <div>
-                <span className="font-bold text-text-primary block">
+                <span className="font-semibold text-text-primary block">
                   Priority Cascade (Stop at first delivered)
                 </span>
                 <span className="text-text-muted">
@@ -272,7 +272,7 @@ export const SosSettingsPage: React.FC = () => {
                 className="mt-0.5 text-accent"
               />
               <div>
-                <span className="font-bold text-text-primary block">
+                <span className="font-semibold text-text-primary block">
                   Simultaneous Broadcast (All contacts)
                 </span>
                 <span className="text-text-muted">
@@ -287,7 +287,7 @@ export const SosSettingsPage: React.FC = () => {
         {/* SMS Fallback Wording & Emergency 112 Notice */}
         <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-border-hairline pb-3">
-            <h3 className="font-serif font-bold text-sm text-text-primary flex items-center gap-2">
+            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
               <FileText className="w-4 h-4 text-accent" />
               Fallback SMS Copy & Emergency Notice
             </h3>
@@ -314,7 +314,7 @@ export const SosSettingsPage: React.FC = () => {
                 <label className="font-medium text-text-muted">
                   DLT-Registered Transactional SMS Body ({selectedLang}):
                 </label>
-                <span className="font-mono text-text-muted">
+                <span className="tabular-nums text-text-muted">
                   {smsTemplateText.length} characters (1 GSM credit)
                 </span>
               </div>
@@ -323,7 +323,7 @@ export const SosSettingsPage: React.FC = () => {
                 value={smsTemplateText}
                 onChange={(e) => setSmsTemplateText(e.target.value)}
                 disabled={!canEdit}
-                className="w-full text-xs px-3 py-2 border border-border-hairline rounded font-mono focus:outline-none focus:border-accent"
+                className="w-full text-xs px-3 py-2 border border-border-hairline rounded tabular-nums focus:outline-none focus:border-accent"
               />
               <p className="text-[10px] text-text-muted mt-1">
                 Available variables: <code>{'{senior_name}'}</code>, <code>{'{chapter}'}</code>,{' '}

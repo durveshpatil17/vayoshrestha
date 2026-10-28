@@ -1,26 +1,35 @@
 import React from 'react';
-import { Button } from '@/components/ui/Button';
-import { AlertCircle } from 'lucide-react';
+import { ErrorCircle24Regular } from '@fluentui/react-icons';
+import { Button } from '../ui/Button';
 
 export interface ErrorStateProps {
   title?: string;
-  message?: string;
+  message: string;
   onRetry?: () => void;
+  className?: string;
 }
 
 export const ErrorState: React.FC<ErrorStateProps> = ({
-  title = 'Unable to Load Data',
-  message = 'A temporary error occurred while retrieving this record. Please try again.',
+  title = 'Failed to load data',
+  message,
   onRetry,
+  className = '',
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center p-10 text-center border border-danger/30 rounded bg-danger-bg/40 max-w-lg mx-auto my-8">
-      <AlertCircle className="w-8 h-8 text-danger mb-3" />
-      <h3 className="font-serif text-base font-semibold text-danger mb-1">{title}</h3>
-      <p className="text-sm text-text-muted mb-4">{message}</p>
+    <div
+      role="alert"
+      className={`py-8 px-6 flex flex-col items-center justify-center text-center max-w-md mx-auto select-none ${className}`}
+    >
+      <div className="w-10 h-10 rounded-full bg-negative-tint border border-negative/20 flex items-center justify-center text-negative mb-3">
+        <ErrorCircle24Regular className="w-6 h-6" />
+      </div>
+      <h3 className="text-card-title text-text mb-1">{title}</h3>
+      <p className="text-sm text-text-secondary mb-4 leading-normal">
+        {message}
+      </p>
       {onRetry && (
-        <Button variant="secondary" size="sm" onClick={onRetry}>
-          Retry Request
+        <Button variant="default" onClick={onRetry}>
+          Retry
         </Button>
       )}
     </div>

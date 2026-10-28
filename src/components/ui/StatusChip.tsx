@@ -1,23 +1,18 @@
 import React from 'react';
 
-export type ChipVariant =
-  | 'active'
-  | 'registered'
-  | 'pending'
-  | 'opted-out'
-  | 'approved'
-  | 'rejected'
-  | 'in-progress'
+export type StatusChipVariant =
   | 'neutral'
-  | 'danger'
-  | 'warning'
-  | 'success'
-  | 'info';
+  | 'accent'
+  | 'positive'
+  | 'critical'
+  | 'negative'
+  | 'critical-sos'
+  | string;
 
 export interface StatusChipProps {
-  label: string;
-  variant?: ChipVariant | string;
-  status?: ChipVariant | string;
+  label: React.ReactNode;
+  variant?: StatusChipVariant;
+  status?: string;
   className?: string;
 }
 
@@ -27,33 +22,36 @@ export const StatusChip: React.FC<StatusChipProps> = ({
   status,
   className = '',
 }) => {
-  const v = (status || variant || 'neutral').toLowerCase();
+  const raw = (status || variant || 'neutral').toLowerCase();
+
+  // Normalize legacy status names
+  let normalized = raw;
+  if (['active', 'approved', 'success', 'resolved'].includes(raw)) {
+    normalized = 'positive';
+  } else if (['pending', 'in-progress', 'warning', 'needs call'].includes(raw)) {
+    normalized = 'critical';
+  } else if (['sos', 'sos-critical', 'critical-sos'].includes(raw)) {
+    normalized = 'critical-sos';
+  } else if (['danger', 'rejected', 'failed', 'unacknowledged', 'negative'].includes(raw)) {
+    normalized = 'negative';
+  } else if (['info', 'registered', 'accent'].includes(raw)) {
+    normalized = 'accent';
+  }
 
   const variantStyles: Record<string, string> = {
-    active: 'bg-success-bg text-success border-success/30',
-    approved: 'bg-success-bg text-success border-success/30',
-    success: 'bg-success-bg text-success border-success/30',
-    resolved: 'bg-success-bg text-success border-success/30',
-    registered: 'bg-accent-tint text-accent border-accent/30',
-    pending: 'bg-warning-bg text-warning border-warning/30',
-    'in-progress': 'bg-warning-bg text-warning border-warning/30',
-    warning: 'bg-warning-bg text-warning border-warning/30',
-    acknowledged: 'bg-warning-bg text-warning border-warning/30',
-    'opted-out': 'bg-bg-subtle text-text-muted border-border-hairline',
-    neutral: 'bg-bg-subtle text-text-muted border-border-hairline',
-    danger: 'bg-danger-bg text-danger border-danger/30',
-    critical: 'bg-danger-bg text-danger border-danger/30',
-    triggered: 'bg-danger-bg text-danger border-danger/30',
-    rejected: 'bg-danger-bg text-danger border-danger/30',
-    failed: 'bg-danger-bg text-danger border-danger/30',
-    info: 'bg-info-bg text-info border-info/30',
+    neutral: 'bg-neutral-tint text-neutral border border-border-subtle',
+    accent: 'bg-accent-tint text-accent border border-accent/20',
+    positive: 'bg-positive-tint text-positive border border-positive/20',
+    critical: 'bg-critical-tint text-critical border border-critical/20',
+    negative: 'bg-negative-tint text-negative border border-negative/20',
+    'critical-sos': 'bg-negative text-text-on-accent border border-negative font-medium shadow-xs',
   };
 
-  const style = variantStyles[v] || variantStyles.neutral;
+  const style = variantStyles[normalized] || variantStyles.neutral;
 
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-tag text-xs font-medium border ${style} ${className}`}
+      className={`inline-flex items-center px-1.5 py-0.5 rounded-chip text-xs font-medium ${style} ${className}`}
     >
       {label}
     </span>

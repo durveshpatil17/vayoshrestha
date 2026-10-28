@@ -4,57 +4,104 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: {
-          base: 'var(--color-bg-base)',
-          subtle: 'var(--color-bg-subtle)',
-          active: 'var(--color-bg-active)',
+        canvas: 'var(--canvas)',
+        surface: {
+          DEFAULT: 'var(--surface)',
+          subtle: 'var(--surface-subtle)',
+          hover: 'var(--surface-hover)',
+          selected: 'var(--surface-selected)',
         },
         border: {
-          hairline: 'var(--color-border-hairline)',
-          strong: 'var(--color-border-strong)',
+          subtle: 'var(--border-subtle)',
+          DEFAULT: 'var(--border)',
+          strong: 'var(--border-strong)',
         },
         text: {
-          primary: 'var(--color-text-primary)',
-          muted: 'var(--color-text-muted)',
-          disabled: 'var(--color-text-disabled)',
+          DEFAULT: 'var(--text)',
+          secondary: 'var(--text-secondary)',
+          tertiary: 'var(--text-tertiary)',
+          disabled: 'var(--text-disabled)',
+          'on-accent': 'var(--text-on-accent)',
         },
         accent: {
-          DEFAULT: 'var(--color-accent)',
-          hover: 'var(--color-accent-hover)',
-          tint: 'var(--color-accent-tint)',
+          DEFAULT: 'var(--accent)',
+          hover: 'var(--accent-hover)',
+          active: 'var(--accent-active)',
+          tint: 'var(--accent-tint)',
         },
-        success: {
-          DEFAULT: 'var(--color-success)',
-          bg: 'var(--color-success-bg)',
+        focus: {
+          ring: 'var(--focus-ring)',
         },
-        warning: {
-          DEFAULT: 'var(--color-warning)',
-          bg: 'var(--color-warning-bg)',
+        positive: {
+          DEFAULT: 'var(--positive)',
+          tint: 'var(--positive-tint)',
         },
-        danger: {
-          DEFAULT: 'var(--color-danger)',
-          bg: 'var(--color-danger-bg)',
+        critical: {
+          DEFAULT: 'var(--critical)',
+          tint: 'var(--critical-tint)',
         },
-        info: {
-          DEFAULT: 'var(--color-info)',
-          bg: 'var(--color-info-bg)',
+        negative: {
+          DEFAULT: 'var(--negative)',
+          tint: 'var(--negative-tint)',
+        },
+        neutral: {
+          DEFAULT: 'var(--neutral)',
+          tint: 'var(--neutral-tint)',
+        },
+        information: {
+          DEFAULT: 'var(--information)',
+          tint: 'var(--information-tint)',
         },
         chart: {
-          forest: 'var(--color-chart-forest)',
-          ochre: 'var(--color-chart-ochre)',
-          terracotta: 'var(--color-chart-terracotta)',
-          slate: 'var(--color-chart-slate)',
-          olive: 'var(--color-chart-olive)',
-          sand: 'var(--color-chart-sand)',
+          1: 'var(--chart-1)',
+          2: 'var(--chart-2)',
+          3: 'var(--chart-3)',
+          4: 'var(--chart-4)',
+          5: 'var(--chart-5)',
+          6: 'var(--chart-6)',
+          grid: 'var(--chart-grid)',
         },
       },
-      fontFamily: {
-        serif: ['"Source Serif 4"', 'serif'],
-        sans: ['"IBM Plex Sans"', '"Noto Sans Devanagari"', 'system-ui', 'sans-serif'],
-      },
       borderRadius: {
-        DEFAULT: '6px',
-        tag: '4px',
+        control: 'var(--radius-control)',
+        card: 'var(--radius-card)',
+        chip: 'var(--radius-chip)',
+      },
+      boxShadow: {
+        xs: 'var(--shadow-xs)',
+        menu: 'var(--shadow-menu)',
+        dialog: 'var(--shadow-dialog)',
+      },
+      fontFamily: {
+        sans: [
+          '"Source Sans 3"',
+          '"Noto Sans Devanagari"',
+          '"Noto Sans Kannada"',
+          '"Noto Sans Tamil"',
+          'system-ui',
+          '"Segoe UI"',
+          'Roboto',
+          'Arial',
+          'sans-serif',
+        ],
+      },
+      spacing: {
+        1: 'var(--space-1)',
+        2: 'var(--space-2)',
+        3: 'var(--space-3)',
+        4: 'var(--space-4)',
+        5: 'var(--space-5)',
+        6: 'var(--space-6)',
+        8: 'var(--space-8)',
+        10: 'var(--space-10)',
+      },
+      transitionTimingFunction: {
+        DEFAULT: 'var(--ease)',
+      },
+      transitionDuration: {
+        fast: 'var(--dur-fast)',
+        DEFAULT: 'var(--dur)',
+        slow: 'var(--dur-slow)',
       },
     },
   },

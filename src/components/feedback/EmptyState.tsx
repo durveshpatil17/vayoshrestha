@@ -1,28 +1,37 @@
 import React from 'react';
-import { Button } from '@/components/ui/Button';
+import { DocumentFolder48Regular } from '@fluentui/react-icons';
+import { Button } from '../ui/Button';
 
 export interface EmptyStateProps {
-  title?: string;
+  icon?: React.ReactNode;
+  title: string;
   description: string;
   actionLabel?: string;
   onAction?: () => void;
-  icon?: React.ReactNode;
+  className?: string;
 }
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
+  icon,
   title,
   description,
   actionLabel,
   onAction,
-  icon,
+  className = '',
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center p-12 text-center border border-dashed border-border-strong rounded bg-bg-subtle/50">
-      {icon && <div className="text-text-muted mb-3">{icon}</div>}
-      {title && <h3 className="font-serif text-lg font-semibold text-text-primary mb-1">{title}</h3>}
-      <p className="text-sm text-text-muted max-w-md mb-5">{description}</p>
+    <div
+      className={`py-12 px-6 flex flex-col items-center justify-center text-center max-w-md mx-auto select-none ${className}`}
+    >
+      <div className="w-12 h-12 rounded-full bg-surface-subtle border border-border-subtle flex items-center justify-center text-text-disabled mb-3">
+        {icon || <DocumentFolder48Regular className="w-8 h-8" />}
+      </div>
+      <h3 className="text-card-title text-text mb-1">{title}</h3>
+      <p className="text-sm text-text-secondary mb-4 leading-normal">
+        {description}
+      </p>
       {actionLabel && onAction && (
-        <Button variant="primary" size="md" onClick={onAction}>
+        <Button variant="default" onClick={onAction}>
           {actionLabel}
         </Button>
       )}

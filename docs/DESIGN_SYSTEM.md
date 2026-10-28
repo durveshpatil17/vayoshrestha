@@ -1,113 +1,176 @@
-# VAYOSHRESHTHA — Design System & Visual Specification (v2 Pilot)
+# VAYOSHRESHTHA Enterprise Design System Specification
 
-This document codifies the design language for the Vayoshreshtha eldercare ecosystem for the NGO Vayoh Vikas.
+## 1. Overview & Architectural Philosophy
+
+Vayoshrestha is an enterprise-grade digital senior-care ecosystem for **Vayoh Vikas**. The UI/UX is built to project calm precision, clinical trust, and high data density without cognitive clutter. It incorporates proven enterprise interaction patterns borrowed from four benchmark enterprise design systems:
+
+1. **SAP Fiori (Horizon)**: Floorplans (List Report, Object Page, Overview Page), Message Strips, and Object Statuses.
+2. **AWS Cloudscape**: Data-console tables, status indicators, key-value pairs, property filtering, and split-panel alert boards.
+3. **Microsoft Fluent 2**: Restrained command bar structure, high-precision drawer layers, data grid command patterns, and Fluent System regular outline iconography.
+4. **Salesforce Lightning Design System (SLDS)**: Path lifecycles, highlights panels, compact related lists, and contextual feedback toasts.
+
+The result is a clean, quiet, light-grey canvas with crisp white surfaces, hairline 1px borders, subtle elevation, a single enterprise blue accent, and plain humanist sans-serif typography (`Source Sans 3` with Indic script fallbacks).
 
 ---
 
-## 1. Aesthetic Philosophy & Brand Voice
-The visual design conveys **institutional trustworthiness, editorial calm, and operational precision**.
-- **Dense and functional** for staff who manage registrations, SOS emergencies, vital logs, and audit trails.
-- **Spacious and crystal clear** for senior citizens navigating the WhatsApp channel.
-- **Strictly White Theme**: Crisp backgrounds `#FFFFFF` with muted surfaces `#F7F6F3` and subtle 1px border lines `#E4E2DC`.
-- **Zero Decorative Noise**: No glassmorphism, no neon glows, no gradient buttons, no blue accents, no floating 3D spheres, no stock photography, no emoji in app chrome.
-- **SOS Urgency Without Strobing**: The SOS board achieves urgency through clean typographic hierarchy, a persistent red banner, a distinct row highlight, an optional chime (off by default, toggle in top bar), and a browser tab title badge `(🚨 X)`. Respects `prefers-reduced-motion`.
+## 2. Borrowed Pattern Registry
+
+As required by Section 3, every pattern borrowed from enterprise design benchmarks is cataloged below. Vayoshrestha never copies logos, brand marks, or external styling; it adapts standard architectural interaction models:
+
+| Source Enterprise System | Pattern Borrowed | Vayoshrestha Implementation & Location |
+|---|---|---|
+| **SAP Fiori (Horizon)** | **Dynamic Page Header & Floorplans** | Collapsing sticky page header (from 24px title down to 48px compact bar) with breadcrumbs, action buttons, and pinned filter bar. Used in List Reports across Seniors, Health Logs, and Audit Logs. |
+| **SAP Fiori (Horizon)** | **Message Strip** | Inline semantic banner with 1px tinted border, tint background, 16px icon, bold title, message, and action link. Used for ABHA Phase 2 notice, clinician review disclaimers, and SMS alerts. |
+| **SAP Fiori (Horizon)** | **Numeric KPI Tile** | Clean card displaying 32px tabular KPI value, 12px secondary label, target ratio, delta trend chip, and metric definition tooltip. |
+| **AWS Cloudscape** | **Table & Property Filter** | Compact data table with sticky header, checkbox selection, column visibility/ordering popover, tabular numeric alignment, and multi-property filter bar. |
+| **AWS Cloudscape** | **Critical Alert Flashbar** | Persistent top banner directly beneath shell bar for unacknowledged critical SOS emergencies (`--negative-tint`, `--negative` border, elapsed timer, acknowledge/view actions). No strobing. |
+| **AWS Cloudscape** | **Split Panel Board** | Live SOS Board (`/sos`): full-width master table with a 440px resizable right panel showing case telemetry, timeline, and actions without context switching. |
+| **AWS Cloudscape** | **Key-Value Pairs** | Clean 2-column or grid data display with 12px uppercase/medium secondary label over 14px regular value. Used in Object Page Highlights. |
+| **Microsoft Fluent 2** | **Command Bar** | Restrained horizontal action strip (Create, Export, Bulk Actions, Refresh, Column Settings) with 16px icon + 14px label ghost buttons. |
+| **Microsoft Fluent 2** | **Quick-View Drawer** | 480px slide-in right drawer triggered on table row click for instant record inspection and quick triage before opening full pages. |
+| **Microsoft Fluent 2** | **Fluent System Icons** | Regular outline 16px and 20px icons (`@fluentui/react-icons`) paired with text labels, tinted `--text-secondary` at rest and `--accent` when active. |
+| **Salesforce Lightning** | **Status Path** | Chevron-less linear progress path for SOS case states, onboarding funnel steps, and medical flag lifecycles (Completed = check, Current = tinted, Next = grey). |
+| **Salesforce Lightning** | **Highlights Panel** | Object Page top card featuring senior avatar/initials, primary facts, status indicator, and prominent actions. |
+| **Salesforce Lightning** | **Transient Toasts** | Bottom-center notification with 5s auto-dismiss, hover pause, status icon, and reversible "Undo" triggers. |
 
 ---
 
-## 2. Color Palette & CSS Variables
+## 3. Strict Anti-Patterns ("AI-Generated" Tells to Avoid)
 
-| Token | CSS Variable | Hex Value | Usage |
+To ensure an authentic, mature enterprise interface, the following elements are strictly forbidden and enforced by `scripts/design-lint.mjs`:
+- **No serif fonts anywhere** (no display, editorial, or serif fonts).
+- **No warm neutrals** (no cream, beige, ivory, sand, or warm off-whites; all backgrounds are cool blue-grey `#F5F7FA` or crisp `#FFFFFF`).
+- **No dark borders or thick outlines** (all borders are 1px `#DDE2E8` or subtle `#EDF0F3`; no 2px outlines except keyboard focus rings and active tab underlines).
+- **No earthy palettes** (no terracotta, ochre, rust, forest green, or sand).
+- **No purple, violet, indigo, or gradients** (zero linear or radial gradients; no gradient buttons or headers).
+- **No glassmorphism, blur, neon glow, or decorative illustration blobs**.
+- **No emojis in the UI** (only the WhatsApp simulator fixture contains `🚨` as incoming payload text).
+- **No giant hero headings, no pill buttons, no zebra-striped tables, no vertical table lines, and no font-weight 700+**.
+- **No marketing fluff** ("Welcome back!", "Supercharge your care!"). Tone is respectful, institutional, and precise.
+
+---
+
+## 4. Design Tokens Specification
+
+All styles derive strictly from `src/styles/tokens.css` and are mirrored in Tailwind CSS:
+
+```css
+:root {
+  /* Surfaces: cool, never warm */
+  --canvas:            #F5F7FA;   /* page background behind cards */
+  --surface:           #FFFFFF;   /* cards, tables, forms, shell */
+  --surface-subtle:    #F8FAFC;   /* table header, read-only fields, hover on white */
+  --surface-hover:     #F2F6FC;   /* row hover (very light accent tint) */
+  --surface-selected:  #E8F1FC;   /* selected row / nav item */
+
+  /* Lines: always light */
+  --border-subtle:     #EDF0F3;   /* row dividers, card inner dividers */
+  --border:            #DDE2E8;   /* card edges, inputs at rest */
+  --border-strong:     #C3CBD4;   /* input hover, focused-adjacent */
+
+  /* Text: blue-grey, never pure black */
+  --text:              #1D2D3E;
+  --text-secondary:    #556B82;
+  --text-tertiary:     #758CA5;   /* icons and non-essential hints only */
+  --text-disabled:     #A9B4BE;
+  --text-on-accent:    #FFFFFF;
+
+  /* Accent: one enterprise blue, solid colours only */
+  --accent:            #0064D9;
+  --accent-hover:      #0057BF;
+  --accent-active:     #004BA6;
+  --accent-tint:       #EBF3FD;
+  --focus-ring:        #0064D9;
+
+  /* Semantic (icon + text first, tint for backgrounds) */
+  --positive:          #107E3E;  --positive-tint: #EFF9F3;
+  --critical:          #B25A00;  --critical-tint: #FFF6EB;   /* warning */
+  --negative:          #C4161C;  --negative-tint: #FEF0F0;   /* error / SOS */
+  --neutral:           #556B82;  --neutral-tint:  #F1F4F7;
+  --information:       #0064D9;  --information-tint: #EBF3FD;
+
+  /* Chart categorical set (no purple; always direct-labelled or patterned) */
+  --chart-1: #0064D9; --chart-2: #0E8E8E; --chart-3: #E9730C;
+  --chart-4: #6C7A89; --chart-5: #5B9E2D; --chart-6: #C99A00;
+  --chart-grid: #EDF0F3;
+
+  /* Radius */
+  --radius-control: 6px;  --radius-card: 8px;  --radius-chip: 4px;
+
+  /* Elevation: cards use a hairline + xs; only floating layers get real shadow */
+  --shadow-xs:   0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-menu: 0 4px 12px rgba(16, 24, 40, 0.10);
+  --shadow-dialog: 0 12px 32px rgba(16, 24, 40, 0.16);
+  --overlay:     rgba(29, 45, 62, 0.40);
+
+  /* Spacing: 4px base */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 100ms; --dur: 150ms; --dur-slow: 220ms;
+}
+```
+
+---
+
+## 5. Typography Scale & Multilingual Stack
+
+- **Primary Font Family:** `Source Sans 3` (weights 400, 500, 600 self-hosted).
+- **Indic Script Fallbacks:** `Noto Sans Devanagari` (Hindi, Marathi), `Noto Sans Kannada` (Kannada), `Noto Sans Tamil` (Tamil).
+- **System Stack Fallback:** `system-ui, "Segoe UI", Roboto, Arial, sans-serif`.
+- **Numbers:** Tabular figures (`font-variant-numeric: tabular-nums`) applied to every counter, timer, timestamp, and table cell.
+
+### Type Scale
+| Role | Font Size / Line Height | Weight | Color Token | Use Case |
+|---|---|---|---|---|
+| Page Title | 24px / 32px | 600 | `--text` | Primary page heading |
+| Section Title | 18px / 24px | 600 | `--text` | Card group / drawer header |
+| Card Title | 16px / 24px | 600 | `--text` | Card header, modal title |
+| Body & Table | 14px / 20px | 400 | `--text` | Default content, table cells, form inputs |
+| Body Medium | 14px / 20px | 500 | `--text` | Button labels, table summaries, bold body |
+| Form Label | 12px / 16px | 500 | `--text-secondary` | Input labels, property filter labels |
+| Caption / Hint | 12px / 16px | 400 | `--text-secondary` | Footers, helper text, chart captions |
+| KPI Value | 32px / 40px | 500 | `--text` | Numeric KPI figures (tabular) |
+
+---
+
+## 6. Density System
+
+Vayoshrestha supports three standard enterprise density modes toggled via `/account` and stored in `localStorage`:
+
+| Element | Compact Mode | Comfortable-Compact (Default) | Spacious Mode |
 |---|---|---|---|
-| Background | `--color-bg-base` | `#FFFFFF` | Primary viewport and card background |
-| Surface Subtle | `--color-bg-subtle` | `#F7F6F3` | Table headers, sidebars, panel backgrounds |
-| Surface Active | `--color-bg-active` | `#EFECE6` | Active navigation rows, hover fills |
-| Border Hairline | `--color-border-hairline` | `#E4E2DC` | 1px dividers, card outlines, table borders |
-| Border Strong | `--color-border-strong` | `#CFCBC2` | Input borders, focused component edges |
-| Text Primary | `--color-text-primary` | `#1C1B19` | Main headers, table values, primary labels |
-| Text Muted | `--color-text-muted` | `#5F5C55` | Captions, secondary descriptors, helper text |
-| Text Disabled | `--color-text-disabled` | `#A19D94` | Inactive buttons, disabled inputs |
-| Accent Forest | `--color-accent` | `#1F5F4B` | Primary CTAs, active indicator bars, brand anchor |
-| Accent Hover | `--color-accent-hover` | `#174A3A` | Button hover and pressed states |
-| Accent Tint | `--color-accent-tint` | `#E8F1ED` | Active badges, selected row highlights |
-| Semantic Success | `--color-success` | `#2F7D4F` | Successful state text, approved badges |
-| Semantic Success BG| `--color-success-bg` | `#EAF5EE` | Success badge background |
-| Semantic Warning | `--color-warning` | `#9A5B0A` | Pending approvals, SLA due soon |
-| Semantic Warning BG| `--color-warning-bg` | `#FEF3E2` | Warning badge background |
-| Semantic Danger | `--color-danger` | `#B42318` | Destructive actions, SLA breached, critical SOS |
-| Semantic Danger BG | `--color-danger-bg` | `#FDECEA` | Danger badge background |
-| Neutral / Info | `--color-info` | `#3F3D38` | Informational notices (Warm grey, never blue) |
-| Neutral / Info BG | `--color-info-bg` | `#F0EEE9` | Info container background |
-
-### Earthy Categorical Chart Palette
-Calibrated for high contrast, color-blind safety, direct labels, and pattern fills:
-1. **Forest Green**: `#1F5F4B`
-2. **Ochre / Warm Amber**: `#B7791F`
-3. **Terracotta / Rust**: `#B4533A`
-4. **Slate Grey**: `#5F6B73`
-5. **Olive**: `#7A8B3A`
-6. **Sand**: `#C9B89A`
+| Control Height (Buttons, Inputs) | 28px | 32px | 36px |
+| Table Row Height | 32px | 40px | 48px |
+| Nav Item Height | 32px | 36px | 40px |
+| Table Font Size | 13px | 14px | 14px |
 
 ---
 
-## 3. Typography & Sizing
+## 7. Motion & Accessibility Standards
 
-### Fonts
-- **Headings (Editorial Anchor)**: `Source Serif 4`, weights 600 (Semi-bold), letter-spacing `-0.015em`.
-- **UI & Data Body**: `IBM Plex Sans`, weights 400 (Regular), 500 (Medium), 600 (Semi-bold).
-- **Tabular Numerals**: Standard `font-feature-settings: "tnum" 1` for all counts, timestamps, percentages, and metrics.
-- **Indian Regional Text**: `Noto Sans Devanagari / Kannada / Tamil` fallback.
-
-### Scale Rules
-- **Staff Interfaces**: Base font 14px / line-height 20px. Target size >= 32px.
-- **Senior Mode (Simulator)**: 18px base text scalable to 22px (`.senior-text-normal`, `.senior-text-large`, `.senior-text-xlarge`).
-
----
-
-## 4. Layout & Navigation Chrome
-
-- **Left Sidebar (248px)**: Grouped navigation links, permission-filtered, with a 2px forest green accent bar indicating the active route.
-- **Top Bar (56px)**:
-  - Chapter/Region switcher limited to assigned scope (`RA` sees own region; `CM`/`VF` sees own chapter).
-  - Global senior search (name, phone-last-4, membership ID, with masking and scope).
-  - **SOS Status Indicator**: Live counter pill showing open alerts (e.g. `🚨 2 Open`), clicking navigates directly to `/sos`.
-  - Notification bell with unread badge.
-  - Chime toggle (Muted by default; respects user preference).
-  - Help link and User Profile dropdown.
-- **Prototype Ribbon**: Fixed 20px banner across the top: *"Prototype · synthetic data only"*.
-- **Content Area**: Max width 1280px on 1440×900 desktop viewport, with standardized PageHeader (breadcrumb, serif title, subtitle, primary action button).
+- **Approved Properties:** Only `opacity`, `transform`, and `background-color` are animated.
+- **Timing:** 100ms (`--dur-fast`), 150ms (`--dur`), 220ms (`--dur-slow`).
+- **Easing:** `cubic-bezier(0.2, 0, 0, 1)`. No bounces, no parallax, no counting number animations.
+- **Accessibility:** Meets WCAG 2.1 AA standards:
+  - Text contrast >= 4.5:1 against surfaces (`--text` #1D2D3E on white is 11.8:1).
+  - Secondary text contrast >= 4.5:1 (`--text-secondary` #556B82 on white is 4.8:1).
+  - Interactive icons >= 3.0:1.
+  - Full keyboard focus ring: 2px `--focus-ring` with 2px offset on `:focus-visible`.
+  - Full `prefers-reduced-motion` compliance.
 
 ---
 
-## 5. UI Component Patterns
+## 8. Floorplans Specification
 
-### Data Lists & Tables
-- Title + count header, filter bar (search input, status/language filters, saved views).
-- Sticky header table, sortable columns, row hover actions, pagination (25/50/100).
-- Virtualised rendering for large rosters.
-- Permission-gated export modal requiring a typed business reason.
-
-### Status Chips
-- Clean typography with subtle tinted backgrounds (e.g., `#EAF5EE` for active, `#FEF3E2` for watch/pending).
-- Critical SOS severity is the only place solid `#B42318` fill is utilized.
-
-### The Four Universal States
-Every data view must explicitly handle all four states:
-1. **Loading**: Structural skeletons mimicking the target layout.
-2. **Empty**: One descriptive sentence + one obvious primary call-to-action.
-3. **Error**: Plain explanation of failure + "Retry" button.
-4. **No-Permission (403)**: Specific notice stating missing capability and user's current role, with a clear link to return.
-
-### Simulator Styling
-- Phone frame layout representing the WhatsApp chat interface without proprietary brand marks.
-- Green message bubbles (`#E8F1ED`), quick-reply action buttons, timestamps (IST format `5:30 PM`), and checkmark delivery indicators.
-
----
-
-## 6. Design Checklist (Verified in Every Loop)
-- [ ] Visual hierarchy instantly obvious in under 3 seconds.
-- [ ] Exactly one primary action button per view.
-- [ ] All table numbers tabular and right-aligned.
-- [ ] No truncated labels or broken wrapping.
-- [ ] All four states (loading, empty, error, 403) cleanly handled.
-- [ ] Zero banned styles (no purple/blue gradients, no neon glows, no glassmorphism).
-- [ ] WCAG 2.2 AA contrast passed (≥ 4.5:1 text, visible 2px focus ring).
+1. **List Report (Fiori)**: Page Header → Filter Bar (Search + Dropdowns + Saved Views) → Command Bar → Data Table → Pagination.
+2. **Object Page (Fiori + SLDS Highlights)**: Header Card with avatar/initials, key-value fact row, status indicator, action buttons → Tab strip → Sections + Right rail (320px).
+3. **Overview Page (Fiori)**: Responsive 12-column grid of analytical cards (KPI tiles, trend charts, attention lists).
+4. **Wizard (Assisted Onboarding)**: Stepper at top, single section card per step, inline validation, sticky footer with Back/Next/Save draft, final review step.
+5. **Board + Split Panel (Cloudscape)**: Full-width alert table with 440px resizable right inspection panel for live SOS cases.
+6. **Status Path (Salesforce Path)**: Chevron-less horizontal path with checkmarks and active tint.
+7. **Settings Forms**: Left vertical section navigation, right stacked cards with title, helper text, and sticky footer for unsaved changes.
+8. **Auth Page**: Centered 400px card on cool canvas with product wordmark.
+9. **WhatsApp Simulator**: Three-card layout (Senior phone, Next-of-kin SMS phone, System event ticker).

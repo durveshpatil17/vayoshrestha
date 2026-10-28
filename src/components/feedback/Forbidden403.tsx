@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/Button';
-import { ShieldAlert, ArrowLeft } from 'lucide-react';
+import { ShieldDismiss24Regular, ArrowLeft16Regular } from '@fluentui/react-icons';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 
@@ -15,34 +15,35 @@ export const Forbidden403: React.FC<Forbidden403Props> = ({
   missingPermission = 'ADMIN_ACCESS',
   requiredRole,
   currentRole,
-  message,
 }) => {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
   const effectiveRole = currentRole || user?.role || 'Guest';
 
   return (
-    <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 text-center max-w-xl mx-auto">
-      <div className="w-14 h-14 rounded-full bg-warning-bg flex items-center justify-center text-warning mb-5 border border-warning/30">
-        <ShieldAlert className="w-7 h-7" />
+    <div className="min-h-[50vh] flex flex-col items-center justify-center p-8 text-center max-w-md mx-auto select-none">
+      <div className="w-12 h-12 rounded-full bg-critical-tint border border-critical/30 flex items-center justify-center text-critical mb-4">
+        <ShieldDismiss24Regular className="w-6 h-6" />
       </div>
-      <span className="text-xs font-semibold tracking-wider uppercase text-text-muted mb-1">
-        Access Denied · HTTP 403
+      <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1">
+        HTTP 403
       </span>
-      <h1 className="font-serif text-2xl font-semibold text-text-primary mb-3">
-        Restricted Eldercare Capability
+      <h1 className="text-page-title text-text mb-2">
+        You don't have access to this page
       </h1>
-      <p className="text-sm text-text-muted mb-6 leading-relaxed">
-        Your current active persona (<strong>{effectiveRole}</strong>) is not authorized to view this resource.
-        This screen requires capability <code className="bg-bg-subtle px-1.5 py-0.5 rounded text-xs border border-border-hairline">{missingPermission}</code>
-        {requiredRole && <> or role <strong>{requiredRole}</strong></>}.
+      <p className="text-sm text-text-secondary mb-6 leading-relaxed">
+        Your role <strong className="text-text font-semibold">{effectiveRole}</strong> lacks the required permission:{' '}
+        <code className="bg-surface-subtle px-1.5 py-0.5 rounded-chip text-xs border border-border-subtle font-mono text-text">
+          {missingPermission}
+        </code>
+        {requiredRole && <> (requires role {requiredRole})</>}.
       </p>
-      <div className="flex gap-3">
-        <Button variant="secondary" icon={<ArrowLeft className="w-4 h-4" />} onClick={() => navigate(-1)}>
+      <div className="flex items-center gap-2">
+        <Button variant="default" icon={<ArrowLeft16Regular />} onClick={() => navigate(-1)}>
           Go Back
         </Button>
         <Button variant="primary" onClick={() => navigate('/')}>
-          Return to Dashboard
+          Back to Home
         </Button>
       </div>
     </div>

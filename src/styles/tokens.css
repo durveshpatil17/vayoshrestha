@@ -1,0 +1,101 @@
+@import '@fontsource/source-sans-3/400.css';
+@import '@fontsource/source-sans-3/500.css';
+@import '@fontsource/source-sans-3/600.css';
+@import '@fontsource/noto-sans-devanagari/400.css';
+@import '@fontsource/noto-sans-devanagari/500.css';
+@import '@fontsource/noto-sans-devanagari/600.css';
+@import '@fontsource/noto-sans-kannada/400.css';
+@import '@fontsource/noto-sans-kannada/500.css';
+@import '@fontsource/noto-sans-kannada/600.css';
+@import '@fontsource/noto-sans-tamil/400.css';
+@import '@fontsource/noto-sans-tamil/500.css';
+@import '@fontsource/noto-sans-tamil/600.css';
+
+:root {
+  /* Surfaces: cool, never warm */
+  --canvas:            #F5F7FA;   /* page background behind cards */
+  --surface:           #FFFFFF;   /* cards, tables, forms, shell */
+  --surface-subtle:    #F8FAFC;   /* table header, read-only fields, hover on white */
+  --surface-hover:     #F2F6FC;   /* row hover (very light accent tint) */
+  --surface-selected:  #E8F1FC;   /* selected row / nav item */
+
+  /* Lines: always light */
+  --border-subtle:     #EDF0F3;   /* row dividers, card inner dividers */
+  --border:            #DDE2E8;   /* card edges, inputs at rest */
+  --border-strong:     #C3CBD4;   /* input hover, focused-adjacent */
+
+  /* Text: blue-grey, never pure black */
+  --text:              #1D2D3E;
+  --text-secondary:    #556B82;
+  --text-tertiary:     #758CA5;   /* icons and non-essential hints only */
+  --text-disabled:     #A9B4BE;
+  --text-on-accent:    #FFFFFF;
+
+  /* Accent: one enterprise blue, solid colours only */
+  --accent:            #0064D9;
+  --accent-hover:      #0057BF;
+  --accent-active:     #004BA6;
+  --accent-tint:       #EBF3FD;
+  --focus-ring:        #0064D9;
+
+  /* Semantic (icon + text first, tint for backgrounds) */
+  --positive:          #107E3E;  --positive-tint: #EFF9F3;
+  --critical:          #B25A00;  --critical-tint: #FFF6EB;   /* warning */
+  --negative:          #C4161C;  --negative-tint: #FEF0F0;   /* error / SOS */
+  --neutral:           #556B82;  --neutral-tint:  #F1F4F7;
+  --information:       #0064D9;  --information-tint: #EBF3FD;
+
+  /* Chart categorical set (no purple; always direct-labelled or patterned) */
+  --chart-1:           #0064D9;
+  --chart-2:           #0E8E8E;
+  --chart-3:           #E9730C;
+  --chart-4:           #6C7A89;
+  --chart-5:           #5B9E2D;
+  --chart-6:           #C99A00;
+  --chart-grid:        #EDF0F3;
+
+  /* Radius */
+  --radius-control:    6px;
+  --radius-card:       8px;
+  --radius-chip:       4px;
+
+  /* Elevation: cards use a hairline + xs; only floating layers get real shadow */
+  --shadow-xs:         0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-menu:       0 4px 12px rgba(16, 24, 40, 0.10);
+  --shadow-dialog:     0 12px 32px rgba(16, 24, 40, 0.16);
+  --overlay:           rgba(29, 45, 62, 0.40);
+
+  /* Spacing: 4px base */
+  --space-1:           4px;
+  --space-2:           8px;
+  --space-3:           12px;
+  --space-4:           16px;
+  --space-5:           20px;
+  --space-6:           24px;
+  --space-8:           32px;
+  --space-10:          40px;
+
+  /* Motion */
+  --ease:              cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast:          100ms;
+  --dur:               150ms;
+  --dur-slow:          220ms;
+
+  /* Density variables */
+  --row-height:        40px;
+  --control-height:    32px;
+  --nav-item-height:   36px;
+}
+
+[data-density="compact"] {
+  --row-height:        32px;
+  --control-height:    28px;
+  --nav-item-height:   32px;
+}
+
+[data-density="spacious"] {
+  --row-height:        48px;
+  --control-height:    36px;
+  --nav-item-height:   40px;
+}
+

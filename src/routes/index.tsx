@@ -66,6 +66,7 @@ import { SettingsPage } from '@/pages/admin/SettingsPage';
 import { ApprovalsPage } from '@/pages/admin/ApprovalsPage';
 import { AuditLogsPage } from '@/pages/admin/AuditLogsPage';
 import { IntegrationsPage } from '@/pages/admin/IntegrationsPage';
+import { DesignGalleryPage } from '@/pages/design/DesignGalleryPage';
 
 /**
  * Route Permission Guard
@@ -141,6 +142,10 @@ export const router = createBrowserRouter([
   {
     path: '/403',
     element: <Forbidden403 requiredRole="Authorized Role" />,
+  },
+  {
+    path: '/design',
+    element: <DesignGalleryPage />,
   },
 
   // Authenticated App Shell Routes

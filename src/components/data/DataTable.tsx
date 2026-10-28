@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  ArrowUpDown,
-  ArrowUp,
-  ArrowDown,
-} from 'lucide-react';
+  ChevronLeft16Regular,
+  ChevronRight16Regular,
+  ArrowSort16Regular,
+  ArrowSortUp16Regular,
+  ArrowSortDown16Regular,
+  MoreHorizontal16Regular,
+} from '@fluentui/react-icons';
+import { Checkbox } from '../ui/Checkbox';
 
 export interface Column<T> {
   key: string;
@@ -29,6 +29,8 @@ export interface DataTableProps<T> {
   emptyState?: React.ReactNode;
   rowActions?: (item: T) => React.ReactNode;
   initialPageSize?: number;
+  onRowClick?: (item: T) => void;
+  bulkActions?: React.ReactNode;
 }
 
 export function DataTable<T extends Record<string, any>>({
@@ -42,6 +44,8 @@ export function DataTable<T extends Record<string, any>>({
   emptyState,
   rowActions,
   initialPageSize = 25,
+  onRowClick,
+  bulkActions,
 }: DataTableProps<T>) {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(initialPageSize);
@@ -79,9 +83,9 @@ export function DataTable<T extends Record<string, any>>({
     }
   };
 
-  const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectAll = (checked: boolean) => {
     if (!onSelectChange) return;
-    if (e.target.checked) {
+    if (checked) {
       const allIds = currentRows.map((r) => keyExtractor(r));
       const merged = Array.from(new Set([...selectedIds, ...allIds]));
       onSelectChange(merged);
@@ -91,7 +95,8 @@ export function DataTable<T extends Record<string, any>>({
     }
   };
 
-  const handleSelectRow = (id: string) => {
+  const handleSelectRow = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
     if (!onSelectChange) return;
     if (selectedIds.includes(id)) {
       onSelectChange(selectedIds.filter((x) => x !== id));
@@ -104,21 +109,40 @@ export function DataTable<T extends Record<string, any>>({
     currentRows.length > 0 && currentRows.every((r) => selectedIds.includes(keyExtractor(r)));
 
   return (
-    <div className="w-full border border-border-hairline rounded bg-bg-base overflow-hidden flex flex-col">
+    <div className="w-full border border-border rounded-card bg-surface overflow-hidden flex flex-col shadow-xs">
+      {/* Optional Bulk Actions Bar when rows are selected */}
+      {selectable && selectedIds.length > 0 && (
+        <div className="h-10 bg-accent-tint border-b border-border px-4 flex items-center justify-between text-sm text-accent animate-in fade-in duration-fast">
+          <div className="flex items-center gap-3">
+            <span className="font-semibold tabular-nums">
+              {selectedIds.length} selected
+            </span>
+            {bulkActions}
+          </div>
+          <button
+            type="button"
+            onClick={() => onSelectChange?.([])}
+            className="text-xs font-semibold hover:underline text-accent"
+          >
+            Clear selection
+          </button>
+        </div>
+      )}
+
       {/* Table Container */}
-      <div className="overflow-x-auto min-h-[300px]">
-        <table className="w-full text-left border-collapse text-xs">
-          {/* Sticky Header */}
-          <thead className="bg-bg-subtle border-b border-border-hairline sticky top-0 z-10 select-none">
-            <tr>
+      <div className="overflow-x-auto min-h-[280px]">
+        <table className="w-full text-left border-collapse text-sm">
+          {/* Sticky Header: 12px/600 secondary text, surface-subtle, no uppercase */}
+          <thead className="bg-surface-subtle border-b border-border sticky top-0 z-10 select-none">
+            <tr className="h-9">
               {selectable && (
-                <th className="w-10 px-3 py-2.5 text-center">
-                  <input
-                    type="checkbox"
-                    checked={allCurrentSelected}
-                    onChange={handleSelectAll}
-                    className="rounded border-border-strong text-accent focus:ring-accent w-3.5 h-3.5 cursor-pointer"
-                  />
+                <th className="w-10 px-3 text-center">
+                  <div className="flex items-center justify-center">
+                    <Checkbox
+                      checked={allCurrentSelected}
+                      onCheckedChange={handleSelectAll}
+                    />
+                  </div>
                 </th>
               )}
               {columns.map((col) => {
@@ -129,22 +153,22 @@ export function DataTable<T extends Record<string, any>>({
                     key={col.key}
                     style={{ width: col.width }}
                     onClick={() => col.sortable && handleSort(col.key)}
-                    className={`px-3 py-2.5 font-semibold text-text-primary tracking-wide ${alignClass} ${
-                      col.sortable ? 'cursor-pointer hover:bg-bg-active' : ''
+                    className={`px-3 py-2 text-label text-text-secondary ${alignClass} ${
+                      col.sortable ? 'cursor-pointer hover:bg-surface-hover' : ''
                     }`}
                   >
                     <div className={`inline-flex items-center gap-1.5 ${col.align === 'right' ? 'justify-end' : ''}`}>
                       <span>{col.header}</span>
                       {col.sortable && (
-                        <span className="text-text-muted">
+                        <span className="text-text-tertiary">
                           {sortKey === col.key ? (
                             sortDirection === 'asc' ? (
-                              <ArrowUp className="w-3 h-3 text-accent" />
+                              <ArrowSortUp16Regular className="text-accent" />
                             ) : (
-                              <ArrowDown className="w-3 h-3 text-accent" />
+                              <ArrowSortDown16Regular className="text-accent" />
                             )
                           ) : (
-                            <ArrowUpDown className="w-3 h-3 opacity-40 hover:opacity-100" />
+                            <ArrowSort16Regular className="opacity-40 hover:opacity-100" />
                           )}
                         </span>
                       )}
@@ -153,23 +177,31 @@ export function DataTable<T extends Record<string, any>>({
                 );
               })}
               {rowActions && (
-                <th className="w-20 px-3 py-2.5 text-right font-semibold text-text-primary">
+                <th className="w-20 px-3 py-2 text-right text-label text-text-secondary">
                   Actions
                 </th>
               )}
             </tr>
           </thead>
 
-          {/* Table Body */}
-          <tbody className="divide-y divide-border-hairline">
+          {/* Table Body: 40px row height, hairline bottom border only, no vertical lines, no zebra */}
+          <tbody className="divide-y divide-border-subtle">
             {isLoading ? (
               <tr>
                 <td
                   colSpan={columns.length + (selectable ? 1 : 0) + (rowActions ? 1 : 0)}
-                  className="px-4 py-8 text-center text-text-muted"
+                  className="px-4 py-12 text-center text-text-secondary"
                 >
                   <div className="flex items-center justify-center gap-2">
-                    <span className="w-4 h-4 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+                    <svg
+                      className="w-4 h-4 animate-spin text-accent"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.25" />
+                      <path d="M8 2a6 6 0 0 1 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
                     <span>Loading data...</span>
                   </div>
                 </td>
@@ -180,7 +212,11 @@ export function DataTable<T extends Record<string, any>>({
                   colSpan={columns.length + (selectable ? 1 : 0) + (rowActions ? 1 : 0)}
                   className="px-4 py-12 text-center"
                 >
-                  {emptyState || <span className="text-sm text-text-muted">No records match the selected criteria.</span>}
+                  {emptyState || (
+                    <span className="text-sm text-text-secondary">
+                      No records match the selected criteria.
+                    </span>
+                  )}
                 </td>
               </tr>
             ) : (
@@ -191,31 +227,41 @@ export function DataTable<T extends Record<string, any>>({
                 return (
                   <tr
                     key={id}
-                    className={`hover:bg-bg-subtle/70 transition-colors ${
-                      isSelected ? 'bg-accent-tint/30' : ''
-                    }`}
+                    onClick={() => onRowClick?.(item)}
+                    className={`h-10 transition-colors duration-fast ${
+                      isSelected
+                        ? 'bg-surface-selected'
+                        : 'hover:bg-surface-hover'
+                    } ${onRowClick ? 'cursor-pointer' : ''}`}
                   >
                     {selectable && (
-                      <td className="px-3 py-2.5 text-center">
-                        <input
-                          type="checkbox"
-                          checked={isSelected}
-                          onChange={() => handleSelectRow(id)}
-                          className="rounded border-border-strong text-accent focus:ring-accent w-3.5 h-3.5 cursor-pointer"
-                        />
+                      <td
+                        className="px-3 text-center"
+                        onClick={(e) => handleSelectRow(id, e)}
+                      >
+                        <div className="flex items-center justify-center">
+                          <Checkbox checked={isSelected} />
+                        </div>
                       </td>
                     )}
                     {columns.map((col) => {
                       const alignClass =
-                        col.align === 'right' ? 'text-right tabular-nums' : col.align === 'center' ? 'text-center' : 'text-left';
+                        col.align === 'right'
+                          ? 'text-right tabular-nums'
+                          : col.align === 'center'
+                          ? 'text-center'
+                          : 'text-left';
                       return (
-                        <td key={col.key} className={`px-3 py-2.5 text-text-primary ${alignClass}`}>
+                        <td key={col.key} className={`px-3 py-2 text-text text-sm ${alignClass}`}>
                           {col.render ? col.render(item) : item[col.key]}
                         </td>
                       );
                     })}
                     {rowActions && (
-                      <td className="px-3 py-2.5 text-right">
+                      <td
+                        className="px-3 py-2 text-right"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         {rowActions(item)}
                       </td>
                     )}
@@ -228,12 +274,12 @@ export function DataTable<T extends Record<string, any>>({
       </div>
 
       {/* Pagination Footer */}
-      <div className="h-12 border-t border-border-hairline bg-bg-subtle px-4 flex items-center justify-between text-xs text-text-muted select-none">
+      <div className="h-11 border-t border-border-subtle bg-surface px-4 flex items-center justify-between text-xs text-text-secondary select-none">
         <div className="flex items-center gap-3">
           <span>
-            Showing <strong className="text-text-primary font-mono">{totalItems === 0 ? 0 : startIndex + 1}</strong> to{' '}
-            <strong className="text-text-primary font-mono">{Math.min(startIndex + pageSize, totalItems)}</strong> of{' '}
-            <strong className="text-text-primary font-mono">{totalItems}</strong> records
+            Showing <strong className="text-text font-medium tabular-nums">{totalItems === 0 ? 0 : startIndex + 1}</strong> to{' '}
+            <strong className="text-text font-medium tabular-nums">{Math.min(startIndex + pageSize, totalItems)}</strong> of{' '}
+            <strong className="text-text font-medium tabular-nums">{totalItems}</strong> records
           </span>
 
           <div className="flex items-center gap-1.5 ml-4">
@@ -244,8 +290,9 @@ export function DataTable<T extends Record<string, any>>({
                 setPageSize(Number(e.target.value));
                 setCurrentPage(1);
               }}
-              className="bg-bg-base border border-border-hairline rounded px-2 py-1 text-xs text-text-primary focus:outline-none focus:border-accent"
+              className="bg-surface border border-border rounded-control px-2 py-0.5 text-xs text-text focus:outline-none focus:border-accent"
             >
+              <option value={10}>10</option>
               <option value={25}>25</option>
               <option value={50}>50</option>
               <option value={100}>100</option>
@@ -254,39 +301,28 @@ export function DataTable<T extends Record<string, any>>({
         </div>
 
         <div className="flex items-center gap-2">
-          <span>Page {currentPage} of {totalPages}</span>
+          <span>
+            Page <strong className="text-text font-medium tabular-nums">{currentPage}</strong> of{' '}
+            <strong className="text-text font-medium tabular-nums">{totalPages}</strong>
+          </span>
           <div className="flex items-center gap-1">
             <button
-              onClick={() => setCurrentPage(1)}
-              disabled={currentPage <= 1}
-              className="p-1 rounded hover:bg-bg-active disabled:opacity-30 disabled:pointer-events-none"
-              title="First Page"
-            >
-              <ChevronsLeft className="w-4 h-4" />
-            </button>
-            <button
+              type="button"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage <= 1}
-              className="p-1 rounded hover:bg-bg-active disabled:opacity-30 disabled:pointer-events-none"
+              className="p-1 rounded hover:bg-surface-hover text-text disabled:opacity-30 disabled:pointer-events-none"
               title="Previous Page"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft16Regular />
             </button>
             <button
+              type="button"
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage >= totalPages}
-              className="p-1 rounded hover:bg-bg-active disabled:opacity-30 disabled:pointer-events-none"
+              className="p-1 rounded hover:bg-surface-hover text-text disabled:opacity-30 disabled:pointer-events-none"
               title="Next Page"
             >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => setCurrentPage(totalPages)}
-              disabled={currentPage >= totalPages}
-              className="p-1 rounded hover:bg-bg-active disabled:opacity-30 disabled:pointer-events-none"
-              title="Last Page"
-            >
-              <ChevronsRight className="w-4 h-4" />
+              <ChevronRight16Regular />
             </button>
           </div>
         </div>

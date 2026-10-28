@@ -11,6 +11,7 @@ export interface BreadcrumbItem {
 export interface PageHeaderProps {
   title: string;
   description?: string;
+  subtitle?: string;
   breadcrumbs?: BreadcrumbItem[];
   breadcrumb?: BreadcrumbItem[];
   primaryAction?: React.ReactNode;
@@ -23,6 +24,7 @@ export interface PageHeaderProps {
 export const PageHeader: React.FC<PageHeaderProps> = ({
   title,
   description,
+  subtitle,
   breadcrumbs,
   breadcrumb,
   primaryAction,
@@ -31,6 +33,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   statusBadge,
   className = '',
 }) => {
+  const effectiveDescription = description || subtitle;
   const effectiveCrumbs = breadcrumbs || breadcrumb;
   const effectivePrimaryAction = primaryAction || actions;
   const [isScrolled, setIsScrolled] = useState(false);
@@ -89,9 +92,9 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
             </h1>
             {statusBadge && <div className="inline-flex shrink-0">{statusBadge}</div>}
           </div>
-          {description && !isScrolled && (
+          {effectiveDescription && !isScrolled && (
             <p className="text-sm text-text-secondary mt-1 truncate max-w-3xl">
-              {description}
+              {effectiveDescription}
             </p>
           )}
         </div>

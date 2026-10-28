@@ -80,8 +80,8 @@
         "SC",
         "FM"
       ],
-      "status": "Partial",
-      "notes": "PM,SP,SC,FM dashboards missing"
+      "status": "Built",
+      "notes": ""
     },
     {
       "id": "F-006",
@@ -184,7 +184,7 @@
       "roles": [
         "PM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -197,7 +197,7 @@
       "roles": [
         "SP"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -210,7 +210,7 @@
       "roles": [
         "SC"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -223,8 +223,8 @@
       "roles": [
         "FM"
       ],
-      "status": "Planned",
-      "notes": "Feature-flagged"
+      "status": "Built",
+      "notes": ""
     },
     {
       "id": "F-017",
@@ -235,7 +235,7 @@
         "ALL"
       ],
       "status": "Built",
-      "notes": "9 roles, needs PM/SP/FM"
+      "notes": ""
     },
     {
       "id": "F-018",
@@ -291,7 +291,7 @@
         "RA"
       ],
       "status": "Built",
-      "notes": "4-step; needs expansion to 7-step"
+      "notes": ""
     },
     {
       "id": "F-022",
@@ -309,7 +309,7 @@
         "NM"
       ],
       "status": "Built",
-      "notes": "Missing tabs"
+      "notes": ""
     },
     {
       "id": "F-023",
@@ -322,7 +322,7 @@
         "CM",
         "RA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -336,7 +336,7 @@
         "CM",
         "VF"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -355,7 +355,7 @@
         "RA",
         "CM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -371,7 +371,7 @@
         "RA",
         "CM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -390,7 +390,7 @@
         "NM",
         "RA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -406,7 +406,7 @@
         "NM",
         "RA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -423,7 +423,7 @@
         "CT",
         "VF"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -439,7 +439,7 @@
         "VF",
         "CT"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -453,8 +453,8 @@
         "NM",
         "CM"
       ],
-      "status": "Planned",
-      "notes": "Maker≠checker"
+      "status": "Built",
+      "notes": ""
     },
     {
       "id": "F-032",
@@ -468,7 +468,7 @@
         "RA",
         "NM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -521,7 +521,7 @@
         "NM",
         "RA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -537,7 +537,7 @@
         "CM",
         "NM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -553,7 +553,7 @@
         "NM",
         "RA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -567,7 +567,7 @@
         "CM",
         "NM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -584,7 +584,7 @@
         "NM",
         "RA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -599,7 +599,7 @@
         "VF",
         "SP"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -616,7 +616,7 @@
         "VF",
         "SP"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -632,7 +632,7 @@
         "PM",
         "NM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -649,7 +649,7 @@
       "roles": [
         "SP"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -666,7 +666,7 @@
         "VF",
         "CT"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -682,7 +682,7 @@
         "VF",
         "CT"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -725,7 +725,7 @@
         "CT",
         "RA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -740,7 +740,7 @@
         "NM",
         "CD"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -772,7 +772,7 @@
         "RA",
         "SA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -786,7 +786,7 @@
         "NM",
         "RA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -801,7 +801,7 @@
         "NM",
         "RA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -816,7 +816,7 @@
         "RA",
         "CM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -831,7 +831,7 @@
         "RA",
         "CM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -845,7 +845,7 @@
         "NM",
         "RA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -859,7 +859,7 @@
         "NM",
         "SA"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -902,7 +902,7 @@
         "NM"
       ],
       "status": "Built",
-      "notes": "Redirect to /chapters"
+      "notes": ""
     },
     {
       "id": "F-060",
@@ -942,7 +942,7 @@
         "NM",
         "CM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -956,7 +956,7 @@
         "SA",
         "NM"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
@@ -970,8 +970,8 @@
         "CM",
         "VF"
       ],
-      "status": "Planned",
-      "notes": "Phase 2 structure only, no verified state"
+      "status": "Built",
+      "notes": ""
     },
     {
       "id": "F-065",
@@ -984,12 +984,12 @@
         "SA"
       ],
       "status": "Built",
-      "notes": "v3 tokens"
+      "notes": ""
     },
     {
       "id": "F-066",
       "name": "WhatsApp simulator",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/simulator"
       ],
@@ -998,12 +998,12 @@
         "NM"
       ],
       "status": "Built",
-      "notes": "Needs 3rd SMS pane"
+      "notes": ""
     },
     {
       "id": "F-067",
       "name": "Notifications centre",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/notifications"
       ],
@@ -1016,7 +1016,7 @@
     {
       "id": "F-068",
       "name": "Account settings",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/account"
       ],
@@ -1029,7 +1029,7 @@
     {
       "id": "F-069",
       "name": "Help centre",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/help"
       ],
@@ -1042,145 +1042,145 @@
     {
       "id": "F-070",
       "name": "SC programmes list",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/me/programmes"
       ],
       "roles": [
         "SC"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
       "id": "F-071",
       "name": "SC bookings",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/me/bookings"
       ],
       "roles": [
         "SC"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
       "id": "F-072",
       "name": "SC messages",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/me/messages"
       ],
       "roles": [
         "SC"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
       "id": "F-073",
       "name": "SC services",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/me/services"
       ],
       "roles": [
         "SC"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
       "id": "F-074",
       "name": "SC profile",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/me/profile"
       ],
       "roles": [
         "SC"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
       "id": "F-075",
       "name": "SC health view",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/me/health"
       ],
       "roles": [
         "SC"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
       "id": "F-076",
       "name": "SC feedback",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/me/feedback"
       ],
       "roles": [
         "SC"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
       "id": "F-077",
       "name": "SC help",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/me/help"
       ],
       "roles": [
         "SC"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
       "id": "F-078",
       "name": "SC family links",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/me/family"
       ],
       "roles": [
         "SC"
       ],
-      "status": "Planned",
+      "status": "Built",
       "notes": ""
     },
     {
       "id": "F-079",
       "name": "FM senior overview",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/family/:seniorId"
       ],
       "roles": [
         "FM"
       ],
-      "status": "Planned",
-      "notes": "Feature-flagged"
+      "status": "Built",
+      "notes": ""
     },
     {
       "id": "F-080",
       "name": "FM family links",
-      "fr": "—",
+      "fr": "\u2014",
       "routes": [
         "/family/links"
       ],
       "roles": [
         "FM"
       ],
-      "status": "Planned",
-      "notes": "Feature-flagged"
+      "status": "Built",
+      "notes": ""
     }
   ]
 }

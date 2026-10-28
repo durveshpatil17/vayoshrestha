@@ -77,3 +77,39 @@ This document records architectural, UX, data-model, security, and scope decisio
 - **Context**: The pilot requires scheduled 08:00 morning medication reminders, quiet hours, and queue depth/latency metrics without a live Redis server.
 - **Decision**: Implement an in-memory priority event queue with persistent storage in `localStorage`. Provide a developer panel (`?dev=1` or top bar quick action) with a "Time Machine" control that can advance virtual time to 08:00 IST to fire scheduled reminder jobs on demand for testing and live demonstrations.
 - **Rationale**: Eliminates waiting 24 hours to test cron jobs and reminder flows.
+
+---
+
+## Decision 008: Full Platform Unification (v3 Cumulative Scope Re-integration)
+- **Date**: 2026-10-28
+- **Context**: An earlier two-prompt sequence temporarily pruned modules because the pilot brief was mistakenly interpreted as a replacement rather than an addition. The v3 master prompt mandates a cumulative architecture containing both the full community ecosystem and the pilot modules without feature loss.
+- **Decision**:
+  - Supersede Decision 001 and restore all 12 operational loops (A to L): Chapters, Programmes, Attendance, WhatsApp Communication, Services & Referrals, External Partner Portal, Feedback, Assisted Health Support, CSR Reporting, Senior Citizen Portal (`/me/*`), Family Member Portal (`/family/*`), and Governance/Complaints.
+  - Supersede Decision 002 to re-incorporate `PM` (Programme Manager), `SP` (Service Partner), and `FM` (Family Member) alongside the full 12-role matrix.
+  - Retain the spelling: Platform = **Vayoshreshtha**, Organisation = **Vayoh Vikas**, Community Hubs = **Ekta Hubs** ("Chapter (Ekta Hub)").
+- **Rationale**: Fulfills the anti-regression and cumulative fidelity requirements of the v3 master prompt.
+
+---
+
+## Decision 009: Design System Evolution — Forest Green & High-Legibility Typography
+- **Date**: 2026-10-28
+- **Context**: Section 4 of the v3 master specification overrides previous Fiori Horizon blue branding in favor of an authoritative, dignified identity designed for civic trust.
+- **Decision**:
+  - Primary Accent: Forest Green `#1F5F4B` with light sage tint `#E8F2EE` and active hover `#174738`. Horizon Blue `#0070F2` is banned.
+  - Neutrals: Warm canvas `#F7F6F3`, pure white card surface `#FFFFFF`, 1px hairline border `#E4E2DC`.
+  - Typography: IBM Plex Sans for body/controls (weights 400, 500, 600) and Source Serif 4 for display headings (weight 600). Open Sans is banned.
+  - Design Lint: An automated AST/regex validator (`scripts/design-lint.mjs`) is integrated into the pre-commit and CI test gate to ban blue accents, CSS gradients, uppercase text, monospace fonts, and heavy outlines.
+- **Rationale**: Aligns strictly with Section 4 and ensures a consistent visual standard.
+
+---
+
+## Decision 010: Anti-Regression Infrastructure (Ledger, Manifest, and Monotonic Ratchet)
+- **Date**: 2026-10-28
+- **Context**: To guarantee that future iterations cannot drop routes, features, or tests.
+- **Decision**:
+  - Implement a three-part validation harness:
+    1. `docs/feature-ledger.json` tracking all 80 features (F-001 through F-080) and FR-01 through FR-55.
+    2. `docs/route-manifest.json` declaring all 120+ registered routes with required capabilities.
+    3. `scripts/ratchet-check.mjs` verifying that metrics (`routes_registered`, `ledger_built`, `tests_passing`, `permission_cells`) never decrease.
+- **Rationale**: Ensures continuous cumulative growth and prevents unintended code regressions.
+

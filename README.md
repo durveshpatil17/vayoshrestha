@@ -1,21 +1,22 @@
-# VAYOSHRESHTHA — PILOT FRONTEND PROTOTYPE v2
-### Complete Web-App Prototype for NGO Vayoh Vikas
+# VAYOSHRESHTHA — COMPLETE PRODUCT v3
+### Enterprise Web-App Platform for NGO Vayoh Vikas
 
-A complete, front-end-only web application prototype built for the NGO **Vayoh Vikas** to manage the **Vayoshreshtha** eldercare pilot (1,000 senior citizens across 9 Ekta Hubs, 3 Regions, 90-day duration).
+A complete, full-breadth front-end-only web application prototype built for the NGO **Vayoh Vikas** to orchestrate the entire **Vayoshreshtha** Digital Senior-Care Ecosystem.
 
-Built strictly according to the **Master Product Specification**:
-- **Module 1 (Safety & SOS):** Real-time Emergency SOS routing with simulated sub-second dashboard latency, cellular fallback SMS to next-of-kin during mobile data drops mid-transaction, live SLA countdown, non-strobing alert banner, and drill mode.
-- **Module 2 (Preventive Health):** Scheduled 08:00 AM medication reminders, quick-reply confirmations (Taken/Not yet/Skip), BP/glucose text logging, and non-clinical anomaly escalation to Chapter Managers for wellness check-in calls with clinician placeholder thresholds.
-- **Module 3 (Civic & Profile):** Structured senior onboarding (WhatsApp bot script and assisted web wizard) with ABHA format validation (`XX-XXXX-XXXX-XXXX`), separate ABDM consent, and Phase 2 linkage tags (structure only).
-- **Zero Backend:** Runs entirely in the browser using an in-memory event queue (`BroadcastChannel`), simulated WhatsApp and SMS gateways, deterministic seed data, and versioned `localStorage` (`vayoshrestha_store_v2`).
-- **White Theme Only:** Forest green (`#1F5F4B`) accents, subtle surface (`#F7F6F3`), hairline borders (`#E4E2DC`), Source Serif 4 headings, IBM Plex Sans body, tabular numerals, and zero blue accents or gradients.
+Built according to the unified **VAYOSHRESHTHA v3 Master Specification**:
+- **Full Community Platform (Loops A–L):** Ekta Hub chapter operations, programmes & sessions, high-contrast 48px tactile attendance with auto-lock countdown, multi-lingual WhatsApp communication hub & audience broadcasts, services directory & referral tracking, external Partner Portal (`SP`), feedback collection & engagement index, assisted health support & triage, CSR reporting builder, complaints governance, Senior Citizen self-service portal (`/me/*`), and Family Caregiver portal (`/family/*`).
+- **Core Pilot Modules:** Real-time Emergency SOS incident board with sub-second dashboard latency, cellular fallback SMS to next-of-kin during mobile data disconnects, 08:00 AM scheduled medication reminders, BP/glucose logging with non-clinical anomaly escalation, and 7-step assisted onboarding with duplicate phone detection and ABHA Phase 2 structural linkage.
+- **Role-Based Access Control (RBAC):** 12 distinct personas (`SA`, `NM`, `RA`, `CM`, `VF`, `CT`, `CD`, `PM`, `SP`, `SC`, `FM`, `NK`) with fine-grained capability gating and automatic geographic/chapter scope isolation.
+- **Zero Backend Architecture:** Runs entirely in modern browsers using an in-memory event queue (`BroadcastChannel`), simulated WhatsApp & SMS gateways, deterministic seed dataset, and versioned offline `localStorage` (`vayoshrestha_store_v3`).
+- **Design System:** Calm, authoritative enterprise aesthetic (Forest Green `#1F5F4B` accent, `#F7F6F3` canvas, hairline `#E4E2DC` borders, IBM Plex Sans body, Source Serif 4 headings, tabular numerals, 0 blue accents, 0 gradients).
+- **Anti-Regression Safeguards:** Monitored via machine-readable Feature Ledger (`docs/feature-ledger.json`, 80 features), Route Manifest (`docs/route-manifest.json`, 123 routes), and a monotonic ratchet check (`npm run ratchet`).
 
 ---
 
 ## 1. Quick Start
 
 ### Prerequisites
-- Node.js 18+ (tested on Node v20/v22)
+- Node.js 18+ (tested on Node v20 / v22)
 - npm 9+
 
 ### Installation & Launch
@@ -33,87 +34,86 @@ npm run preview
 
 ---
 
-## 2. Test Suites & Verification Commands
+## 2. Test Suites & Verification Gates
 
-All unit, property-based, and cross-module integration tests pass 100% green:
+The prototype includes an automated test and architectural compliance pipeline:
 
 ```bash
-# Run all 20 test suites (95 tests)
+# Run all unit and integration test suites (95+ tests)
 npm test
 
-# Run tests in watch mode
-npm run test:watch
+# Full Verification Gate (TypeScript + Design Lint + Tests + Ledger + Manifest + Ratchet)
+npm run gate:full
 
-# Run test coverage enforcement
-npm run test:coverage
-
-# TypeScript strict typecheck (zero errors)
-npx tsc --noEmit
+# Individual verification scripts:
+npm run design:lint      # AST/regex lint enforcing Section 4 tokens (0 violations)
+npm run ledger:check     # Feature ledger consistency check (80 Built features)
+npm run manifest:check   # 100% parity check between router and route manifest
+npm run ratchet          # Monotonic check ensuring features/routes never decrease
 ```
 
 ---
 
-## 3. Demo Persona Credentials (All 10 Personas)
+## 3. Demo Persona Credentials (All 12 Personas)
 
 All staff accounts use the prototype password:  
 **`Demo@1234`**  
 MFA TOTP code for System Administrator (`SA`) and NGO Management (`NM`):  
 **`123456`**
 
-> 💡 **Quick Login:** The `/login` page includes a **"Prototype Access"** panel featuring one-click buttons to sign in immediately as any of the roles without typing credentials.
+> 💡 **Quick Switcher:** The `/login` page and the Top Bar include a **"Prototype Access"** menu allowing instant one-click switching to any persona without logging out.
 
-| Role Code | Role Name | Demo Email | Primary Scope & Enforced Access |
+| Role Code | Role Name | Demo Email | Primary Scope & Access |
 |---|---|---|---|
-| **SA** | System Administrator | `admin@vayohvikas.org` | Users, roles, system settings, integrations, audit logs. **Strictly NO health/clinical logs.** |
-| **NM** | NGO Management | `meera.director@vayohvikas.org` | Organization-wide leadership oversight, governance approvals, pilot outcomes. |
+| **SA** | System Administrator | `admin@vayohvikas.org` | Users, roles, system configuration, audit logs. **Strictly NO clinical/health logs.** |
+| **NM** | NGO Management | `meera.director@vayohvikas.org` | Executive leadership, maker-checker approvals, outcome reporting, governance. |
 | **RA** | Regional Admin | `suresh.south@vayohvikas.org` | Regional emergency alerts, SLA escalations, chapter oversight (**South Region only**). |
-| **CM** | Chapter Manager | `sunita.pune@vayohvikas.org` | Runs Ekta Hub operations, works wellness check-in calls (**Pune Chapter only**). |
-| **VF** | Field Volunteer | `pooja.deshmukh@vayohvikas.org` | Assisted onboarding, assisted logging (**Assigned Pune seniors only, masked contacts**). |
-| **CT** | Care Team / Responder | `dr.swaminathan@vayohvikas.org` | Human crisis responder (**Assigned cases only; contact access expires 24h post-closure**). |
+| **CM** | Chapter Manager | `sunita.pune@vayohvikas.org` | Ekta Hub operations, attendance locking, wellness check-in calls (**Pune Hub only**). |
+| **VF** | Field Volunteer | `pooja.deshmukh@vayohvikas.org` | Assisted onboarding, attendance marking, assigned calls (**Masked phone numbers**). |
+| **CT** | Care Team / Responder | `dr.swaminathan@vayohvikas.org` | Crisis responder (**Assigned cases only; contact access expires 24h post-closure**). |
 | **CD** | CSR / Donor Reviewer | `csr.grant@hdfcbank.org` | Institutional outcome reports (**Aggregates only, zero PII, small numbers <5 suppressed**). |
-| **SC** | Senior Citizen | `+91 98220 11223` | WhatsApp senior chat (**Senior phone simulator pane**). |
-| **NK** | Next-of-Kin | `+91 98220 99887` | Receives cellular fallback SMS (**NO web login; SMS simulator pane**). |
+| **PM** | Programme Manager | `vikram.programmes@vayohvikas.org` | Programme design, session scheduling, syllabus and capacity management. |
+| **SP** | Service Partner | `partner.aarogya@healthcare.in` | External referral fulfilment via dedicated **Partner Portal** (`/partner/*`). |
+| **SC** | Senior Citizen | `+91 98220 11223` | Elder self-service via **Senior Portal** (`/me/*`) and WhatsApp bot. |
+| **FM** | Family Member | `+91 98220 55443` | Elder caregiver via **Family Portal** (`/family/*`) and proxy approvals. |
+| **NK** | Next-of-Kin | `+91 98220 99887` | Receives cellular fallback SMS (**Transactional SMS phone simulator pane**). |
 
 ---
 
-## 4. How to Run Key Features & Demos
+## 4. Key Platform Features & Guided Walkthroughs
 
-### A. The Two-Tab Real-Time SOS Demo (Multi-Tab BroadcastChannel)
+### A. Two-Tab Real-Time Emergency SOS Alerting
 1. Open **Tab 1** at `http://localhost:3000/simulator`.
-2. Open **Tab 2** at `http://localhost:3000/login`, click **"Regional Admin (RA)"**, and navigate to `/sos` (Live SOS Board).
-3. Arrange Tab 1 and Tab 2 side-by-side on your 1440×900 display.
-4. In Tab 1, toggle **"Simulate data disconnect"** to **ON** (red).
-5. In the Senior WhatsApp phone, tap **"🚨 Trigger Emergency SOS"**.
-6. **Watch in real time (< 1 second):**
-   - Senior phone receives instant acknowledgement (*"Help is being alerted..."*).
-   - Next-of-Kin phone receives priority transactional SMS (*"EMERGENCY: Smt. Shakuntala Devi triggered an SOS..."*).
-   - Regional Admin board in Tab 2 lights up with a **persistent red critical alert banner**, live age timer, and measured latency ticker (typically 120–180 ms).
+2. Open **Tab 2** at `http://localhost:3000/login`, select **"Regional Admin (RA)"**, and open `/sos`.
+3. In Tab 1, toggle **"Simulate data disconnect"** to **ON** (cellular fallback mode).
+4. Tap **"🚨 Trigger Emergency SOS"** in the Senior WhatsApp phone.
+5. Within **< 1,000 ms** (typically 120–180 ms via `BroadcastChannel`), the Regional Admin board triggers a critical red alert banner with live SLA countdown and measured latency telemetry, while the Next-of-Kin phone pane immediately displays the priority GSM transactional SMS.
 
-### B. Using the Time Machine (08:00 AM Reminder Burst)
-1. In the top navigation bar (or dev panel via `?dev=1`), locate the **Time Machine** control.
-2. Click **"Jump to 08:00 IST (Fire Morning Reminders)"**.
-3. Open `/simulator`: the senior receives the utility prescription reminder with buttons `[ Taken ]` `[ Not yet ]` `[ Skip ]` and a blood pressure prompt.
-4. Reply with an elevated reading like `165/105`.
-5. Switch to `/health/flags` as Chapter Manager (`CM`) to inspect the newly raised anomaly flag and initiate the **non-clinical wellness check-in call script**.
+### B. Ekta Hub Attendance & Auto-Lock Countdown
+1. Log in as Chapter Manager (`CM`) and navigate to `/attendance`.
+2. Open an active session (e.g. `/attendance/session/sess-101`).
+3. Use the **48px high-contrast touch targets** to mark attendance (`Present`, `Absent`, `Late`).
+4. Test walk-in registration with immediate duplicate phone checking.
+5. Sessions auto-lock 2 hours after conclusion. Corrections post-lock require maker-checker approval via `/attendance/corrections`.
 
-### C. Resetting Demo Data to Clean Seed
-1. Navigate to `/admin/settings` as System Administrator (`SA`).
-2. Click **"Reset Demo Seed Data"** in the page header.
-3. Confirm the modal prompt: `localStorage` key `vayoshrestha_store_v2` is wiped and immediately re-seeded with the deterministic 1,000-senior dataset.
+### C. External Partner Portal
+1. Log in as Service Partner (`SP`) to arrive at `/partner/home`.
+2. Review assigned health and eldercare referrals, update fulfilment milestones, and record dispatch timestamps.
+
+### D. Senior Citizen (`/me`) & Family (`/family`) Portals
+1. Switch to Senior Citizen (`SC`) to access `/me`: high-legibility interface with direct access to hub programmes, bookings, health vitals, emergency contacts, and one-tap SOS.
+2. Switch to Family Member (`FM`) to access `/family`: remote caregiver dashboard with wellness vitals tracking, past SOS history, and authorized proxy consents.
 
 ---
 
 ## 5. Documentation Sitemap (`docs/`)
 
-- [`docs/PLAN.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/PLAN.md) — Master implementation plan and phase breakdown.
-- [`docs/PAGE_SPECS.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/PAGE_SPECS.md) — Detailed UI/UX and functional specification for all 45 routes.
-- [`docs/RBAC_MATRIX.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/RBAC_MATRIX.md) — Complete 8-role × 28-capability permission matrix.
-- [`docs/DESIGN_SYSTEM.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/DESIGN_SYSTEM.md) — Design tokens, typography (Source Serif 4 + IBM Plex Sans), and banned aesthetic patterns.
-- [`docs/API_CONTRACT.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/API_CONTRACT.md) — Typed data contracts for future server-side backend migration.
-- [`docs/DECISIONS.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/DECISIONS.md) — Architecture and design decisions log.
-- [`docs/ROADMAP.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/ROADMAP.md) — Post-pilot roadmap items (ABHA Phase 2 federated linkage, CSR custom report builder, family portal, AI voice calls).
-- [`docs/DEMO_SCRIPT.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/DEMO_SCRIPT.md) — Step-by-step 10-minute master demonstration walkthrough.
-- [`docs/SECURITY_FINDINGS.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/SECURITY_FINDINGS.md) — Phase P6 pentest report (22 numbered vulnerabilities across 11 threat categories).
-- [`docs/SCALE_REPORT.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/SCALE_REPORT.md) — Phase P7 stress and capacity report (benchmarking 1k to 145k seniors, sub-second SOS latency audit).
-- [`docs/screens/`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/screens/) — Evidence screenshots captured at 1440×900 desktop viewport.
-- [`docs/STATE.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/STATE.md) & [`docs/LOOP_LOG.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/LOOP_LOG.md) — Loop protocol engineering log.
+- [`docs/FEATURE_LEDGER.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/FEATURE_LEDGER.md) & [`docs/feature-ledger.json`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/feature-ledger.json) — Complete 80-feature tracking matrix.
+- [`docs/route-manifest.json`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/route-manifest.json) — Complete 123-route registry mapped to capability permissions.
+- [`docs/ratchet.json`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/ratchet.json) — Monotonic counters preventing feature or route regression.
+- [`docs/DEMO_SCRIPT.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/DEMO_SCRIPT.md) — 15-minute guided master evaluation script.
+- [`docs/DECISIONS.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/DECISIONS.md) — Architecture decisions log (including v3 full platform unification).
+- [`docs/SECURITY_FINDINGS.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/SECURITY_FINDINGS.md) — Pentest report (22 numbered vulnerabilities across 11 threat categories).
+- [`docs/SCALE_REPORT.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/SCALE_REPORT.md) — Stress and capacity report (1,000 to 145,000 seniors capacity assessment).
+- [`docs/API_CONTRACT.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/API_CONTRACT.md) — TypeScript domain interfaces and backend integration schema.
+- [`docs/DESIGN_SYSTEM.md`](file:///Users/durveshpatil/Downloads/vayoshrestha/docs/DESIGN_SYSTEM.md) — Design tokens, typography, and accessibility standards.

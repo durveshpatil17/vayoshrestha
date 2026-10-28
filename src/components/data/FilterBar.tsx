@@ -19,7 +19,8 @@ export interface FilterOption {
 }
 
 export interface FilterConfig {
-  id: string;
+  id?: string;
+  key?: string;
   label: string;
   options: FilterOption[];
   value: string;
@@ -118,7 +119,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           {/* Property Filters (Dropdowns) */}
           {filters.map((f) => (
             <select
-              key={f.id}
+              key={f.id || f.key || f.label}
               value={f.value}
               onChange={(e) => f.onChange(e.target.value)}
               className="h-8 px-2.5 rounded-control bg-surface border border-border text-xs text-text focus:outline-none focus:border-accent hover:border-border-strong transition-colors cursor-pointer"

@@ -244,14 +244,17 @@ export const LoginPage: React.FC = () => {
               {[
                 { id: 'u-sa-1', role: 'SA', name: 'Rajesh Varma', title: 'System Admin (MFA)' },
                 { id: 'u-nm-1', role: 'NM', name: 'Vandana Sharma', title: 'NGO Management' },
+                { id: 'u-pm-1', role: 'PM', name: 'Priya Menon', title: 'Programme Manager' },
                 { id: 'u-ra-west', role: 'RA', name: 'Arjun Nambiar', title: 'Reg. Admin (West)' },
                 { id: 'u-ra-south', role: 'RA', name: 'Priya Raman', title: 'Reg. Admin (South)' },
                 { id: 'u-cm-pun', role: 'CM', name: 'Sunita Patil', title: 'Chap. Mgr (Pune)' },
                 { id: 'u-cm-blr', role: 'CM', name: 'Karthik S.', title: 'Chap. Mgr (Bengaluru)' },
-                { id: 'u-vf-1', role: 'VF', name: 'Field Volunteer', title: 'Field Volunteer' },
-                { id: 'u-ct-1', role: 'CT', name: 'Care Responder', title: 'Care Responder' },
-                { id: 'u-cd-1', role: 'CD', name: 'CSR Reviewer', title: 'CSR / Donor (Agg)' },
-                { id: 'u-sc-1', role: 'SC', name: 'Senior Citizen', title: 'Senior Simulator' },
+                { id: 'u-vf-1', role: 'VF', name: 'Pooja Shinde', title: 'Field Volunteer' },
+                { id: 'u-ct-1', role: 'CT', name: 'Meera Kulkarni', title: 'Care Responder' },
+                { id: 'u-sp-1', role: 'SP', name: 'Dr. Rajan Pillai', title: 'Service Partner' },
+                { id: 'u-cd-1', role: 'CD', name: 'Vikram Tata', title: 'CSR / Donor (Agg)' },
+                { id: 'u-sc-1', role: 'SC', name: 'Kamala Devi', title: 'Senior Portal (/me)' },
+                { id: 'u-fm-1', role: 'FM', name: 'Sunita Desai', title: 'Family Portal' },
               ].map((p) => (
                 <button
                   key={p.id}
@@ -259,7 +262,10 @@ export const LoginPage: React.FC = () => {
                   onClick={() => {
                     if (p.role === 'SC') {
                       switchPersona(p.role as any);
-                      navigate('/simulator');
+                      navigate('/me');
+                    } else if (p.role === 'FM') {
+                      switchPersona(p.role as any);
+                      navigate('/family');
                     } else {
                       switchPersona(p.role as any);
                       navigate(returnTo);

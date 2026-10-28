@@ -67,6 +67,98 @@ import { ApprovalsPage } from '@/pages/admin/ApprovalsPage';
 import { AuditLogsPage } from '@/pages/admin/AuditLogsPage';
 import { IntegrationsPage } from '@/pages/admin/IntegrationsPage';
 import { DesignGalleryPage } from '@/pages/design/DesignGalleryPage';
+import { ComplaintsPage } from '@/pages/admin/ComplaintsPage';
+import { ComplaintNewPage } from '@/pages/admin/ComplaintNewPage';
+import { DataGovernancePage } from '@/pages/admin/DataGovernancePage';
+
+// Expanded Modules
+import { ChapterListPage } from '@/pages/chapters/ChapterListPage';
+import { ChapterDetailPage } from '@/pages/chapters/ChapterDetailPage';
+import { ChapterNewPage } from '@/pages/chapters/ChapterNewPage';
+import { ChapterEditPage } from '@/pages/chapters/ChapterEditPage';
+
+import { ProgrammeListPage } from '@/pages/programmes/ProgrammeListPage';
+import { ProgrammeDetailPage } from '@/pages/programmes/ProgrammeDetailPage';
+import { ProgrammeNewPage } from '@/pages/programmes/ProgrammeNewPage';
+import { ProgrammeEditPage } from '@/pages/programmes/ProgrammeEditPage';
+import { ScheduleCalendarPage } from '@/pages/programmes/ScheduleCalendarPage';
+import { SessionDetailPage } from '@/pages/programmes/SessionDetailPage';
+
+import { AttendanceHubPage } from '@/pages/attendance/AttendanceHubPage';
+import { AttendanceSessionPage } from '@/pages/attendance/AttendanceSessionPage';
+import { AttendanceCorrectionsPage } from '@/pages/attendance/AttendanceCorrectionsPage';
+import { AttendanceHistoryPage } from '@/pages/attendance/AttendanceHistoryPage';
+
+import { CommunicationHubPage } from '@/pages/communication/CommunicationHubPage';
+import { TemplatesListPage } from '@/pages/communication/TemplatesListPage';
+import { TemplateDetailPage } from '@/pages/communication/TemplateDetailPage';
+import { TemplateNewPage } from '@/pages/communication/TemplateNewPage';
+import { AnnouncementsPage } from '@/pages/communication/AnnouncementsPage';
+import { AnnouncementNewPage } from '@/pages/communication/AnnouncementNewPage';
+import { DeliveryLogPage } from '@/pages/communication/DeliveryLogPage';
+import { ConsentsPage } from '@/pages/communication/ConsentsPage';
+
+import { ServiceListPage } from '@/pages/services/ServiceListPage';
+import { ServiceDetailPage } from '@/pages/services/ServiceDetailPage';
+import { ServiceNewPage } from '@/pages/services/ServiceNewPage';
+import { ServiceRequestsPage } from '@/pages/services/ServiceRequestsPage';
+
+import { ReferralListPage } from '@/pages/referrals/ReferralListPage';
+import { ReferralDetailPage } from '@/pages/referrals/ReferralDetailPage';
+import { ReferralNewPage } from '@/pages/referrals/ReferralNewPage';
+
+import { PartnerListPage } from '@/pages/partners/PartnerListPage';
+import { PartnerDetailPage } from '@/pages/partners/PartnerDetailPage';
+import { PartnerNewPage } from '@/pages/partners/PartnerNewPage';
+
+import { PartnerHomePage } from '@/pages/partnerPortal/PartnerHomePage';
+import { PartnerReferralsPage } from '@/pages/partnerPortal/PartnerReferralsPage';
+import { PartnerProfilePage } from '@/pages/partnerPortal/PartnerProfilePage';
+import { PartnerReportsPage } from '@/pages/partnerPortal/PartnerReportsPage';
+
+import { FeedbackHubPage } from '@/pages/feedback/FeedbackHubPage';
+import { FeedbackFormsPage } from '@/pages/feedback/FeedbackFormsPage';
+import { FeedbackNewPage } from '@/pages/feedback/FeedbackNewPage';
+import { FollowUpsPage } from '@/pages/feedback/FollowUpsPage';
+import { EngagementIndexPage } from '@/pages/feedback/EngagementIndexPage';
+
+import { SupportRequestsPage } from '@/pages/support/SupportRequestsPage';
+import { SupportEscalationsPage } from '@/pages/support/SupportEscalationsPage';
+import { SupportEscalationDetailPage } from '@/pages/support/SupportEscalationDetailPage';
+import { SupportRulesPage } from '@/pages/support/SupportRulesPage';
+import { SupportVoiceCheckinsPage } from '@/pages/support/SupportVoiceCheckinsPage';
+import { SupportHandoverPage } from '@/pages/support/SupportHandoverPage';
+
+import { ReportsOverviewPage } from '@/pages/reports/ReportsOverviewPage';
+import { ChapterReportsPage } from '@/pages/reports/ChapterReportsPage';
+import { ProgrammeReportsPage } from '@/pages/reports/ProgrammeReportsPage';
+import { SeniorReportsPage } from '@/pages/reports/SeniorReportsPage';
+import { AttendanceReportsPage } from '@/pages/reports/AttendanceReportsPage';
+import { OutcomesReportsPage } from '@/pages/reports/OutcomesReportsPage';
+import { CsrReportBuilderPage } from '@/pages/reports/CsrReportBuilderPage';
+import { ExportsPage } from '@/pages/reports/ExportsPage';
+
+import { SeniorDuplicatesPage } from '@/pages/seniors/SeniorDuplicatesPage';
+import { SeniorCardPage } from '@/pages/seniors/SeniorCardPage';
+
+import { ScPortal } from '@/pages/seniors/ScPortal';
+import {
+  ScProgrammesPage,
+  ScBookingsPage,
+  ScMessagesPage,
+  ScServicesPage,
+  ScProfilePage,
+  ScHealthPage,
+  ScFeedbackPage,
+  ScHelpPage,
+  ScFamilyPage,
+} from '@/pages/seniors/ScPortalSubPages';
+
+import { FmPortal } from '@/pages/family/FmPortal';
+import {
+  FmSeniorOverviewPage,
+  FmLinksPage,
+} from '@/pages/family/FmPortalSubPages';
 
 /**
  * Route Permission Guard
@@ -434,6 +526,108 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+
+      // Chapters (Ekta Hubs) (FR-10–13)
+      { path: 'chapters', element: <ChapterListPage /> },
+      { path: 'chapters/new', element: <ChapterNewPage /> },
+      { path: 'chapters/:id', element: <ChapterDetailPage /> },
+      { path: 'chapters/:id/edit', element: <ChapterEditPage /> },
+
+      // Programmes & Sessions (FR-14–18)
+      { path: 'programmes', element: <ProgrammeListPage /> },
+      { path: 'programmes/new', element: <ProgrammeNewPage /> },
+      { path: 'programmes/:id', element: <ProgrammeDetailPage /> },
+      { path: 'programmes/:id/edit', element: <ProgrammeEditPage /> },
+      { path: 'schedule', element: <ScheduleCalendarPage /> },
+      { path: 'sessions/:id', element: <SessionDetailPage /> },
+
+      // Attendance (FR-19–22)
+      { path: 'attendance', element: <AttendanceHubPage /> },
+      { path: 'attendance/session/:id', element: <AttendanceSessionPage /> },
+      { path: 'attendance/corrections', element: <AttendanceCorrectionsPage /> },
+      { path: 'attendance/history', element: <AttendanceHistoryPage /> },
+
+      // Communication Hub (FR-23–29)
+      { path: 'communication', element: <CommunicationHubPage /> },
+      { path: 'communication/templates', element: <TemplatesListPage /> },
+      { path: 'communication/templates/new', element: <TemplateNewPage /> },
+      { path: 'communication/templates/:id', element: <TemplateDetailPage /> },
+      { path: 'communication/announcements', element: <AnnouncementsPage /> },
+      { path: 'communication/announcements/new', element: <AnnouncementNewPage /> },
+      { path: 'communication/delivery', element: <DeliveryLogPage /> },
+      { path: 'communication/consents', element: <ConsentsPage /> },
+
+      // Services & Referrals (FR-30–33)
+      { path: 'services', element: <ServiceListPage /> },
+      { path: 'services/new', element: <ServiceNewPage /> },
+      { path: 'services/:id', element: <ServiceDetailPage /> },
+      { path: 'service-requests', element: <ServiceRequestsPage /> },
+      { path: 'referrals', element: <ReferralListPage /> },
+      { path: 'referrals/new', element: <ReferralNewPage /> },
+      { path: 'referrals/:id', element: <ReferralDetailPage /> },
+      { path: 'partners', element: <PartnerListPage /> },
+      { path: 'partners/new', element: <PartnerNewPage /> },
+      { path: 'partners/:id', element: <PartnerDetailPage /> },
+
+      // Partner Portal (/partner/*)
+      { path: 'partner/home', element: <PartnerHomePage /> },
+      { path: 'partner/referrals', element: <PartnerReferralsPage /> },
+      { path: 'partner/referrals/:id', element: <PartnerReferralsPage /> },
+      { path: 'partner/profile', element: <PartnerProfilePage /> },
+      { path: 'partner/reports', element: <PartnerReportsPage /> },
+
+      // Feedback & Follow-ups (FR-34–35)
+      { path: 'feedback', element: <FeedbackHubPage /> },
+      { path: 'feedback/forms', element: <FeedbackFormsPage /> },
+      { path: 'feedback/new', element: <FeedbackNewPage /> },
+      { path: 'follow-ups', element: <FollowUpsPage /> },
+      { path: 'engagement', element: <EngagementIndexPage /> },
+
+      // Assisted Health Support (FR-37)
+      { path: 'support/requests', element: <SupportRequestsPage /> },
+      { path: 'support/escalations', element: <SupportEscalationsPage /> },
+      { path: 'support/escalations/:id', element: <SupportEscalationDetailPage /> },
+      { path: 'support/rules', element: <SupportRulesPage /> },
+      { path: 'support/voice-checkins', element: <SupportVoiceCheckinsPage /> },
+      { path: 'support/handover', element: <SupportHandoverPage /> },
+
+      // Reports Expansion (FR-38–46)
+      { path: 'reports', element: <ReportsOverviewPage /> },
+      { path: 'reports/overview', element: <ReportsOverviewPage /> },
+      { path: 'reports/chapters', element: <ChapterReportsPage /> },
+      { path: 'reports/programmes', element: <ProgrammeReportsPage /> },
+      { path: 'reports/seniors', element: <SeniorReportsPage /> },
+      { path: 'reports/attendance', element: <AttendanceReportsPage /> },
+      { path: 'reports/outcomes', element: <OutcomesReportsPage /> },
+      { path: 'reports/csr', element: <CsrReportBuilderPage /> },
+      { path: 'reports/csr/:id', element: <CsrReportBuilderPage /> },
+      { path: 'reports/exports', element: <ExportsPage /> },
+
+      // Admin Additions (FR-52–53)
+      { path: 'admin/complaints', element: <ComplaintsPage /> },
+      { path: 'complaints/new', element: <ComplaintNewPage /> },
+      { path: 'admin/data-governance', element: <DataGovernancePage /> },
+
+      // Senior Additions (FR-13–14)
+      { path: 'seniors/duplicates', element: <SeniorDuplicatesPage /> },
+      { path: 'seniors/:id/card', element: <SeniorCardPage /> },
+
+      // Senior Citizen Portal (/me/*)
+      { path: 'me', element: <ScPortal /> },
+      { path: 'me/programmes', element: <ScProgrammesPage /> },
+      { path: 'me/bookings', element: <ScBookingsPage /> },
+      { path: 'me/messages', element: <ScMessagesPage /> },
+      { path: 'me/services', element: <ScServicesPage /> },
+      { path: 'me/profile', element: <ScProfilePage /> },
+      { path: 'me/health', element: <ScHealthPage /> },
+      { path: 'me/feedback', element: <ScFeedbackPage /> },
+      { path: 'me/help', element: <ScHelpPage /> },
+      { path: 'me/family', element: <ScFamilyPage /> },
+
+      // Family Member Portal (/family/*)
+      { path: 'family', element: <FmPortal /> },
+      { path: 'family/:seniorId', element: <FmSeniorOverviewPage /> },
+      { path: 'family/links', element: <FmLinksPage /> },
     ],
   },
 

@@ -475,3 +475,146 @@ export interface OutboundMessage {
   readAt?: string;
   retryCount: number;
 }
+
+// === Expanded v3 Domain Contracts ===
+
+export interface Programme {
+  id: string;
+  code: string;
+  name: string;
+  category: 'Health & Wellness' | 'Digital Empowerment' | 'Mental Health & Social' | 'Financial & Legal' | 'Recreation & Arts';
+  description: string;
+  targetAudience: string;
+  chapterIds: string[];
+  status: 'Draft' | 'Active' | 'Paused' | 'Archived';
+  sessionsCount: number;
+  enrolledCount: number;
+  leadCoordinatorId?: string;
+  partnerId?: string;
+  createdAt: string;
+}
+
+export interface ProgrammeSession {
+  id: string;
+  programmeId: string;
+  programmeName: string;
+  chapterId: string;
+  chapterName: string;
+  title: string;
+  dateTime: string;
+  durationMinutes: number;
+  location: string;
+  instructorName: string;
+  capacity: number;
+  enrolledCount: number;
+  attendedCount?: number;
+  attendanceStatus: 'Scheduled' | 'Completed' | 'Pending_Attendance' | 'Cancelled';
+  attendanceLocked?: boolean;
+}
+
+export interface AttendanceRecord {
+  id: string;
+  sessionId: string;
+  seniorId: string;
+  seniorName: string;
+  status: 'Present' | 'Absent' | 'Excused' | 'Walk_in';
+  markedAt: string;
+  markedByUserId: string;
+  correctionRequested?: boolean;
+  correctionReason?: string;
+}
+
+export interface ServiceItem {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  partnerId: string;
+  partnerName: string;
+  costType: 'Free' | 'Subsidised' | 'Fee_for_service';
+  contactPerson: string;
+  contactPhone: string;
+  activeStatus: 'Active' | 'Inactive';
+}
+
+export interface ReferralRecord {
+  id: string;
+  seniorId: string;
+  seniorName: string;
+  chapterId: string;
+  serviceId: string;
+  serviceName: string;
+  partnerId: string;
+  partnerName: string;
+  status: 'Requested' | 'Assigned' | 'In_Progress' | 'Completed' | 'Declined';
+  notes: string;
+  referredByUserId: string;
+  referredAt: string;
+  outcome?: string;
+}
+
+export interface PartnerOrganization {
+  id: string;
+  name: string;
+  type: 'Clinical / Hospital' | 'Diagnostic Lab' | 'Legal Aid' | 'Mobility Aids' | 'Social Services';
+  contactPerson: string;
+  email: string;
+  phone: string;
+  city: string;
+  mouStatus: 'Active' | 'Under_Renewal' | 'Draft';
+  activeReferralsCount: number;
+}
+
+export interface FeedbackRecord {
+  id: string;
+  seniorId?: string;
+  seniorName?: string;
+  chapterId: string;
+  programmeId?: string;
+  programmeName?: string;
+  rating: number; // 1-5
+  satisfactionCategory: 'Excellent' | 'Good' | 'Average' | 'Needs_Improvement';
+  feedbackText: string;
+  submittedAt: string;
+  channel: 'In_Person' | 'WhatsApp' | 'IVR';
+}
+
+export interface FollowUpTask {
+  id: string;
+  seniorId: string;
+  seniorName: string;
+  chapterId: string;
+  reason: 'Absence_Followup' | 'Health_Flag' | 'Referral_Status' | 'General_Wellness';
+  dueDate: string;
+  priority: 'High' | 'Medium' | 'Low';
+  assignedUserId: string;
+  status: 'Pending' | 'Completed' | 'Escalated';
+  outcomeNotes?: string;
+}
+
+export interface HealthSupportEscalation {
+  id: string;
+  seniorId: string;
+  seniorName: string;
+  chapterId: string;
+  triggeredBy: string;
+  severity: 'Critical' | 'High' | 'Medium';
+  status: 'Open' | 'Assigned' | 'Resolved';
+  assignedDoctorOrStaff: string;
+  openedAt: string;
+  resolvedAt?: string;
+  resolutionSummary?: string;
+}
+
+export interface ComplaintRecord {
+  id: string;
+  seniorId?: string;
+  complainantName: string;
+  complainantPhone: string;
+  chapterId: string;
+  category: 'Service_Quality' | 'Staff_Behavior' | 'Transport' | 'Facilities' | 'Data_Privacy';
+  description: string;
+  status: 'Open' | 'Investigating' | 'Resolved';
+  resolutionDetails?: string;
+  submittedAt: string;
+}

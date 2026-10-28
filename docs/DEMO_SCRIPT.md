@@ -15,6 +15,8 @@
 | **04:00 – 06:00** | **Module 1: Case Management** | Regional Admin / Care Team | `/sos/:id` | Live SLA countdown, case timeline, contacting next-of-kin, responder assignment, resolution with audit trail. |
 | **06:00 – 08:00** | **Module 2: Preventive Health** | Senior (`SC`) → CM (`CM`) | `/simulator`, `/health/flags`, `/health/calls` | Use Time Machine to jump to 08:00, confirm medication, submit high BP (`165/105`), work wellness check-in call. |
 | **08:00 – 10:00** | **Foundations: RBAC & Governance** | CM (`CM`), SA (`SA`), CD (`CD`), NM | `/seniors`, `/reports/pilot`, `/admin/approvals` | Prove chapter isolation, SA health-log lockout, CD `<5` small-number suppression, and maker–checker dual control. |
+| **10:00 – 12:30** | **Ekta Hub Community Operations** | CM (`CM`), PM (`PM`), VF (`VF`) | `/chapters`, `/programmes`, `/schedule`, `/attendance` | Manage Ekta Hub, browse programmes, mark session attendance with 48px tactile buttons, walk-in registration, and audit lock. |
+| **12:30 – 15:00** | **Communication, Services & Portals** | CM (`CM`), SP (`SP`), SC (`SC`), FM (`FM`) | `/communication`, `/services`, `/partner/home`, `/me`, `/family` | Multi-lingual WhatsApp broadcast, external service referral dispatch, Partner Portal fulfilment, and Senior/Family self-service portals. |
 
 ---
 
@@ -114,3 +116,39 @@
    - Navigate to `/sos/settings` as Regional Admin (`RA`). Modify SLA to 3 minutes and click "Submit Changes".
    - Notice status is `Pending Approval`. The RA cannot approve their own submission.
    - Log in as NGO Management (`NM`) -> Navigate to `/admin/approvals`. Review diff and click **"Approve Changes"**. Status updates to `Approved`.
+
+---
+
+### Step 6: Ekta Hub Operations & Tactile Attendance (10:00 – 12:30)
+1. **Chapter & Programme Discovery:**
+   - Log in as Chapter Manager (`CM`) or Programme Manager (`PM`).
+   - Navigate to `/chapters` -> Open **Pune Central Hub** (`/chapters/c-pun-1`). Review the 7 operational tabs: Overview, Rosters, Programmes, Inventory, Feedback, Metrics, and Audit Trail.
+   - Navigate to `/programmes` -> Open **Gentle Morning Yoga & Pranayama** (`/programmes/prog-1`). Inspect syllabus, capacity limits, enrolled seniors, and upcoming sessions.
+2. **Attendance Marking Session:**
+   - Navigate to `/schedule` or `/attendance` -> Select active session: **Yoga Session 104** (`/attendance/session/sess-101`).
+   - Notice the **48px high-contrast touch targets** designed for field tablets in sunlight.
+   - Mark attendance: tap `Present` for Ananya Joshi, `Late` for Rajesh Kulkarni.
+   - Observe the live summary count: `Total Enrolled: 24 · Present: 18 · Absent: 4 · Late: 2`.
+   - Test **"Add Walk-in Senior"** modal: search for a registered senior or enter walk-in guest details with immediate membership validation.
+   - Note the **Auto-Lock Status**: attendance sessions auto-lock 2 hours after completion. Attempting modifications after lock triggers the maker-checker correction workflow at `/attendance/corrections`.
+
+---
+
+### Step 7: Communication Broadcast, Partner Network & Self-Service Portals (12:30 – 15:00)
+1. **Communication Hub & Broadcast Builder:**
+   - Navigate to `/communication/announcements/new` as Chapter Manager (`CM`).
+   - Build a segmented audience: Filter by Chapter (*Pune Central*), Language (*Marathi & Hindi*), and Programme (*Yoga*).
+   - Select template: `Session Reminder & Venue Update`. Preview multi-lingual rendering in Marathi, Hindi, and English side-by-side.
+   - Dispatch announcement and inspect simulated delivery metrics in `/communication/delivery` (Sent, Delivered, Read, Opted-out).
+2. **External Service Referral & Partner Portal:**
+   - Navigate to `/referrals/new`: Create assisted referral for an elder needing home nursing support. Assign to external partner **Aarogya Home Healthcare** (`SP`).
+   - Switch persona to Service Partner (`SP`) via prototype user switcher.
+   - SP arrives directly at the dedicated **Partner Portal** (`/partner/home`).
+   - Navigate to `/partner/referrals` -> Accept referral, update status to `In Progress`, and record home visit notes with timestamp.
+3. **Senior Citizen (`/me`) & Family Member (`/family`) Portals:**
+   - Switch persona to Senior Citizen (`SC`).
+   - Arrive at `/me` (Senior Portal): clean, high-contrast, large-type personal interface with zero staff complexity.
+   - Browse `/me/programmes` to book upcoming hub events; check `/me/health` for personal vital trends; view `/me/family` to see linked proxy caregivers.
+   - Switch persona to Family Member (`FM`).
+   - Arrive at `/family` (Family Caregiver Portal): check linked elder's wellness status, past SOS incidents, medication confirmation timestamps, and proxy authorizations.
+

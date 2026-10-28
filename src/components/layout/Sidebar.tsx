@@ -11,6 +11,7 @@ import {
   PhoneCall,
   Activity,
   Calendar,
+  Clock,
   FileText,
   Radio,
   FileCheck2,
@@ -26,6 +27,15 @@ import {
   ChevronDown,
   ChevronRight,
   ClipboardList,
+  CheckSquare,
+  MessageSquare,
+  Share2,
+  HeartHandshake,
+  HeartPulse,
+  ThumbsUp,
+  FileSpreadsheet,
+  Send,
+  HelpCircle,
 } from 'lucide-react';
 
 interface NavItem {
@@ -54,6 +64,267 @@ export const Sidebar: React.FC = () => {
 
   if (!user) return null;
 
+  // Dedicated sidebar for Senior Citizen (SC)
+  if (user.role === 'SC') {
+    return (
+      <aside className="w-[248px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
+        <div className="p-3 border-b border-border-subtle">
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text-secondary hover:text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <LayoutDashboard className="w-5 h-5 stroke-[1.5]" />
+            <span>My dashboard</span>
+          </NavLink>
+        </div>
+        <div className="flex-1 p-3 space-y-1">
+          <NavLink
+            to="/me/programmes"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <Calendar className="w-5 h-5 stroke-[1.5]" />
+            <span>Hub programmes</span>
+          </NavLink>
+          <NavLink
+            to="/me/bookings"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <CheckSquare className="w-5 h-5 stroke-[1.5]" />
+            <span>My bookings</span>
+          </NavLink>
+          <NavLink
+            to="/me/messages"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <MessageSquare className="w-5 h-5 stroke-[1.5]" />
+            <span>Messages & announcements</span>
+          </NavLink>
+          <NavLink
+            to="/me/services"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <HeartHandshake className="w-5 h-5 stroke-[1.5]" />
+            <span>Request support</span>
+          </NavLink>
+          <NavLink
+            to="/me/health"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <HeartPulse className="w-5 h-5 stroke-[1.5]" />
+            <span>Health & readings</span>
+          </NavLink>
+          <NavLink
+            to="/me/family"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <Users className="w-5 h-5 stroke-[1.5]" />
+            <span>Family & emergency</span>
+          </NavLink>
+          <NavLink
+            to="/me/feedback"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <ThumbsUp className="w-5 h-5 stroke-[1.5]" />
+            <span>Share feedback</span>
+          </NavLink>
+          <NavLink
+            to="/me/help"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <HelpCircle className="w-5 h-5 stroke-[1.5]" />
+            <span>Help & emergency SOS</span>
+          </NavLink>
+          <NavLink
+            to="/me/profile"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <Settings className="w-5 h-5 stroke-[1.5]" />
+            <span>My profile & ABHA</span>
+          </NavLink>
+        </div>
+      </aside>
+    );
+  }
+
+  // Dedicated sidebar for Family Member (FM)
+  if (user.role === 'FM') {
+    return (
+      <aside className="w-[248px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
+        <div className="p-3 border-b border-border-subtle">
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text-secondary hover:text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <LayoutDashboard className="w-5 h-5 stroke-[1.5]" />
+            <span>Family overview</span>
+          </NavLink>
+        </div>
+        <div className="flex-1 p-3 space-y-1">
+          <NavLink
+            to="/family/links"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <Users className="w-5 h-5 stroke-[1.5]" />
+            <span>Linked elders & proxy</span>
+          </NavLink>
+          <NavLink
+            to="/help"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <HelpCircle className="w-5 h-5 stroke-[1.5]" />
+            <span>Help & safety hotline</span>
+          </NavLink>
+        </div>
+      </aside>
+    );
+  }
+
+  // Dedicated sidebar for External Service Partner (SP)
+  if (user.role === 'SP') {
+    return (
+      <aside className="w-[248px] bg-surface border-r border-border flex flex-col shrink-0 select-none overflow-y-auto">
+        <div className="p-3 border-b border-border-subtle">
+          <NavLink
+            to="/partner/home"
+            end
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text-secondary hover:text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <LayoutDashboard className="w-5 h-5 stroke-[1.5]" />
+            <span>Partner home</span>
+          </NavLink>
+        </div>
+        <div className="flex-1 p-3 space-y-1">
+          <NavLink
+            to="/partner/referrals"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <Share2 className="w-5 h-5 stroke-[1.5]" />
+            <span>Assigned referrals</span>
+          </NavLink>
+          <NavLink
+            to="/partner/profile"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <Building2 className="w-5 h-5 stroke-[1.5]" />
+            <span>Partner organisation profile</span>
+          </NavLink>
+          <NavLink
+            to="/partner/reports"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <BarChart3 className="w-5 h-5 stroke-[1.5]" />
+            <span>Fulfilment metrics</span>
+          </NavLink>
+        </div>
+      </aside>
+    );
+  }
+
+  // Full enterprise navigation for staff personas (SA, NM, RA, CM, VF, CT, CD, PM)
   const navGroups: NavGroup[] = [
     {
       title: 'Safety and emergency',
@@ -88,6 +359,83 @@ export const Sidebar: React.FC = () => {
           to: '/sms-log',
           icon: <PhoneCall className="w-5 h-5 stroke-[1.5]" />,
           capability: 'SOS_FALLBACK_LOG',
+        },
+      ],
+    },
+    {
+      title: 'Hubs and programmes',
+      items: [
+        {
+          label: 'Ekta Hub chapters',
+          to: '/chapters',
+          icon: <Building2 className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+        {
+          label: 'Programmes directory',
+          to: '/programmes',
+          icon: <Calendar className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+        {
+          label: 'Session schedule',
+          to: '/schedule',
+          icon: <Clock className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+        {
+          label: 'Attendance hub',
+          to: '/attendance',
+          icon: <CheckSquare className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'ATTENDANCE',
+        },
+        {
+          label: 'Attendance corrections',
+          to: '/attendance/corrections',
+          icon: <FileCheck2 className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'ATTENDANCE',
+        },
+        {
+          label: 'Attendance history heatmap',
+          to: '/attendance/history',
+          icon: <Activity className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'ATTENDANCE',
+        },
+      ],
+    },
+    {
+      title: 'Senior directory and onboarding',
+      items: [
+        {
+          label: 'Senior directory',
+          to: '/seniors',
+          icon: <Users className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'SENIOR_PROFILES',
+        },
+        {
+          label: 'Onboarding funnel',
+          to: '/onboarding',
+          icon: <Layers className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'ONBOARDING',
+        },
+        {
+          label: 'Assisted registration',
+          to: '/onboarding/new',
+          icon: <UserPlus className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'ONBOARDING',
+          action: 'create',
+        },
+        {
+          label: 'Duplicate records check',
+          to: '/seniors/duplicates',
+          icon: <AlertTriangle className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'SENIOR_PROFILES',
+        },
+        {
+          label: 'Conversational script',
+          to: '/onboarding/script',
+          icon: <BookOpen className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'ONBOARDING_SCRIPT',
         },
       ],
     },
@@ -139,32 +487,101 @@ export const Sidebar: React.FC = () => {
       ],
     },
     {
-      title: 'Civic and onboarding',
+      title: 'Services and referrals',
       items: [
         {
-          label: 'Onboarding funnel',
-          to: '/onboarding',
-          icon: <Layers className="w-5 h-5 stroke-[1.5]" />,
-          capability: 'ONBOARDING',
+          label: 'Service catalogue',
+          to: '/services',
+          icon: <HeartHandshake className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
         },
         {
-          label: 'Assisted registration',
-          to: '/onboarding/new',
-          icon: <UserPlus className="w-5 h-5 stroke-[1.5]" />,
-          capability: 'ONBOARDING',
-          action: 'create',
+          label: 'Service requests',
+          to: '/service-requests',
+          icon: <ClipboardList className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
         },
         {
-          label: 'Conversational script',
-          to: '/onboarding/script',
-          icon: <BookOpen className="w-5 h-5 stroke-[1.5]" />,
-          capability: 'ONBOARDING_SCRIPT',
+          label: 'Referral tracking',
+          to: '/referrals',
+          icon: <Share2 className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
         },
         {
-          label: 'Senior directory',
-          to: '/seniors',
-          icon: <Users className="w-5 h-5 stroke-[1.5]" />,
-          capability: 'SENIOR_PROFILES',
+          label: 'Partner network',
+          to: '/partners',
+          icon: <Building2 className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+      ],
+    },
+    {
+      title: 'Communication and broadcast',
+      items: [
+        {
+          label: 'Communication hub',
+          to: '/communication',
+          icon: <MessageSquare className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'REMINDER_TEMPLATES',
+        },
+        {
+          label: 'Broadcast templates',
+          to: '/communication/templates',
+          icon: <FileText className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'REMINDER_TEMPLATES',
+        },
+        {
+          label: 'Audience announcements',
+          to: '/communication/announcements',
+          icon: <Send className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'REMINDER_TEMPLATES',
+        },
+        {
+          label: 'Delivery logs',
+          to: '/communication/delivery',
+          icon: <PhoneCall className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'MESSAGE_DELIVERY_STATUS',
+        },
+        {
+          label: 'Consent registry',
+          to: '/communication/consents',
+          icon: <Shield className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CONSENT_LANGUAGE',
+        },
+      ],
+    },
+    {
+      title: 'Feedback and assisted care',
+      items: [
+        {
+          label: 'Feedback responses',
+          to: '/feedback',
+          icon: <ThumbsUp className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+        {
+          label: 'Follow-up tasks',
+          to: '/follow-ups',
+          icon: <CheckSquare className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'WELLNESS_CALLS',
+        },
+        {
+          label: 'Engagement index',
+          to: '/engagement',
+          icon: <BarChart3 className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'PILOT_REPORTS',
+        },
+        {
+          label: 'Assisted health requests',
+          to: '/support/requests',
+          icon: <HeartPulse className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'HEALTH_REQUESTS',
+        },
+        {
+          label: 'Health escalations',
+          to: '/support/escalations',
+          icon: <AlertTriangle className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'HEALTH_REQUESTS',
         },
       ],
     },
@@ -177,20 +594,33 @@ export const Sidebar: React.FC = () => {
           icon: <Smartphone className="w-5 h-5 stroke-[1.5]" />,
         },
         {
+          label: 'Reports overview',
+          to: '/reports',
+          icon: <BarChart3 className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'PILOT_REPORTS',
+        },
+        {
+          label: 'CSR report builder',
+          to: '/reports/csr',
+          icon: <FileSpreadsheet className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'PILOT_REPORTS',
+        },
+        {
           label: 'Pilot outcome reports',
           to: '/reports/pilot',
           icon: <BarChart3 className="w-5 h-5 stroke-[1.5]" />,
           capability: 'PILOT_REPORTS',
         },
         {
-          label: 'Metric definitions',
-          to: '/reports/definitions',
-          icon: <BookOpen className="w-5 h-5 stroke-[1.5]" />,
+          label: 'Data exports center',
+          to: '/reports/exports',
+          icon: <FileSpreadsheet className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'PILOT_REPORTS',
         },
       ],
     },
     {
-      title: 'Administration',
+      title: 'Administration and governance',
       items: [
         {
           label: 'Staff directory',
@@ -203,12 +633,6 @@ export const Sidebar: React.FC = () => {
           to: '/admin/roles',
           icon: <Shield className="w-5 h-5 stroke-[1.5]" />,
           capability: 'SYSTEM_SETTINGS',
-        },
-        {
-          label: 'Ekta Hub chapters',
-          to: '/admin/chapters',
-          icon: <Building2 className="w-5 h-5 stroke-[1.5]" />,
-          capability: 'CHAPTERS_ROSTERS',
         },
         {
           label: 'System configuration',
@@ -227,6 +651,18 @@ export const Sidebar: React.FC = () => {
           to: '/admin/audit-logs',
           icon: <ClipboardList className="w-5 h-5 stroke-[1.5]" />,
           capability: 'AUDIT_LOGS',
+        },
+        {
+          label: 'Grievances and complaints',
+          to: '/admin/complaints',
+          icon: <AlertTriangle className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'SYSTEM_SETTINGS',
+        },
+        {
+          label: 'Data governance registry',
+          to: '/admin/data-governance',
+          icon: <Shield className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'SYSTEM_SETTINGS',
         },
         {
           label: 'Integration monitor',

@@ -290,7 +290,7 @@ export const TopBar: React.FC = () => {
               <div className="px-3 py-1.5 text-xs text-text-secondary font-semibold border-b border-border-subtle">
                 Switch Role Persona:
               </div>
-              {(['RA', 'CM', 'VF', 'CT', 'SA', 'CD'] as RoleCode[]).map((r) => (
+              {(['SA', 'NM', 'RA', 'PM', 'CM', 'VF', 'CT', 'CD', 'SP', 'SC', 'FM'] as RoleCode[]).map((r) => (
                 <button
                   key={r}
                   type="button"

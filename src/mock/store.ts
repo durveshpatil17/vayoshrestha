@@ -19,11 +19,22 @@ import {
   SystemSettings,
   AuditEvent,
   OutboundMessage,
+  Programme,
+  ProgrammeSession,
+  AttendanceRecord,
+  ServiceItem,
+  PartnerOrganization,
+  ReferralRecord,
+  FeedbackRecord,
+  FollowUpTask,
+  HealthSupportEscalation,
+  ComplaintRecord,
 } from '@/api/contracts';
 import { RoleCode } from '@/permissions/matrix';
 import { eventQueue } from './eventQueue';
+import { createExpandedSeedData } from './seedExpanded';
 
-const STORAGE_KEY = 'vayoshrestha_store_v2';
+const STORAGE_KEY = 'vayoshrestha_store_v3';
 
 export interface AppStateData {
   regions: Region[];
@@ -31,6 +42,7 @@ export interface AppStateData {
   centres: Chapter[]; // Backwards-compatible alias for chapters
   users: UserAccount[];
   seniorCitizens: SeniorCitizen[];
+  seniors: SeniorCitizen[]; // alias
   stalledSessions: OnboardingSession[];
   emergencyContacts: EmergencyContact[];
   medicationSchedules: MedicationSchedule[];
@@ -48,6 +60,17 @@ export interface AppStateData {
   settings: SystemSettings; // Backwards-compatible alias for systemSettings
   auditEvents: AuditEvent[];
   outboundMessages: OutboundMessage[];
+  // Expanded v3 Collections
+  programmes: Programme[];
+  programmeSessions: ProgrammeSession[];
+  attendanceRecords: AttendanceRecord[];
+  partners: PartnerOrganization[];
+  services: ServiceItem[];
+  referrals: ReferralRecord[];
+  feedbackRecords: FeedbackRecord[];
+  followUpTasks: FollowUpTask[];
+  escalations: HealthSupportEscalation[];
+  complaints: ComplaintRecord[];
 }
 
 class MockDataStore {
@@ -58,14 +81,27 @@ class MockDataStore {
   }
 
   private loadOrSeed(): AppStateData {
+    const expanded = createExpandedSeedData();
+
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed.chapters && parsed.seniorCitizens && parsed.sosEvents) {
           parsed.centres = parsed.chapters; // ensure alias
+          parsed.seniors = parsed.seniorCitizens;
           parsed.wellnessCallTasks = parsed.wellnessCalls || parsed.wellnessCallTasks || [];
           parsed.settings = parsed.systemSettings || parsed.settings;
+          parsed.programmes = parsed.programmes || expanded.programmes;
+          parsed.programmeSessions = parsed.programmeSessions || expanded.programmeSessions;
+          parsed.attendanceRecords = parsed.attendanceRecords || expanded.attendanceRecords;
+          parsed.partners = parsed.partners || expanded.partners;
+          parsed.services = parsed.services || expanded.services;
+          parsed.referrals = parsed.referrals || expanded.referrals;
+          parsed.feedbackRecords = parsed.feedbackRecords || expanded.feedbackRecords;
+          parsed.followUpTasks = parsed.followUpTasks || expanded.followUpTasks;
+          parsed.escalations = parsed.escalations || expanded.escalations;
+          parsed.complaints = parsed.complaints || expanded.complaints;
           return parsed;
         }
       }
@@ -77,8 +113,10 @@ class MockDataStore {
     const state: AppStateData = {
       ...seed,
       centres: seed.chapters,
+      seniors: seed.seniorCitizens,
       wellnessCallTasks: seed.wellnessCalls,
       settings: seed.systemSettings,
+      ...expanded,
     };
 
     this.persist(state);
@@ -97,6 +135,9 @@ class MockDataStore {
   public getData(): AppStateData {
     if (!this.data.wellnessCallTasks) {
       this.data.wellnessCallTasks = this.data.wellnessCalls;
+    }
+    if (!this.data.seniors) {
+      this.data.seniors = this.data.seniorCitizens;
     }
     return this.data;
   }
@@ -121,11 +162,14 @@ class MockDataStore {
       // ignore
     }
     const seed = createDeterministicSeed();
+    const expanded = createExpandedSeedData();
     this.data = {
       ...seed,
       centres: seed.chapters,
+      seniors: seed.seniorCitizens,
       wellnessCallTasks: seed.wellnessCalls,
       settings: seed.systemSettings,
+      ...expanded,
     };
     this.persist(this.data);
 

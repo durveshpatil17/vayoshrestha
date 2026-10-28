@@ -9,7 +9,8 @@ export interface KpiTileProps {
   unitOrTarget?: string;
   unit?: string;
   statusLine?: string;
-  status?: 'positive' | 'negative' | 'critical' | 'neutral' | 'informative';
+  status?: 'positive' | 'negative' | 'critical' | 'neutral' | 'informative' | 'warning';
+  icon?: React.ReactNode;
   delta?: {
     value: number;
     trend: 'up' | 'down' | 'neutral';
@@ -27,6 +28,7 @@ export const KpiTile: React.FC<KpiTileProps> = ({
   unit,
   statusLine,
   status,
+  icon,
   delta,
   definition,
   className = '',

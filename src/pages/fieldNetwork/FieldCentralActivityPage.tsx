@@ -156,7 +156,7 @@ export const FieldCentralActivityPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-text-muted mb-1">
+          <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
             <span
               onClick={() => navigate('/field-network')}
               className="hover:text-accent cursor-pointer"
@@ -164,9 +164,9 @@ export const FieldCentralActivityPage: React.FC = () => {
               Field Network
             </span>
             <span>/</span>
-            <span className="text-text-primary font-medium">Activity Stream</span>
+            <span className="text-text font-semibold">Activity Stream</span>
           </div>
-          <h1 className="text-2xl font-semibold text-text-primary">
+          <h1 className="text-2xl font-semibold text-text">
             Central Field Activity Stream
           </h1>
           <p className="text-sm text-text-secondary mt-0.5">
@@ -197,7 +197,7 @@ export const FieldCentralActivityPage: React.FC = () => {
           <select
             value={chapterFilter}
             onChange={(e) => setChapterFilter(e.target.value)}
-            className="h-10 px-3 rounded-lg border border-border bg-bg-surface text-text-primary text-xs focus:border-accent"
+            className="h-10 px-3 rounded-lg border border-border bg-bg-surface text-text text-xs focus:border-accent"
           >
             <option value="ALL">All Chapters</option>
             <option value="Pune">Pune Ekta Hub</option>
@@ -209,7 +209,7 @@ export const FieldCentralActivityPage: React.FC = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="h-10 px-3 rounded-lg border border-border bg-bg-surface text-text-primary text-xs focus:border-accent"
+            className="h-10 px-3 rounded-lg border border-border bg-bg-surface text-text text-xs focus:border-accent"
           >
             <option value="ALL">All Activity Types</option>
             <option value="onboarding">Onboardings</option>
@@ -223,7 +223,7 @@ export const FieldCentralActivityPage: React.FC = () => {
       <div className="bg-bg-surface border border-border rounded-xl overflow-hidden">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-border bg-bg-subtle text-text-muted text-[11px] font-semibold">
+            <tr className="border-b border-border bg-surface-subtle text-text-secondary text-xs font-semibold">
               <th className="py-3 px-4">Activity &amp; Associate</th>
               <th className="py-3 px-4">Coarse Area Label (±1 km)</th>
               <th className="py-3 px-4">Peer Record (Masked)</th>
@@ -234,27 +234,27 @@ export const FieldCentralActivityPage: React.FC = () => {
           </thead>
           <tbody className="divide-y divide-border-hairline text-text-secondary">
             {filtered.map((log) => (
-              <tr key={log.id} className="hover:bg-bg-subtle/50 transition-colors">
+              <tr key={log.id} className="hover:bg-surface-subtle/50 transition-colors">
                 <td className="py-3 px-4">
-                  <div className="font-semibold text-text-primary capitalize">
+                  <div className="font-semibold text-text ">
                     {log.activityType.replace(/_/g, ' ')}
                   </div>
-                  <div className="text-[11px] text-text-muted mt-0.5">
+                  <div className="text-xs text-text-secondary mt-0.5">
                     by {log.associateName} · {log.chapterName}
                   </div>
                 </td>
                 <td className="py-3 px-4">
-                  <div className="flex items-center gap-1.5 text-text-primary font-medium">
+                  <div className="flex items-center gap-1.5 text-text font-semibold">
                     <MapPin className="w-3.5 h-3.5 text-accent flex-shrink-0" />
                     <span>{log.areaLabel}</span>
                   </div>
                 </td>
-                <td className="py-3 px-4 text-[11px] text-text-primary">
+                <td className="py-3 px-4 text-xs text-text">
                   {log.peerMasked}
                 </td>
                 <td className="py-3 px-4">
                   <span
-                    className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+                    className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full ${
                       log.doubleConsent === 'confirmed'
                         ? 'bg-positive-tint text-positive'
                         : 'bg-critical-tint text-critical'
@@ -264,24 +264,24 @@ export const FieldCentralActivityPage: React.FC = () => {
                   </span>
                 </td>
                 <td className="py-3 px-4">
-                  <div className="flex items-center gap-1 text-[11px]">
+                  <div className="flex items-center gap-1 text-xs">
                     <span
-                      className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${
+                      className={`px-1.5 py-0.5 rounded text-xs font-semibold ${
                         log.capturedOffline
-                          ? 'bg-bg-subtle text-text-secondary border border-border-hairline'
+                          ? 'bg-surface-subtle text-text-secondary border border-border'
                           : 'bg-positive-tint/40 text-positive'
                       }`}
                     >
                       {log.capturedOffline ? 'Offline Captured' : 'Online Direct'}
                     </span>
                     {log.isLateSync && (
-                      <span className="px-1.5 py-0.5 rounded bg-critical-tint text-critical text-[9px] font-semibold">
+                      <span className="px-1.5 py-0.5 rounded bg-critical-tint text-critical text-xs font-semibold">
                         Late Sync (&gt;24h)
                       </span>
                     )}
                   </div>
                 </td>
-                <td className="py-3 px-4 text-text-muted tabular-nums">
+                <td className="py-3 px-4 text-text-secondary tabular-nums">
                   {new Date(log.syncedAt).toLocaleString([], {
                     dateStyle: 'short',
                     timeStyle: 'short',
@@ -294,7 +294,7 @@ export const FieldCentralActivityPage: React.FC = () => {
       </div>
 
       {/* Privacy Notice */}
-      <div className="p-3 bg-bg-subtle rounded-xl border border-border-hairline flex items-center gap-2 text-xs text-text-muted">
+      <div className="p-3 bg-surface-subtle rounded-xl border border-border flex items-center gap-2 text-xs text-text-secondary">
         <Shield className="w-4 h-4 text-accent flex-shrink-0" />
         <span>
           Privacy guarantee: No raw GPS traces or continuous trails are collected. All coordinates are coarse area approximations rounded to 2 decimal places.

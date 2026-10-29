@@ -226,7 +226,18 @@
   - Removed strobing animations (`animate-pulse` in `IntegrationsPage.tsx`).
   - Enhanced `scripts/design-lint.mjs` to support multi-path CLI arguments and directory recursion.
   - Verification: 0 design-lint violations across all 69 files, `tsc --noEmit` clean, 148 unit tests passing (100%).
-- [ ] **Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus)**
+- [x] **Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus) (Completed)**
+  - Normalized all 32 files across Ecosystem Layers 1–4:
+    - Field Network (`src/pages/fieldNetwork/*`): Associate directory, detail view, central activity stream, sync monitor.
+    - Telemetry & Impact Packs (`src/pages/telemetry/*`): Cohort dashboard, macro trends, privacy statement, impact pack builder & detail, unauthenticated public verification gateway (`/verify`).
+    - Deterministic Routing (`src/pages/routing/*`): Routing queue, decision record detail, capacity heatmaps, policy editor & test tool.
+    - Digital Vouchers (`src/pages/vouchers/*`): Overview, campaign builder, campaign list, partner redemption terminal, voucher detail.
+    - Encrypted Legal Intake (`src/pages/legalIntake/*`): Pro-bono queue, privilege-isolated detail view with statutory disclaimer.
+    - Virtual Literacy & Gamification (`src/pages/learning/*`): Micro-lesson library, lesson detail & creator, drip campaigns, webinars, mastermind quizzes.
+    - Ecosystem Strategic Nexus (`src/pages/ecosystem/EcosystemNexusPage.tsx`): Restyled 4-layer architecture map to clean tokens.
+  - Removed deprecated `font-serif`, hardcoded hex values, and emoji characters from UI chrome.
+  - Verification: 0 design-lint violations across all 32 files, `tsc --noEmit` clean, 148 unit tests passing (100%).
+- [ ] **Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844)**
 - [ ] **Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus)**
 - [ ] **Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844)**
 - [ ] **Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs**

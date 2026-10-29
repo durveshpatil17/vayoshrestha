@@ -12,6 +12,7 @@ import {
   ArrowRight,
   MessageSquare,
   Clock,
+  CheckCheck,
 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import {
@@ -42,15 +43,15 @@ export const LearningLibraryPage: React.FC = () => {
   const getCategoryIcon = (cat: LessonCategory) => {
     switch (cat) {
       case 'digital_safety_fraud':
-        return <ShieldCheck className="w-4 h-4 text-brand-primary" />;
+        return <ShieldCheck className="w-4 h-4 text-accent" />;
       case 'health_literacy':
-        return <HeartPulse className="w-4 h-4 text-brand-primary" />;
+        return <HeartPulse className="w-4 h-4 text-accent" />;
       case 'rights_schemes':
-        return <Scale className="w-4 h-4 text-brand-primary" />;
+        return <Scale className="w-4 h-4 text-accent" />;
       case 'smartphone_mastery':
-        return <Smartphone className="w-4 h-4 text-brand-primary" />;
+        return <Smartphone className="w-4 h-4 text-accent" />;
       default:
-        return <BookOpen className="w-4 h-4 text-brand-primary" />;
+        return <BookOpen className="w-4 h-4 text-accent" />;
     }
   };
 
@@ -68,21 +69,21 @@ export const LearningLibraryPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <Link
               to="/learning/series"
-              className="px-3.5 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-bg-canvas flex items-center gap-1.5"
+              className="px-3.5 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-page flex items-center gap-1.5"
             >
-              <Clock className="w-4 h-4 text-brand-primary" />
+              <Clock className="w-4 h-4 text-accent" />
               Drip Campaigns
             </Link>
             <Link
               to="/learning/quizzes"
-              className="px-3.5 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-bg-canvas flex items-center gap-1.5"
+              className="px-3.5 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-page flex items-center gap-1.5"
             >
-              <BookOpen className="w-4 h-4 text-brand-primary" />
+              <BookOpen className="w-4 h-4 text-accent" />
               Mastermind Quizzes
             </Link>
             <Link
               to="/learning/library/new"
-              className="px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+              className="px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
             >
               <Plus className="w-4 h-4" />
               Create Lesson
@@ -96,45 +97,45 @@ export const LearningLibraryPage: React.FC = () => {
         <button
           onClick={() => setCategoryFilter(categoryFilter === 'digital_safety_fraud' ? 'all' : 'digital_safety_fraud')}
           className={`p-4 border rounded-xl text-left transition-colors ${
-            categoryFilter === 'digital_safety_fraud' ? 'bg-emerald-50/50 border-brand-primary' : 'bg-bg-surface border-border hover:border-brand-primary/40'
+            categoryFilter === 'digital_safety_fraud' ? 'bg-emerald-50/50 border-accent' : 'bg-bg-surface border-border hover:border-accent/40'
           }`}
         >
-          <ShieldCheck className="w-5 h-5 text-brand-primary mb-2" />
-          <div className="text-xs font-semibold text-text-primary">Digital Safety & Anti-Fraud</div>
-          <div className="text-[11px] text-text-secondary mt-1">UPI scams, OTP alerts, fake bills</div>
+          <ShieldCheck className="w-5 h-5 text-accent mb-2" />
+          <div className="text-xs font-semibold text-text">Digital Safety & Anti-Fraud</div>
+          <div className="text-xs text-text-secondary mt-1">UPI scams, OTP alerts, fake bills</div>
         </button>
 
         <button
           onClick={() => setCategoryFilter(categoryFilter === 'health_literacy' ? 'all' : 'health_literacy')}
           className={`p-4 border rounded-xl text-left transition-colors ${
-            categoryFilter === 'health_literacy' ? 'bg-emerald-50/50 border-brand-primary' : 'bg-bg-surface border-border hover:border-brand-primary/40'
+            categoryFilter === 'health_literacy' ? 'bg-emerald-50/50 border-accent' : 'bg-bg-surface border-border hover:border-accent/40'
           }`}
         >
-          <HeartPulse className="w-5 h-5 text-brand-primary mb-2" />
-          <div className="text-xs font-semibold text-text-primary">Health Literacy & Self-Care</div>
-          <div className="text-[11px] text-text-secondary mt-1">BP checks, hydration, medicines</div>
+          <HeartPulse className="w-5 h-5 text-accent mb-2" />
+          <div className="text-xs font-semibold text-text">Health Literacy & Self-Care</div>
+          <div className="text-xs text-text-secondary mt-1">BP checks, hydration, medicines</div>
         </button>
 
         <button
           onClick={() => setCategoryFilter(categoryFilter === 'rights_schemes' ? 'all' : 'rights_schemes')}
           className={`p-4 border rounded-xl text-left transition-colors ${
-            categoryFilter === 'rights_schemes' ? 'bg-emerald-50/50 border-brand-primary' : 'bg-bg-surface border-border hover:border-brand-primary/40'
+            categoryFilter === 'rights_schemes' ? 'bg-emerald-50/50 border-accent' : 'bg-bg-surface border-border hover:border-accent/40'
           }`}
         >
-          <Scale className="w-5 h-5 text-brand-primary mb-2" />
-          <div className="text-xs font-semibold text-text-primary">Rights & Legal Schemes</div>
-          <div className="text-[11px] text-text-secondary mt-1">Senior Citizens Act 2007, pensions</div>
+          <Scale className="w-5 h-5 text-accent mb-2" />
+          <div className="text-xs font-semibold text-text">Rights & Legal Schemes</div>
+          <div className="text-xs text-text-secondary mt-1">Senior Citizens Act 2007, pensions</div>
         </button>
 
         <button
           onClick={() => setCategoryFilter(categoryFilter === 'smartphone_mastery' ? 'all' : 'smartphone_mastery')}
           className={`p-4 border rounded-xl text-left transition-colors ${
-            categoryFilter === 'smartphone_mastery' ? 'bg-emerald-50/50 border-brand-primary' : 'bg-bg-surface border-border hover:border-brand-primary/40'
+            categoryFilter === 'smartphone_mastery' ? 'bg-emerald-50/50 border-accent' : 'bg-bg-surface border-border hover:border-accent/40'
           }`}
         >
-          <Smartphone className="w-5 h-5 text-brand-primary mb-2" />
-          <div className="text-xs font-semibold text-text-primary">Smartphone Mastery</div>
-          <div className="text-[11px] text-text-secondary mt-1">Voice notes, location sharing</div>
+          <Smartphone className="w-5 h-5 text-accent mb-2" />
+          <div className="text-xs font-semibold text-text">Smartphone Mastery</div>
+          <div className="text-xs text-text-secondary mt-1">Voice notes, location sharing</div>
         </button>
       </div>
 
@@ -147,7 +148,7 @@ export const LearningLibraryPage: React.FC = () => {
             placeholder="Search micro-lessons..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none focus:border-brand-primary"
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-page border border-border rounded-lg text-text focus:outline-none focus:border-accent"
           />
         </div>
 
@@ -156,7 +157,7 @@ export const LearningLibraryPage: React.FC = () => {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="text-xs bg-bg-canvas border border-border rounded-lg px-2.5 py-1.5 text-text-primary focus:outline-none"
+            className="text-xs bg-page border border-border rounded-lg px-2.5 py-1.5 text-text focus:outline-none"
           >
             <option value="all">All 4 Domains</option>
             <option value="digital_safety_fraud">Digital Safety & Fraud</option>
@@ -176,11 +177,11 @@ export const LearningLibraryPage: React.FC = () => {
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-brand-primary capitalize">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-accent ">
                   {getCategoryIcon(les.category)}
                   <span>{les.category.replace(/_/g, ' ')}</span>
                 </div>
-                <div className="flex items-center gap-2 text-[11px] text-text-secondary">
+                <div className="flex items-center gap-2 text-xs text-text-secondary">
                   <span>{les.language}</span>
                   <span>·</span>
                   <span>{les.estimatedMinutes} min read</span>
@@ -188,7 +189,7 @@ export const LearningLibraryPage: React.FC = () => {
               </div>
 
               <div>
-                <h3 className="text-base font-serif font-semibold text-text-primary">
+                <h3 className="text-base  font-semibold text-text">
                   {les.title}
                 </h3>
                 <p className="text-xs text-text-secondary mt-1 leading-relaxed">
@@ -201,7 +202,7 @@ export const LearningLibraryPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSelectedPreview(les)}
-                className="text-brand-primary font-semibold hover:underline flex items-center gap-1"
+                className="text-accent font-semibold hover:underline flex items-center gap-1"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 WhatsApp Bubble Preview
@@ -209,7 +210,7 @@ export const LearningLibraryPage: React.FC = () => {
 
               <Link
                 to={`/learning/library/${les.id}`}
-                className="text-text-secondary font-semibold hover:text-text-primary hover:underline flex items-center gap-1"
+                className="text-text-secondary font-semibold hover:text-text hover:underline flex items-center gap-1"
               >
                 Full Lesson
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -229,24 +230,25 @@ export const LearningLibraryPage: React.FC = () => {
                   V
                 </div>
                 <div>
-                  <div className="font-semibold text-xs text-text-primary">Vayoshrestha Ekta Broadcast</div>
-                  <div className="text-[10px] text-text-secondary">Official WhatsApp Verified Channel</div>
+                  <div className="font-semibold text-xs text-text">Vayoshrestha Ekta Broadcast</div>
+                  <div className="text-xs text-text-secondary">Official WhatsApp Verified Channel</div>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedPreview(null)}
-                className="text-text-secondary hover:text-text-primary text-xs font-semibold"
+                className="text-text-secondary hover:text-text text-xs font-semibold"
               >
                 Close
               </button>
             </div>
 
             {/* Realistic WhatsApp Chat Bubble */}
-            <div className="p-4 bg-[#EFEAE2] rounded-lg space-y-2">
-              <div className="bg-[#E7FFDB] p-3.5 rounded-lg border border-emerald-200 text-xs text-[#111B21] whitespace-pre-wrap leading-relaxed">
+            <div className="p-4 bg-page rounded-container space-y-2 border border-border">
+              <div className="bg-surface p-3.5 rounded-container border border-border text-xs text-text whitespace-pre-wrap leading-relaxed">
                 {selectedPreview.whatsappBubbleText}
-                <div className="text-[10px] text-text-secondary text-right mt-1">
-                  10:15 AM · ✓✓
+                <div className="text-xs text-text-secondary text-right mt-1 inline-flex items-center justify-end w-full gap-1 tabular-nums">
+                  <span>10:15 AM</span>
+                  <CheckCheck className="w-3.5 h-3.5 text-accent stroke-[1.5]" />
                 </div>
               </div>
             </div>
@@ -254,7 +256,7 @@ export const LearningLibraryPage: React.FC = () => {
             <div className="pt-2 flex justify-end">
               <button
                 onClick={() => setSelectedPreview(null)}
-                className="px-4 py-1.5 bg-brand-primary text-white rounded-lg text-xs font-semibold"
+                className="px-4 py-1.5 bg-accent text-white rounded-lg text-xs font-semibold"
               >
                 Done
               </button>

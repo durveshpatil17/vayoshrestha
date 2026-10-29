@@ -22,7 +22,7 @@ export const FieldNetworkOverviewPage: React.FC = () => {
       {/* Page Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-text-primary">
+          <h1 className="text-2xl font-semibold text-text">
             Field Operations Management
           </h1>
           <p className="text-sm text-text-secondary mt-1">
@@ -65,17 +65,17 @@ export const FieldNetworkOverviewPage: React.FC = () => {
             <div className="w-10 h-10 rounded-lg bg-accent-tint text-accent flex items-center justify-center">
               <Users className="w-5 h-5" />
             </div>
-            <h3 className="font-semibold text-text-primary text-base group-hover:text-accent flex items-center justify-between">
+            <h3 className="font-semibold text-text text-base group-hover:text-accent flex items-center justify-between">
               <span>Associates Roster</span>
-              <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-accent transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="w-4 h-4 text-text-secondary group-hover:text-accent transition-transform group-hover:translate-x-1" />
             </h3>
             <p className="text-xs text-text-secondary leading-relaxed">
               60 Senior Field Associates deployed across 9 Ekta Hub chapters. Chapter assignments, certification status, and deactivation safeguards.
             </p>
           </div>
-          <div className="pt-4 border-t border-border-hairline flex items-center justify-between text-xs text-text-muted mt-4">
-            <span className="font-semibold text-text-primary">60 Active</span>
-            <span className="text-positive font-medium">96% Certified</span>
+          <div className="pt-4 border-t border-border flex items-center justify-between text-xs text-text-secondary mt-4">
+            <span className="font-semibold text-text">60 Active</span>
+            <span className="text-positive font-semibold">96% Certified</span>
           </div>
         </Link>
 
@@ -88,16 +88,16 @@ export const FieldNetworkOverviewPage: React.FC = () => {
             <div className="w-10 h-10 rounded-lg bg-accent-tint text-accent flex items-center justify-center">
               <Activity className="w-5 h-5" />
             </div>
-            <h3 className="font-semibold text-text-primary text-base group-hover:text-accent flex items-center justify-between">
+            <h3 className="font-semibold text-text text-base group-hover:text-accent flex items-center justify-between">
               <span>Activity Stream</span>
-              <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-accent transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="w-4 h-4 text-text-secondary group-hover:text-accent transition-transform group-hover:translate-x-1" />
             </h3>
             <p className="text-xs text-text-secondary leading-relaxed">
               Real-time audit log of peer visits and onboardings with privacy-preserving area labels (±1 km) and double consent state indicators.
             </p>
           </div>
-          <div className="pt-4 border-t border-border-hairline flex items-center justify-between text-xs text-text-muted mt-4">
-            <span className="font-semibold text-text-primary">1,480 Synced</span>
+          <div className="pt-4 border-t border-border flex items-center justify-between text-xs text-text-secondary mt-4">
+            <span className="font-semibold text-text">1,480 Synced</span>
             <span>Audited Logs</span>
           </div>
         </Link>
@@ -111,27 +111,27 @@ export const FieldNetworkOverviewPage: React.FC = () => {
             <div className="w-10 h-10 rounded-lg bg-accent-tint text-accent flex items-center justify-center">
               <RefreshCw className="w-5 h-5" />
             </div>
-            <h3 className="font-semibold text-text-primary text-base group-hover:text-accent flex items-center justify-between">
+            <h3 className="font-semibold text-text text-base group-hover:text-accent flex items-center justify-between">
               <span>Sync Queue Telemetry</span>
-              <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-accent transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="w-4 h-4 text-text-secondary group-hover:text-accent transition-transform group-hover:translate-x-1" />
             </h3>
             <p className="text-xs text-text-secondary leading-relaxed">
               Batch commit monitor, latency tracking, late-sync warnings (&gt;24h), and System Administrator retry actions.
             </p>
           </div>
-          <div className="pt-4 border-t border-border-hairline flex items-center justify-between text-xs text-text-muted mt-4">
-            <span className="font-semibold text-text-primary">38m Median Delay</span>
-            <span className="text-critical font-medium">4 Late Syncs</span>
+          <div className="pt-4 border-t border-border flex items-center justify-between text-xs text-text-secondary mt-4">
+            <span className="font-semibold text-text">38m Median Delay</span>
+            <span className="text-critical font-semibold">4 Late Syncs</span>
           </div>
         </Link>
       </div>
 
       {/* DPDP Compliance & Architecture Banner */}
-      <div className="p-4 bg-bg-subtle rounded-xl border border-border-hairline flex flex-wrap items-center justify-between gap-4 text-xs text-text-muted">
+      <div className="p-4 bg-surface-subtle rounded-xl border border-border flex flex-wrap items-center justify-between gap-4 text-xs text-text-secondary">
         <div className="flex items-center gap-3">
           <ShieldCheck className="w-6 h-6 text-accent flex-shrink-0" />
           <div>
-            <div className="font-semibold text-text-primary">DPDP Double-Consent State Machine Enforced</div>
+            <div className="font-semibold text-text">DPDP Double-Consent State Machine Enforced</div>
             <div className="mt-0.5">
               Peers onboarded by field associates require both in-person Consent 1 and independent WhatsApp Consent 2 before moving to Registered status.
             </div>

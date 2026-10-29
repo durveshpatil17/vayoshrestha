@@ -63,21 +63,21 @@ export const VouchersOverviewPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <Link
               to="/partner/vouchers/redeem"
-              className="px-3.5 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-bg-canvas flex items-center gap-1.5"
+              className="px-3.5 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-page flex items-center gap-1.5"
             >
-              <QrCode className="w-4 h-4 text-brand-primary" />
+              <QrCode className="w-4 h-4 text-accent" />
               Partner Redemption Terminal
             </Link>
             <Link
               to="/vouchers/campaigns"
-              className="px-3.5 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-bg-canvas flex items-center gap-1.5"
+              className="px-3.5 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-page flex items-center gap-1.5"
             >
-              <Building2 className="w-4 h-4 text-brand-primary" />
+              <Building2 className="w-4 h-4 text-accent" />
               Campaigns
             </Link>
             <Link
               to="/vouchers/campaigns/new"
-              className="px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+              className="px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
             >
               <Plus className="w-4 h-4" />
               New Campaign
@@ -89,25 +89,25 @@ export const VouchersOverviewPage: React.FC = () => {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-4 bg-bg-surface border border-border rounded-xl space-y-1">
-          <div className="text-xs text-text-secondary font-medium">Total Vouchers Issued</div>
-          <div className="text-2xl font-serif font-semibold text-text-primary">{vouchers.length}</div>
+          <div className="text-xs text-text-secondary font-semibold">Total Vouchers Issued</div>
+          <div className="text-2xl  font-semibold text-text">{vouchers.length}</div>
           <div className="text-xs text-text-secondary flex items-center gap-1">
-            <Ticket className="w-3.5 h-3.5 text-brand-primary" />
+            <Ticket className="w-3.5 h-3.5 text-accent" />
             Across {VOUCHER_CAMPAIGNS.length} Active Campaigns
           </div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl space-y-1">
-          <div className="text-xs text-text-secondary font-medium">Total Subsidies Issued</div>
-          <div className="text-2xl font-serif font-semibold text-brand-primary">
+          <div className="text-xs text-text-secondary font-semibold">Total Subsidies Issued</div>
+          <div className="text-2xl  font-semibold text-accent">
             ₹{totalValueDistributed.toLocaleString()}
           </div>
           <div className="text-xs text-text-secondary">Face Value Allocated</div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl space-y-1">
-          <div className="text-xs text-text-secondary font-medium">Redeemed by Partners</div>
-          <div className="text-2xl font-serif font-semibold text-emerald-700">
+          <div className="text-xs text-text-secondary font-semibold">Redeemed by Partners</div>
+          <div className="text-2xl  font-semibold text-emerald-700">
             ₹{totalValueRedeemed.toLocaleString()}
           </div>
           <div className="text-xs text-emerald-700 flex items-center gap-1">
@@ -117,8 +117,8 @@ export const VouchersOverviewPage: React.FC = () => {
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl space-y-1">
-          <div className="text-xs text-text-secondary font-medium">WhatsApp Delivery Active</div>
-          <div className="text-2xl font-serif font-semibold text-text-primary">94.8%</div>
+          <div className="text-xs text-text-secondary font-semibold">WhatsApp Delivery Active</div>
+          <div className="text-2xl  font-semibold text-text">94.8%</div>
           <div className="text-xs text-text-secondary">Delivered directly to seniors</div>
         </div>
       </div>
@@ -132,7 +132,7 @@ export const VouchersOverviewPage: React.FC = () => {
             placeholder="Search voucher code, senior, campaign..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none focus:border-brand-primary"
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-page border border-border rounded-lg text-text focus:outline-none focus:border-accent"
           />
         </div>
 
@@ -141,7 +141,7 @@ export const VouchersOverviewPage: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs bg-bg-canvas border border-border rounded-lg px-2.5 py-1.5 text-text-primary focus:outline-none"
+            className="text-xs bg-page border border-border rounded-lg px-2.5 py-1.5 text-text focus:outline-none"
           >
             <option value="all">All Statuses</option>
             <option value="issued">Issued</option>
@@ -156,7 +156,7 @@ export const VouchersOverviewPage: React.FC = () => {
       <div className="bg-bg-surface border border-border rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
-            <thead className="bg-bg-canvas text-text-secondary border-b border-border">
+            <thead className="bg-page text-text-secondary border-b border-border">
               <tr>
                 <th className="p-3.5 font-semibold">Voucher Code</th>
                 <th className="p-3.5 font-semibold">Campaign Name</th>
@@ -169,37 +169,37 @@ export const VouchersOverviewPage: React.FC = () => {
             </thead>
             <tbody className="divide-y divide-border">
               {filtered.map((vch) => (
-                <tr key={vch.id} className="hover:bg-bg-canvas/50 transition-colors">
-                  <td className="p-3.5 font-semibold text-brand-primary">
+                <tr key={vch.id} className="hover:bg-page/50 transition-colors">
+                  <td className="p-3.5 font-semibold text-accent">
                     <Link to={`/vouchers/${vch.id}`} className="hover:underline">
                       {vch.code}
                     </Link>
                   </td>
-                  <td className="p-3.5 font-semibold text-text-primary max-w-xs truncate">
+                  <td className="p-3.5 font-semibold text-text max-w-xs truncate">
                     {vch.campaignName}
                   </td>
                   <td className="p-3.5">
-                    <div className="font-semibold text-text-primary">{vch.seniorName}</div>
-                    <div className="text-[11px] text-text-secondary">{vch.seniorPhone}</div>
+                    <div className="font-semibold text-text">{vch.seniorName}</div>
+                    <div className="text-xs text-text-secondary">{vch.seniorPhone}</div>
                   </td>
-                  <td className="p-3.5 font-semibold text-text-primary">
+                  <td className="p-3.5 font-semibold text-text">
                     ₹{vch.faceValueInr}
                   </td>
                   <td className="p-3.5">
                     {vch.status === 'redeemed' && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-800 rounded font-medium">
-                        <CheckCircle2 className="w-3 h-3 text-brand-primary" />
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-800 rounded font-semibold">
+                        <CheckCircle2 className="w-3 h-3 text-accent" />
                         Redeemed
                       </span>
                     )}
                     {vch.status === 'sent_via_whatsapp' && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-brand-primary rounded font-medium">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-accent rounded font-semibold">
                         <Send className="w-3 h-3" />
                         Sent to WhatsApp
                       </span>
                     )}
                     {vch.status === 'issued' && (
-                      <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded font-medium">
+                      <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded font-semibold">
                         Issued
                       </span>
                     )}
@@ -207,8 +207,8 @@ export const VouchersOverviewPage: React.FC = () => {
                   <td className="p-3.5 text-text-secondary">
                     {vch.redeemedByPartnerName ? (
                       <div>
-                        <div className="font-medium text-text-primary">{vch.redeemedByPartnerName}</div>
-                        <div className="text-[11px] text-text-secondary">
+                        <div className="font-semibold text-text">{vch.redeemedByPartnerName}</div>
+                        <div className="text-xs text-text-secondary">
                           {new Date(vch.redeemedAt!).toLocaleDateString()}
                         </div>
                       </div>
@@ -220,7 +220,7 @@ export const VouchersOverviewPage: React.FC = () => {
                     {vch.status === 'issued' && (
                       <button
                         onClick={() => handleSendWhatsApp(vch.id)}
-                        className="text-brand-primary font-semibold hover:underline flex items-center justify-end gap-1 ml-auto"
+                        className="text-accent font-semibold hover:underline flex items-center justify-end gap-1 ml-auto"
                       >
                         <Send className="w-3 h-3" />
                         Send WhatsApp
@@ -228,7 +228,7 @@ export const VouchersOverviewPage: React.FC = () => {
                     )}
                     <Link
                       to={`/vouchers/${vch.id}`}
-                      className="text-text-secondary hover:text-text-primary hover:underline"
+                      className="text-text-secondary hover:text-text hover:underline"
                     >
                       View
                     </Link>

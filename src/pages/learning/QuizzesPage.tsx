@@ -61,10 +61,10 @@ export const QuizzesPage: React.FC = () => {
           <div className="p-6 bg-bg-surface border border-border rounded-xl space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs px-2.5 py-0.5 bg-emerald-50 text-brand-primary rounded font-semibold capitalize">
+                <span className="text-xs px-2.5 py-0.5 bg-emerald-50 text-accent rounded font-semibold ">
                   November 2026 Challenge
                 </span>
-                <h3 className="text-xl font-serif font-semibold text-text-primary mt-1">
+                <h3 className="text-xl  font-semibold text-text mt-1">
                   {quiz.title}
                 </h3>
               </div>
@@ -82,10 +82,10 @@ export const QuizzesPage: React.FC = () => {
                 return (
                   <div
                     key={q.id}
-                    className="p-5 bg-bg-canvas border border-border rounded-xl space-y-3"
+                    className="p-5 bg-page border border-border rounded-xl space-y-3"
                   >
-                    <div className="font-semibold text-sm text-text-primary flex items-start gap-2">
-                      <span className="text-brand-primary">Q{idx + 1}.</span>
+                    <div className="font-semibold text-sm text-text flex items-start gap-2">
+                      <span className="text-accent">Q{idx + 1}.</span>
                       <span>{q.prompt}</span>
                     </div>
 
@@ -93,16 +93,16 @@ export const QuizzesPage: React.FC = () => {
                     <div className="space-y-2 pt-1">
                       {q.options.map((opt, optIdx) => {
                         const isChosen = selectedOpt === optIdx;
-                        let optionStyle = 'bg-bg-surface border-border hover:border-brand-primary';
+                        let optionStyle = 'bg-bg-surface border-border hover:border-accent';
 
                         if (isSubmitted) {
                           if (optIdx === q.correctOptionIndex) {
-                            optionStyle = 'bg-emerald-50 border-brand-primary font-semibold text-brand-primary';
+                            optionStyle = 'bg-emerald-50 border-accent font-semibold text-accent';
                           } else if (isChosen) {
                             optionStyle = 'bg-red-50 border-negative text-negative';
                           }
                         } else if (isChosen) {
-                          optionStyle = 'bg-emerald-50/50 border-brand-primary text-brand-primary font-semibold';
+                          optionStyle = 'bg-emerald-50/50 border-accent text-accent font-semibold';
                         }
 
                         return (
@@ -114,7 +114,7 @@ export const QuizzesPage: React.FC = () => {
                           >
                             <span>{opt}</span>
                             {isSubmitted && optIdx === q.correctOptionIndex && (
-                              <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
+                              <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
                             )}
                           </button>
                         );
@@ -124,7 +124,7 @@ export const QuizzesPage: React.FC = () => {
                     {/* Explanation if submitted */}
                     {isSubmitted && (
                       <div className="p-3 bg-bg-surface border border-border rounded-lg text-xs space-y-1">
-                        <div className="font-semibold text-text-primary">Explanation:</div>
+                        <div className="font-semibold text-text">Explanation:</div>
                         <p className="text-text-secondary leading-relaxed">{q.explanation}</p>
                       </div>
                     )}
@@ -137,13 +137,13 @@ export const QuizzesPage: React.FC = () => {
             <div className="pt-2 flex items-center justify-between">
               {isSubmitted ? (
                 <div className="flex items-center gap-3">
-                  <div className="text-sm font-semibold text-text-primary">
-                    Your Score: <span className="text-brand-primary">{score} / {quiz.questions.length}</span>
+                  <div className="text-sm font-semibold text-text">
+                    Your Score: <span className="text-accent">{score} / {quiz.questions.length}</span>
                   </div>
                   <button
                     type="button"
                     onClick={handleResetQuiz}
-                    className="px-3.5 py-1.5 border border-border rounded-lg text-xs font-semibold text-text-secondary hover:bg-bg-canvas flex items-center gap-1.5"
+                    className="px-3.5 py-1.5 border border-border rounded-lg text-xs font-semibold text-text-secondary hover:bg-page flex items-center gap-1.5"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                     Try Again
@@ -154,7 +154,7 @@ export const QuizzesPage: React.FC = () => {
                   type="button"
                   disabled={Object.keys(selectedAnswers).length < quiz.questions.length}
                   onClick={handleSubmitQuiz}
-                  className="px-5 py-2.5 bg-brand-primary text-white text-xs font-semibold rounded-lg hover:bg-brand-primary/90 disabled:opacity-50 flex items-center gap-1.5 ml-auto"
+                  className="px-5 py-2.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent/90 disabled:opacity-50 flex items-center gap-1.5 ml-auto"
                 >
                   <Award className="w-4 h-4" />
                   Submit Answers & Calculate Score
@@ -167,8 +167,8 @@ export const QuizzesPage: React.FC = () => {
         {/* Right Column: Privacy-Safe Anonymous Leaderboard */}
         <div className="space-y-6">
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-            <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
-              <Trophy className="w-4 h-4 text-brand-primary" />
+            <h3 className="text-sm font-semibold text-text flex items-center gap-2">
+              <Trophy className="w-4 h-4 text-accent" />
               Chapter Team Leaderboard
             </h3>
             <p className="text-xs text-text-secondary leading-relaxed">
@@ -180,19 +180,19 @@ export const QuizzesPage: React.FC = () => {
               {quiz.leaderboard.map((entry, idx) => (
                 <div
                   key={idx}
-                  className="p-3 bg-bg-canvas border border-border rounded-lg flex items-center justify-between text-xs"
+                  className="p-3 bg-page border border-border rounded-lg flex items-center justify-between text-xs"
                 >
                   <div className="flex items-center gap-2.5">
-                    <div className="w-6 h-6 rounded-full bg-emerald-50 text-brand-primary font-semibold flex items-center justify-center text-xs">
+                    <div className="w-6 h-6 rounded-full bg-emerald-50 text-accent font-semibold flex items-center justify-center text-xs">
                       #{idx + 1}
                     </div>
                     <div>
-                      <div className="font-semibold text-text-primary">{entry.anonymousTeam}</div>
-                      <div className="text-[11px] text-text-secondary">{entry.chapterName}</div>
+                      <div className="font-semibold text-text">{entry.anonymousTeam}</div>
+                      <div className="text-xs text-text-secondary">{entry.chapterName}</div>
                     </div>
                   </div>
 
-                  <div className="font-semibold text-brand-primary">
+                  <div className="font-semibold text-accent">
                     {entry.score} / {quiz.questions.length} pts
                   </div>
                 </div>
@@ -200,7 +200,7 @@ export const QuizzesPage: React.FC = () => {
             </div>
 
             <div className="pt-2 border-t border-border flex items-center gap-1.5 text-xs text-text-secondary">
-              <ShieldCheck className="w-3.5 h-3.5 text-brand-primary" />
+              <ShieldCheck className="w-3.5 h-3.5 text-accent" />
               <span>Complies with DPDP Act 2023 non-exposure standards.</span>
             </div>
           </div>

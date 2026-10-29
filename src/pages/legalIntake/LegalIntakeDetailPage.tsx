@@ -37,11 +37,11 @@ export const LegalIntakeDetailPage: React.FC = () => {
   if (!legalCase) {
     return (
       <div className="p-8 text-center space-y-4">
-        <h2 className="text-xl font-serif font-semibold text-text-primary">Legal Case Not Found</h2>
+        <h2 className="text-xl  font-semibold text-text">Legal Case Not Found</h2>
         <p className="text-sm text-text-secondary">The requested legal aid intake record does not exist.</p>
         <Link
           to="/legal-intake"
-          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg"
+          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Legal Intake
@@ -91,35 +91,35 @@ export const LegalIntakeDetailPage: React.FC = () => {
         <div className="lg:col-span-2 space-y-6">
           {/* Metadata */}
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-            <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
-              <User className="w-4 h-4 text-brand-primary" />
+            <h3 className="text-sm font-semibold text-text flex items-center gap-2">
+              <User className="w-4 h-4 text-accent" />
               Intake Case Metadata
             </h3>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
-              <div className="p-3 bg-bg-canvas border border-border rounded-lg space-y-1">
+              <div className="p-3 bg-page border border-border rounded-lg space-y-1">
                 <div className="text-text-secondary">Senior Citizen</div>
-                <div className="font-semibold text-text-primary">{legalCase.seniorName}</div>
+                <div className="font-semibold text-text">{legalCase.seniorName}</div>
                 <div className="text-text-secondary">{legalCase.region.toUpperCase()} Chapter</div>
               </div>
 
-              <div className="p-3 bg-bg-canvas border border-border rounded-lg space-y-1">
+              <div className="p-3 bg-page border border-border rounded-lg space-y-1">
                 <div className="text-text-secondary">Category</div>
-                <div className="font-semibold text-brand-primary capitalize">
+                <div className="font-semibold text-accent ">
                   {legalCase.category.replace('_', ' ')}
                 </div>
                 <div className="text-text-secondary">Civil Pro-Bono</div>
               </div>
 
-              <div className="p-3 bg-bg-canvas border border-border rounded-lg space-y-1">
+              <div className="p-3 bg-page border border-border rounded-lg space-y-1">
                 <div className="text-text-secondary">Assigned Advocate</div>
-                <div className="font-semibold text-text-primary">{legalCase.assignedAdvocateName}</div>
+                <div className="font-semibold text-text">{legalCase.assignedAdvocateName}</div>
                 <div className="text-text-secondary">{legalCase.partnerFirm}</div>
               </div>
 
-              <div className="p-3 bg-bg-canvas border border-border rounded-lg space-y-1">
+              <div className="p-3 bg-page border border-border rounded-lg space-y-1">
                 <div className="text-text-secondary">Case Status</div>
-                <div className="font-semibold text-text-primary capitalize">
+                <div className="font-semibold text-text ">
                   {legalCase.status.replace('_', ' ')}
                 </div>
                 <div className="text-text-secondary">
@@ -133,8 +133,8 @@ export const LegalIntakeDetailPage: React.FC = () => {
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-brand-primary" />
+                <h3 className="text-sm font-semibold text-text flex items-center gap-2">
+                  <Lock className="w-4 h-4 text-accent" />
                   Confidential Client Narrative & Dispute Evidence
                 </h3>
                 <p className="text-xs text-text-secondary mt-0.5">
@@ -146,37 +146,37 @@ export const LegalIntakeDetailPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsDecrypted(!isDecrypted)}
-                  className="px-3 py-1.5 border border-border rounded-lg text-xs font-semibold text-text-secondary hover:bg-bg-canvas flex items-center gap-1.5"
+                  className="px-3 py-1.5 border border-border rounded-lg text-xs font-semibold text-text-secondary hover:bg-page flex items-center gap-1.5"
                 >
-                  {isDecrypted ? <Lock className="w-3.5 h-3.5" /> : <Unlock className="w-3.5 h-3.5 text-brand-primary" />}
+                  {isDecrypted ? <Lock className="w-3.5 h-3.5" /> : <Unlock className="w-3.5 h-3.5 text-accent" />}
                   {isDecrypted ? 'Hide Narrative' : 'Decrypt with Partner Key'}
                 </button>
               )}
             </div>
 
             {isDecrypted ? (
-              <div className="p-4 bg-emerald-50/30 border border-brand-primary/30 rounded-lg space-y-3 text-xs">
+              <div className="p-4 bg-emerald-50/30 border border-accent/30 rounded-lg space-y-3 text-xs">
                 <div>
                   <span className="font-semibold text-text-secondary">Confidential Grievance Statement:</span>
-                  <p className="text-text-primary mt-1 leading-relaxed">{legalCase.confidentialNarrative}</p>
+                  <p className="text-text mt-1 leading-relaxed">{legalCase.confidentialNarrative}</p>
                 </div>
 
                 <div className="pt-2 border-t border-border">
                   <span className="font-semibold text-text-secondary">Contested Parties / Respondents:</span>
-                  <div className="text-text-primary font-medium mt-0.5">{legalCase.contestedParties}</div>
+                  <div className="text-text font-semibold mt-0.5">{legalCase.contestedParties}</div>
                 </div>
 
                 {legalCase.policyExclusionDetails && (
                   <div className="pt-2 border-t border-border">
                     <span className="font-semibold text-text-secondary">Policy Evidence Detail:</span>
-                    <div className="text-text-primary mt-0.5">{legalCase.policyExclusionDetails}</div>
+                    <div className="text-text mt-0.5">{legalCase.policyExclusionDetails}</div>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="p-5 bg-bg-canvas border border-border rounded-lg text-center space-y-2">
+              <div className="p-5 bg-page border border-border rounded-lg text-center space-y-2">
                 <Lock className="w-5 h-5 text-text-secondary mx-auto" />
-                <div className="text-xs font-semibold text-text-primary">
+                <div className="text-xs font-semibold text-text">
                   Confidential Content Blinded
                 </div>
                 <p className="text-xs text-text-secondary max-w-md mx-auto">
@@ -191,20 +191,20 @@ export const LegalIntakeDetailPage: React.FC = () => {
         {/* Right Column: Policy Evidence Closure */}
         <div className="space-y-6">
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-            <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
-              <FileCheck2 className="w-4 h-4 text-brand-primary" />
+            <h3 className="text-sm font-semibold text-text flex items-center gap-2">
+              <FileCheck2 className="w-4 h-4 text-accent" />
               Policy Evidence & Closure
             </h3>
 
             {legalCase.status === 'closed' ? (
-              <div className="p-4 bg-emerald-50 border border-brand-primary/20 rounded-lg space-y-2 text-xs">
-                <div className="flex items-center gap-1.5 font-semibold text-brand-primary">
+              <div className="p-4 bg-emerald-50 border border-accent/20 rounded-lg space-y-2 text-xs">
+                <div className="flex items-center gap-1.5 font-semibold text-accent">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>Case Closed & Logged</span>
                 </div>
                 <div>
                   <span className="text-text-secondary">Standardized Outcome Code:</span>
-                  <div className="font-semibold text-text-primary mt-1">
+                  <div className="font-semibold text-text mt-1">
                     {legalCase.closureCode ? CLOSURE_CODE_LABELS[legalCase.closureCode] : 'Completed'}
                   </div>
                 </div>
@@ -224,7 +224,7 @@ export const LegalIntakeDetailPage: React.FC = () => {
                   <select
                     value={selectedClosureCode}
                     onChange={(e) => setSelectedClosureCode(e.target.value as LegalClosureCode)}
-                    className="w-full p-2 bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none"
+                    className="w-full p-2 bg-page border border-border rounded-lg text-text focus:outline-none"
                   >
                     <option value="declined_age_bar">Declined: Age-bar exclusion</option>
                     <option value="declined_no_cover">Declined: No cover available</option>
@@ -237,7 +237,7 @@ export const LegalIntakeDetailPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isClosing}
-                  className="w-full py-2 bg-brand-primary text-white rounded-lg font-semibold hover:bg-brand-primary/90 flex items-center justify-center gap-1.5"
+                  className="w-full py-2 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 flex items-center justify-center gap-1.5"
                 >
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   {isClosing ? 'Recording...' : 'Close Case & Log Policy Evidence'}

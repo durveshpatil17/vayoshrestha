@@ -34,13 +34,13 @@ export const SeniorLearningPage: React.FC = () => {
       />
 
       {/* Tabs */}
-      <div className="flex border-b border-border space-x-6 text-sm font-medium">
+      <div className="flex border-b border-border space-x-6 text-sm font-semibold">
         <button
           onClick={() => setActiveTab('lessons')}
           className={`pb-3 border-b-2 transition-colors ${
             activeTab === 'lessons'
-              ? 'border-brand-primary text-brand-primary font-semibold'
-              : 'border-transparent text-text-secondary hover:text-text-primary'
+              ? 'border-accent text-accent font-semibold'
+              : 'border-transparent text-text-secondary hover:text-text'
           }`}
         >
           Daily Micro-Lessons (4)
@@ -49,8 +49,8 @@ export const SeniorLearningPage: React.FC = () => {
           onClick={() => setActiveTab('quiz')}
           className={`pb-3 border-b-2 transition-colors ${
             activeTab === 'quiz'
-              ? 'border-brand-primary text-brand-primary font-semibold'
-              : 'border-transparent text-text-secondary hover:text-text-primary'
+              ? 'border-accent text-accent font-semibold'
+              : 'border-transparent text-text-secondary hover:text-text'
           }`}
         >
           Mastermind Quiz Challenge
@@ -59,8 +59,8 @@ export const SeniorLearningPage: React.FC = () => {
           onClick={() => setActiveTab('events')}
           className={`pb-3 border-b-2 transition-colors ${
             activeTab === 'events'
-              ? 'border-brand-primary text-brand-primary font-semibold'
-              : 'border-transparent text-text-secondary hover:text-text-primary'
+              ? 'border-accent text-accent font-semibold'
+              : 'border-transparent text-text-secondary hover:text-text'
           }`}
         >
           Community Webinars (2)
@@ -76,12 +76,12 @@ export const SeniorLearningPage: React.FC = () => {
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-brand-primary capitalize">
+                  <span className="font-semibold text-accent ">
                     {les.category.replace(/_/g, ' ')}
                   </span>
                   <span className="text-text-secondary">{les.estimatedMinutes} min read</span>
                 </div>
-                <h3 className="text-base font-serif font-semibold text-text-primary">
+                <h3 className="text-base  font-semibold text-text">
                   {les.title}
                 </h3>
                 <p className="text-xs text-text-secondary leading-relaxed">
@@ -93,7 +93,7 @@ export const SeniorLearningPage: React.FC = () => {
                 <span className="text-text-secondary">{les.language}</span>
                 <Link
                   to={`/learning/library/${les.id}`}
-                  className="text-brand-primary font-semibold hover:underline flex items-center gap-1"
+                  className="text-accent font-semibold hover:underline flex items-center gap-1"
                 >
                   Read Lesson
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -108,10 +108,10 @@ export const SeniorLearningPage: React.FC = () => {
         <div className="p-6 bg-bg-surface border border-border rounded-xl space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs px-2.5 py-0.5 bg-emerald-50 text-brand-primary rounded font-semibold">
+              <span className="text-xs px-2.5 py-0.5 bg-emerald-50 text-accent rounded font-semibold">
                 Active Weekly Challenge
               </span>
-              <h3 className="text-lg font-serif font-semibold text-text-primary mt-1">
+              <h3 className="text-lg  font-semibold text-text mt-1">
                 {SEED_QUIZZES[0].title}
               </h3>
               <p className="text-xs text-text-secondary mt-1">
@@ -120,7 +120,7 @@ export const SeniorLearningPage: React.FC = () => {
             </div>
             <Link
               to="/learning/quizzes"
-              className="px-5 py-2.5 bg-brand-primary text-white text-xs font-semibold rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+              className="px-5 py-2.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
             >
               <Award className="w-4 h-4" />
               Play Quiz Challenge
@@ -137,16 +137,16 @@ export const SeniorLearningPage: React.FC = () => {
               className="p-5 bg-bg-surface border border-border rounded-xl space-y-3"
             >
               <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-brand-primary capitalize">
+                <span className="font-semibold text-accent ">
                   {web.category.replace(/_/g, ' ')}
                 </span>
                 <span className="text-text-secondary">{web.durationMinutes} min Q&A</span>
               </div>
-              <h3 className="text-base font-serif font-semibold text-text-primary">
+              <h3 className="text-base  font-semibold text-text">
                 {web.title}
               </h3>
               <div className="text-xs text-text-secondary">
-                Speaker: <strong className="text-text-primary">{web.speaker}</strong>
+                Speaker: <strong className="text-text">{web.speaker}</strong>
               </div>
               <div className="pt-2 border-t border-border flex items-center justify-between text-xs">
                 <span className="text-text-secondary">
@@ -154,7 +154,7 @@ export const SeniorLearningPage: React.FC = () => {
                 </span>
                 <Link
                   to="/learning/webinars"
-                  className="text-brand-primary font-semibold hover:underline"
+                  className="text-accent font-semibold hover:underline"
                 >
                   View Details & RSVP
                 </Link>

@@ -50,14 +50,14 @@ export const ImpactPacksPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <Link
               to="/telemetry/exports"
-              className="px-3 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-bg-canvas flex items-center gap-1.5"
+              className="px-3 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-page flex items-center gap-1.5"
             >
-              <FileCheck2 className="w-4 h-4 text-brand-primary" />
+              <FileCheck2 className="w-4 h-4 text-accent" />
               Export Registry
             </Link>
             <Link
               to="/telemetry/packs/new"
-              className="px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+              className="px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
             >
               <Plus className="w-4 h-4" />
               New Impact Pack
@@ -69,17 +69,17 @@ export const ImpactPacksPage: React.FC = () => {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-4 bg-bg-surface border border-border rounded-xl space-y-1">
-          <div className="text-xs text-text-secondary font-medium">Total Dossiers</div>
-          <div className="text-2xl font-serif font-semibold text-text-primary">{packs.length}</div>
+          <div className="text-xs text-text-secondary font-semibold">Total Dossiers</div>
+          <div className="text-2xl  font-semibold text-text">{packs.length}</div>
           <div className="text-xs text-text-secondary flex items-center gap-1">
-            <FileText className="w-3.5 h-3.5 text-brand-primary" />
+            <FileText className="w-3.5 h-3.5 text-accent" />
             4 Active Templates
           </div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl space-y-1">
-          <div className="text-xs text-text-secondary font-medium">Cryptographically Released</div>
-          <div className="text-2xl font-serif font-semibold text-brand-primary">{releasedCount}</div>
+          <div className="text-xs text-text-secondary font-semibold">Cryptographically Released</div>
+          <div className="text-2xl  font-semibold text-accent">{releasedCount}</div>
           <div className="text-xs text-emerald-700 flex items-center gap-1">
             <ShieldCheck className="w-3.5 h-3.5" />
             SHA-256 WebCrypto Sealed
@@ -87,8 +87,8 @@ export const ImpactPacksPage: React.FC = () => {
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl space-y-1">
-          <div className="text-xs text-text-secondary font-medium">In Review (Maker-Checker)</div>
-          <div className="text-2xl font-serif font-semibold text-amber-700">{reviewCount}</div>
+          <div className="text-xs text-text-secondary font-semibold">In Review (Maker-Checker)</div>
+          <div className="text-2xl  font-semibold text-amber-700">{reviewCount}</div>
           <div className="text-xs text-text-secondary flex items-center gap-1">
             <Clock className="w-3.5 h-3.5" />
             NM Sign-off Pending
@@ -96,8 +96,8 @@ export const ImpactPacksPage: React.FC = () => {
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl space-y-1">
-          <div className="text-xs text-text-secondary font-medium">Working Drafts</div>
-          <div className="text-2xl font-serif font-semibold text-text-primary">{draftCount}</div>
+          <div className="text-xs text-text-secondary font-semibold">Working Drafts</div>
+          <div className="text-2xl  font-semibold text-text">{draftCount}</div>
           <div className="text-xs text-text-secondary">PM Working Copies</div>
         </div>
       </div>
@@ -107,7 +107,7 @@ export const ImpactPacksPage: React.FC = () => {
         <span className="font-semibold">
           Notice: All exported impact packs carry the tamper-evident watermark "SYNTHETIC PILOT DATA · FOR EVALUATION ONLY · VAYOH VIKAS".
         </span>
-        <Link to="/verify" className="text-brand-primary font-semibold flex items-center gap-1 hover:underline">
+        <Link to="/verify" className="text-accent font-semibold flex items-center gap-1 hover:underline">
           Open Public Verification Gateway
           <ExternalLink className="w-3.5 h-3.5" />
         </Link>
@@ -122,7 +122,7 @@ export const ImpactPacksPage: React.FC = () => {
             placeholder="Search code, title, audience..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none focus:border-brand-primary"
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-page border border-border rounded-lg text-text focus:outline-none focus:border-accent"
           />
         </div>
 
@@ -131,7 +131,7 @@ export const ImpactPacksPage: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs bg-bg-canvas border border-border rounded-lg px-2.5 py-1.5 text-text-primary focus:outline-none"
+            className="text-xs bg-page border border-border rounded-lg px-2.5 py-1.5 text-text focus:outline-none"
           >
             <option value="all">All Statuses</option>
             <option value="released">Released (Sealed)</option>
@@ -146,7 +146,7 @@ export const ImpactPacksPage: React.FC = () => {
       <div className="bg-bg-surface border border-border rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
-            <thead className="bg-bg-canvas text-text-secondary border-b border-border">
+            <thead className="bg-page text-text-secondary border-b border-border">
               <tr>
                 <th className="p-3.5 font-semibold">Verification Code</th>
                 <th className="p-3.5 font-semibold">Pack Title</th>
@@ -166,35 +166,35 @@ export const ImpactPacksPage: React.FC = () => {
                 </tr>
               ) : (
                 filteredPacks.map((pack) => (
-                  <tr key={pack.id} className="hover:bg-bg-canvas/50 transition-colors">
-                    <td className="p-3.5 font-semibold text-brand-primary">
+                  <tr key={pack.id} className="hover:bg-page/50 transition-colors">
+                    <td className="p-3.5 font-semibold text-accent">
                       <Link to={`/telemetry/packs/${pack.id}`} className="hover:underline">
                         {pack.code}
                       </Link>
                     </td>
-                    <td className="p-3.5 font-semibold text-text-primary max-w-xs truncate">
+                    <td className="p-3.5 font-semibold text-text max-w-xs truncate">
                       {pack.title}
                     </td>
                     <td className="p-3.5">
-                      <span className="px-2 py-0.5 bg-bg-canvas border border-border rounded text-text-secondary">
+                      <span className="px-2 py-0.5 bg-page border border-border rounded text-text-secondary">
                         {pack.audience}
                       </span>
                     </td>
                     <td className="p-3.5">
                       {pack.status === 'released' && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-800 rounded font-medium">
-                          <CheckCircle2 className="w-3 h-3 text-brand-primary" />
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-800 rounded font-semibold">
+                          <CheckCircle2 className="w-3 h-3 text-accent" />
                           Released
                         </span>
                       )}
                       {pack.status === 'under_review' && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-50 text-amber-800 rounded font-medium">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-50 text-amber-800 rounded font-semibold">
                           <Clock className="w-3 h-3" />
                           Under Review
                         </span>
                       )}
                       {pack.status === 'draft' && (
-                        <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded font-medium">
+                        <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded font-semibold">
                           Draft
                         </span>
                       )}
@@ -202,9 +202,9 @@ export const ImpactPacksPage: React.FC = () => {
                     <td className="p-3.5 text-text-secondary">
                       {pack.createdBy.name}
                     </td>
-                    <td className="p-3.5 text-text-secondary max-w-[140px] truncate">
+                    <td className="p-3.5 text-text-secondary max-w-36 truncate">
                       {pack.sha256Hash ? (
-                        <span title={pack.sha256Hash} className="text-text-primary">
+                        <span title={pack.sha256Hash} className="text-text">
                           {pack.sha256Hash.substring(0, 16)}...
                         </span>
                       ) : (
@@ -214,14 +214,14 @@ export const ImpactPacksPage: React.FC = () => {
                     <td className="p-3.5 text-right space-x-2">
                       <Link
                         to={`/telemetry/packs/${pack.id}`}
-                        className="text-brand-primary hover:underline font-semibold"
+                        className="text-accent hover:underline font-semibold"
                       >
                         Open
                       </Link>
                       {pack.status === 'released' && (
                         <Link
                           to={`/verify/${pack.code}`}
-                          className="text-text-secondary hover:text-text-primary hover:underline"
+                          className="text-text-secondary hover:text-text hover:underline"
                         >
                           Verify
                         </Link>

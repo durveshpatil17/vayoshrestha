@@ -55,15 +55,15 @@ export const PublicVerifyPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-bg-canvas flex flex-col justify-between p-4 sm:p-8">
+    <div className="min-h-screen bg-page flex flex-col justify-between p-4 sm:p-8">
       {/* Top Header */}
       <header className="max-w-4xl mx-auto w-full flex items-center justify-between pb-6 border-b border-border">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-brand-primary flex items-center justify-center text-white font-serif font-semibold text-lg">
+          <div className="w-9 h-9 rounded-lg bg-accent flex items-center justify-center text-white  font-semibold text-lg">
             V
           </div>
           <div>
-            <div className="font-serif font-semibold text-text-primary text-base">
+            <div className=" font-semibold text-text text-base">
               Vayoshrestha Public Gateway
             </div>
             <div className="text-xs text-text-secondary">
@@ -74,7 +74,7 @@ export const PublicVerifyPage: React.FC = () => {
 
         <Link
           to="/login"
-          className="text-xs text-brand-primary font-semibold hover:underline flex items-center gap-1"
+          className="text-xs text-accent font-semibold hover:underline flex items-center gap-1"
         >
           Staff Sign In
           <ArrowRight className="w-3.5 h-3.5" />
@@ -84,11 +84,11 @@ export const PublicVerifyPage: React.FC = () => {
       {/* Main Verification Container */}
       <main className="max-w-2xl mx-auto w-full my-8 space-y-6">
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-brand-primary/20 text-brand-primary rounded-full text-xs font-semibold">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-accent/20 text-accent rounded-full text-xs font-semibold">
             <ShieldCheck className="w-3.5 h-3.5" />
             Zero-Trust WebCrypto Verification
           </div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-semibold text-text-primary">
+          <h1 className="text-2xl sm:text-3xl  font-semibold text-text">
             Verify Artifact Authenticity
           </h1>
           <p className="text-xs sm:text-sm text-text-secondary max-w-lg mx-auto">
@@ -100,7 +100,7 @@ export const PublicVerifyPage: React.FC = () => {
         {/* Input Card */}
         <div className="p-6 bg-bg-surface border border-border rounded-xl space-y-4">
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-text-primary">
+            <label className="text-xs font-semibold text-text">
               Enter Verification Code or 64-char SHA-256 Digest:
             </label>
             <div className="flex gap-2">
@@ -112,12 +112,12 @@ export const PublicVerifyPage: React.FC = () => {
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && performVerification(inputQuery)}
-                  className="w-full pl-9 pr-3 py-2 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none focus:border-brand-primary"
+                  className="w-full pl-9 pr-3 py-2 text-xs bg-page border border-border rounded-lg text-text focus:outline-none focus:border-accent"
                 />
               </div>
               <button
                 onClick={() => performVerification(inputQuery)}
-                className="px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1"
+                className="px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1"
               >
                 Verify
               </button>
@@ -126,7 +126,7 @@ export const PublicVerifyPage: React.FC = () => {
 
           <div className="pt-3 border-t border-border flex items-center justify-between text-xs text-text-secondary">
             <span>Or upload an exported file to calculate hash in-browser:</span>
-            <label className="cursor-pointer text-brand-primary font-semibold hover:underline flex items-center gap-1">
+            <label className="cursor-pointer text-accent font-semibold hover:underline flex items-center gap-1">
               <Upload className="w-3.5 h-3.5" />
               {isHashing ? 'Hashing...' : 'Upload File'}
               <input
@@ -142,16 +142,16 @@ export const PublicVerifyPage: React.FC = () => {
         {hasSearched && (
           <div>
             {matchedPack ? (
-              <div className="p-6 bg-bg-surface border-2 border-brand-primary rounded-xl space-y-4">
+              <div className="p-6 bg-bg-surface border-2 border-accent rounded-xl space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 bg-emerald-50 rounded-full text-brand-primary">
+                  <div className="p-2.5 bg-emerald-50 rounded-full text-accent">
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
                   <div>
-                    <div className="text-xs font-semibold text-brand-primary">
+                    <div className="text-xs font-semibold text-accent">
                       AUTHENTIC & UNTAMPERED DOCUMENT
                     </div>
-                    <h3 className="text-lg font-serif font-semibold text-text-primary">
+                    <h3 className="text-lg  font-semibold text-text">
                       {matchedPack.title}
                     </h3>
                   </div>
@@ -163,34 +163,34 @@ export const PublicVerifyPage: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 text-xs pt-2 border-t border-border">
-                  <div className="p-2.5 bg-bg-canvas border border-border rounded">
+                  <div className="p-2.5 bg-page border border-border rounded">
                     <div className="text-text-secondary">Official Issuer:</div>
-                    <div className="font-semibold text-text-primary mt-0.5">Vayoh Vikas Trust</div>
+                    <div className="font-semibold text-text mt-0.5">Vayoh Vikas Trust</div>
                   </div>
 
-                  <div className="p-2.5 bg-bg-canvas border border-border rounded">
+                  <div className="p-2.5 bg-page border border-border rounded">
                     <div className="text-text-secondary">Verification Code:</div>
-                    <div className="font-semibold text-brand-primary mt-0.5">{matchedPack.code}</div>
+                    <div className="font-semibold text-accent mt-0.5">{matchedPack.code}</div>
                   </div>
 
-                  <div className="p-2.5 bg-bg-canvas border border-border rounded">
+                  <div className="p-2.5 bg-page border border-border rounded">
                     <div className="text-text-secondary">Authorised Signer:</div>
-                    <div className="font-semibold text-text-primary mt-0.5">
+                    <div className="font-semibold text-text mt-0.5">
                       {matchedPack.reviewedBy?.name || 'Dr. Anita Joshi, National Manager'}
                     </div>
                   </div>
 
-                  <div className="p-2.5 bg-bg-canvas border border-border rounded">
+                  <div className="p-2.5 bg-page border border-border rounded">
                     <div className="text-text-secondary">Release Date:</div>
-                    <div className="font-semibold text-text-primary mt-0.5">
+                    <div className="font-semibold text-text mt-0.5">
                       {matchedPack.releasedAt ? new Date(matchedPack.releasedAt).toLocaleDateString() : 'N/A'}
                     </div>
                   </div>
                 </div>
 
-                <div className="p-3 bg-bg-canvas border border-border rounded text-xs space-y-1">
+                <div className="p-3 bg-page border border-border rounded text-xs space-y-1">
                   <div className="text-text-secondary font-semibold">Registered SHA-256 Digest:</div>
-                  <div className="text-text-primary break-all text-[11px]">
+                  <div className="text-text break-all text-xs">
                     {matchedPack.sha256Hash}
                   </div>
                 </div>
@@ -225,7 +225,7 @@ export const PublicVerifyPage: React.FC = () => {
                 setInputQuery('VV-8392-1049');
                 performVerification('VV-8392-1049');
               }}
-              className="px-2.5 py-1 bg-bg-canvas border border-border rounded hover:border-brand-primary text-text-primary"
+              className="px-2.5 py-1 bg-page border border-border rounded hover:border-accent text-text"
             >
               VV-8392-1049 (CSR Impact Brief)
             </button>
@@ -234,7 +234,7 @@ export const PublicVerifyPage: React.FC = () => {
                 setInputQuery('VV-4198-7721');
                 performVerification('VV-4198-7721');
               }}
-              className="px-2.5 py-1 bg-bg-canvas border border-border rounded hover:border-brand-primary text-text-primary"
+              className="px-2.5 py-1 bg-page border border-border rounded hover:border-accent text-text"
             >
               VV-4198-7721 (Govt Health Brief)
             </button>
@@ -243,7 +243,7 @@ export const PublicVerifyPage: React.FC = () => {
                 setInputQuery('VV-INVALID-HASH');
                 performVerification('VV-INVALID-HASH');
               }}
-              className="px-2.5 py-1 bg-bg-canvas border border-border rounded hover:border-negative text-negative"
+              className="px-2.5 py-1 bg-page border border-border rounded hover:border-negative text-negative"
             >
               Simulate Invalid / Tampered Code
             </button>

@@ -45,7 +45,7 @@ export const SeniorVouchersPage: React.FC = () => {
       />
 
       {sentNotice && (
-        <div className="p-4 bg-emerald-50 border border-brand-primary/30 rounded-xl text-xs text-brand-primary font-semibold flex items-center gap-2">
+        <div className="p-4 bg-emerald-50 border border-accent/30 rounded-xl text-xs text-accent font-semibold flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 shrink-0" />
           <span>{sentNotice}</span>
         </div>
@@ -64,27 +64,27 @@ export const SeniorVouchersPage: React.FC = () => {
                 key={vch.id}
                 className={`p-6 rounded-xl border-2 space-y-4 ${
                   isRedeemed
-                    ? 'bg-bg-canvas border-border text-text-secondary opacity-75'
-                    : 'bg-bg-surface border-brand-primary'
+                    ? 'bg-page border-border text-text-secondary opacity-75'
+                    : 'bg-bg-surface border-accent'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs px-2.5 py-0.5 bg-emerald-50 text-brand-primary rounded font-semibold capitalize">
+                  <span className="text-xs px-2.5 py-0.5 bg-emerald-50 text-accent rounded font-semibold ">
                     {vch.category} Subsidy
                   </span>
-                  <div className="text-2xl font-serif font-semibold text-brand-primary">
+                  <div className="text-2xl  font-semibold text-accent">
                     ₹{vch.faceValueInr}
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-serif font-semibold text-text-primary">
+                  <h3 className="text-base  font-semibold text-text">
                     {vch.campaignName}
                   </h3>
                   <div className="text-xs text-text-secondary mt-1">
                     Present this code at any registered partner lab or store:
                   </div>
-                  <div className="p-3 bg-bg-canvas border border-border rounded-lg mt-2 text-center text-xl font-serif font-semibold text-text-primary">
+                  <div className="p-3 bg-page border border-border rounded-lg mt-2 text-center text-xl  font-semibold text-text">
                     {vch.code}
                   </div>
                 </div>
@@ -92,11 +92,11 @@ export const SeniorVouchersPage: React.FC = () => {
                 <div className="pt-2 border-t border-border flex items-center justify-between text-xs">
                   <div>
                     <span className="text-text-secondary">Valid Until: </span>
-                    <strong className="text-text-primary">{new Date(vch.expiresAt).toLocaleDateString()}</strong>
+                    <strong className="text-text">{new Date(vch.expiresAt).toLocaleDateString()}</strong>
                   </div>
 
                   {isRedeemed ? (
-                    <span className="inline-flex items-center gap-1 text-emerald-800 font-medium">
+                    <span className="inline-flex items-center gap-1 text-emerald-800 font-semibold">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       Redeemed
                     </span>
@@ -104,7 +104,7 @@ export const SeniorVouchersPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleSendToWhatsApp(vch.id, vch.code)}
-                      className="px-3 py-1.5 bg-brand-primary text-white rounded-lg font-semibold hover:bg-brand-primary/90 flex items-center gap-1"
+                      className="px-3 py-1.5 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 flex items-center gap-1"
                     >
                       <Send className="w-3.5 h-3.5" />
                       Send to WhatsApp

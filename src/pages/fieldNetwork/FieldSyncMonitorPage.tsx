@@ -88,7 +88,7 @@ export const FieldSyncMonitorPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-text-muted mb-1">
+          <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
             <span
               onClick={() => navigate('/field-network')}
               className="hover:text-accent cursor-pointer"
@@ -96,9 +96,9 @@ export const FieldSyncMonitorPage: React.FC = () => {
               Field Network
             </span>
             <span>/</span>
-            <span className="text-text-primary font-medium">Sync Telemetry</span>
+            <span className="text-text font-semibold">Sync Telemetry</span>
           </div>
-          <h1 className="text-2xl font-semibold text-text-primary">
+          <h1 className="text-2xl font-semibold text-text">
             Sync Telemetry &amp; Latency Monitor
           </h1>
           <p className="text-sm text-text-secondary mt-0.5">
@@ -110,42 +110,42 @@ export const FieldSyncMonitorPage: React.FC = () => {
       {/* Latency Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Median Synchronization Delay</div>
+          <div className="text-xs font-semibold text-text-secondary">Median Synchronization Delay</div>
           <div className="text-2xl font-semibold text-accent tabular-nums mt-1">38 min</div>
-          <div className="text-[11px] text-text-muted mt-0.5">SLA target: &lt;45 min</div>
+          <div className="text-xs text-text-secondary mt-0.5">SLA target: &lt;45 min</div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Batches Processed (24h)</div>
-          <div className="text-2xl font-semibold text-text-primary tabular-nums mt-1">142</div>
-          <div className="text-[11px] text-text-muted mt-0.5">Zero corruption failures</div>
+          <div className="text-xs font-semibold text-text-secondary">Batches Processed (24h)</div>
+          <div className="text-2xl font-semibold text-text tabular-nums mt-1">142</div>
+          <div className="text-xs text-text-secondary mt-0.5">Zero corruption failures</div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Late Sync Rate (&gt;24h)</div>
+          <div className="text-xs font-semibold text-text-secondary">Late Sync Rate (&gt;24h)</div>
           <div className="text-2xl font-semibold text-critical tabular-nums mt-1">2.8%</div>
-          <div className="text-[11px] text-text-muted mt-0.5">4 flagged out of 142</div>
+          <div className="text-xs text-text-secondary mt-0.5">4 flagged out of 142</div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Cryptographic Verification</div>
+          <div className="text-xs font-semibold text-text-secondary">Cryptographic Verification</div>
           <div className="text-base font-semibold text-positive flex items-center gap-1.5 mt-2">
             <CheckCircle className="w-4 h-4" />
             100% AES-GCM
           </div>
-          <div className="text-[11px] text-text-muted mt-0.5">All signatures verified</div>
+          <div className="text-xs text-text-secondary mt-0.5">All signatures verified</div>
         </div>
       </div>
 
       {/* Batches Table */}
       <div className="bg-bg-surface border border-border rounded-xl overflow-hidden">
-        <div className="p-4 border-b border-border bg-bg-subtle/50 font-semibold text-sm text-text-primary">
+        <div className="p-4 border-b border-border bg-surface-subtle/50 font-semibold text-sm text-text">
           Recent Synchronization Batches
         </div>
 
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-border bg-bg-subtle text-text-muted text-[11px] font-semibold">
+            <tr className="border-b border-border bg-surface-subtle text-text-secondary text-xs font-semibold">
               <th className="py-3 px-4">Batch ID &amp; Associate</th>
               <th className="py-3 px-4">Chapter</th>
               <th className="py-3 px-4 text-center">Batch Size</th>
@@ -157,16 +157,16 @@ export const FieldSyncMonitorPage: React.FC = () => {
           </thead>
           <tbody className="divide-y divide-border-hairline text-text-secondary">
             {batches.map((batch) => (
-              <tr key={batch.id} className="hover:bg-bg-subtle/50 transition-colors">
+              <tr key={batch.id} className="hover:bg-surface-subtle/50 transition-colors">
                 <td className="py-3 px-4">
-                  <div className="font-semibold text-text-primary text-[11px]">
+                  <div className="font-semibold text-text text-xs">
                     {batch.id}
                   </div>
-                  <div className="text-[11px] text-text-muted mt-0.5">
+                  <div className="text-xs text-text-secondary mt-0.5">
                     {batch.associateName} ({batch.associateId})
                   </div>
                 </td>
-                <td className="py-3 px-4 font-medium text-text-primary">
+                <td className="py-3 px-4 font-semibold text-text">
                   {batch.chapterName}
                 </td>
                 <td className="py-3 px-4 text-center font-semibold text-accent tabular-nums">
@@ -174,10 +174,10 @@ export const FieldSyncMonitorPage: React.FC = () => {
                 </td>
                 <td className="py-3 px-4">
                   <span
-                    className={`tabular-nums font-medium ${
+                    className={`tabular-nums font-semibold ${
                       batch.captureDelayMinutes > 1440
                         ? 'text-critical font-semibold'
-                        : 'text-text-primary'
+                        : 'text-text'
                     }`}
                   >
                     {batch.captureDelayMinutes > 60
@@ -187,7 +187,7 @@ export const FieldSyncMonitorPage: React.FC = () => {
                 </td>
                 <td className="py-3 px-4">
                   <span
-                    className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+                    className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full ${
                       batch.status === 'Completed'
                         ? 'bg-positive-tint text-positive'
                         : 'bg-critical-tint text-critical'
@@ -196,12 +196,12 @@ export const FieldSyncMonitorPage: React.FC = () => {
                     {batch.status === 'Completed' ? 'Synced' : 'Late Sync Alert'}
                   </span>
                   {batch.errorMessage && (
-                    <div className="text-[10px] text-critical mt-1 leading-normal">
+                    <div className="text-xs text-critical mt-1 leading-normal">
                       {batch.errorMessage}
                     </div>
                   )}
                 </td>
-                <td className="py-3 px-4 text-text-muted tabular-nums">
+                <td className="py-3 px-4 text-text-secondary tabular-nums">
                   {batch.syncedAt}
                 </td>
                 <td className="py-3 px-4 text-right">

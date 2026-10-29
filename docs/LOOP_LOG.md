@@ -301,3 +301,25 @@
   - Design-lint: 0 violations across all 69 files in Tranche B.
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus).
+
+---
+
+## Loop U9: Addendum v3.1 Pages (Phase U: Final UI Design Pass)
+- **Goal**: Restyle all 32 Addendum v3.1 views (Ecosystem Layers 1–4) to SAP Fiori Horizon and AWS Cloudscape tokens:
+  - Field Network (`/field-network/*`): Associates directory, detail, central activity stream, sync monitor.
+  - Telemetry & Impact Packs (`/telemetry/*`): Cohort metrics, macro trends, privacy policy, pack creator & detail, public verification gateway (`/verify`).
+  - Deterministic Routing (`/routing/*`): Routing queue, decision record detail, capacity heatmaps, rule editor.
+  - Vouchers (`/vouchers/*`): Overview, campaigns, partner redemption terminal, voucher wallet.
+  - Legal Intake (`/legal-intake/*`): Pro-bono legal queue and advocate detail.
+  - Virtual Literacy (`/learning/*`): Micro-lessons, drip campaigns, webinars, mastermind quizzes.
+  - Ecosystem Nexus (`/ecosystem`): Strategic architecture nexus map.
+- **What Changed**:
+  - Removed all `font-serif`, hardcoded hex color values (`#EFEAE2`, `#E7FFDB`, `#111B21`), and emoji from UI chrome.
+  - Standardized font sizes, font weights (400 and 600 only), and token variables.
+  - Replaced manual checkmarks with Lucide 1.5 icons (`CheckCheck`).
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+  - Design-lint: 0 violations across all 32 files in Addendum v3.1.
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844).

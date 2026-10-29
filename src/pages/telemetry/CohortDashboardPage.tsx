@@ -95,10 +95,10 @@ export const CohortDashboardPage: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-semibold text-text-primary">
+            <h1 className="text-2xl font-semibold text-text">
               Real-Time Cohort Telemetry
             </h1>
-            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-positive-tint text-positive">
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-positive-tint text-positive">
               k ≥ 5 Guaranteed
             </span>
           </div>
@@ -108,8 +108,8 @@ export const CohortDashboardPage: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-xs tabular-nums text-text-muted">
-            Aggregates refreshed: <strong className="text-text-primary font-semibold">{lastRefreshed}</strong>
+          <span className="text-xs tabular-nums text-text-secondary">
+            Aggregates refreshed: <strong className="text-text font-semibold">{lastRefreshed}</strong>
           </span>
 
           <Button
@@ -135,11 +135,11 @@ export const CohortDashboardPage: React.FC = () => {
       {/* Filter Toolbar */}
       <div className="p-4 bg-bg-surface border border-border rounded-xl grid grid-cols-1 md:grid-cols-3 gap-3">
         <div>
-          <label className="block text-xs font-medium text-text-secondary mb-1">Geographic Region</label>
+          <label className="block text-xs font-semibold text-text-secondary mb-1">Geographic Region</label>
           <select
             value={regionFilter}
             onChange={(e) => setRegionFilter(e.target.value)}
-            className="w-full h-10 px-3 rounded-lg border border-border bg-bg-surface text-text-primary text-xs focus:border-accent"
+            className="w-full h-10 px-3 rounded-lg border border-border bg-bg-surface text-text text-xs focus:border-accent"
           >
             <option value="ALL">National Aggregate (All 3 Regions)</option>
             <option value="WEST">West Region (Maharashtra &amp; MP)</option>
@@ -149,11 +149,11 @@ export const CohortDashboardPage: React.FC = () => {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-text-secondary mb-1">Age Cohort</label>
+          <label className="block text-xs font-semibold text-text-secondary mb-1">Age Cohort</label>
           <select
             value={ageBandFilter}
             onChange={(e) => setAgeBandFilter(e.target.value)}
-            className="w-full h-10 px-3 rounded-lg border border-border bg-bg-surface text-text-primary text-xs focus:border-accent"
+            className="w-full h-10 px-3 rounded-lg border border-border bg-bg-surface text-text text-xs focus:border-accent"
           >
             <option value="ALL">All Elder Age Bands (60+)</option>
             <option value="60-69">60–69 years (Young Old)</option>
@@ -163,11 +163,11 @@ export const CohortDashboardPage: React.FC = () => {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-text-secondary mb-1">Primary Language</label>
+          <label className="block text-xs font-semibold text-text-secondary mb-1">Primary Language</label>
           <select
             value={languageFilter}
             onChange={(e) => setLanguageFilter(e.target.value)}
-            className="w-full h-10 px-3 rounded-lg border border-border bg-bg-surface text-text-primary text-xs focus:border-accent"
+            className="w-full h-10 px-3 rounded-lg border border-border bg-bg-surface text-text text-xs focus:border-accent"
           >
             <option value="ALL">All Languages (Vernacular &amp; English)</option>
             <option value="Marathi">Marathi</option>
@@ -182,27 +182,27 @@ export const CohortDashboardPage: React.FC = () => {
       {/* Cohort Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Total Cohort Size</div>
+          <div className="text-xs font-semibold text-text-secondary">Total Cohort Size</div>
           <div className="text-2xl font-semibold text-accent tabular-nums mt-1">960</div>
-          <div className="text-[11px] text-text-muted mt-0.5">Active registered beneficiaries</div>
+          <div className="text-xs text-text-secondary mt-0.5">Active registered beneficiaries</div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Medication Adherence Rate</div>
+          <div className="text-xs font-semibold text-text-secondary">Medication Adherence Rate</div>
           <div className="text-2xl font-semibold text-positive tabular-nums mt-1">82.4%</div>
-          <div className="text-[11px] text-text-muted mt-0.5">30-day WhatsApp confirmations</div>
+          <div className="text-xs text-text-secondary mt-0.5">30-day WhatsApp confirmations</div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Vitals Routine Logging Rate</div>
-          <div className="text-2xl font-semibold text-text-primary tabular-nums mt-1">74.1%</div>
-          <div className="text-[11px] text-text-muted mt-0.5">Bi-weekly BP &amp; Glucose entries</div>
+          <div className="text-xs font-semibold text-text-secondary">Vitals Routine Logging Rate</div>
+          <div className="text-2xl font-semibold text-text tabular-nums mt-1">74.1%</div>
+          <div className="text-xs text-text-secondary mt-0.5">Bi-weekly BP &amp; Glucose entries</div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Field Onboarding Completion</div>
-          <div className="text-2xl font-semibold text-text-primary tabular-nums mt-1">91.8%</div>
-          <div className="text-[11px] text-text-muted mt-0.5">Both consents verified</div>
+          <div className="text-xs font-semibold text-text-secondary">Field Onboarding Completion</div>
+          <div className="text-2xl font-semibold text-text tabular-nums mt-1">91.8%</div>
+          <div className="text-xs text-text-secondary mt-0.5">Both consents verified</div>
         </div>
       </div>
 
@@ -212,10 +212,10 @@ export const CohortDashboardPage: React.FC = () => {
         <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-base font-semibold text-text-primary">
+              <h2 className="text-base font-semibold text-text">
                 Coarse Adult Vaccination Coverage
               </h2>
-              <p className="text-xs text-text-muted mt-0.5">
+              <p className="text-xs text-text-secondary mt-0.5">
                 Consent-gated self-reported status across 5 major senior vaccine categories.
               </p>
             </div>
@@ -232,10 +232,10 @@ export const CohortDashboardPage: React.FC = () => {
             {vaccinationData.map((vac) => (
               <div key={vac.name} className="space-y-1">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-medium text-text-primary">{vac.name}</span>
-                  <span className="tabular-nums font-semibold text-text-primary">
+                  <span className="font-semibold text-text">{vac.name}</span>
+                  <span className="tabular-nums font-semibold text-text">
                     {vac.percent}%{' '}
-                    <span className="text-text-muted font-normal">
+                    <span className="text-text-secondary font-normal">
                       ({vac.yes} / {vac.total})
                     </span>
                   </span>
@@ -250,7 +250,7 @@ export const CohortDashboardPage: React.FC = () => {
             ))}
           </div>
 
-          <p className="text-[11px] text-text-muted italic pt-2 border-t border-border-hairline">
+          <p className="text-xs text-text-secondary italic pt-2 border-t border-border">
             Notice: Self-reported for ecosystem public health analysis; not a certified clinical immunization certificate.
           </p>
         </div>
@@ -259,10 +259,10 @@ export const CohortDashboardPage: React.FC = () => {
         <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-base font-semibold text-text-primary">
+              <h2 className="text-base font-semibold text-text">
                 Age Band Demographics
               </h2>
-              <p className="text-xs text-text-muted mt-0.5">
+              <p className="text-xs text-text-secondary mt-0.5">
                 k-Anonymity guaranteed with secondary complementary suppression.
               </p>
             </div>
@@ -279,19 +279,19 @@ export const CohortDashboardPage: React.FC = () => {
             {ageDistribution.map((band) => (
               <div
                 key={band.label}
-                className="p-3 bg-bg-subtle/40 rounded-lg border border-border-hairline flex items-center justify-between"
+                className="p-3 bg-surface-subtle/40 rounded-lg border border-border flex items-center justify-between"
               >
                 <div>
-                  <div className="font-semibold text-xs text-text-primary">{band.label}</div>
-                  <div className="text-[11px] text-text-muted">
+                  <div className="font-semibold text-xs text-text">{band.label}</div>
+                  <div className="text-xs text-text-secondary">
                     {band.rawCount > 300 ? 'Highest concentration' : 'High care priority'}
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-base font-semibold text-text-primary tabular-nums">
+                  <div className="text-base font-semibold text-text tabular-nums">
                     {band.displayCount}
                   </div>
-                  <div className="text-[11px] text-text-muted">
+                  <div className="text-xs text-text-secondary">
                     {Math.round((band.rawCount / 960) * 100)}% of cohort
                   </div>
                 </div>
@@ -305,21 +305,21 @@ export const CohortDashboardPage: React.FC = () => {
       <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-semibold text-text-primary">
+            <h2 className="text-base font-semibold text-text">
               National Policy &amp; Elder Rights Advocacy Evidence
             </h2>
-            <p className="text-xs text-text-muted mt-0.5">
+            <p className="text-xs text-text-secondary mt-0.5">
               Aggregated institutional exclusion codes feeding evidence-based reform for NITI Aayog and Ministry of Social Justice.
             </p>
           </div>
-          <span className="text-xs text-text-muted font-medium">90-Day Accumulation</span>
+          <span className="text-xs text-text-secondary font-semibold">90-Day Accumulation</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {policyEvidence.map((ev) => (
             <div
               key={ev.code}
-              className="p-4 bg-bg-subtle/50 rounded-xl border border-border-hairline space-y-2 flex flex-col justify-between"
+              className="p-4 bg-surface-subtle/50 rounded-xl border border-border space-y-2 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -328,15 +328,15 @@ export const CohortDashboardPage: React.FC = () => {
                   </span>
                   <AlertCircle className="w-4 h-4 text-critical" />
                 </div>
-                <div className="text-xs font-semibold text-text-primary mt-2">
+                <div className="text-xs font-semibold text-text mt-2">
                   {ev.label}
                 </div>
-                <p className="text-xs text-text-muted mt-1 leading-relaxed">
+                <p className="text-xs text-text-secondary mt-1 leading-relaxed">
                   {ev.subtext}
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-border-hairline text-[11px] text-accent font-medium">
+              <div className="pt-2 border-t border-border text-xs text-accent font-semibold">
                 Anonymized evidence code: {ev.code}
               </div>
             </div>

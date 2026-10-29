@@ -47,13 +47,13 @@ export const WebinarsPage: React.FC = () => {
       />
 
       {/* Tabs */}
-      <div className="flex border-b border-border space-x-6 text-sm font-medium">
+      <div className="flex border-b border-border space-x-6 text-sm font-semibold">
         <button
           onClick={() => setActiveTab('webinars')}
           className={`pb-3 border-b-2 transition-colors ${
             activeTab === 'webinars'
-              ? 'border-brand-primary text-brand-primary font-semibold'
-              : 'border-transparent text-text-secondary hover:text-text-primary'
+              ? 'border-accent text-accent font-semibold'
+              : 'border-transparent text-text-secondary hover:text-text'
           }`}
         >
           Upcoming Webinars & Workshops
@@ -62,8 +62,8 @@ export const WebinarsPage: React.FC = () => {
           onClick={() => setActiveTab('channels')}
           className={`pb-3 border-b-2 transition-colors ${
             activeTab === 'channels'
-              ? 'border-brand-primary text-brand-primary font-semibold'
-              : 'border-transparent text-text-secondary hover:text-text-primary'
+              ? 'border-accent text-accent font-semibold'
+              : 'border-transparent text-text-secondary hover:text-text'
           }`}
         >
           One-Way WhatsApp Broadcast Channels
@@ -79,7 +79,7 @@ export const WebinarsPage: React.FC = () => {
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] px-2 py-0.5 bg-emerald-50 text-brand-primary rounded font-semibold capitalize">
+                  <span className="text-xs px-2 py-0.5 bg-emerald-50 text-accent rounded font-semibold ">
                     {web.category.replace(/_/g, ' ')}
                   </span>
                   <div className="flex items-center gap-1 text-xs text-text-secondary">
@@ -89,24 +89,24 @@ export const WebinarsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-base font-serif font-semibold text-text-primary">
+                  <h3 className="text-base  font-semibold text-text">
                     {web.title}
                   </h3>
                   <p className="text-xs text-text-secondary mt-1">
-                    Featured Speaker: <strong className="text-text-primary">{web.speaker}</strong>
+                    Featured Speaker: <strong className="text-text">{web.speaker}</strong>
                   </p>
                 </div>
 
-                <div className="p-3 bg-bg-canvas border border-border rounded-lg space-y-1.5 text-xs text-text-secondary">
+                <div className="p-3 bg-page border border-border rounded-lg space-y-1.5 text-xs text-text-secondary">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-brand-primary" />
-                    <span className="font-semibold text-text-primary">
+                    <Calendar className="w-4 h-4 text-accent" />
+                    <span className="font-semibold text-text">
                       {new Date(web.scheduledAt).toLocaleDateString()} at{' '}
                       {new Date(web.scheduledAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-brand-primary" />
+                    <Clock className="w-4 h-4 text-accent" />
                     <span>Duration: {web.durationMinutes} minutes with open Q&A</span>
                   </div>
                 </div>
@@ -118,8 +118,8 @@ export const WebinarsPage: React.FC = () => {
                   onClick={() => handleToggleRsvp(web.id)}
                   className={`px-4 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-colors ${
                     web.isRegistered
-                      ? 'bg-emerald-50 text-brand-primary border border-brand-primary/30'
-                      : 'bg-brand-primary text-white hover:bg-brand-primary/90'
+                      ? 'bg-emerald-50 text-accent border border-accent/30'
+                      : 'bg-accent text-white hover:bg-accent/90'
                   }`}
                 >
                   {web.isRegistered ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Calendar className="w-3.5 h-3.5" />}
@@ -130,9 +130,9 @@ export const WebinarsPage: React.FC = () => {
                   href={web.meetingLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-text-secondary font-semibold hover:text-text-primary hover:underline flex items-center gap-1"
+                  className="text-text-secondary font-semibold hover:text-text hover:underline flex items-center gap-1"
                 >
-                  <Video className="w-3.5 h-3.5 text-brand-primary" />
+                  <Video className="w-3.5 h-3.5 text-accent" />
                   Meeting Link
                 </a>
               </div>
@@ -143,11 +143,11 @@ export const WebinarsPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-emerald-50 rounded-lg text-brand-primary">
+              <div className="p-2.5 bg-emerald-50 rounded-lg text-accent">
                 <MessageSquare className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-serif font-semibold text-text-primary">
+                <h3 className="text-base  font-semibold text-text">
                   Pune Ekta Elders Broadcast Circle
                 </h3>
                 <div className="text-xs text-text-secondary">Official Regional Channel · 1,420 Subscribers</div>
@@ -158,18 +158,18 @@ export const WebinarsPage: React.FC = () => {
               timings, and scam alerts. No spam, quiet hours strictly enforced.
             </p>
             <div className="pt-2 border-t border-border flex items-center justify-between text-xs">
-              <span className="text-brand-primary font-semibold">Active & Monitored</span>
+              <span className="text-accent font-semibold">Active & Monitored</span>
               <span className="text-text-secondary">Broadcast ID: #CH-PUN-01</span>
             </div>
           </div>
 
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-emerald-50 rounded-lg text-brand-primary">
+              <div className="p-2.5 bg-emerald-50 rounded-lg text-accent">
                 <MessageSquare className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-serif font-semibold text-text-primary">
+                <h3 className="text-base  font-semibold text-text">
                   Mumbai Central Health & Vitals Circle
                 </h3>
                 <div className="text-xs text-text-secondary">Official Regional Channel · 980 Subscribers</div>
@@ -180,7 +180,7 @@ export const WebinarsPage: React.FC = () => {
               camp schedules in Dadar and Bandra Ekta Hubs.
             </p>
             <div className="pt-2 border-t border-border flex items-center justify-between text-xs">
-              <span className="text-brand-primary font-semibold">Active & Monitored</span>
+              <span className="text-accent font-semibold">Active & Monitored</span>
               <span className="text-text-secondary">Broadcast ID: #CH-MUM-02</span>
             </div>
           </div>

@@ -39,7 +39,7 @@ export const FieldAssociateDetailPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Back breadcrumb */}
-      <div className="flex items-center gap-2 text-xs text-text-muted">
+      <div className="flex items-center gap-2 text-xs text-text-secondary">
         <button
           type="button"
           onClick={() => navigate('/field-network/associates')}
@@ -58,9 +58,9 @@ export const FieldAssociateDetailPage: React.FC = () => {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl font-semibold text-text-primary">Ramakant Shinde</h1>
+              <h1 className="text-xl font-semibold text-text">Ramakant Shinde</h1>
               <span
-                className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+                className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
                   isActive
                     ? 'bg-positive-tint text-positive'
                     : 'bg-critical-tint text-critical'
@@ -69,7 +69,7 @@ export const FieldAssociateDetailPage: React.FC = () => {
                 {isActive ? 'Active Associate' : 'Deactivated'}
               </span>
             </div>
-            <div className="text-xs text-text-muted flex items-center gap-3 mt-1">
+            <div className="text-xs text-text-secondary flex items-center gap-3 mt-1">
               <span className="flex items-center gap-1">
                 <MapPin className="w-3.5 h-3.5 text-accent" />
                 Pune Ekta Hub (Shivajinagar)
@@ -121,63 +121,63 @@ export const FieldAssociateDetailPage: React.FC = () => {
       {/* Metric Counters */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Peers Onboarded</div>
+          <div className="text-xs font-semibold text-text-secondary">Peers Onboarded</div>
           <div className="text-2xl font-semibold text-accent tabular-nums mt-1">14</div>
-          <div className="text-[11px] text-text-muted mt-0.5">Double consent verified</div>
+          <div className="text-xs text-text-secondary mt-0.5">Double consent verified</div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Total Activity Logs</div>
-          <div className="text-2xl font-semibold text-text-primary tabular-nums mt-1">48</div>
-          <div className="text-[11px] text-text-muted mt-0.5">Visits and check-ins</div>
+          <div className="text-xs font-semibold text-text-secondary">Total Activity Logs</div>
+          <div className="text-2xl font-semibold text-text tabular-nums mt-1">48</div>
+          <div className="text-xs text-text-secondary mt-0.5">Visits and check-ins</div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Training Status</div>
+          <div className="text-xs font-semibold text-text-secondary">Training Status</div>
           <div className="text-base font-semibold text-positive flex items-center gap-1.5 mt-2">
             <CheckCircle className="w-4 h-4" />
             {isCertified ? 'DPDP Certified' : 'Pending Modules'}
           </div>
-          <div className="text-[11px] text-text-muted mt-0.5">Modules 1 &amp; 2 completed</div>
+          <div className="text-xs text-text-secondary mt-0.5">Modules 1 &amp; 2 completed</div>
         </div>
 
         <div className="p-4 bg-bg-surface border border-border rounded-xl">
-          <div className="text-xs font-medium text-text-muted">Last Synchronization</div>
-          <div className="text-sm font-semibold text-text-primary tabular-nums mt-2">
+          <div className="text-xs font-semibold text-text-secondary">Last Synchronization</div>
+          <div className="text-sm font-semibold text-text tabular-nums mt-2">
             12 min ago
           </div>
-          <div className="text-[11px] text-text-muted mt-0.5">Median latency: 24 min</div>
+          <div className="text-xs text-text-secondary mt-0.5">Median latency: 24 min</div>
         </div>
       </div>
 
       {/* Configuration & Assignment Settings */}
       <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-        <h2 className="text-sm font-semibold text-text-primary">
+        <h2 className="text-sm font-semibold text-text">
           Operational Assignment &amp; Certification Controls
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-medium text-text-primary mb-1">
+            <label className="block text-xs font-semibold text-text mb-1">
               Assigned Ekta Hub Chapter
             </label>
             <select
               value={chapter}
               onChange={(e) => setChapter(e.target.value)}
-              className="w-full h-10 px-3 rounded-lg border border-border bg-bg-surface text-text-primary text-xs focus:border-accent"
+              className="w-full h-10 px-3 rounded-lg border border-border bg-bg-surface text-text text-xs focus:border-accent"
             >
               <option value="HUB-PUN">Pune Ekta Hub (Shivajinagar)</option>
               <option value="HUB-NSK">Nashik Ekta Hub (Gangapur)</option>
               <option value="HUB-NAG">Nagpur Ekta Hub (Dharampeth)</option>
               <option value="HUB-BLR">Bengaluru Ekta Hub (Malleshwaram)</option>
             </select>
-            <p className="text-[11px] text-text-muted mt-1">
+            <p className="text-xs text-text-secondary mt-1">
               Limits peer association and task dispatch to this chapter geofence.
             </p>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-text-primary mb-1">
+            <label className="block text-xs font-semibold text-text mb-1">
               Certification Override (Programme Manager)
             </label>
             <button
@@ -190,9 +190,9 @@ export const FieldAssociateDetailPage: React.FC = () => {
               }`}
             >
               <span>{isCertified ? 'Certified: DPDP & Ethics Trained' : 'Needs Refresher / Retraining'}</span>
-              <span className="text-[11px] underline">Toggle Status</span>
+              <span className="text-xs underline">Toggle Status</span>
             </button>
-            <p className="text-[11px] text-text-muted mt-1">
+            <p className="text-xs text-text-secondary mt-1">
               Certified associates are authorized to capture Consent 1 in the field.
             </p>
           </div>
@@ -209,17 +209,17 @@ export const FieldAssociateDetailPage: React.FC = () => {
             </div>
 
             <p className="text-xs text-text-secondary leading-relaxed">
-              Deactivating this associate will immediately revoke their mobile access to the Field Terminal (<code className="text-text-primary">/field</code>). All queued and synced peer records will be preserved in the audit log.
+              Deactivating this associate will immediately revoke their mobile access to the Field Terminal (<code className="text-text">/field</code>). All queued and synced peer records will be preserved in the audit log.
             </p>
 
             <div>
-              <label className="block text-xs font-medium text-text-primary mb-1">
+              <label className="block text-xs font-semibold text-text mb-1">
                 Deactivation Reason *
               </label>
               <select
                 value={deactivateReason}
                 onChange={(e) => setDeactivateReason(e.target.value)}
-                className="w-full h-9 px-3 rounded-lg border border-border bg-bg-surface text-text-primary text-xs"
+                className="w-full h-9 px-3 rounded-lg border border-border bg-bg-surface text-text text-xs"
               >
                 <option value="Relocation">Relocation / Moved out of Hub area</option>
                 <option value="Voluntary Resignation">Voluntary Resignation / Personal</option>
@@ -229,7 +229,7 @@ export const FieldAssociateDetailPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-text-primary mb-1">
+              <label className="block text-xs font-semibold text-text mb-1">
                 Type <strong className="text-critical">CONFIRM DEACTIVATE</strong> to proceed:
               </label>
               <Input

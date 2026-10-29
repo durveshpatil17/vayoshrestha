@@ -95,8 +95,8 @@ export const PartnerRedeemPage: React.FC = () => {
         <div className="lg:col-span-2 space-y-6">
           <div className="p-6 bg-bg-surface border border-border rounded-xl space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
-                <QrCode className="w-4 h-4 text-brand-primary" />
+              <h3 className="text-sm font-semibold text-text flex items-center gap-2">
+                <QrCode className="w-4 h-4 text-accent" />
                 Voucher Code Lookup & Verification
               </h3>
               <div className="flex items-center gap-2 text-xs">
@@ -104,7 +104,7 @@ export const PartnerRedeemPage: React.FC = () => {
                 <select
                   value={selectedPartnerId}
                   onChange={(e) => handlePartnerChange(e.target.value)}
-                  className="p-1 bg-bg-canvas border border-border rounded text-text-primary font-medium"
+                  className="p-1 bg-page border border-border rounded text-text font-semibold"
                 >
                   {PARTNER_REGISTRY.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -117,7 +117,7 @@ export const PartnerRedeemPage: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-text-primary">
+              <label className="text-xs font-semibold text-text">
                 Enter or Scan Crockford Base-32 Voucher Code:
               </label>
               <div className="flex gap-2">
@@ -127,12 +127,12 @@ export const PartnerRedeemPage: React.FC = () => {
                   value={inputCode}
                   onChange={(e) => setInputCode(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleLookup(inputCode)}
-                  className="flex-1 p-2.5 bg-bg-canvas border border-border rounded-lg text-sm text-text-primary font-medium focus:outline-none focus:border-brand-primary"
+                  className="flex-1 p-2.5 bg-page border border-border rounded-lg text-sm text-text font-semibold focus:outline-none focus:border-accent"
                 />
                 <button
                   type="button"
                   onClick={() => handleLookup(inputCode)}
-                  className="px-5 py-2.5 bg-brand-primary text-white text-xs font-semibold rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+                  className="px-5 py-2.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
                 >
                   <Search className="w-3.5 h-3.5" />
                   Validate Code
@@ -144,36 +144,36 @@ export const PartnerRedeemPage: React.FC = () => {
             {lookupResult && (
               <div className="pt-4 border-t border-border space-y-4">
                 {lookupResult.voucher ? (
-                  <div className="p-5 border-2 border-border rounded-xl bg-bg-canvas space-y-4">
+                  <div className="p-5 border-2 border-border rounded-xl bg-page space-y-4">
                     <div className="flex items-start justify-between">
                       <div>
-                        <span className="text-xs font-semibold text-brand-primary capitalize">
+                        <span className="text-xs font-semibold text-accent ">
                           {lookupResult.voucher.category} Subsidy Voucher
                         </span>
-                        <h4 className="text-lg font-serif font-semibold text-text-primary mt-0.5">
+                        <h4 className="text-lg  font-semibold text-text mt-0.5">
                           {lookupResult.voucher.campaignName}
                         </h4>
                         <div className="text-xs text-text-secondary mt-1">
-                          Beneficiary: <strong className="text-text-primary">{lookupResult.voucher.seniorName}</strong> ({lookupResult.voucher.seniorPhone})
+                          Beneficiary: <strong className="text-text">{lookupResult.voucher.seniorName}</strong> ({lookupResult.voucher.seniorPhone})
                         </div>
                       </div>
 
                       <div className="text-right">
-                        <div className="text-2xl font-serif font-semibold text-brand-primary">
+                        <div className="text-2xl  font-semibold text-accent">
                           ₹{lookupResult.voucher.faceValueInr}
                         </div>
-                        <div className="text-[11px] text-text-secondary">Face Value</div>
+                        <div className="text-xs text-text-secondary">Face Value</div>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 text-xs pt-2 border-t border-border">
                       <div>
                         <span className="text-text-secondary">Voucher Code: </span>
-                        <strong className="text-text-primary">{lookupResult.voucher.code}</strong>
+                        <strong className="text-text">{lookupResult.voucher.code}</strong>
                       </div>
                       <div>
                         <span className="text-text-secondary">Valid Until: </span>
-                        <span className="text-text-primary">
+                        <span className="text-text">
                           {new Date(lookupResult.voucher.expiresAt).toLocaleDateString()}
                         </span>
                       </div>
@@ -188,7 +188,7 @@ export const PartnerRedeemPage: React.FC = () => {
                             Already Redeemed on {new Date(lookupResult.voucher.redeemedAt!).toLocaleDateString()}
                           </div>
                         ) : (
-                          <div className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-brand-primary rounded font-semibold text-xs">
+                          <div className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-accent rounded font-semibold text-xs">
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             Valid for Single-Use Redemption
                           </div>
@@ -199,7 +199,7 @@ export const PartnerRedeemPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={handleConfirmRedemption}
-                          className="px-5 py-2 bg-brand-primary text-white text-xs font-semibold rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+                          className="px-5 py-2 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
                         >
                           <CheckCircle2 className="w-4 h-4" />
                           Confirm Voucher Redemption
@@ -221,7 +221,7 @@ export const PartnerRedeemPage: React.FC = () => {
               <div
                 className={`p-4 rounded-xl border text-xs flex items-center gap-2.5 ${
                   redemptionFeedback.success
-                    ? 'bg-emerald-50 border-brand-primary/30 text-brand-primary'
+                    ? 'bg-emerald-50 border-accent/30 text-accent'
                     : 'bg-red-50 border-negative/30 text-negative'
                 }`}
               >
@@ -239,8 +239,8 @@ export const PartnerRedeemPage: React.FC = () => {
         {/* Quick Testing Codes Column */}
         <div className="space-y-6">
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-            <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
-              <Ticket className="w-4 h-4 text-brand-primary" />
+            <h3 className="text-sm font-semibold text-text flex items-center gap-2">
+              <Ticket className="w-4 h-4 text-accent" />
               Quick Demo Codes
             </h3>
             <p className="text-xs text-text-secondary">
@@ -254,10 +254,10 @@ export const PartnerRedeemPage: React.FC = () => {
                   setInputCode('7X9K-4MB2-K');
                   handleLookup('7X9K-4MB2-K');
                 }}
-                className="w-full p-2.5 bg-bg-canvas border border-border rounded-lg text-left hover:border-brand-primary space-y-0.5"
+                className="w-full p-2.5 bg-page border border-border rounded-lg text-left hover:border-accent space-y-0.5"
               >
-                <div className="font-semibold text-brand-primary">7X9K-4MB2-K (₹600)</div>
-                <div className="text-[11px] text-text-secondary">Status: Issued (Unredeemed)</div>
+                <div className="font-semibold text-accent">7X9K-4MB2-K (₹600)</div>
+                <div className="text-xs text-text-secondary">Status: Issued (Unredeemed)</div>
               </button>
 
               <button
@@ -266,10 +266,10 @@ export const PartnerRedeemPage: React.FC = () => {
                   setInputCode('3N8W-9PL5-Y');
                   handleLookup('3N8W-9PL5-Y');
                 }}
-                className="w-full p-2.5 bg-bg-canvas border border-border rounded-lg text-left hover:border-brand-primary space-y-0.5"
+                className="w-full p-2.5 bg-page border border-border rounded-lg text-left hover:border-accent space-y-0.5"
               >
-                <div className="font-semibold text-text-primary">3N8W-9PL5-Y (₹1000)</div>
-                <div className="text-[11px] text-negative font-medium">Status: Already Redeemed (Tests Error)</div>
+                <div className="font-semibold text-text">3N8W-9PL5-Y (₹1000)</div>
+                <div className="text-xs text-negative font-semibold">Status: Already Redeemed (Tests Error)</div>
               </button>
 
               <button
@@ -278,10 +278,10 @@ export const PartnerRedeemPage: React.FC = () => {
                   setInputCode('INVALID-CODE-9');
                   handleLookup('INVALID-CODE-9');
                 }}
-                className="w-full p-2.5 bg-bg-canvas border border-border rounded-lg text-left hover:border-negative space-y-0.5"
+                className="w-full p-2.5 bg-page border border-border rounded-lg text-left hover:border-negative space-y-0.5"
               >
                 <div className="font-semibold text-negative">INVALID-CODE-9</div>
-                <div className="text-[11px] text-text-secondary">Tests Check Digit Failure</div>
+                <div className="text-xs text-text-secondary">Tests Check Digit Failure</div>
               </button>
             </div>
           </div>

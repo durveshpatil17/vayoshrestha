@@ -39,7 +39,7 @@ export const MacroTrendsPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-text-muted mb-1">
+          <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
             <span
               onClick={() => navigate('/telemetry')}
               className="hover:text-accent cursor-pointer"
@@ -47,9 +47,9 @@ export const MacroTrendsPage: React.FC = () => {
               Telemetry
             </span>
             <span>/</span>
-            <span className="text-text-primary font-medium">Macro Trends</span>
+            <span className="text-text font-semibold">Macro Trends</span>
           </div>
-          <h1 className="text-2xl font-semibold text-text-primary">
+          <h1 className="text-2xl font-semibold text-text">
             Longitudinal Health &amp; Policy Trends
           </h1>
           <p className="text-sm text-text-secondary mt-0.5">
@@ -66,7 +66,7 @@ export const MacroTrendsPage: React.FC = () => {
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                 timeWindow === w
                   ? 'bg-accent text-white'
-                  : 'bg-bg-surface border border-border text-text-secondary hover:text-text-primary'
+                  : 'bg-bg-surface border border-border text-text-secondary hover:text-text'
               }`}
             >
               {w.toUpperCase()} Trend
@@ -79,10 +79,10 @@ export const MacroTrendsPage: React.FC = () => {
       <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-semibold text-text-primary">
+            <h2 className="text-base font-semibold text-text">
               Blood Pressure Cohort Stabilization (90 Days)
             </h2>
-            <p className="text-xs text-text-muted mt-0.5">
+            <p className="text-xs text-text-secondary mt-0.5">
               Percentage of weekly readings within target systolic/diastolic thresholds (&lt;140/90 mmHg).
             </p>
           </div>
@@ -96,7 +96,7 @@ export const MacroTrendsPage: React.FC = () => {
         <div className="grid grid-cols-8 gap-2 pt-2">
           {bloodPressureTrend.map((pt) => (
             <div key={pt.week} className="space-y-1 text-center">
-              <div className="h-32 flex flex-col justify-end bg-bg-subtle/40 rounded p-1 gap-1">
+              <div className="h-32 flex flex-col justify-end bg-surface-subtle/40 rounded p-1 gap-1">
                 <div
                   className="w-full bg-critical rounded-sm transition-all"
                   style={{ height: `${pt.crisis * 2}%` }}
@@ -113,15 +113,15 @@ export const MacroTrendsPage: React.FC = () => {
                   title={`Target: ${pt.normal}%`}
                 />
               </div>
-              <span className="text-[11px] font-medium text-text-muted block">{pt.week}</span>
-              <span className="text-[10px] font-semibold text-text-primary block tabular-nums">
+              <span className="text-xs font-semibold text-text-secondary block">{pt.week}</span>
+              <span className="text-xs font-semibold text-text block tabular-nums">
                 {pt.normal}%
               </span>
             </div>
           ))}
         </div>
 
-        <div className="flex items-center justify-center gap-6 pt-2 border-t border-border-hairline text-xs text-text-secondary">
+        <div className="flex items-center justify-center gap-6 pt-2 border-t border-border text-xs text-text-secondary">
           <span className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded-sm bg-accent inline-block" />
             Target BP (&lt;140/90)
@@ -140,10 +140,10 @@ export const MacroTrendsPage: React.FC = () => {
       {/* Trend Card 2: Vaccine Adoption Month-by-Month */}
       <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
         <div>
-          <h2 className="text-base font-semibold text-text-primary">
+          <h2 className="text-base font-semibold text-text">
             Vaccine Uptake Progression (Pilot Quarters)
           </h2>
-          <p className="text-xs text-text-muted mt-0.5">
+          <p className="text-xs text-text-secondary mt-0.5">
             Progress in self-reported adult vaccination awareness across three cohort checkpoints.
           </p>
         </div>
@@ -152,15 +152,15 @@ export const MacroTrendsPage: React.FC = () => {
           {vaccineUptakeTrend.map((m) => (
             <div
               key={m.month}
-              className="p-4 bg-bg-subtle/50 rounded-xl border border-border-hairline space-y-3"
+              className="p-4 bg-surface-subtle/50 rounded-xl border border-border space-y-3"
             >
-              <div className="font-semibold text-sm text-text-primary">{m.month}</div>
+              <div className="font-semibold text-sm text-text">{m.month}</div>
 
               <div className="space-y-2 text-xs">
                 <div>
-                  <div className="flex justify-between text-[11px] text-text-muted mb-0.5">
+                  <div className="flex justify-between text-xs text-text-secondary mb-0.5">
                     <span>COVID-19 Booster</span>
-                    <span className="font-semibold text-text-primary tabular-nums">{m.covid}%</span>
+                    <span className="font-semibold text-text tabular-nums">{m.covid}%</span>
                   </div>
                   <div className="w-full h-1.5 bg-border-hairline rounded-full overflow-hidden">
                     <div className="h-full bg-accent" style={{ width: `${m.covid}%` }} />
@@ -168,9 +168,9 @@ export const MacroTrendsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <div className="flex justify-between text-[11px] text-text-muted mb-0.5">
+                  <div className="flex justify-between text-xs text-text-secondary mb-0.5">
                     <span>Influenza (Annual)</span>
-                    <span className="font-semibold text-text-primary tabular-nums">{m.flu}%</span>
+                    <span className="font-semibold text-text tabular-nums">{m.flu}%</span>
                   </div>
                   <div className="w-full h-1.5 bg-border-hairline rounded-full overflow-hidden">
                     <div className="h-full bg-accent" style={{ width: `${m.flu}%` }} />
@@ -178,9 +178,9 @@ export const MacroTrendsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <div className="flex justify-between text-[11px] text-text-muted mb-0.5">
+                  <div className="flex justify-between text-xs text-text-secondary mb-0.5">
                     <span>Pneumococcal</span>
-                    <span className="font-semibold text-text-primary tabular-nums">{m.pneumo}%</span>
+                    <span className="font-semibold text-text tabular-nums">{m.pneumo}%</span>
                   </div>
                   <div className="w-full h-1.5 bg-border-hairline rounded-full overflow-hidden">
                     <div className="h-full bg-accent" style={{ width: `${m.pneumo}%` }} />

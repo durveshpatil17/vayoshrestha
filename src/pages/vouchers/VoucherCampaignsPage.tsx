@@ -29,7 +29,7 @@ export const VoucherCampaignsPage: React.FC = () => {
         actions={
           <Link
             to="/vouchers/campaigns/new"
-            className="px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+            className="px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
           >
             <Plus className="w-4 h-4" />
             Create Campaign
@@ -48,16 +48,16 @@ export const VoucherCampaignsPage: React.FC = () => {
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] px-2 py-0.5 bg-emerald-50 text-brand-primary rounded font-semibold capitalize">
+                  <span className="text-xs px-2 py-0.5 bg-emerald-50 text-accent rounded font-semibold ">
                     {camp.category}
                   </span>
-                  <span className="text-xs text-brand-primary font-semibold">
+                  <span className="text-xs text-accent font-semibold">
                     ₹{camp.faceValueInr} / voucher
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-serif font-semibold text-text-primary">
+                  <h3 className="text-base  font-semibold text-text">
                     {camp.name}
                   </h3>
                   <p className="text-xs text-text-secondary mt-1 leading-relaxed">
@@ -68,20 +68,20 @@ export const VoucherCampaignsPage: React.FC = () => {
                 {/* Progress Indicators */}
                 <div className="space-y-2 pt-2 border-t border-border text-xs">
                   <div>
-                    <div className="flex justify-between text-[11px] text-text-secondary mb-1">
+                    <div className="flex justify-between text-xs text-text-secondary mb-1">
                       <span>Issuance: {camp.totalIssued} / {camp.totalAllocated}</span>
-                      <span className="font-semibold text-text-primary">{issuedPercent}%</span>
+                      <span className="font-semibold text-text">{issuedPercent}%</span>
                     </div>
                     <div className="w-full bg-border rounded-full h-1.5 overflow-hidden">
                       <div
-                        className="h-full bg-brand-primary"
+                        className="h-full bg-accent"
                         style={{ width: `${issuedPercent}%` }}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-[11px] text-text-secondary mb-1">
+                    <div className="flex justify-between text-xs text-text-secondary mb-1">
                       <span>Redemption: {camp.totalRedeemed} / {camp.totalIssued}</span>
                       <span className="font-semibold text-emerald-800">{redeemedPercent}%</span>
                     </div>
@@ -102,7 +102,7 @@ export const VoucherCampaignsPage: React.FC = () => {
                 </div>
                 <Link
                   to={`/vouchers?campaign=${camp.id}`}
-                  className="text-brand-primary font-semibold hover:underline flex items-center gap-1"
+                  className="text-accent font-semibold hover:underline flex items-center gap-1"
                 >
                   View Vouchers
                   <ArrowRight className="w-3.5 h-3.5" />

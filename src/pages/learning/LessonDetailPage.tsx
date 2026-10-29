@@ -9,6 +9,7 @@ import {
   Volume2,
   ShieldCheck,
   Check,
+  CheckCheck,
 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import {
@@ -29,11 +30,11 @@ export const LessonDetailPage: React.FC = () => {
   if (!lesson) {
     return (
       <div className="p-8 text-center space-y-4">
-        <h2 className="text-xl font-serif font-semibold text-text-primary">Lesson Not Found</h2>
+        <h2 className="text-xl  font-semibold text-text">Lesson Not Found</h2>
         <p className="text-sm text-text-secondary">The requested micro-lesson does not exist.</p>
         <Link
           to="/learning/library"
-          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg"
+          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Library
@@ -64,7 +65,7 @@ export const LessonDetailPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={handleSendTest}
-              className="px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+              className="px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
             >
               {testSent ? <Check className="w-4 h-4" /> : <Send className="w-4 h-4" />}
               {testSent ? 'Sent to Simulator' : 'Test Dispatch (WhatsApp)'}
@@ -78,10 +79,10 @@ export const LessonDetailPage: React.FC = () => {
         <div className="lg:col-span-2 space-y-6">
           <div className="p-6 bg-bg-surface border border-border rounded-xl space-y-4">
             <div>
-              <span className="text-xs font-semibold text-brand-primary capitalize">
+              <span className="text-xs font-semibold text-accent ">
                 {lesson.category.replace(/_/g, ' ')}
               </span>
-              <h3 className="text-xl font-serif font-semibold text-text-primary mt-1">
+              <h3 className="text-xl  font-semibold text-text mt-1">
                 {lesson.title}
               </h3>
               <p className="text-xs text-text-secondary mt-1">
@@ -90,25 +91,25 @@ export const LessonDetailPage: React.FC = () => {
             </div>
 
             {/* Simulated Voice Note Bar */}
-            <div className="p-4 bg-bg-canvas border border-border rounded-lg flex items-center justify-between">
+            <div className="p-4 bg-page border border-border rounded-lg flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => setIsPlayingAudio(!isPlayingAudio)}
-                  className="w-9 h-9 rounded-full bg-brand-primary text-white flex items-center justify-center hover:bg-brand-primary/90"
+                  className="w-9 h-9 rounded-full bg-accent text-white flex items-center justify-center hover:bg-accent/90"
                 >
                   <Volume2 className="w-4 h-4" />
                 </button>
                 <div>
-                  <div className="text-xs font-semibold text-text-primary">
+                  <div className="text-xs font-semibold text-text">
                     {isPlayingAudio ? 'Playing Marathi Audio Narration...' : 'Audio Narration (For Non-Reading Elders)'}
                   </div>
-                  <div className="text-[11px] text-text-secondary">
+                  <div className="text-xs text-text-secondary">
                     Voice Note length: 1 min 45 sec · Recorded by Ekta Hub Lead
                   </div>
                 </div>
               </div>
-              <span className="text-xs text-brand-primary font-semibold">Voice Enabled</span>
+              <span className="text-xs text-accent font-semibold">Voice Enabled</span>
             </div>
 
             {/* WhatsApp Chat Speech Bubble */}
@@ -116,12 +117,12 @@ export const LessonDetailPage: React.FC = () => {
               <h4 className="text-xs font-semibold text-text-secondary">
                 Rendered WhatsApp Speech Bubble Preview
               </h4>
-              <div className="p-5 bg-[#EFEAE2] rounded-xl space-y-2">
-                <div className="bg-[#E7FFDB] p-4 rounded-xl border border-emerald-200 text-xs text-[#111B21] whitespace-pre-wrap leading-relaxed max-w-lg">
+              <div className="p-5 bg-page rounded-container border border-border space-y-2">
+                <div className="bg-surface p-4 rounded-container border border-border text-xs text-text whitespace-pre-wrap leading-relaxed max-w-lg">
                   {lesson.whatsappBubbleText}
-                  <div className="text-[10px] text-text-secondary text-right mt-2 flex items-center justify-end gap-1">
+                  <div className="text-xs text-text-secondary text-right mt-2 flex items-center justify-end gap-1 tabular-nums">
                     <span>10:30 AM</span>
-                    <span className="text-emerald-700 font-semibold">✓✓</span>
+                    <CheckCheck className="w-3.5 h-3.5 text-accent stroke-[1.5]" />
                   </div>
                 </div>
               </div>
@@ -132,19 +133,19 @@ export const LessonDetailPage: React.FC = () => {
         {/* Right Column: Link Safety & Governance */}
         <div className="space-y-6">
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-            <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-brand-primary" />
+            <h3 className="text-sm font-semibold text-text flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-accent" />
               URL Safety Verification
             </h3>
 
             {lesson.externalLink ? (
               <div className="space-y-3 text-xs">
-                <div className="p-3 bg-emerald-50 border border-brand-primary/20 rounded-lg space-y-1">
-                  <div className="font-semibold text-brand-primary flex items-center gap-1">
+                <div className="p-3 bg-emerald-50 border border-accent/20 rounded-lg space-y-1">
+                  <div className="font-semibold text-accent flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>Allowlisted Safe Domain</span>
                   </div>
-                  <div className="text-text-primary break-all">{lesson.externalLink}</div>
+                  <div className="text-text break-all">{lesson.externalLink}</div>
                 </div>
                 <p className="text-text-secondary leading-relaxed">
                   All external hyperlinks sent to elders are strictly checked against government and verified NGO
@@ -159,7 +160,7 @@ export const LessonDetailPage: React.FC = () => {
           </div>
 
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-3 text-xs">
-            <div className="font-semibold text-text-primary">Author & Maker-Checker</div>
+            <div className="font-semibold text-text">Author & Maker-Checker</div>
             <div className="text-text-secondary">Author: {lesson.author}</div>
             <div className="text-text-secondary">Approved By: {lesson.approvedBy || 'Pending sign-off'}</div>
             <div className="text-text-secondary">Created: {new Date(lesson.createdAt).toLocaleDateString()}</div>

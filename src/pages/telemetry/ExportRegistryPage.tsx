@@ -97,7 +97,7 @@ export const ExportRegistryPage: React.FC = () => {
         actions={
           <Link
             to="/telemetry/packs"
-            className="px-3 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+            className="px-3 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
           >
             <FileCheck2 className="w-4 h-4" />
             Manage Impact Packs
@@ -108,11 +108,11 @@ export const ExportRegistryPage: React.FC = () => {
       {/* Summary Banner */}
       <div className="p-4 bg-bg-surface border border-border rounded-xl flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-emerald-50 rounded-lg text-brand-primary">
+          <div className="p-2 bg-emerald-50 rounded-lg text-accent">
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs font-semibold text-text-primary">
+            <div className="text-xs font-semibold text-text">
               Cryptographic Integrity Verification
             </div>
             <div className="text-xs text-text-secondary mt-0.5">
@@ -122,7 +122,7 @@ export const ExportRegistryPage: React.FC = () => {
         </div>
         <Link
           to="/verify"
-          className="text-xs text-brand-primary font-semibold flex items-center gap-1 hover:underline"
+          className="text-xs text-accent font-semibold flex items-center gap-1 hover:underline"
         >
           Verify an Export
           <ExternalLink className="w-3.5 h-3.5" />
@@ -138,7 +138,7 @@ export const ExportRegistryPage: React.FC = () => {
             placeholder="Search code, title, audience..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none focus:border-brand-primary"
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-page border border-border rounded-lg text-text focus:outline-none focus:border-accent"
           />
         </div>
         <div className="text-xs text-text-secondary">
@@ -150,7 +150,7 @@ export const ExportRegistryPage: React.FC = () => {
       <div className="bg-bg-surface border border-border rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
-            <thead className="bg-bg-canvas text-text-secondary border-b border-border">
+            <thead className="bg-page text-text-secondary border-b border-border">
               <tr>
                 <th className="p-3.5 font-semibold">Verification Code</th>
                 <th className="p-3.5 font-semibold">Artifact Title</th>
@@ -163,34 +163,34 @@ export const ExportRegistryPage: React.FC = () => {
             </thead>
             <tbody className="divide-y divide-border">
               {filtered.map((item) => (
-                <tr key={item.id} className="hover:bg-bg-canvas/50 transition-colors">
-                  <td className="p-3.5 font-semibold text-brand-primary">
+                <tr key={item.id} className="hover:bg-page/50 transition-colors">
+                  <td className="p-3.5 font-semibold text-accent">
                     <Link to={`/verify/${item.code}`} className="hover:underline">
                       {item.code}
                     </Link>
                   </td>
-                  <td className="p-3.5 font-semibold text-text-primary max-w-xs truncate">
+                  <td className="p-3.5 font-semibold text-text max-w-xs truncate">
                     {item.title}
                   </td>
                   <td className="p-3.5 text-text-secondary">{item.format}</td>
                   <td className="p-3.5">
-                    <span className="px-2 py-0.5 bg-bg-canvas border border-border rounded text-text-secondary">
+                    <span className="px-2 py-0.5 bg-page border border-border rounded text-text-secondary">
                       {item.targetAudience}
                     </span>
                   </td>
                   <td className="p-3.5 text-text-secondary">{item.releasedBy}</td>
                   <td className="p-3.5 text-text-secondary">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-text-primary text-[11px]" title={item.sha256Hash}>
+                      <span className="text-text text-xs" title={item.sha256Hash}>
                         {item.sha256Hash.substring(0, 14)}...
                       </span>
                       <button
                         onClick={() => handleCopy(item.id, item.sha256Hash)}
-                        className="text-text-secondary hover:text-brand-primary"
+                        className="text-text-secondary hover:text-accent"
                         title="Copy SHA-256 hash"
                       >
                         {copiedId === item.id ? (
-                          <Check className="w-3 h-3 text-brand-primary" />
+                          <Check className="w-3 h-3 text-accent" />
                         ) : (
                           <Copy className="w-3 h-3" />
                         )}
@@ -200,7 +200,7 @@ export const ExportRegistryPage: React.FC = () => {
                   <td className="p-3.5 text-right space-x-2">
                     <Link
                       to={`/verify/${item.code}`}
-                      className="text-brand-primary hover:underline font-semibold"
+                      className="text-accent hover:underline font-semibold"
                     >
                       Verify
                     </Link>

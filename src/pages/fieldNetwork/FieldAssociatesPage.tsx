@@ -178,7 +178,7 @@ export const FieldAssociatesPage: React.FC = () => {
       {/* Page Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-text-muted mb-1">
+          <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
             <span
               onClick={() => navigate('/field-network')}
               className="hover:text-accent cursor-pointer"
@@ -186,9 +186,9 @@ export const FieldAssociatesPage: React.FC = () => {
               Field Network
             </span>
             <span>/</span>
-            <span className="text-text-primary font-medium">Associates Roster</span>
+            <span className="text-text font-semibold">Associates Roster</span>
           </div>
-          <h1 className="text-2xl font-semibold text-text-primary">
+          <h1 className="text-2xl font-semibold text-text">
             Senior Field Associates Roster
           </h1>
           <p className="text-sm text-text-secondary mt-0.5">
@@ -219,7 +219,7 @@ export const FieldAssociatesPage: React.FC = () => {
           <select
             value={chapterFilter}
             onChange={(e) => setChapterFilter(e.target.value)}
-            className="h-10 px-3 rounded-lg border border-border bg-bg-surface text-text-primary text-xs focus:border-accent"
+            className="h-10 px-3 rounded-lg border border-border bg-bg-surface text-text text-xs focus:border-accent"
           >
             <option value="ALL">All Chapters (9 Ekta Hubs)</option>
             <option value="HUB-PUN">Pune Ekta Hub</option>
@@ -236,7 +236,7 @@ export const FieldAssociatesPage: React.FC = () => {
           <select
             value={trainingFilter}
             onChange={(e) => setTrainingFilter(e.target.value)}
-            className="h-10 px-3 rounded-lg border border-border bg-bg-surface text-text-primary text-xs focus:border-accent"
+            className="h-10 px-3 rounded-lg border border-border bg-bg-surface text-text text-xs focus:border-accent"
           >
             <option value="ALL">All Training Statuses</option>
             <option value="Certified">Certified (DPDP Ready)</option>
@@ -250,7 +250,7 @@ export const FieldAssociatesPage: React.FC = () => {
       <div className="bg-bg-surface border border-border rounded-xl overflow-hidden">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-border bg-bg-subtle text-text-muted text-[11px] font-semibold">
+            <tr className="border-b border-border bg-surface-subtle text-text-secondary text-xs font-semibold">
               <th className="py-3 px-4">Associate Name &amp; Phone</th>
               <th className="py-3 px-4">Assigned Chapter</th>
               <th className="py-3 px-4">Training Certification</th>
@@ -266,26 +266,26 @@ export const FieldAssociatesPage: React.FC = () => {
               <tr
                 key={a.id}
                 onClick={() => navigate(`/field-network/associates/${a.id}`)}
-                className="hover:bg-bg-subtle/50 cursor-pointer transition-colors"
+                className="hover:bg-surface-subtle/50 cursor-pointer transition-colors"
               >
-                <td className="py-3 px-4 font-medium text-text-primary">
-                  <div className="font-semibold text-text-primary text-sm">{a.fullName}</div>
-                  <div className="text-[11px] text-text-muted tabular-nums mt-0.5">{a.phone}</div>
+                <td className="py-3 px-4 font-semibold text-text">
+                  <div className="font-semibold text-text text-sm">{a.fullName}</div>
+                  <div className="text-xs text-text-secondary tabular-nums mt-0.5">{a.phone}</div>
                 </td>
                 <td className="py-3 px-4">
-                  <div className="flex items-center gap-1.5 text-text-primary">
+                  <div className="flex items-center gap-1.5 text-text">
                     <MapPin className="w-3.5 h-3.5 text-accent flex-shrink-0" />
                     <span>{a.chapterName}</span>
                   </div>
                 </td>
                 <td className="py-3 px-4">
                   <span
-                    className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+                    className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full ${
                       a.trainingStatus === 'Certified'
                         ? 'bg-positive-tint text-positive'
                         : a.trainingStatus === 'In Training'
                         ? 'bg-critical-tint text-critical'
-                        : 'bg-bg-subtle text-text-secondary'
+                        : 'bg-surface-subtle text-text-secondary'
                     }`}
                   >
                     {a.trainingStatus === 'Certified' && <CheckCircle className="w-3 h-3" />}
@@ -295,25 +295,25 @@ export const FieldAssociatesPage: React.FC = () => {
                 <td className="py-3 px-4 text-center font-semibold text-accent tabular-nums text-sm">
                   {a.onboardedCount}
                 </td>
-                <td className="py-3 px-4 text-center tabular-nums text-text-primary">
+                <td className="py-3 px-4 text-center tabular-nums text-text">
                   {a.activityCount}
                 </td>
                 <td className="py-3 px-4">
                   <span
-                    className={`text-[11px] font-semibold px-2 py-0.5 rounded ${
+                    className={`text-xs font-semibold px-2 py-0.5 rounded ${
                       a.isActive
                         ? 'bg-positive-tint text-positive'
-                        : 'bg-bg-subtle text-text-muted'
+                        : 'bg-surface-subtle text-text-secondary'
                     }`}
                   >
                     {a.isActive ? 'Active' : 'Deactivated'}
                   </span>
                 </td>
-                <td className="py-3 px-4 text-text-muted tabular-nums">
+                <td className="py-3 px-4 text-text-secondary tabular-nums">
                   {a.lastActiveAt}
                 </td>
                 <td className="py-3 px-4 text-right">
-                  <ChevronRight className="w-4 h-4 text-text-muted inline-block" />
+                  <ChevronRight className="w-4 h-4 text-text-secondary inline-block" />
                 </td>
               </tr>
             ))}

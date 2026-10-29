@@ -65,7 +65,7 @@ export const VoucherCampaignNewPage: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full p-2.5 bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none focus:border-brand-primary"
+              className="w-full p-2.5 bg-page border border-border rounded-lg text-text focus:outline-none focus:border-accent"
             />
           </div>
 
@@ -75,7 +75,7 @@ export const VoucherCampaignNewPage: React.FC = () => {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as any)}
-                className="w-full p-2.5 bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none"
+                className="w-full p-2.5 bg-page border border-border rounded-lg text-text focus:outline-none"
               >
                 <option value="diagnostic">Diagnostic Screening</option>
                 <option value="grocery">Nutrition & Grocery</option>
@@ -93,7 +93,7 @@ export const VoucherCampaignNewPage: React.FC = () => {
                 value={faceValueInr}
                 onChange={(e) => setFaceValueInr(parseInt(e.target.value, 10))}
                 required
-                className="w-full p-2.5 bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none"
+                className="w-full p-2.5 bg-page border border-border rounded-lg text-text focus:outline-none"
               />
             </div>
           </div>
@@ -107,13 +107,13 @@ export const VoucherCampaignNewPage: React.FC = () => {
                 value={totalAllocated}
                 onChange={(e) => setTotalAllocated(parseInt(e.target.value, 10))}
                 required
-                className="w-full p-2.5 bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none"
+                className="w-full p-2.5 bg-page border border-border rounded-lg text-text focus:outline-none"
               />
             </div>
 
             <div className="space-y-1">
               <label className="font-semibold text-text-secondary">Total Budget Commitment:</label>
-              <div className="p-2.5 bg-bg-canvas border border-border rounded-lg font-semibold text-brand-primary text-sm">
+              <div className="p-2.5 bg-page border border-border rounded-lg font-semibold text-accent text-sm">
                 ₹{(faceValueInr * totalAllocated).toLocaleString()}
               </div>
             </div>
@@ -127,7 +127,7 @@ export const VoucherCampaignNewPage: React.FC = () => {
                 value={validFrom}
                 onChange={(e) => setValidFrom(e.target.value)}
                 required
-                className="w-full p-2.5 bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none"
+                className="w-full p-2.5 bg-page border border-border rounded-lg text-text focus:outline-none"
               />
             </div>
 
@@ -138,7 +138,7 @@ export const VoucherCampaignNewPage: React.FC = () => {
                 value={validUntil}
                 onChange={(e) => setValidUntil(e.target.value)}
                 required
-                className="w-full p-2.5 bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none"
+                className="w-full p-2.5 bg-page border border-border rounded-lg text-text focus:outline-none"
               />
             </div>
           </div>
@@ -150,7 +150,7 @@ export const VoucherCampaignNewPage: React.FC = () => {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               required
-              className="w-full p-2.5 bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none focus:border-brand-primary"
+              className="w-full p-2.5 bg-page border border-border rounded-lg text-text focus:outline-none focus:border-accent"
             />
           </div>
 
@@ -158,13 +158,13 @@ export const VoucherCampaignNewPage: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate('/vouchers/campaigns')}
-              className="px-4 py-2 border border-border rounded-lg font-semibold text-text-secondary hover:bg-bg-canvas"
+              className="px-4 py-2 border border-border rounded-lg font-semibold text-text-secondary hover:bg-page"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-5 py-2 bg-brand-primary text-white rounded-lg font-semibold hover:bg-brand-primary/90 flex items-center gap-1.5"
+              className="px-5 py-2 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 flex items-center gap-1.5"
             >
               Launch Campaign
               <ArrowRight className="w-4 h-4" />

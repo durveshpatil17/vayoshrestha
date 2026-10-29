@@ -94,7 +94,7 @@ export const ImpactPackNewPage: React.FC = () => {
       />
 
       {/* Mandatory Notice */}
-      <div className="p-4 bg-emerald-50 border border-brand-primary/20 rounded-xl flex items-center justify-between text-xs text-brand-primary">
+      <div className="p-4 bg-emerald-50 border border-accent/20 rounded-xl flex items-center justify-between text-xs text-accent">
         <span className="font-semibold">
           Maker-Checker Protocol: Newly created packs remain in Draft status until approved and cryptographically sealed by a National Manager.
         </span>
@@ -105,7 +105,7 @@ export const ImpactPackNewPage: React.FC = () => {
         <form onSubmit={handleSubmit} className="lg:col-span-2 space-y-6">
           {/* Template Selection */}
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-            <h3 className="text-sm font-semibold text-text-primary">
+            <h3 className="text-sm font-semibold text-text">
               1. Select Impact Pack Template
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -114,13 +114,13 @@ export const ImpactPackNewPage: React.FC = () => {
                 onClick={() => handleTemplateSelect('csr_impact_brief')}
                 className={`p-4 border rounded-xl text-left transition-all ${
                   selectedTemplate === 'csr_impact_brief'
-                    ? 'border-brand-primary bg-emerald-50/30'
+                    ? 'border-accent bg-emerald-50/30'
                     : 'border-border hover:border-text-secondary/40'
                 }`}
               >
-                <Building className="w-5 h-5 text-brand-primary mb-2" />
-                <div className="text-xs font-semibold text-text-primary">CSR Impact Brief</div>
-                <div className="text-[11px] text-text-secondary mt-1">
+                <Building className="w-5 h-5 text-accent mb-2" />
+                <div className="text-xs font-semibold text-text">CSR Impact Brief</div>
+                <div className="text-xs text-text-secondary mt-1">
                   Hub reach, volunteer hours, welfare aid, voucher redemptions.
                 </div>
               </button>
@@ -130,13 +130,13 @@ export const ImpactPackNewPage: React.FC = () => {
                 onClick={() => handleTemplateSelect('govt_health_brief')}
                 className={`p-4 border rounded-xl text-left transition-all ${
                   selectedTemplate === 'govt_health_brief'
-                    ? 'border-brand-primary bg-emerald-50/30'
+                    ? 'border-accent bg-emerald-50/30'
                     : 'border-border hover:border-text-secondary/40'
                 }`}
               >
-                <HeartPulse className="w-5 h-5 text-brand-primary mb-2" />
-                <div className="text-xs font-semibold text-text-primary">Government Health Brief</div>
-                <div className="text-[11px] text-text-secondary mt-1">
+                <HeartPulse className="w-5 h-5 text-accent mb-2" />
+                <div className="text-xs font-semibold text-text">Government Health Brief</div>
+                <div className="text-xs text-text-secondary mt-1">
                   Vaccination status, 90-day BP control, non-clinical aggregates.
                 </div>
               </button>
@@ -146,13 +146,13 @@ export const ImpactPackNewPage: React.FC = () => {
                 onClick={() => handleTemplateSelect('insurance_age_bar_evidence')}
                 className={`p-4 border rounded-xl text-left transition-all ${
                   selectedTemplate === 'insurance_age_bar_evidence'
-                    ? 'border-brand-primary bg-emerald-50/30'
+                    ? 'border-accent bg-emerald-50/30'
                     : 'border-border hover:border-text-secondary/40'
                 }`}
               >
-                <Award className="w-5 h-5 text-brand-primary mb-2" />
-                <div className="text-xs font-semibold text-text-primary">Insurance Age-Bar Dossier</div>
-                <div className="text-[11px] text-text-secondary mt-1">
+                <Award className="w-5 h-5 text-accent mb-2" />
+                <div className="text-xs font-semibold text-text">Insurance Age-Bar Dossier</div>
+                <div className="text-xs text-text-secondary mt-1">
                   Empirical vital stability and adherence in age 65–85 excluded seniors.
                 </div>
               </button>
@@ -162,13 +162,13 @@ export const ImpactPackNewPage: React.FC = () => {
                 onClick={() => handleTemplateSelect('elder_protection_evidence')}
                 className={`p-4 border rounded-xl text-left transition-all ${
                   selectedTemplate === 'elder_protection_evidence'
-                    ? 'border-brand-primary bg-emerald-50/30'
+                    ? 'border-accent bg-emerald-50/30'
                     : 'border-border hover:border-text-secondary/40'
                 }`}
               >
-                <Scale className="w-5 h-5 text-brand-primary mb-2" />
-                <div className="text-xs font-semibold text-text-primary">Elder Protection Dossier</div>
-                <div className="text-[11px] text-text-secondary mt-1">
+                <Scale className="w-5 h-5 text-accent mb-2" />
+                <div className="text-xs font-semibold text-text">Elder Protection Dossier</div>
+                <div className="text-xs text-text-secondary mt-1">
                   Pro-bono legal inquiries, property disputes, turnaround times.
                 </div>
               </button>
@@ -177,28 +177,28 @@ export const ImpactPackNewPage: React.FC = () => {
 
           {/* Metadata Configuration */}
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-            <h3 className="text-sm font-semibold text-text-primary">
+            <h3 className="text-sm font-semibold text-text">
               2. Dossier Details & Scoping
             </h3>
 
             <div className="space-y-1">
-              <label className="text-xs font-medium text-text-secondary">Pack Title</label>
+              <label className="text-xs font-semibold text-text-secondary">Pack Title</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                className="w-full px-3 py-2 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none focus:border-brand-primary"
+                className="w-full px-3 py-2 text-xs bg-page border border-border rounded-lg text-text focus:outline-none focus:border-accent"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-xs font-medium text-text-secondary">Target Audience</label>
+                <label className="text-xs font-semibold text-text-secondary">Target Audience</label>
                 <select
                   value={audience}
                   onChange={(e) => setAudience(e.target.value as PackAudience)}
-                  className="w-full px-3 py-2 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none"
+                  className="w-full px-3 py-2 text-xs bg-page border border-border rounded-lg text-text focus:outline-none"
                 >
                   <option value="CSR">CSR Donors & Foundations</option>
                   <option value="Government">Government & ABDM Officials</option>
@@ -209,11 +209,11 @@ export const ImpactPackNewPage: React.FC = () => {
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-medium text-text-secondary">Chapter Scope</label>
+                <label className="text-xs font-semibold text-text-secondary">Chapter Scope</label>
                 <select
                   value={chapterFilter}
                   onChange={(e) => setChapterFilter(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none"
+                  className="w-full px-3 py-2 text-xs bg-page border border-border rounded-lg text-text focus:outline-none"
                 >
                   <option value="all">All Chapters (9 Ekta Hubs)</option>
                   <option value="pune">Pune Chapters Only</option>
@@ -225,33 +225,33 @@ export const ImpactPackNewPage: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-xs font-medium text-text-secondary">Reporting Start Date</label>
+                <label className="text-xs font-semibold text-text-secondary">Reporting Start Date</label>
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none"
+                  className="w-full px-3 py-2 text-xs bg-page border border-border rounded-lg text-text focus:outline-none"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-medium text-text-secondary">Reporting End Date</label>
+                <label className="text-xs font-semibold text-text-secondary">Reporting End Date</label>
                 <input
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none"
+                  className="w-full px-3 py-2 text-xs bg-page border border-border rounded-lg text-text focus:outline-none"
                 />
               </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-medium text-text-secondary">Executive Summary</label>
+              <label className="text-xs font-semibold text-text-secondary">Executive Summary</label>
               <textarea
                 rows={3}
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-bg-canvas border border-border rounded-lg text-text-primary focus:outline-none focus:border-brand-primary"
+                className="w-full px-3 py-2 text-xs bg-page border border-border rounded-lg text-text focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -259,14 +259,14 @@ export const ImpactPackNewPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => navigate('/telemetry/packs')}
-                className="px-4 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-bg-canvas"
+                className="px-4 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-page"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-5 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+                className="px-5 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
               >
                 {isSubmitting ? 'Creating...' : 'Create Draft Pack'}
                 <ArrowRight className="w-4 h-4" />
@@ -278,42 +278,42 @@ export const ImpactPackNewPage: React.FC = () => {
         {/* Live Preview Column */}
         <div className="space-y-4">
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-            <div className="flex items-center gap-2 text-brand-primary text-xs font-semibold">
+            <div className="flex items-center gap-2 text-accent text-xs font-semibold">
               <Eye className="w-4 h-4" />
               <span>Dossier Live Preview</span>
             </div>
 
-            <div className="p-4 bg-bg-canvas border border-border rounded-lg space-y-3 relative overflow-hidden">
-              <div className="text-[10px] text-amber-800 bg-amber-50 border border-amber-200 p-1.5 rounded font-semibold text-center">
+            <div className="p-4 bg-page border border-border rounded-lg space-y-3 relative overflow-hidden">
+              <div className="text-xs text-amber-800 bg-amber-50 border border-amber-200 p-1.5 rounded font-semibold text-center">
                 {WATERMARK_TEXT}
               </div>
 
               <div>
-                <div className="text-[11px] text-brand-primary font-semibold">{audience} Evidence Pack</div>
-                <h4 className="text-sm font-serif font-semibold text-text-primary mt-0.5">{title}</h4>
+                <div className="text-xs text-accent font-semibold">{audience} Evidence Pack</div>
+                <h4 className="text-sm  font-semibold text-text mt-0.5">{title}</h4>
                 <p className="text-xs text-text-secondary mt-1">{summary}</p>
               </div>
 
               <div className="pt-2 border-t border-border space-y-2">
-                <div className="text-[11px] font-semibold text-text-secondary">Included Metrics:</div>
+                <div className="text-xs font-semibold text-text-secondary">Included Metrics:</div>
                 <div className="space-y-1.5">
                   {Object.entries(currentTemplate.standardMetrics).map(([key, val]) => (
                     <div key={key} className="flex justify-between text-xs">
-                      <span className="text-text-secondary capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
-                      <span className="font-semibold text-text-primary">{val}</span>
+                      <span className="text-text-secondary ">{key.replace(/([A-Z])/g, ' $1')}</span>
+                      <span className="font-semibold text-text">{val}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-border flex items-center justify-between text-[11px] text-text-secondary">
+              <div className="pt-2 border-t border-border flex items-center justify-between text-xs text-text-secondary">
                 <span>Privacy: k ≥ 5 Applied</span>
-                <span className="font-semibold text-brand-primary">Draft (Unsealed)</span>
+                <span className="font-semibold text-accent">Draft (Unsealed)</span>
               </div>
             </div>
 
             <div className="text-xs text-text-secondary flex items-start gap-2">
-              <ShieldAlert className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
+              <ShieldAlert className="w-4 h-4 text-accent shrink-0 mt-0.5" />
               <span>
                 Once submitted for review, the pack is locked against edits and reviewed by the National Manager.
               </span>

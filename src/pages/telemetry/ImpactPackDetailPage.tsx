@@ -33,11 +33,11 @@ export const ImpactPackDetailPage: React.FC = () => {
   if (!pack) {
     return (
       <div className="p-8 text-center space-y-4">
-        <h2 className="text-xl font-serif font-semibold text-text-primary">Impact Pack Not Found</h2>
+        <h2 className="text-xl  font-semibold text-text">Impact Pack Not Found</h2>
         <p className="text-sm text-text-secondary">The requested impact dossier does not exist.</p>
         <Link
           to="/telemetry/packs"
-          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg"
+          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Impact Packs
@@ -95,7 +95,7 @@ export const ImpactPackDetailPage: React.FC = () => {
               <button
                 onClick={handleSubmitForReview}
                 disabled={isProcessing}
-                className="px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+                className="px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
               >
                 <Clock className="w-4 h-4" />
                 {isProcessing ? 'Submitting...' : 'Submit for NM Review'}
@@ -106,7 +106,7 @@ export const ImpactPackDetailPage: React.FC = () => {
               <button
                 onClick={handleRelease}
                 disabled={isProcessing}
-                className="px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+                className="px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
               >
                 <ShieldCheck className="w-4 h-4" />
                 {isProcessing ? 'Sealing...' : 'Approve & Release (Seal SHA-256)'}
@@ -117,14 +117,14 @@ export const ImpactPackDetailPage: React.FC = () => {
               <>
                 <Link
                   to={`/verify/${pack.code}`}
-                  className="px-3 py-2 text-xs font-semibold text-brand-primary border border-brand-primary/30 rounded-lg hover:bg-emerald-50/50 flex items-center gap-1.5"
+                  className="px-3 py-2 text-xs font-semibold text-accent border border-accent/30 rounded-lg hover:bg-emerald-50/50 flex items-center gap-1.5"
                 >
                   <ExternalLink className="w-4 h-4" />
                   Public Verification Gateway
                 </Link>
                 <button
                   onClick={() => setShowPrintView(!showPrintView)}
-                  className="px-4 py-2 text-xs font-semibold text-white bg-brand-primary rounded-lg hover:bg-brand-primary/90 flex items-center gap-1.5"
+                  className="px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
                 >
                   <Printer className="w-4 h-4" />
                   {showPrintView ? 'Close Print Preview' : 'Printable Dossier'}
@@ -147,8 +147,8 @@ export const ImpactPackDetailPage: React.FC = () => {
           <div className="p-6 bg-bg-surface border border-border rounded-xl space-y-4">
             <div className="flex items-start justify-between">
               <div>
-                <span className="text-xs text-brand-primary font-semibold">{pack.audience} Target Evidence</span>
-                <h3 className="text-xl font-serif font-semibold text-text-primary mt-1">{pack.title}</h3>
+                <span className="text-xs text-accent font-semibold">{pack.audience} Target Evidence</span>
+                <h3 className="text-xl  font-semibold text-text mt-1">{pack.title}</h3>
                 <p className="text-xs text-text-secondary mt-1">
                   Reporting Period: {pack.dateRange.start} to {pack.dateRange.end} · Chapter: {pack.chapterFilter}
                 </p>
@@ -156,7 +156,7 @@ export const ImpactPackDetailPage: React.FC = () => {
               <div>
                 {pack.status === 'released' && (
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-full text-xs font-semibold">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-brand-primary" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
                     Cryptographically Sealed
                   </span>
                 )}
@@ -176,7 +176,7 @@ export const ImpactPackDetailPage: React.FC = () => {
 
             <div className="pt-3 border-t border-border">
               <h4 className="text-xs font-semibold text-text-secondary">Executive Summary</h4>
-              <p className="text-xs text-text-primary leading-relaxed mt-1">{pack.summary}</p>
+              <p className="text-xs text-text leading-relaxed mt-1">{pack.summary}</p>
             </div>
 
             {/* Metrics Table */}
@@ -184,7 +184,7 @@ export const ImpactPackDetailPage: React.FC = () => {
               <h4 className="text-xs font-semibold text-text-secondary">Aggregated Telemetry Indicators</h4>
               <div className="overflow-x-auto border border-border rounded-lg">
                 <table className="w-full text-xs text-left">
-                  <thead className="bg-bg-canvas text-text-secondary border-b border-border">
+                  <thead className="bg-page text-text-secondary border-b border-border">
                     <tr>
                       <th className="p-3 font-semibold">Metric Name</th>
                       <th className="p-3 font-semibold">Reported Value</th>
@@ -194,10 +194,10 @@ export const ImpactPackDetailPage: React.FC = () => {
                   <tbody className="divide-y divide-border">
                     {Object.entries(pack.metrics).map(([key, val]) => (
                       <tr key={key}>
-                        <td className="p-3 font-medium text-text-primary capitalize">
+                        <td className="p-3 font-semibold text-text ">
                           {key.replace(/([A-Z])/g, ' $1')}
                         </td>
-                        <td className="p-3 font-semibold text-brand-primary">{val}</td>
+                        <td className="p-3 font-semibold text-accent">{val}</td>
                         <td className="p-3 text-text-secondary">k ≥ 5 Confirmed</td>
                       </tr>
                     ))}
@@ -209,10 +209,10 @@ export const ImpactPackDetailPage: React.FC = () => {
 
           {/* Printable HTML Dossier View */}
           {showPrintView && (
-            <div className="p-8 bg-white border-2 border-border rounded-xl space-y-6 relative overflow-hidden text-text-primary print:border-none">
+            <div className="p-8 bg-white border-2 border-border rounded-xl space-y-6 relative overflow-hidden text-text print:border-none">
               <div className="text-center border-b pb-4 space-y-1">
-                <div className="text-xs text-brand-primary font-semibold">VAYOH VIKAS TRUST · ECOSYSTEM TELEMETRY</div>
-                <h2 className="text-xl font-serif font-semibold">{pack.title}</h2>
+                <div className="text-xs text-accent font-semibold">VAYOH VIKAS TRUST · ECOSYSTEM TELEMETRY</div>
+                <h2 className="text-xl  font-semibold">{pack.title}</h2>
                 <div className="text-xs text-text-secondary">
                   Official Verification ID: {pack.code} · Date: {pack.releasedAt ? new Date(pack.releasedAt).toLocaleDateString() : 'Pending'}
                 </div>
@@ -228,22 +228,22 @@ export const ImpactPackDetailPage: React.FC = () => {
                 <h4 className="text-xs font-semibold text-text-secondary">Certified Telemetry Indicators</h4>
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   {Object.entries(pack.metrics).map(([k, v]) => (
-                    <div key={k} className="p-2 border rounded bg-bg-canvas flex justify-between">
-                      <span className="capitalize text-text-secondary">{k.replace(/([A-Z])/g, ' $1')}</span>
-                      <span className="font-semibold text-text-primary">{v}</span>
+                    <div key={k} className="p-2 border rounded bg-page flex justify-between">
+                      <span className=" text-text-secondary">{k.replace(/([A-Z])/g, ' $1')}</span>
+                      <span className="font-semibold text-text">{v}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div className="pt-4 border-t space-y-1 text-xs">
-                <div className="font-semibold text-text-primary">Cryptographic Signature (SHA-256 Digest):</div>
-                <div className="p-2 bg-bg-canvas border rounded break-all text-[11px] text-text-secondary">
+                <div className="font-semibold text-text">Cryptographic Signature (SHA-256 Digest):</div>
+                <div className="p-2 bg-page border rounded break-all text-xs text-text-secondary">
                   {pack.sha256Hash || 'PENDING NATIONAL MANAGER SIGN-OFF'}
                 </div>
               </div>
 
-              <div className="pt-2 flex justify-between text-[11px] text-text-secondary">
+              <div className="pt-2 flex justify-between text-xs text-text-secondary">
                 <span>Signer: {pack.reviewedBy?.name || 'Dr. Anita Joshi, NM'}</span>
                 <span>Verification Gateway: https://vayoshrestha.org/verify/{pack.code}</span>
               </div>
@@ -254,25 +254,25 @@ export const ImpactPackDetailPage: React.FC = () => {
         {/* Right Column: Cryptographic Seal & Chain of Custody */}
         <div className="space-y-6">
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-            <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-brand-primary" />
+            <h3 className="text-sm font-semibold text-text flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-accent" />
               Cryptographic Integrity Seal
             </h3>
 
             {pack.sha256Hash ? (
               <div className="space-y-3">
-                <div className="p-3 bg-emerald-50 border border-brand-primary/20 rounded-lg space-y-1.5">
-                  <div className="text-[11px] font-semibold text-brand-primary flex items-center justify-between">
+                <div className="p-3 bg-emerald-50 border border-accent/20 rounded-lg space-y-1.5">
+                  <div className="text-xs font-semibold text-accent flex items-center justify-between">
                     <span>SHA-256 Digest (Canonical)</span>
                     <button
                       onClick={handleCopyHash}
-                      className="text-brand-primary hover:underline flex items-center gap-1"
+                      className="text-accent hover:underline flex items-center gap-1"
                     >
                       {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                       {copied ? 'Copied' : 'Copy'}
                     </button>
                   </div>
-                  <div className="text-[11px] text-text-primary break-all leading-tight">
+                  <div className="text-xs text-text break-all leading-tight">
                     {pack.sha256Hash}
                   </div>
                 </div>
@@ -283,7 +283,7 @@ export const ImpactPackDetailPage: React.FC = () => {
                 </p>
               </div>
             ) : (
-              <div className="p-3 bg-bg-canvas border border-border rounded-lg text-xs text-text-secondary flex items-center gap-2">
+              <div className="p-3 bg-page border border-border rounded-lg text-xs text-text-secondary flex items-center gap-2">
                 <Lock className="w-4 h-4 text-text-secondary" />
                 <span>SHA-256 seal will be calculated when released by National Manager.</span>
               </div>
@@ -292,23 +292,23 @@ export const ImpactPackDetailPage: React.FC = () => {
 
           {/* Chain of Custody (Maker-Checker) */}
           <div className="p-5 bg-bg-surface border border-border rounded-xl space-y-4">
-            <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
-              <FileText className="w-4 h-4 text-brand-primary" />
+            <h3 className="text-sm font-semibold text-text flex items-center gap-2">
+              <FileText className="w-4 h-4 text-accent" />
               Chain of Custody
             </h3>
 
             <div className="space-y-3 text-xs">
-              <div className="p-3 border border-border rounded-lg bg-bg-canvas space-y-1">
-                <div className="text-text-secondary font-medium">1. Created By (Maker)</div>
-                <div className="font-semibold text-text-primary">{pack.createdBy.name}</div>
+              <div className="p-3 border border-border rounded-lg bg-page space-y-1">
+                <div className="text-text-secondary font-semibold">1. Created By (Maker)</div>
+                <div className="font-semibold text-text">{pack.createdBy.name}</div>
                 <div className="text-text-secondary">{pack.createdBy.role} · {new Date(pack.createdAt).toLocaleString()}</div>
               </div>
 
-              <div className="p-3 border border-border rounded-lg bg-bg-canvas space-y-1">
-                <div className="text-text-secondary font-medium">2. Review & Release (Checker)</div>
+              <div className="p-3 border border-border rounded-lg bg-page space-y-1">
+                <div className="text-text-secondary font-semibold">2. Review & Release (Checker)</div>
                 {pack.reviewedBy ? (
                   <>
-                    <div className="font-semibold text-brand-primary">{pack.reviewedBy.name}</div>
+                    <div className="font-semibold text-accent">{pack.reviewedBy.name}</div>
                     <div className="text-text-secondary">
                       {pack.reviewedBy.role} · {pack.releasedAt ? new Date(pack.releasedAt).toLocaleString() : ''}
                     </div>

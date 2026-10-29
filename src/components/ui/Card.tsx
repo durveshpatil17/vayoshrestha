@@ -33,7 +33,7 @@ export const Card: React.FC<CardProps> = ({
 
   return (
     <div
-      className={`bg-surface border border-border rounded-[12px] transition-colors ${className}`}
+      className={`bg-surface border border-border rounded-container transition-colors ${className}`}
       {...props}
     >
       {hasHeader && (

@@ -52,7 +52,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
       <RadixDialog.Portal>
         <RadixDialog.Overlay className="fixed inset-0 bg-text/40 z-50 transition-opacity duration-dur animate-in fade-in" />
-        <RadixDialog.Content className="fixed left-1/2 top-1/4 -translate-x-1/2 w-full max-w-[560px] bg-surface rounded-card shadow-dialog border border-border z-50 overflow-hidden focus:outline-none animate-in fade-in zoom-in-95 duration-dur">
+        <RadixDialog.Content className="fixed left-1/2 top-1/4 -translate-x-1/2 w-full max-w-xl bg-surface rounded-card shadow-dialog border border-border z-50 overflow-hidden focus:outline-none animate-in fade-in zoom-in-95 duration-dur">
           <div className="flex items-center px-3.5 border-b border-border-subtle h-11 gap-2.5">
             <Search className="w-4 h-4 text-text-secondary shrink-0 stroke-[1.5]" />
             <input
@@ -62,7 +62,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               className="flex-1 bg-transparent text-sm text-text placeholder:text-text-disabled focus:outline-none"
               autoFocus
             />
-            <kbd className="px-1.5 py-0.5 text-[10px] bg-surface-subtle border border-border-subtle rounded-chip text-text-tertiary">
+            <kbd className="px-1.5 py-0.5 text-xs bg-surface-subtle border border-border-subtle rounded-chip text-text-tertiary">
               ESC
             </kbd>
           </div>

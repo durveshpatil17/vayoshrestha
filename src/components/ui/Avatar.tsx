@@ -19,7 +19,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   className = '',
 }) => {
   const sizeClasses: Record<string, string> = {
-    sm: 'w-6 h-6 text-[10px]',
+    sm: 'w-6 h-6 text-xs',
     md: 'w-7 h-7 text-xs', // 28px
     lg: 'w-9 h-9 text-sm',
   };
@@ -28,7 +28,7 @@ export const Avatar: React.FC<AvatarProps> = ({
 
   return (
     <div
-      className={`rounded-full bg-neutral-tint text-text font-medium flex items-center justify-center shrink-0 border border-border-subtle select-none ${sizeClasses[size]} ${className}`}
+      className={`rounded-full bg-neutral-tint text-text font-semibold flex items-center justify-center shrink-0 border border-border-subtle select-none ${sizeClasses[size]} ${className}`}
       title={name}
       aria-label={name}
     >

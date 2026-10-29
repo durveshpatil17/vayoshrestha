@@ -358,3 +358,34 @@
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U12: `/design` Gallery, Indic Typography Review, Layout Check Suite, Final Scores in `docs/DESIGN_SCORES.md`.
 
+---
+
+## Loop U12: `/design` Gallery, Indic Typography Review, Layout Check Suite & Final Scores (Phase U: Final UI Design Pass)
+- **Goal**: Deliver comprehensive design system verification gallery (`/design`), review multilingual typography, execute Playwright layout check suite at 1440×900 and 390×844, capture post-redesign "after" visual evidence, compile final quality scores in `docs/DESIGN_SCORES.md`, and clear full gate.
+- **What Changed**:
+  - Restyled `src/pages/design/DesignGalleryPage.tsx`:
+    - Full color tokens palette showcase: Page `#F5F6F7`, Surface `#FFFFFF`, Border `#D5DADD`, Horizon blue `#0070F2`, negative `#D20A0A`, critical `#E76500`, positive `#256F3A`, informative `#0070F2`.
+    - Multilingual typography scale: Open Sans 12 / 14 / 16 / 20 / 28px at weights 400 and 600 only, tabular numerals, with Noto Sans Devanagari, Kannada, and Tamil fallbacks.
+    - Component catalog: Form controls, Button matrix, Status indicators, SAP Fiori MessageStrips, Flashbar, CloudscapeChart with threshold reference bands and accessible data table toggle, Cloudscape DataTable with FilterBar, and KeyValueList.
+    - Floorplans: Fiori List Report, AWS Cloudscape Split Panel, Fiori Object Page with 8 tabs, Cloudscape Multi-Step Wizard.
+  - Eliminated `min-w-[1280px]` from `<body>` in `index.html` to ensure native responsiveness on mobile viewports.
+  - Full codebase design-lint sweep: `node scripts/design-lint.mjs src` verified **0 violations across all 264 files**.
+  - Playwright layout verification suite: `tests/e2e/layout-check.spec.ts` ran with 15/15 passing tests:
+    - 1440×900 desktop resolution: 0 horizontal scroll across all 11 core routes, all touch targets valid.
+    - 390×844 mobile resolution (`/field`): 0 horizontal scroll, touch targets $\ge 48$px.
+    - Direct SPA preview routes: `/sos`, `/seniors`, `/403` all render with HTTP 200 and no 404.
+  - Visual evidence: `scripts/capture-after.mjs` captured all 21 views into `docs/screens/after/` matching baseline before screens.
+  - Authored `docs/DESIGN_SCORES.md`: Evaluated all roles and views on 7 design criteria with averages $\ge 9.9/10$.
+- **Gate Results**:
+  - `npm run gate:full`: Passed cleanly.
+  - `tsc --noEmit`: 0 errors.
+  - Design-lint: 0 violations across 264 files.
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+  - Feature ledger: 105 features tracked (105 Built, 0 Partial, 0 Planned).
+  - Route manifest: 123 routes in manifest, all present in router.
+  - Ratchet check: all progress metrics stable or increasing.
+  - Playwright layout suite: 15 passed (100% green).
+- **Defects & Blockers**: None.
+- **Phase Status**: Phase U (Final UI Design Pass) 100% COMPLETE.
+
+

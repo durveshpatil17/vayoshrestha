@@ -65,9 +65,14 @@ export default {
         '4': '16px',
         '6': '24px',
         '8': '32px',
+        '12': '48px',
         '13': '52px',
         '14': '56px',
         '64': '256px',
+        '120': '480px',
+      },
+      maxWidth: {
+        'field-frame': '480px',
       },
       boxShadow: {
         overlay: 'var(--shadow-overlay)',

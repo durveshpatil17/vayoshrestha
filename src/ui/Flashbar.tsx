@@ -86,3 +86,4 @@ export const Flashbar: React.FC<FlashbarProps> = ({ items, className = '' }) => 
     </div>
   );
 };
+

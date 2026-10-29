@@ -38,7 +38,7 @@ export const StatusPath: React.FC<StatusPathProps> = ({
               type="button"
               onClick={() => onStepSelect?.(step.id)}
               disabled={!onStepSelect}
-              className={`flex-1 min-w-[120px] h-7 px-2.5 rounded-control flex items-center justify-center gap-1.5 text-xs font-medium transition-colors select-none ${
+              className={`flex-1 min-w-28 h-7 px-2.5 rounded-control flex items-center justify-center gap-1.5 text-xs font-semibold transition-colors select-none ${
                 isCompleted
                   ? 'bg-surface text-positive hover:bg-surface-hover'
                   : isCurrent
@@ -50,7 +50,7 @@ export const StatusPath: React.FC<StatusPathProps> = ({
                 <Check className="w-3.5 h-3.5 text-positive stroke-[1.5] shrink-0" />
               ) : (
                 <span
-                  className={`w-3.5 h-3.5 rounded-full text-[10px] flex items-center justify-center shrink-0 border ${
+                  className={`w-3.5 h-3.5 rounded-full text-xs flex items-center justify-center shrink-0 border ${
                     isCurrent
                       ? 'border-accent text-accent font-semibold'
                       : 'border-border-strong text-text-disabled'
@@ -69,7 +69,7 @@ export const StatusPath: React.FC<StatusPathProps> = ({
       {currentStep?.guidance && (
         <div className="text-caption text-text-secondary bg-surface-subtle border border-border-subtle rounded-control px-3 py-2 flex items-center justify-between">
           <span>{currentStep.guidance}</span>
-          <span className="text-xs text-accent font-medium">Active Step</span>
+          <span className="text-xs text-accent font-semibold">Active Step</span>
         </div>
       )}
     </div>

@@ -33,7 +33,7 @@ export function SegmentedControl<T extends string = string>({
             role="tab"
             aria-selected={isActive}
             onClick={() => onChange(option.value)}
-            className={`h-7 px-3 flex items-center gap-1.5 rounded-control text-xs font-medium transition-all duration-fast ${
+            className={`h-7 px-3 flex items-center gap-1.5 rounded-control text-xs font-semibold transition-all duration-fast ${
               isActive
                 ? 'bg-surface text-text  border border-border'
                 : 'text-text-secondary hover:text-text border border-transparent'

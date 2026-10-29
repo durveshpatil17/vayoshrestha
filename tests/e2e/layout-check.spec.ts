@@ -57,3 +57,4 @@ test.describe('Playwright Layout Check Suite (Section 4.2)', () => {
     expect(hasHorizontalScroll).toBe(false);
   });
 });
+

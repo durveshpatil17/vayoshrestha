@@ -22,9 +22,9 @@ export const Dialog: React.FC<DialogProps> = ({
   className = '',
 }) => {
   const sizeClasses: Record<string, string> = {
-    sm: 'max-w-[480px]',
-    md: 'max-w-[640px]',
-    lg: 'max-w-[800px]',
+    sm: 'max-w-md',
+    md: 'max-w-2xl',
+    lg: 'max-w-4xl',
   };
 
   return (

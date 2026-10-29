@@ -43,3 +43,4 @@ export const IllustratedMessage: React.FC<IllustratedMessageProps> = ({
     </div>
   );
 };
+

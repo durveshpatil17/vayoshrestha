@@ -130,7 +130,7 @@ export const ExportDialog: React.FC<ExportDialogProps> = ({
 
         <div className="space-y-3 text-xs">
           <div>
-            <label className="block font-medium text-text-primary mb-1">
+            <label className="block font-semibold text-text-primary mb-1">
               Mandatory Justification Reason <span className="text-danger">*</span>
             </label>
             <input
@@ -143,7 +143,7 @@ export const ExportDialog: React.FC<ExportDialogProps> = ({
             />
           </div>
 
-          <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-[11px] text-text-muted leading-relaxed">
+          <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs text-text-muted leading-relaxed">
             Exports are watermarked and logged to the cryptographic audit trail with your user identity
             ({user?.fullName || user?.role}). CSV formula injection characters (=, +, -, @) are
             strictly escaped.

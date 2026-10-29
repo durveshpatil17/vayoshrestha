@@ -1,62 +1,38 @@
 import React, { useState } from 'react';
+import {
+  Container,
+  MetricTile,
+  KeyValueList,
+  StatusIndicator,
+  DataTable,
+  FilterBar,
+  CloudscapeChart,
+  DynamicPageHeader,
+  MessageStrip,
+  Flashbar,
+  ConfirmDialog,
+} from '@/ui';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
-import { MultiSelect } from '@/components/ui/MultiSelect';
 import { Checkbox } from '@/components/ui/Checkbox';
-import { RadioGroup } from '@/components/ui/RadioGroup';
 import { Switch } from '@/components/ui/Switch';
-import { SegmentedControl } from '@/components/ui/SegmentedControl';
-import { DatePicker } from '@/components/ui/DatePicker';
-import { TimePicker } from '@/components/ui/TimePicker';
-import { StatusIndicator } from '@/components/ui/StatusIndicator';
-import { StatusChip } from '@/components/ui/StatusChip';
-import { MessageStrip } from '@/components/ui/MessageStrip';
-import { Flashbar } from '@/components/ui/Flashbar';
-import { Card } from '@/components/ui/Card';
-import { KpiTile } from '@/components/ui/KpiTile';
-import { Dialog } from '@/components/ui/Dialog';
-import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
-import { Drawer } from '@/components/ui/Drawer';
-import { StatusPath } from '@/components/ui/StatusPath';
-import { Avatar } from '@/components/ui/Avatar';
-import { DataTable } from '@/components/data/DataTable';
-import { CommandBar } from '@/components/layout/CommandBar';
-import { FilterBar } from '@/components/data/FilterBar';
-import { EmptyState } from '@/components/feedback/EmptyState';
-import { LoadingSkeleton } from '@/components/feedback/LoadingSkeleton';
+import { RadioGroup } from '@/components/ui/RadioGroup';
 import {
   Plus,
-  Search,
   Filter,
   MoreHorizontal,
-  User,
   Phone,
-  AlertOctagon,
-  Clock,
-  CheckCircle,
-  Info,
+  Layers,
+  LayoutTemplate,
 } from 'lucide-react';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip as RechartsTooltip,
-  ResponsiveContainer,
-} from 'recharts';
 
 export const DesignGalleryPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'components' | 'floorplans'>('components');
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [checkboxVal, setCheckboxVal] = useState(true);
   const [radioVal, setRadioVal] = useState('phone');
   const [switchVal, setSwitchVal] = useState(true);
-  const [multiVal, setMultiVal] = useState(['hi', 'mr']);
-  const [pathStep, setPathStep] = useState('triage');
   const [tableSelected, setTableSelected] = useState<string[]>(['s-1']);
 
   const sampleTableData = [
@@ -70,26 +46,23 @@ export const DesignGalleryPage: React.FC = () => {
   const tableColumns = [
     {
       key: 'name',
-      header: 'Senior name',
+      header: 'Senior Name',
       render: (item: any) => (
-        <div className="flex items-center gap-2">
-          <Avatar name={item.name} size="sm" />
-          <span className="font-semibold text-text">{item.name}</span>
-        </div>
+        <span className="font-semibold text-text">{item.name}</span>
       ),
     },
     { key: 'age', header: 'Age', align: 'right' as const },
-    { key: 'chapter', header: 'Chapter hub' },
+    { key: 'chapter', header: 'Chapter Hub' },
     {
       key: 'status',
-      header: 'Care status',
+      header: 'Care Status',
       render: (item: any) => (
         <StatusIndicator status={item.status} label={item.statusLabel} />
       ),
     },
     {
       key: 'adherence',
-      header: 'Adherence rate',
+      header: 'Adherence Rate',
       align: 'right' as const,
       render: (item: any) => (
         <span className="tabular-nums font-semibold">{item.adherence}%</span>
@@ -98,184 +71,208 @@ export const DesignGalleryPage: React.FC = () => {
   ];
 
   const chartData = [
-    { day: 'Mon', completed: 42, missed: 5 },
-    { day: 'Tue', completed: 48, missed: 3 },
-    { day: 'Wed', completed: 45, missed: 7 },
-    { day: 'Thu', completed: 51, missed: 2 },
-    { day: 'Fri', completed: 56, missed: 4 },
-    { day: 'Sat', completed: 38, missed: 6 },
-    { day: 'Sun', completed: 40, missed: 3 },
+    { day: 'Mon', bp: 128 },
+    { day: 'Tue', bp: 132 },
+    { day: 'Wed', bp: 124 },
+    { day: 'Thu', bp: 138 },
+    { day: 'Fri', bp: 126 },
+    { day: 'Sat', bp: 130 },
+    { day: 'Sun', bp: 125 },
   ];
 
   return (
-    <div className="min-h-screen bg-canvas text-text pb-20">
+    <div className="space-y-6">
       {/* 1. Flashbar Preview */}
       <Flashbar
-        alerts={[
+        items={[
           {
             id: 'sos-live-101',
-            seniorName: 'Savitri Devi Sharma',
-            chapter: 'Hubballi Central',
-            elapsedSeconds: 142,
+            type: 'error',
+            content: 'Active SOS Alert: Savitri Devi Sharma (Hubballi Central) · Response SLA 1.4 min.',
+            action: (
+              <Button variant="outline" size="sm" onClick={() => alert('Focusing incident drawer')}>
+                View Incident
+              </Button>
+            ),
           },
         ]}
-        onViewCase={() => setIsDrawerOpen(true)}
-        onAcknowledge={() => alert('SOS Case acknowledged (logged to audit trail)')}
       />
 
-      {/* 2. Page Header Bar */}
-      <div className="bg-surface border-b border-border px-8 py-5">
-        <div className="max-w-[1280px] mx-auto flex items-center justify-between">
-          <div>
-            <div className="text-xs text-text-secondary font-medium mb-1">
-              Design System · Verification and Component Gallery
-            </div>
-            <h1 className="text-[28px] leading-[36px] font-semibold text-text">
-              Vayoshrestha Design Gallery
-            </h1>
-            <p className="text-sm text-text-secondary mt-0.5">
-              SAP Fiori Horizon shell paired with AWS Cloudscape data console patterns (white theme).
-            </p>
-          </div>
-
+      {/* 2. Dynamic Page Header */}
+      <DynamicPageHeader
+        title="Vayoshreshtha Design Gallery"
+        description="Comprehensive verification showcase for SAP Fiori Horizon shell and AWS Cloudscape data console patterns (white theme)."
+        breadcrumbs={[{ label: 'Home', to: '/' }, { label: 'Design System Gallery' }]}
+        primaryAction={
           <div className="flex items-center gap-2">
-            <SegmentedControl
-              value={activeTab}
-              onChange={setActiveTab}
-              options={[
-                { value: 'components', label: 'Component Catalog' },
-                { value: 'floorplans', label: 'Floorplan Skeletons' },
-              ]}
-            />
+            <Button
+              variant={activeTab === 'components' ? 'primary' : 'outline'}
+              size="sm"
+              icon={<Layers className="w-4 h-4" />}
+              onClick={() => setActiveTab('components')}
+            >
+              Component Catalog
+            </Button>
+            <Button
+              variant={activeTab === 'floorplans' ? 'primary' : 'outline'}
+              size="sm"
+              icon={<LayoutTemplate className="w-4 h-4" />}
+              onClick={() => setActiveTab('floorplans')}
+            >
+              Enterprise Floorplans
+            </Button>
           </div>
-        </div>
-      </div>
+        }
+      />
 
-      <div className="max-w-[1280px] mx-auto px-8 pt-6 space-y-8">
-        {activeTab === 'components' ? (
-          <>
-            {/* Foundations */}
-            <Card title="1. Foundations: Design Tokens and Typography Scale">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="text-sm font-semibold text-text mb-3">Color Token Surfaces and Semantic Roles</h4>
-                  <div className="grid grid-cols-3 gap-2 text-xs">
-                    <div className="p-2.5 rounded-control bg-canvas border border-border">
-                      <div className="font-semibold text-text">Canvas</div>
-                      <div className="text-text-secondary tabular-nums text-xs">#F5F6F7</div>
-                    </div>
-                    <div className="p-2.5 rounded-control bg-surface border border-border">
-                      <div className="font-semibold text-text">Surface</div>
-                      <div className="text-text-secondary tabular-nums text-xs">#FFFFFF</div>
-                    </div>
-                    <div className="p-2.5 rounded-control bg-surface-subtle border border-border">
-                      <div className="font-semibold text-text">Subtle</div>
-                      <div className="text-text-secondary tabular-nums text-xs">#F8F9FA</div>
-                    </div>
-                    <div className="p-2.5 rounded-control bg-accent text-white">
-                      <div className="font-semibold">Forest Green</div>
-                      <div className="text-white tabular-nums text-xs">#1F5F4B</div>
-                    </div>
-                    <div className="p-2.5 rounded-control bg-accent-tint text-accent border border-border">
-                      <div className="font-semibold">Accent Tint</div>
-                      <div className="text-accent tabular-nums text-xs">#E5F2EC</div>
-                    </div>
-                    <div className="p-2.5 rounded-control bg-positive-tint text-positive border border-border">
-                      <div className="font-semibold">Positive</div>
-                      <div className="text-positive tabular-nums text-xs">#256F3A</div>
-                    </div>
-                    <div className="p-2.5 rounded-control bg-critical-tint text-critical border border-border">
-                      <div className="font-semibold">Critical</div>
-                      <div className="text-critical tabular-nums text-xs">#E76500</div>
-                    </div>
-                    <div className="p-2.5 rounded-control bg-negative-tint text-negative border border-border">
-                      <div className="font-semibold">Negative</div>
-                      <div className="text-negative tabular-nums text-xs">#D20A0A</div>
-                    </div>
-                    <div className="p-2.5 rounded-control bg-surface-subtle border border-border">
-                      <div className="font-semibold text-text">Border 1px</div>
-                      <div className="text-text-secondary tabular-nums text-xs">#D5DADD</div>
-                    </div>
+      {activeTab === 'components' ? (
+        <div className="space-y-6">
+          {/* Section 1: Design Tokens & Foundations */}
+          <Container
+            header={
+              <div>
+                <h2 className="text-xl font-semibold text-text">1. Foundations: Color Tokens and Multilingual Typography</h2>
+                <p className="text-sm text-text-secondary">Strict CSS variables only. Zero hardcoded colors. Open Sans 400 and 600 only.</p>
+              </div>
+            }
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-sm font-semibold text-text mb-3">Color Token Surfaces and Semantic Roles</h3>
+                <div className="grid grid-cols-3 gap-2.5 text-xs">
+                  <div className="p-3 rounded-control bg-page border border-border">
+                    <div className="font-semibold text-text">Page Canvas</div>
+                    <div className="text-text-secondary tabular-nums">var(--page)</div>
                   </div>
-                </div>
-
-                <div>
-                  <h4 className="text-sm font-semibold text-text mb-3">Open Sans Typography Scale (Weights 400 and 600)</h4>
-                  <div className="space-y-2 text-text">
-                    <div className="text-[28px] leading-[36px] font-semibold">Title 28/600 — वयोश्रेष्ठ वयो विकास</div>
-                    <div className="text-xl leading-7 font-semibold">Section 20/600 — ಹಿರಿಯರ ಆರೈಕೆ</div>
-                    <div className="text-base leading-6 font-semibold">Card 16/600 — மூத்த குடிமக்கள் நலன்</div>
-                    <div className="text-sm leading-5 font-normal">Body 14/400 — Humanist Open Sans with tabular numerals: 123,456.78</div>
-                    <div className="text-xs leading-4 font-semibold text-text-secondary">Label 12/600 — Secondary text form label</div>
-                    <div className="text-xs leading-4 font-normal text-text-secondary">Footnote 12/400 — Timestamp and secondary notes</div>
+                  <div className="p-3 rounded-control bg-surface border border-border">
+                    <div className="font-semibold text-text">Surface</div>
+                    <div className="text-text-secondary tabular-nums">var(--surface)</div>
+                  </div>
+                  <div className="p-3 rounded-control bg-border-subtle border border-border">
+                    <div className="font-semibold text-text">Border Hairline</div>
+                    <div className="text-text-secondary tabular-nums">var(--border)</div>
+                  </div>
+                  <div className="p-3 rounded-control bg-accent text-white">
+                    <div className="font-semibold">Horizon Blue</div>
+                    <div className="tabular-nums">var(--accent)</div>
+                  </div>
+                  <div className="p-3 rounded-control bg-accent-tint text-accent border border-accent/20">
+                    <div className="font-semibold">Accent Tint</div>
+                    <div className="tabular-nums">var(--accent-tint)</div>
+                  </div>
+                  <div className="p-3 rounded-control bg-positive-tint text-positive border border-positive/20">
+                    <div className="font-semibold">Positive Tint</div>
+                    <div className="tabular-nums">var(--positive)</div>
+                  </div>
+                  <div className="p-3 rounded-control bg-critical-tint text-critical border border-critical/20">
+                    <div className="font-semibold">Critical Tint</div>
+                    <div className="tabular-nums">var(--critical)</div>
+                  </div>
+                  <div className="p-3 rounded-control bg-negative-tint text-negative border border-negative/20">
+                    <div className="font-semibold">Negative Tint</div>
+                    <div className="tabular-nums">var(--negative)</div>
+                  </div>
+                  <div className="p-3 rounded-control bg-informative-tint text-informative border border-informative/20">
+                    <div className="font-semibold">Informative</div>
+                    <div className="tabular-nums">var(--informative)</div>
                   </div>
                 </div>
               </div>
-            </Card>
 
-            {/* Buttons Matrix */}
-            <Card title="2. Controls: Buttons (40px Height, 8px Radius, Forest Green #1F5F4B)">
-              <div className="space-y-4">
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="primary" icon={<Plus className="w-4 h-4" strokeWidth={1.5} />}>
-                    Primary Action
-                  </Button>
-                  <Button variant="outline" icon={<Filter className="w-4 h-4" strokeWidth={1.5} />}>
-                    Default / Outline
-                  </Button>
-                  <Button variant="ghost">
-                    Ghost / Tertiary
-                  </Button>
-                  <Button variant="destructive">
-                    Destructive Action
-                  </Button>
-                  <Button variant="outline" size="icon" icon={<MoreHorizontal className="w-4 h-4" strokeWidth={1.5} />} />
-                  <Button variant="outline" size="sm">
-                    Small Control
-                  </Button>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-border">
-                  <span className="text-xs text-text-secondary font-medium mr-2">States:</span>
-                  <Button variant="primary" isLoading>
-                    Loading State
-                  </Button>
-                  <Button variant="primary" disabled>
-                    Disabled Primary
-                  </Button>
-                  <Button variant="outline" disabled>
-                    Disabled Default
-                  </Button>
-                  <Button variant="ghost" disabled>
-                    Disabled Ghost
-                  </Button>
+              <div>
+                <h3 className="text-sm font-semibold text-text mb-3">Typography Scale & Indic Scripts (Weights 400 and 600)</h3>
+                <div className="space-y-2.5 text-text">
+                  <div className="text-2xl font-semibold">Title 28/600 — Open Sans Display</div>
+                  <div className="text-xl font-semibold">Section 20/600 — Hindi (हिंदी): वयोश्रेष्ठ डिजिटल वरिष्ठ सहायता</div>
+                  <div className="text-base font-semibold">Card 16/600 — Kannada (ಕನ್ನಡ): ಹಿರಿಯ ನಾಗರಿಕರ ಆರೈಕೆ ವ್ಯವಸ್ಥೆ</div>
+                  <div className="text-sm font-normal">Body 14/400 — Tamil (தமிழ்): முதியோர் நலன் மற்றும் அவசர உதவி</div>
+                  <div className="text-xs font-semibold text-text-secondary">Label 12/600 — Form field header and tabular numerals</div>
+                  <div className="text-xs font-normal tabular-nums text-text-secondary">
+                    Tabular Numerals Specimen: ₹1,248,500.00 · Latency: 1.42s · 2026-10-30
+                  </div>
                 </div>
               </div>
-            </Card>
+            </div>
+          </Container>
 
-            {/* Form Inputs */}
-            <Card title="3. Form Inputs and Primitives (Single Column, 40px Height, Labels Above)">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Section 2: Metric Tiles */}
+          <div>
+            <h3 className="text-base font-semibold text-text mb-3">2. Headline Metric Tiles (Maximum 4 per view rule)</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <MetricTile
+                label="Registered Seniors"
+                value="1,248"
+                statusLine="Target cohort progress (1,500)"
+                status="positive"
+              />
+              <MetricTile
+                label="SOS Median Latency"
+                value="1.4 min"
+                statusLine="SLA threshold < 2.0 min met"
+                status="positive"
+              />
+              <MetricTile
+                label="Medication Adherence"
+                value="91.6%"
+                statusLine="Pilot threshold > 75.0% met"
+                status="positive"
+              />
+              <MetricTile
+                label="Open Health Flags"
+                value="2"
+                statusLine="Requires clinical triage call"
+                status="critical"
+              />
+            </div>
+          </div>
+
+          {/* Section 3: Controls & Form Fields */}
+          <Container
+            header={
+              <div>
+                <h2 className="text-xl font-semibold text-text">3. Form Controls & Primitives</h2>
+                <p className="text-sm text-text-secondary">Standard 40px height, 8px radius, focus ring, labels above controls.</p>
+              </div>
+            }
+          >
+            <div className="space-y-6">
+              <div className="flex flex-wrap items-center gap-3">
+                <Button variant="primary" icon={<Plus className="w-4 h-4" />}>
+                  Primary Button
+                </Button>
+                <Button variant="outline" icon={<Filter className="w-4 h-4" />}>
+                  Default Outline
+                </Button>
+                <Button variant="ghost">
+                  Ghost Tertiary
+                </Button>
+                <Button variant="destructive">
+                  Destructive Action
+                </Button>
+                <Button variant="outline" size="icon" icon={<MoreHorizontal className="w-4 h-4" />} />
+                <Button variant="primary" isLoading>
+                  Loading State
+                </Button>
+                <Button variant="outline" disabled>
+                  Disabled Control
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-border">
                 <Input
-                  label="Senior full name"
+                  label="Senior Full Name"
                   placeholder="e.g. Savitri Devi Sharma"
                   defaultValue="Savitri Devi Sharma"
                   required
                 />
                 <Input
-                  label="Contact mobile"
+                  label="Contact Phone"
                   placeholder="+91 98450 12345"
-                  helperText="Primary WhatsApp alert number"
-                  leftIcon={<Phone className="w-4 h-4 text-text-secondary" strokeWidth={1.5} />}
+                  helperText="Primary WhatsApp alert line"
+                  leftIcon={<Phone className="w-4 h-4 text-text-secondary" />}
                 />
-                <Input
-                  label="ABHA health ID"
-                  placeholder="14-digit ABHA Number"
-                  error="Invalid ABHA format. Must be 14 numeric digits."
-                />
-
                 <Select
-                  label="Chapter hub"
+                  label="Chapter Hub (Ekta Hub)"
                   options={[
                     { value: 'hubballi', label: 'Hubballi Central' },
                     { value: 'dharwad', label: 'Dharwad Urban' },
@@ -284,490 +281,342 @@ export const DesignGalleryPage: React.FC = () => {
                   defaultValue="hubballi"
                 />
 
-                <MultiSelect
-                  label="Preferred languages"
-                  options={[
-                    { value: 'hi', label: 'Hindi (हिंदी)' },
-                    { value: 'mr', label: 'Marathi (मराठी)' },
-                    { value: 'kn', label: 'Kannada (ಕನ್ನಡ)' },
-                    { value: 'en', label: 'English' },
-                  ]}
-                  value={multiVal}
-                  onChange={setMultiVal}
-                />
-
-                <DatePicker
-                  label="Birth date"
-                  defaultValue="1948-06-15"
-                />
-
-                <TimePicker
-                  label="Morning call time"
-                  defaultValue="08:30"
-                />
-
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-semibold text-text-secondary">Notification options</label>
+                  <label className="text-xs font-semibold text-text-secondary">Notification Channels</label>
                   <div className="flex items-center gap-4 pt-1">
                     <Switch
                       checked={switchVal}
                       onCheckedChange={setSwitchVal}
-                      label="WhatsApp alerts"
+                      label="WhatsApp Alerts"
                     />
                     <Checkbox
                       checked={checkboxVal}
                       onCheckedChange={setCheckboxVal}
-                      label="SMS fallback"
+                      label="SMS Fallback"
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-semibold text-text-secondary">Notification mode</label>
+                  <label className="text-xs font-semibold text-text-secondary">Wellness Prompt Mode</label>
                   <RadioGroup
                     value={radioVal}
                     onValueChange={setRadioVal}
                     options={[
-                      { value: 'phone', label: 'Voice wellness call' },
-                      { value: 'whatsapp', label: 'WhatsApp interactive prompt' },
+                      { value: 'phone', label: 'Automated Voice Call' },
+                      { value: 'whatsapp', label: 'Interactive WhatsApp Prompt' },
                     ]}
                   />
                 </div>
-              </div>
-            </Card>
 
-            {/* Status Indicators, Chips and Fiori Message Strips */}
-            <Card title="4. Status Indicators, Chips and Message Strips">
-              <div className="space-y-4">
-                <div>
-                  <h4 className="text-xs font-semibold text-text-secondary mb-2">
-                    AWS Cloudscape Status Indicators (Icon + Text, 1.5 Stroke, 20px)
-                  </h4>
-                  <div className="flex flex-wrap items-center gap-6">
-                    <StatusIndicator status="positive" label="Delivered / Active" />
-                    <StatusIndicator status="critical" label="Needs Call / Pending" />
-                    <StatusIndicator status="negative" label="Unacknowledged / Error" />
-                    <StatusIndicator status="neutral" label="Queued / Scheduled" />
-                    <StatusIndicator status="informative" label="Draft / In Review" />
-                  </div>
+                <div className="flex flex-col justify-end">
+                  <Button variant="outline" onClick={() => setIsConfirmOpen(true)}>
+                    Trigger Confirm Dialog
+                  </Button>
                 </div>
-
-                <div className="pt-2 border-t border-border">
-                  <h4 className="text-xs font-semibold text-text-secondary mb-2">
-                    Status Chips (Tinted fills, solid red strictly for open SOS count)
-                  </h4>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <StatusChip label="Role: Care Coordinator" variant="accent" />
-                    <StatusChip label="Chapter: Hubballi (42)" variant="neutral" />
-                    <StatusChip label="Completed (120)" variant="positive" />
-                    <StatusChip label="Attention Needed (8)" variant="critical" />
-                    <StatusChip label="Critical SOS (1 open)" variant="critical-sos" />
-                  </div>
-                </div>
-
-                <div className="pt-2 border-t border-border space-y-2">
-                  <h4 className="text-xs font-semibold text-text-secondary mb-2">
-                    Fiori Message Strips
-                  </h4>
-                  <MessageStrip
-                    type="informative"
-                    title="Phase 2 ABHA Milestone"
-                    message="Digital ABHA card generation is active in staging for Hubballi Central pilot cohort."
-                    actionText="View Documentation"
-                    onAction={() => alert('Opening ABHA pilot specs')}
-                    dismissible
-                  />
-                  <MessageStrip
-                    type="critical"
-                    title="Consent Verification Required"
-                    message="Next-of-kin SMS consent pending for 3 newly registered seniors."
-                    actionText="Resolve in Funnel"
-                    onAction={() => alert('Navigating to funnel')}
-                  />
-                </div>
-              </div>
-            </Card>
-
-            {/* Salesforce Lightning Status Path */}
-            <Card title="5. Status Path (Salesforce Lightning Pattern)">
-              <StatusPath
-                steps={[
-                  { id: 'intake', label: '1. Intake and vitals', guidance: 'Collect senior basic details and emergency contact numbers.' },
-                  { id: 'consent', label: '2. Consent verification', guidance: 'Collect DPDP-compliant verifiable consent from senior or authorized legal guardian.' },
-                  { id: 'triage', label: '3. Clinical triage', guidance: 'Nurse assigns personalized reminder schedule and vital alert thresholds.' },
-                  { id: 'active', label: '4. Active in ecosystem', guidance: 'Senior is enrolled in automated wellness loops and Ekta Hub activities.' },
-                ]}
-                currentStepId={pathStep}
-                onStepSelect={setPathStep}
-              />
-            </Card>
-
-            {/* KPI Tiles (At most 4 tiles rule) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <KpiTile
-                title="Registered seniors"
-                value="1,248"
-                unit="/ 1,500"
-                statusLine="Target cohort progress"
-                status="positive"
-              />
-              <KpiTile
-                title="SOS median response"
-                value="1.4"
-                unit="min"
-                statusLine="SLA < 2.0 min met"
-                status="positive"
-              />
-              <KpiTile
-                title="Medication adherence"
-                value="91.6%"
-                statusLine="Target > 75.0% met"
-                status="positive"
-              />
-              <KpiTile
-                title="Open anomaly flags"
-                value="0"
-                statusLine="No open emergencies"
-                status="positive"
-              />
-            </div>
-
-            {/* Recharts Enterprise Restyle */}
-            <Card
-              title="6. Data Visualization (Tokens: Horizon Blue and Categorical Set, 1px Horizontal Gridlines)"
-              subtitle="Daily preventive health reminder completion vs missed prompts"
-            >
-              <div className="h-64 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <CartesianGrid stroke="#E8ECEF" strokeDasharray="0" vertical={false} />
-                    <XAxis dataKey="day" stroke="#556B82" fontSize={12} tickLine={false} />
-                    <YAxis stroke="#556B82" fontSize={12} tickLine={false} axisLine={false} />
-                    <RechartsTooltip
-                      contentStyle={{
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid #D5DADD',
-                        borderRadius: '8px',
-                        fontSize: '12px',
-                      }}
-                    />
-                    <Bar dataKey="completed" fill="#1F5F4B" name="Completed Prompts" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="missed" fill="#E76500" name="Missed Prompts" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="text-xs text-text-secondary mt-3 pt-2 border-t border-border flex items-center justify-between">
-                <span>Daily automated reminder outcomes recorded through WhatsApp Interactive and SMS gateways.</span>
-                <span className="tabular-nums">Updated 2m ago</span>
-              </div>
-            </Card>
-
-            {/* Data Table */}
-            <div className="space-y-0">
-              <FilterBar
-                searchQuery=""
-                onSearchChange={() => {}}
-                searchPlaceholder="Search pilot cohort seniors..."
-                filters={[
-                  {
-                    id: 'chapter',
-                    label: 'Chapter',
-                    value: 'ALL',
-                    options: [
-                      { value: 'hubballi', label: 'Hubballi Central' },
-                      { value: 'dharwad', label: 'Dharwad Urban' },
-                    ],
-                    onChange: () => {},
-                  },
-                ]}
-              />
-
-              <div className="border border-border rounded-card bg-surface overflow-hidden">
-                <CommandBar
-                  primaryAction={{
-                    id: 'new-senior',
-                    label: 'Onboard Senior',
-                    onClick: () => setIsDialogOpen(true),
-                  }}
-                  onExport={() => alert('Exporting data as CSV')}
-                  onColumnSettings={() => alert('Configuring visible table columns')}
-                  onRefresh={() => alert('Refreshed')}
-                />
-
-                <DataTable
-                  columns={tableColumns}
-                  data={sampleTableData}
-                  keyExtractor={(item) => item.id}
-                  selectable
-                  selectedIds={tableSelected}
-                  onSelectChange={setTableSelected}
-                  onRowClick={() => setIsDrawerOpen(true)}
-                  bulkActions={
-                    <Button variant="ghost" size="sm" onClick={() => alert('Bulk assigning responder')}>
-                      Assign Volunteer
-                    </Button>
-                  }
-                  rowActions={() => (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      icon={<MoreHorizontal className="w-4 h-4" strokeWidth={1.5} />}
-                      onClick={() => setIsDrawerOpen(true)}
-                    />
-                  )}
-                />
               </div>
             </div>
+          </Container>
 
-            {/* Dialogs and Drawers */}
-            <Card title="7. Overlays, Dialogs and Quick-View Drawer">
-              <div className="flex flex-wrap items-center gap-3">
-                <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
-                  Open Form Dialog (640px)
-                </Button>
-                <Button variant="destructive" onClick={() => setIsConfirmOpen(true)}>
-                  Open Destructive Dialog (480px)
-                </Button>
-                <Button variant="primary" onClick={() => setIsDrawerOpen(true)}>
-                  Open Quick-View Drawer (480px)
-                </Button>
+          {/* Section 4: Status Indicators & Fiori Message Strips */}
+          <Container
+            header={
+              <div>
+                <h2 className="text-xl font-semibold text-text">4. Status Indicators and Message Strips</h2>
+                <p className="text-sm text-text-secondary">AWS Cloudscape semantic status markers and SAP Fiori message notifications.</p>
+              </div>
+            }
+          >
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-xs font-semibold text-text-secondary mb-2">
+                  AWS Cloudscape Status Indicators (Icon + Text, 1.5 Stroke, 20px)
+                </h4>
+                <div className="flex flex-wrap items-center gap-6">
+                  <StatusIndicator status="positive" label="Delivered / Active" />
+                  <StatusIndicator status="critical" label="Needs Attention / Pending" />
+                  <StatusIndicator status="negative" label="Unacknowledged / Critical" />
+                  <StatusIndicator status="neutral" label="Queued / Scheduled" />
+                  <StatusIndicator status="informative" label="Draft / In Review" />
+                </div>
               </div>
 
-              {/* Standard Form Dialog */}
-              <Dialog
-                open={isDialogOpen}
-                onOpenChange={setIsDialogOpen}
-                title="Quick Senior Registration"
-                description="Initiate assisted onboarding for a senior citizen residing in Karnataka pilot Ekta Hubs."
-                size="md"
-              >
-                <div className="space-y-3 py-2">
-                  <Input label="Senior legal name" placeholder="e.g. Anand Murthy" required />
-                  <Input label="Emergency contact phone" placeholder="+91 98450 12345" required />
-                  <Select
-                    label="Assign Ekta Hub chapter"
-                    options={[
-                      { value: 'hubballi', label: 'Hubballi Central Ekta Hub' },
-                      { value: 'dharwad', label: 'Dharwad Urban Ekta Hub' },
-                    ]}
-                  />
-                  <div className="flex items-center justify-end gap-2 pt-4 border-t border-border">
-                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                      Cancel
-                    </Button>
-                    <Button variant="primary" onClick={() => setIsDialogOpen(false)}>
-                      Save Senior Record
-                    </Button>
-                  </div>
-                </div>
-              </Dialog>
-
-              {/* Destructive Confirm Dialog */}
-              <ConfirmDialog
-                open={isConfirmOpen}
-                onOpenChange={setIsConfirmOpen}
-                title="De-escalate Emergency SOS Case"
-                description="Are you certain you want to close SOS Case #SOS-2026-0814? This action logs responder verification to the permanent audit registry."
-                confirmLabel="Confirm De-escalation"
-                isDestructive
-                requireMatchText="RESOLVE"
-                onConfirm={() => setIsConfirmOpen(false)}
-              />
-
-              {/* Quick-View Inspection Drawer */}
-              <Drawer
-                open={isDrawerOpen}
-                onOpenChange={setIsDrawerOpen}
-                title="Senior Profile Quick View"
-                subtitle="Savitri Devi Sharma · ID: SEN-HUB-0042"
-                footer={
-                  <>
-                    <Button variant="outline" onClick={() => setIsDrawerOpen(false)}>
-                      Close
-                    </Button>
-                    <Button variant="primary" onClick={() => alert('Navigating to full Object Page')}>
-                      Open Full Profile
-                    </Button>
-                  </>
-                }
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 p-3 bg-surface-subtle border border-border rounded-card">
-                    <Avatar name="Savitri Devi Sharma" size="lg" />
-                    <div>
-                      <div className="font-semibold text-text">Savitri Devi Sharma (76 yrs)</div>
-                      <div className="text-xs text-text-secondary">Hubballi Central · Ekta Hub Member</div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="text-xs font-semibold text-text-secondary">
-                      Key facts
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs bg-surface p-3 border border-border rounded-card">
-                      <div>
-                        <span className="text-text-secondary block">Primary Phone</span>
-                        <span className="tabular-nums text-text font-semibold">••••••2345 (Masked)</span>
-                      </div>
-                      <div>
-                        <span className="text-text-secondary block">Living Arrangement</span>
-                        <span className="text-text">Lives Alone</span>
-                      </div>
-                      <div>
-                        <span className="text-text-secondary block">Medical Conditions</span>
-                        <span className="text-text">Hypertension, Type II</span>
-                      </div>
-                      <div>
-                        <span className="text-text-secondary block">Vayomitra Volunteer</span>
-                        <span className="text-text">Ramesh Kulkarni</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="text-xs font-semibold text-text-secondary">
-                      Recent activity timeline
-                    </div>
-                    <div className="border-l border-border pl-3 space-y-3 text-xs">
-                      <div>
-                        <div className="font-semibold text-text">Morning Blood Pressure Check-in</div>
-                        <div className="text-text-secondary">130/85 mmHg · 08:35 AM (WhatsApp)</div>
-                      </div>
-                      <div>
-                        <div className="font-semibold text-text">Ekta Hub Yoga Attendance</div>
-                        <div className="text-text-secondary">Present · Yesterday 10:00 AM</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Drawer>
-            </Card>
-
-            {/* Feedback States Preview */}
-            <Card title="8. Feedback States (Empty State, Loading Skeleton)">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border border-border rounded-card bg-surface">
-                  <EmptyState
-                    title="No unresolved health flags"
-                    description="All clinical biomarker alerts for this chapter have been addressed by the assigned medical officer."
-                    actionLabel="View Historical Log"
-                    onAction={() => alert('Viewing history')}
-                  />
-                </div>
-                <div className="border border-border rounded-card bg-surface p-4 flex flex-col justify-center">
-                  <span className="text-xs font-semibold text-text-secondary mb-2">Loading Skeleton (1.4s Soft Shimmer)</span>
-                  <LoadingSkeleton rows={4} />
-                </div>
+              <div className="pt-3 border-t border-border space-y-2.5">
+                <h4 className="text-xs font-semibold text-text-secondary mb-2">
+                  SAP Fiori Message Strips (Single Accent Blue + Semantic Roles)
+                </h4>
+                <MessageStrip
+                  type="informative"
+                  title="Phase 2 ABHA Milestone Notice"
+                  onClose={() => {}}
+                >
+                  Digital ABHA card generation is active in staging for Hubballi Central pilot cohort.
+                </MessageStrip>
+                <MessageStrip
+                  type="critical"
+                  title="Consent Verification Required"
+                >
+                  Next-of-kin SMS consent pending for 3 newly registered seniors in Dharwad.
+                </MessageStrip>
+                <MessageStrip
+                  type="negative"
+                  title="Cellular Fallback Triggered"
+                >
+                  SMS delivered to senior mobile after 90s WhatsApp delivery timeout.
+                </MessageStrip>
+                <MessageStrip
+                  type="positive"
+                  title="Audit Hash Chain Verified"
+                >
+                  All 1,248 member interaction records cryptographically verified with zero tamper detected.
+                </MessageStrip>
               </div>
-            </Card>
-          </>
-        ) : (
-          /* Floorplan Skeletons */
-          <div className="space-y-6">
-            <Card title="Floorplan 1: List Report (Fiori Style)">
-              <p className="text-sm text-text-secondary mb-3">
-                Used in Seniors Directory, SOS History, Health Logs, Audit Logs, and User Management.
-              </p>
-              <div className="border border-border rounded-card p-4 bg-canvas space-y-3">
-                <div className="h-10 bg-surface border border-border rounded-control px-3 flex items-center justify-between text-xs text-text-secondary">
-                  <span>Page Header (Dynamic collapsing title + actions)</span>
-                  <div className="flex gap-2">
-                    <span className="h-6 w-16 bg-surface-subtle border border-border rounded-chip" />
-                    <span className="h-6 w-20 bg-accent rounded-chip" />
-                  </div>
-                </div>
-                <div className="h-10 bg-surface border border-border rounded-control px-3 flex items-center text-xs text-text-secondary">
-                  <span>Filter Bar (Search + Dropdowns + Saved Views)</span>
-                </div>
-                <div className="h-8 bg-surface border border-border rounded-control px-3 flex items-center text-xs text-text-secondary">
-                  <span>Command Bar (Create · Export · Bulk actions · Columns · Refresh)</span>
-                </div>
-                <div className="h-32 bg-surface border border-border rounded-control px-3 flex items-center justify-center text-xs text-text-secondary">
-                  <span>Data Table (Sticky header, 48px rows, hairline dividers, tabular numbers)</span>
-                </div>
-              </div>
-            </Card>
+            </div>
+          </Container>
 
-            <Card title="Floorplan 2: Board + Split Panel (AWS Cloudscape Style)">
-              <p className="text-sm text-text-secondary mb-3">
-                Used in Live Emergency SOS Board (`/sos`) for rapid triage without context switching.
-              </p>
-              <div className="border border-border rounded-card p-4 bg-canvas flex gap-4 h-64">
-                <div className="flex-1 bg-surface border border-border rounded-control p-3 flex flex-col justify-between text-xs text-text-secondary">
-                  <span>Active Emergency SOS Master Table (Full Width)</span>
-                  <span className="text-[11px] text-text-tertiary">Select row to inspect in right split panel</span>
-                </div>
-                <div className="w-[320px] bg-surface border border-border rounded-control p-3 flex flex-col justify-between text-xs text-text-secondary">
-                  <div>
-                    <span className="font-semibold text-text block mb-1">Right Split Panel (440px)</span>
-                    <span>Live case summary, responder dispatch actions, and realtime telemetry.</span>
-                  </div>
-                  <Button variant="primary" size="sm">Open Full Case Page</Button>
-                </div>
+          {/* Section 5: Data Visualization & Table Fallback */}
+          <Container
+            header={
+              <div>
+                <h2 className="text-xl font-semibold text-text">5. Data Visualization (Cloudscape Chart with Table Fallback)</h2>
+                <p className="text-sm text-text-secondary">Horizontal-only 1px hairline grid, baseline axes, threshold bands, accessible table toggle.</p>
               </div>
-            </Card>
+            }
+          >
+            <CloudscapeChart
+              title="7-Day Systolic Blood Pressure Trend"
+              subtitle="Daily Morning Vitals vs Target Band"
+              data={chartData}
+              xDataKey="day"
+              series={[
+                { dataKey: 'bp', label: 'Systolic Reading (mmHg)', color: 'var(--chart-1)' }
+              ]}
+              bands={[
+                { y1: 110, y2: 130, label: 'Normal Band (110-130)', color: 'var(--positive-tint)' },
+                { y1: 130, y2: 140, label: 'Prehypertension (130-140)', color: 'var(--critical-tint)' },
+              ]}
+              definition="Clinical readings logged via senior home IoT monitor and WhatsApp self-report."
+            />
+          </Container>
 
-            <Card title="Floorplan 3: Object Page + Highlights Panel (Fiori Pattern)">
-              <p className="text-sm text-text-secondary mb-3">
-                Used in Senior Citizen Profile (`/seniors/:id`) and SOS Case Detail (`/sos/:id`).
-              </p>
-              <div className="border border-border rounded-card p-4 bg-canvas space-y-3">
-                <div className="bg-surface border border-border rounded-control p-4 flex items-center justify-between text-xs text-text-secondary">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-card bg-surface-subtle text-text flex items-center justify-center font-semibold border border-border">SD</div>
-                    <div>
-                      <div className="font-semibold text-text text-sm">Highlights Panel: Senior Identity & Key Facts</div>
-                      <div>Hubballi Central · Age 76 · Status: Active</div>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm">Edit</Button>
-                    <Button variant="primary" size="sm">Trigger Call</Button>
-                  </div>
-                </div>
-                <div className="h-8 bg-surface border-b border-border flex items-center gap-6 px-4 text-xs font-semibold text-text">
-                  <span className="border-b-2 border-accent text-accent py-2">Clinical Vitals</span>
-                  <span className="text-text-secondary py-2">Reminder Schedules</span>
-                  <span className="text-text-secondary py-2">Attendance History</span>
-                  <span className="text-text-secondary py-2">Emergency Contacts</span>
-                </div>
-                <div className="flex gap-4">
-                  <div className="flex-1 bg-surface border border-border rounded-control p-4 text-xs text-text-secondary h-32">
-                    Tab Section Content
-                  </div>
-                  <div className="w-64 bg-surface border border-border rounded-control p-4 text-xs text-text-secondary h-32">
-                    Right Action Rail & Timeline
-                  </div>
-                </div>
-              </div>
-            </Card>
+          {/* Section 6: Data Table with FilterBar */}
+          <div className="space-y-4">
+            <h3 className="text-base font-semibold text-text">6. Cloudscape Data Table & FilterBar</h3>
+            <FilterBar
+              searchPlaceholder="Search seniors by name or ID..."
+              filters={[
+                {
+                  id: 'chapter',
+                  label: 'Chapter Hub',
+                  options: [
+                    { label: 'All Chapters', value: 'ALL' },
+                    { label: 'Hubballi Central', value: 'hubballi' },
+                    { label: 'Dharwad Urban', value: 'dharwad' },
+                  ],
+                  value: 'ALL',
+                  onChange: () => {},
+                },
+              ]}
+              searchQuery=""
+              onSearchChange={() => {}}
+            />
 
-            <Card title="Floorplan 4: Assisted Onboarding Wizard">
-              <p className="text-sm text-text-secondary mb-3">
-                Used in Assisted Senior Citizen Onboarding (`/onboarding/new`).
-              </p>
-              <div className="border border-border rounded-card p-4 bg-canvas space-y-4">
-                <div className="bg-surface border border-border rounded-control p-3 flex items-center justify-around text-xs font-semibold text-text">
-                  <span className="text-positive">1. Demographics</span>
-                  <span className="text-accent border border-accent px-2 py-0.5 rounded-chip">2. Health & Vitals</span>
-                  <span className="text-text-disabled">3. Contacts</span>
-                  <span className="text-text-disabled">4. Review</span>
-                </div>
-                <div className="bg-surface border border-border rounded-control p-6 text-xs text-text-secondary h-32 flex items-center justify-center">
-                  Form Section for Active Wizard Step with Inline Validation
-                </div>
-                <div className="bg-surface border border-border rounded-control p-3 flex items-center justify-between text-xs text-text-secondary">
-                  <span>Saved 2s ago (Autosave)</span>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm">Back</Button>
-                    <Button variant="primary" size="sm">Save & Next</Button>
-                  </div>
-                </div>
-              </div>
-            </Card>
+            <DataTable
+              columns={tableColumns}
+              data={sampleTableData}
+              keyExtractor={(item) => item.id}
+              selectable
+              selectedIds={tableSelected}
+              onSelectChange={setTableSelected}
+            />
           </div>
-        )}
-      </div>
+
+          {/* Section 7: Key-Value List */}
+          <Container
+            header={
+              <div>
+                <h2 className="text-xl font-semibold text-text">7. AWS Cloudscape Key-Value List</h2>
+                <p className="text-sm text-text-secondary">Two-column layout with 12px secondary labels and 14px bold values.</p>
+              </div>
+            }
+          >
+            <KeyValueList
+              items={[
+                { label: 'Primary Coordinator', value: 'Sunita Patil (CM-PUN-01)' },
+                { label: 'Assigned Ekta Hub', value: 'Hubballi Central Chapter' },
+                { label: 'Assisted Onboarding Date', value: '14 Oct 2026' },
+                { label: 'DPDP Consent Status', value: 'Explicit Opt-In Verified' },
+                { label: 'Cellular Fallback Number', value: '+91 98220 99887' },
+                { label: 'Tamper-Evident Hash', value: '0x8f3c...b4a1' },
+              ]}
+            />
+          </Container>
+
+          {/* Confirm Dialog Preview */}
+          <ConfirmDialog
+            open={isConfirmOpen}
+            onOpenChange={setIsConfirmOpen}
+            title="De-escalate Emergency SOS Case"
+            description="Are you certain you want to resolve SOS Case #SOS-2026-0814? This logs responder verification to the permanent audit registry."
+            confirmLabel="Confirm De-escalation"
+            isDestructive
+            requireMatchText="RESOLVE"
+            onConfirm={() => setIsConfirmOpen(false)}
+          />
+        </div>
+      ) : (
+        /* Floorplan Skeletons */
+        <div className="space-y-6">
+          <Container
+            header={
+              <div>
+                <h2 className="text-xl font-semibold text-text">Floorplan 1: Fiori List Report</h2>
+                <p className="text-sm text-text-secondary">Canonical pattern for Senior Directory, Health Logs, Audit Registry, and Admin Tables.</p>
+              </div>
+            }
+          >
+            <div className="border border-border rounded-container p-4 bg-page space-y-3">
+              <div className="h-10 bg-surface border border-border rounded-control px-3 flex items-center justify-between text-xs text-text-secondary">
+                <span>Dynamic Page Header (Title + Breadcrumbs + Primary Actions)</span>
+                <div className="flex gap-2">
+                  <span className="h-6 w-16 bg-bg-subtle border border-border rounded-control" />
+                  <span className="h-6 w-20 bg-accent rounded-control text-white text-center leading-6">Action</span>
+                </div>
+              </div>
+              <div className="h-10 bg-surface border border-border rounded-control px-3 flex items-center text-xs text-text-secondary">
+                <span>FilterBar (Search Input + Multi-Filter Dropdowns + Counter Badge)</span>
+              </div>
+              <div className="h-40 bg-surface border border-border rounded-control p-4 flex flex-col justify-between text-xs text-text-secondary">
+                <div className="flex justify-between border-b border-border pb-2 font-semibold text-text">
+                  <span>Column Header A</span>
+                  <span>Column Header B</span>
+                  <span>Status Indicator</span>
+                  <span>Tabular Numerals</span>
+                </div>
+                <div className="text-center text-text-secondary py-6">
+                  Interactive rows with 48px target height, selection checkboxes, and click-to-detail navigation.
+                </div>
+                <div className="flex justify-between border-t border-border pt-2 text-xs">
+                  <span>Showing 1–10 of 1,248 seniors</span>
+                  <span>Pagination: 1 2 3 ... 125</span>
+                </div>
+              </div>
+            </div>
+          </Container>
+
+          <Container
+            header={
+              <div>
+                <h2 className="text-xl font-semibold text-text">Floorplan 2: AWS Cloudscape Split Panel</h2>
+                <p className="text-sm text-text-secondary">Canonical pattern for Live SOS Emergency Board and Health Flags triage queue.</p>
+              </div>
+            }
+          >
+            <div className="border border-border rounded-container p-4 bg-page grid grid-cols-12 gap-4 h-72">
+              <div className="col-span-7 bg-surface border border-border rounded-control p-4 flex flex-col justify-between text-xs text-text-secondary">
+                <div>
+                  <div className="font-semibold text-text text-sm mb-1">Triage Master Queue (7 Columns)</div>
+                  <p>Interactive table of incoming events sorted by severity and elapsed time SLA.</p>
+                </div>
+                <div className="p-3 bg-bg-subtle rounded-control border border-border">
+                  Row selected: SOS-2026-0814 · Kamala Devi · Elapsed: 1m 24s
+                </div>
+              </div>
+
+              <div className="col-span-5 bg-surface border border-border rounded-control p-4 flex flex-col justify-between text-xs text-text-secondary">
+                <div>
+                  <div className="font-semibold text-text text-sm mb-1">Sticky Detail Panel (5 Columns)</div>
+                  <p>Zero context switching: inspect NOK phone, vitals history, and dispatch care coordinator immediately.</p>
+                </div>
+                <div className="space-y-2">
+                  <Button variant="primary" size="sm" className="w-full">
+                    Acknowledge & Assign Responder
+                  </Button>
+                  <Button variant="outline" size="sm" className="w-full">
+                    View Full Incident Log
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Container>
+
+          <Container
+            header={
+              <div>
+                <h2 className="text-xl font-semibold text-text">Floorplan 3: Fiori Object Page with 8 Tabs</h2>
+                <p className="text-sm text-text-secondary">Canonical pattern for Senior Citizen Profile and SOS Case Inspection.</p>
+              </div>
+            }
+          >
+            <div className="border border-border rounded-container p-4 bg-page space-y-3">
+              <div className="bg-surface border border-border rounded-control p-4 flex items-center justify-between text-xs text-text-secondary">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-accent-tint text-accent flex items-center justify-center font-semibold text-sm">
+                    SD
+                  </div>
+                  <div>
+                    <div className="font-semibold text-text text-sm">Savitri Devi Sharma (76 yrs)</div>
+                    <div>Hubballi Central · ID: SEN-HUB-0042 · Status: Active</div>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">Edit Record</Button>
+                  <Button variant="primary" size="sm">Print Membership Card</Button>
+                </div>
+              </div>
+
+              <div className="h-9 bg-surface border-b border-border flex items-center gap-6 px-4 text-xs font-semibold text-text">
+                <span className="border-b-2 border-accent text-accent py-2">Clinical Vitals</span>
+                <span className="text-text-secondary py-2">Medication Schedules</span>
+                <span className="text-text-secondary py-2">Attendance & Activities</span>
+                <span className="text-text-secondary py-2">Emergency Contacts</span>
+                <span className="text-text-secondary py-2">Audit History</span>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="col-span-2 bg-surface border border-border rounded-control p-4 text-xs text-text-secondary h-36 flex items-center justify-center">
+                  Active Tab Body (Trend Line Charts with Threshold Bands + Filterable Reading Table)
+                </div>
+                <div className="col-span-1 bg-surface border border-border rounded-control p-4 text-xs text-text-secondary h-36 flex flex-col justify-between">
+                  <div className="font-semibold text-text">Next-of-Kin Contacts</div>
+                  <div>Rajesh Sharma (Son): +91 98220 99887</div>
+                  <div className="text-xs text-positive font-semibold">Consent Verified (SMS OTP)</div>
+                </div>
+              </div>
+            </div>
+          </Container>
+
+          <Container
+            header={
+              <div>
+                <h2 className="text-xl font-semibold text-text">Floorplan 4: Cloudscape Multi-Step Wizard</h2>
+                <p className="text-sm text-text-secondary">Canonical pattern for Assisted Senior Citizen Registration.</p>
+              </div>
+            }
+          >
+            <div className="border border-border rounded-container p-4 bg-page grid grid-cols-12 gap-4 h-64">
+              <div className="col-span-3 bg-surface border border-border rounded-control p-4 text-xs text-text-secondary space-y-3">
+                <div className="font-semibold text-text text-xs mb-2">Registration Rail</div>
+                <div className="text-positive font-semibold">1. Demographics</div>
+                <div className="text-accent font-semibold border-l-2 border-accent pl-2">2. Emergency NOK</div>
+                <div className="text-text-secondary">3. Health Profile</div>
+                <div className="text-text-secondary">4. DPDP Consent</div>
+                <div className="text-text-secondary">5. Review & Issue ID</div>
+              </div>
+              <div className="col-span-9 bg-surface border border-border rounded-control p-4 flex flex-col justify-between text-xs text-text-secondary">
+                <div>
+                  <div className="font-semibold text-text text-sm mb-1">Step 2: Emergency Next-of-Kin Contacts</div>
+                  <p>Collect at least two emergency telephone numbers with verified family relationship.</p>
+                </div>
+                <div className="flex justify-between border-t border-border pt-3">
+                  <Button variant="outline" size="sm">Previous Step</Button>
+                  <Button variant="primary" size="sm">Save & Continue</Button>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </div>
+      )}
     </div>
   );
 };

@@ -47,7 +47,7 @@ export const DropdownMenuContent: React.FC<{
       <RadixDropdown.Content
         align={align}
         sideOffset={4}
-        className={`z-50 min-w-[180px] bg-surface border border-border rounded-control shadow-menu p-1 focus:outline-none animate-in fade-in-0 zoom-in-95 duration-fast ${className}`}
+        className={`z-50 min-w-44 bg-surface border border-border rounded-control shadow-menu p-1 focus:outline-none animate-in fade-in-0 zoom-in-95 duration-fast ${className}`}
       >
         {children}
       </RadixDropdown.Content>

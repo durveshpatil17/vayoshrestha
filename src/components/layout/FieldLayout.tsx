@@ -67,8 +67,8 @@ export const FieldLayout: React.FC = () => {
     >
       {/* 480px Centered Mobile Frame on Desktop */}
       <div
-        className={`w-full max-w-[480px] min-h-screen mx-auto bg-bg-surface flex flex-col border-x border-border-hairline  relative ${
-          isLargeText ? 'text-[20px] leading-relaxed' : 'text-[16px] leading-normal'
+        className={`w-full max-w-field-frame min-h-screen mx-auto bg-bg-surface flex flex-col border-x border-border-hairline relative ${
+          isLargeText ? 'text-xl leading-relaxed' : 'text-base leading-normal'
         }`}
       >
         {/* Top Header Bar */}
@@ -80,11 +80,11 @@ export const FieldLayout: React.FC = () => {
             <div>
               <div className="font-semibold text-text-primary text-sm leading-tight flex items-center gap-1.5">
                 Vayoshreshtha Field
-                <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-accent-tint text-accent">
+                <span className="text-xs font-semibold px-1.5 py-0.5 rounded bg-accent-tint text-accent">
                   SF
                 </span>
               </div>
-              <div className="text-[11px] text-text-muted truncate max-w-[180px]">
+              <div className="text-xs text-text-muted truncate max-w-44">
                 {user?.fullName || 'Senior Field Associate'} · Pune Hub
               </div>
             </div>
@@ -96,7 +96,7 @@ export const FieldLayout: React.FC = () => {
               type="button"
               onClick={handleQuickSync}
               disabled={isSimulatedOffline || isSyncing}
-              className={`flex items-center gap-1 px-2 py-1 rounded text-xs font-medium border transition-colors ${
+              className={`flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold border transition-colors ${
                 isSimulatedOffline
                   ? 'bg-critical-tint text-critical border-critical/30'
                   : queueCount > 0
@@ -147,50 +147,50 @@ export const FieldLayout: React.FC = () => {
 
         {/* Fixed Bottom Navigation (Min 48px touch targets) */}
         <nav
-          className="fixed bottom-0 left-0 right-0 max-w-[480px] mx-auto bg-bg-surface border-t border-border-hairline z-30 flex items-center justify-around h-16 px-1"
+          className="fixed bottom-0 left-0 right-0 max-w-field-frame mx-auto bg-bg-surface border-t border-border-hairline z-30 flex items-center justify-around h-16 px-1"
           aria-label="Field Associate Navigation"
         >
           <NavLink
             to="/field"
             end
             className={({ isActive }) =>
-              `flex flex-col items-center justify-center flex-1 h-full min-h-[48px] px-1 transition-colors ${
+              `flex flex-col items-center justify-center flex-1 h-full min-h-12 px-1 transition-colors ${
                 isActive ? 'text-accent font-semibold' : 'text-text-muted hover:text-text-primary'
               }`
             }
           >
             <Home className="w-5 h-5 mb-0.5" />
-            <span className="text-[11px]">Home</span>
+            <span className="text-xs">Home</span>
           </NavLink>
 
           <NavLink
             to="/field/onboard"
             className={({ isActive }) =>
-              `flex flex-col items-center justify-center flex-1 h-full min-h-[48px] px-1 transition-colors ${
+              `flex flex-col items-center justify-center flex-1 h-full min-h-12 px-1 transition-colors ${
                 isActive ? 'text-accent font-semibold' : 'text-text-muted hover:text-text-primary'
               }`
             }
           >
             <UserPlus className="w-5 h-5 mb-0.5" />
-            <span className="text-[11px]">Add Peer</span>
+            <span className="text-xs">Add Peer</span>
           </NavLink>
 
           <NavLink
             to="/field/activity"
             className={({ isActive }) =>
-              `flex flex-col items-center justify-center flex-1 h-full min-h-[48px] px-1 transition-colors ${
+              `flex flex-col items-center justify-center flex-1 h-full min-h-12 px-1 transition-colors ${
                 isActive ? 'text-accent font-semibold' : 'text-text-muted hover:text-text-primary'
               }`
             }
           >
             <Clock className="w-5 h-5 mb-0.5" />
-            <span className="text-[11px]">Activity</span>
+            <span className="text-xs">Activity</span>
           </NavLink>
 
           <NavLink
             to="/field/sync"
             className={({ isActive }) =>
-              `flex flex-col items-center justify-center flex-1 h-full min-h-[48px] px-1 transition-colors relative ${
+              `flex flex-col items-center justify-center flex-1 h-full min-h-12 px-1 transition-colors relative ${
                 isActive ? 'text-accent font-semibold' : 'text-text-muted hover:text-text-primary'
               }`
             }
@@ -198,24 +198,24 @@ export const FieldLayout: React.FC = () => {
             <div className="relative">
               <RefreshCw className="w-5 h-5 mb-0.5" />
               {queueCount > 0 && (
-                <span className="absolute -top-1 -right-2 px-1.5 py-0.2 rounded-full bg-critical text-white text-[9px] font-semibold">
+                <span className="absolute -top-1 -right-2 px-1.5 py-0.5 rounded-full bg-critical text-white text-xs font-semibold">
                   {queueCount}
                 </span>
               )}
             </div>
-            <span className="text-[11px]">Sync</span>
+            <span className="text-xs">Sync</span>
           </NavLink>
 
           <NavLink
             to="/field/profile"
             className={({ isActive }) =>
-              `flex flex-col items-center justify-center flex-1 h-full min-h-[48px] px-1 transition-colors ${
+              `flex flex-col items-center justify-center flex-1 h-full min-h-12 px-1 transition-colors ${
                 isActive ? 'text-accent font-semibold' : 'text-text-muted hover:text-text-primary'
               }`
             }
           >
             <User className="w-5 h-5 mb-0.5" />
-            <span className="text-[11px]">Profile</span>
+            <span className="text-xs">Profile</span>
           </NavLink>
         </nav>
       </div>

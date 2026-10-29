@@ -24,7 +24,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       {label && (
         <label htmlFor={inputId} className="text-label flex items-center gap-0.5">
           {label}
-          {required && <span className="text-negative font-medium">*</span>}
+          {required && <span className="text-negative font-semibold">*</span>}
         </label>
       )}
       <div className="relative flex items-center">

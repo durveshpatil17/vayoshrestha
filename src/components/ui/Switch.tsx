@@ -25,9 +25,9 @@ export const Switch: React.FC<SwitchProps> = ({
         checked={checked}
         onCheckedChange={onCheckedChange}
         disabled={disabled}
-        className="w-[36px] h-[20px] bg-border-strong rounded-full relative transition-colors duration-dur focus-visible:outline-2 focus-visible:outline-focus-ring focus-visible:outline-offset-2 data-[state=checked]:bg-accent disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-9 h-5 bg-border-strong rounded-full relative transition-colors duration-dur focus-visible:outline-2 focus-visible:outline-focus-ring focus-visible:outline-offset-2 data-[state=checked]:bg-accent disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <RadixSwitch.Thumb className="block w-4 h-4 bg-white rounded-full transition-transform duration-dur translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[18px]" />
+        <RadixSwitch.Thumb className="block w-4 h-4 bg-white rounded-full transition-transform duration-dur translate-x-0.5 will-change-transform data-[state=checked]:translate-x-4" />
       </RadixSwitch.Root>
       {label && (
         <label

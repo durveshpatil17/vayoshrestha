@@ -6,3 +6,4 @@ export type { ConfirmDialogProps };
 export const ConfirmDialog: React.FC<ConfirmDialogProps> = (props) => {
   return <BaseConfirmDialog {...props} />;
 };
+

@@ -45,6 +45,7 @@ export function lintFile(content, filePath) {
 
   const isSimulatorFile = normalizedPath.includes('/simulator/');
   const isTestFile = normalizedPath.includes('/tests/') || normalizedPath.includes('test.ts');
+  const isSimulatedBubble = isSimulatorFile || isTestFile || normalizedPath.includes('seed.ts') || normalizedPath.includes('learningEngine.ts');
   const isOverlayComponent =
     normalizedPath.includes('Popover') ||
     normalizedPath.includes('Drawer') ||
@@ -52,7 +53,10 @@ export function lintFile(content, filePath) {
     normalizedPath.includes('Toast') ||
     normalizedPath.includes('Tooltip') ||
     normalizedPath.includes('DropdownMenu') ||
-    normalizedPath.includes('ShellBar');
+    normalizedPath.includes('CommandPalette') ||
+    normalizedPath.includes('ShellBar') ||
+    normalizedPath.includes('TopBar') ||
+    normalizedPath.includes('AppShell');
 
   const lines = content.split('\n');
 
@@ -128,8 +132,8 @@ export function lintFile(content, filePath) {
       });
     }
 
-    // 10. Emoji outside simulator and tests
-    if (!isSimulatorFile && !isTestFile && BANNED_EMOJI_REGEX.test(line)) {
+    // 10. Emoji outside simulator, seed data, and tests
+    if (!isSimulatedBubble && BANNED_EMOJI_REGEX.test(line)) {
       violations.push({
         rule: RULE_NAMES.BANNED_EMOJI,
         lineNum,

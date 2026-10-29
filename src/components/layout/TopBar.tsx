@@ -48,7 +48,7 @@ export const TopBar: React.FC = () => {
         .sosEvents.filter((e) => e.status === 'Triggered' || e.status === 'Acknowledged');
       setOpenSosCount(active.length);
       if (active.length > 0) {
-        document.title = `(🚨 ${active.length}) Vayoshrestha — Emergency SOS`;
+        document.title = `(${active.length} ALERT) Vayoshrestha — Emergency SOS`;
       } else {
         document.title = 'Vayoshrestha — Digital Senior-Care Platform';
       }
@@ -102,7 +102,7 @@ export const TopBar: React.FC = () => {
     : [];
 
   return (
-    <header className="h-[52px] bg-surface border-b border-border px-8 flex items-center justify-between gap-6 z-20 shrink-0 select-none">
+    <header className="h-13 bg-surface border-b border-border px-8 flex items-center justify-between gap-6 z-20 shrink-0 select-none">
       {/* Left: Brand mark + Scope switcher */}
       <div className="flex items-center gap-6">
         <div className="flex items-baseline gap-2 cursor-pointer" onClick={() => navigate('/')}>
@@ -122,7 +122,7 @@ export const TopBar: React.FC = () => {
             className="h-8 px-2.5 rounded-control bg-surface border border-border text-xs text-text flex items-center gap-2 hover:bg-surface-hover transition-colors"
           >
             <Building2 className="w-4 h-4 text-text-secondary stroke-[1.5]" />
-            <span className="font-semibold text-text max-w-[150px] truncate">
+            <span className="font-semibold text-text max-w-36 truncate">
               {currentChapter ? currentChapter.name : 'All Chapters'}
             </span>
             <ChevronDown className="w-3.5 h-3.5 text-text-secondary stroke-[1.5]" />
@@ -147,7 +147,7 @@ export const TopBar: React.FC = () => {
                     }`}
                   >
                     <span className="truncate">{ch.name}</span>
-                    <span className="text-text-secondary font-normal text-[11px]">{ch.city}</span>
+                    <span className="text-text-secondary font-normal text-xs">{ch.city}</span>
                   </button>
                 ))}
               </div>
@@ -168,7 +168,7 @@ export const TopBar: React.FC = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full h-8 pl-9 pr-14 rounded-control bg-surface border border-border text-xs text-text placeholder:text-text-disabled focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent-tint transition-all"
           />
-          <kbd className="absolute right-2 px-1.5 py-0.5 text-[10px] font-normal text-text-secondary bg-surface-subtle border border-border rounded pointer-events-none">
+          <kbd className="absolute right-2 px-1.5 py-0.5 text-xs font-normal text-text-secondary bg-surface-subtle border border-border rounded pointer-events-none">
             Ctrl K
           </kbd>
         </div>
@@ -193,11 +193,11 @@ export const TopBar: React.FC = () => {
                 >
                   <div>
                     <div className="font-semibold text-text">{senior.fullName}</div>
-                    <div className="text-text-secondary text-[11px]">
+                    <div className="text-text-secondary text-xs">
                       {maskPhoneNumber(senior.phoneNumber)} · {senior.chapterId}
                     </div>
                   </div>
-                  <span className="text-[11px] text-accent font-semibold">View</span>
+                  <span className="text-xs text-accent font-semibold">View</span>
                 </button>
               ))
             )}
@@ -265,11 +265,11 @@ export const TopBar: React.FC = () => {
             onClick={() => setUserMenuOpen(!userMenuOpen)}
             className="h-8 px-2.5 rounded-control bg-surface border border-border flex items-center gap-2 hover:bg-surface-hover transition-colors"
           >
-            <div className="w-5 h-5 rounded-full bg-surface-subtle text-text-secondary border border-border flex items-center justify-center text-[10px] font-semibold">
+            <div className="w-5 h-5 rounded-full bg-surface-subtle text-text-secondary border border-border flex items-center justify-center text-xs font-semibold">
               {user?.fullName?.charAt(0) || 'U'}
             </div>
             <div className="text-left hidden lg:block">
-              <span className="text-xs font-semibold text-text block truncate max-w-[120px]">
+              <span className="text-xs font-semibold text-text block truncate max-w-28">
                 {user?.fullName}
               </span>
             </div>
@@ -280,8 +280,8 @@ export const TopBar: React.FC = () => {
             <div className="absolute right-0 top-9 w-64 bg-surface border border-border rounded-control shadow-menu py-1 z-30 animate-in fade-in-0 duration-150">
               <div className="px-3 py-2 border-b border-border-subtle">
                 <div className="font-semibold text-xs text-text">{user?.fullName}</div>
-                <div className="text-[11px] text-text-secondary">{user?.email}</div>
-                <div className="text-[11px] text-accent font-semibold mt-0.5">
+                <div className="text-xs text-text-secondary">{user?.email}</div>
+                <div className="text-xs text-accent font-semibold mt-0.5">
                   Role: {ROLES[user?.role || 'RA']?.name}
                 </div>
               </div>
@@ -307,7 +307,7 @@ export const TopBar: React.FC = () => {
                   }`}
                 >
                   <span>{ROLES[r].name}</span>
-                  <span className="text-[11px] text-text-secondary">{r}</span>
+                  <span className="text-xs text-text-secondary">{r}</span>
                 </button>
               ))}
 

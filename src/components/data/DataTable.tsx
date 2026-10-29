@@ -114,7 +114,7 @@ export function DataTable<T extends Record<string, any>>({
     currentRows.length > 0 && currentRows.every((r) => selectedIds.includes(keyExtractor(r)));
 
   return (
-    <div className="w-full border border-border rounded-[12px] bg-surface overflow-hidden flex flex-col">
+    <div className="w-full border border-border rounded-container bg-surface overflow-hidden flex flex-col">
       {/* Cloudscape Table Header: Title and Count */}
       {(title || headerActions) && (
         <div className="px-6 py-4 border-b border-border-subtle flex items-center justify-between gap-4">
@@ -152,7 +152,7 @@ export function DataTable<T extends Record<string, any>>({
       )}
 
       {/* Table Container */}
-      <div className="overflow-x-auto min-h-[300px]">
+      <div className="overflow-x-auto min-h-72">
         <table className="w-full text-left border-collapse text-sm">
           {/* Sticky Header: 12px/600 secondary text, surface-subtle, no  */}
           <thead className="bg-surface-subtle border-b border-border sticky top-0 z-10 select-none">

@@ -50,8 +50,8 @@ export const AppShell: React.FC = () => {
       <div className="flex-1 flex overflow-hidden">
         <Sidebar />
 
-        <main className="flex-1 overflow-y-auto bg-page p-8 scroll-pt-[108px]">
-          <div className="max-w-[1440px] mx-auto">
+        <main className="flex-1 overflow-y-auto bg-page p-8 scroll-pt-28">
+          <div className="max-w-screen-2xl mx-auto">
             <Outlet />
           </div>
         </main>

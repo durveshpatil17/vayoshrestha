@@ -69,3 +69,4 @@ export const CHART_PALETTE = [
 
 writeFileSync(outputTsPath, tsContent, 'utf8');
 console.log(`Generated ${outputTsPath} with ${Object.keys(tokens).length} tokens.`);
+

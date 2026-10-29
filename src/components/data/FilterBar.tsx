@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, X, ChevronDown, Filter } from 'lucide-react';
+import { Search, X, ChevronDown, Filter, Check } from 'lucide-react';
 import {
   DropdownMenuRoot,
   DropdownMenuTrigger,
@@ -61,7 +61,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="h-8 px-2.5 bg-surface-subtle border border-border rounded-control text-xs font-medium text-text flex items-center gap-1.5 hover:bg-surface-hover transition-colors"
+                className="h-8 px-2.5 bg-surface-subtle border border-border rounded-control text-xs font-semibold text-text flex items-center gap-1.5 hover:bg-surface-hover transition-colors"
               >
                 <span className="text-text-secondary">View:</span>
                 <span className="font-semibold text-text">{activeView}</span>
@@ -77,7 +77,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                     onSelectView?.(view);
                   }}
                 >
-                  {view} {view === activeView ? '✓' : ''}
+                  <span className="flex-1">{view}</span>
+                  {view === activeView && <Check className="w-3.5 h-3.5 text-accent" />}
                 </DropdownMenuItem>
               ))}
               <DropdownMenuSeparator />
@@ -88,7 +89,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           </DropdownMenuRoot>
 
           {/* Global Search Input */}
-          <div className="relative min-w-[200px] max-w-xs flex-1">
+          <div className="relative min-w-48 max-w-xs flex-1">
             <span className="absolute left-2.5 top-2 text-text-tertiary pointer-events-none">
               <Search className="w-4 h-4 stroke-[1.5]" />
             </span>
@@ -133,7 +134,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <button
               type="button"
               onClick={onResetFilters}
-              className="text-xs text-negative hover:underline font-medium px-2 py-1"
+              className="text-xs text-negative hover:underline font-semibold px-2 py-1"
             >
               Reset Filters
             </button>
@@ -149,7 +150,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       {/* Active Filter Chips */}
       {activeFilters.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-border-subtle text-xs">
-          <span className="text-text-secondary text-[11px] font-medium mr-1 flex items-center gap-1">
+          <span className="text-text-secondary text-xs font-semibold mr-1 flex items-center gap-1">
             <Filter className="w-3 h-3 text-text-tertiary stroke-[1.5]" /> Active filters:
           </span>
           {activeFilters.map((f) => {
@@ -160,7 +161,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 className="inline-flex items-center gap-1 bg-surface-subtle text-text border border-border text-xs px-2 py-0.5 rounded-chip"
               >
                 <span className="text-text-secondary">{f.label}:</span>
-                <span className="font-medium">{selectedOpt ? selectedOpt.label : f.value}</span>
+                <span className="font-semibold">{selectedOpt ? selectedOpt.label : f.value}</span>
                 <button
                   type="button"
                   onClick={() => f.onChange('ALL')}

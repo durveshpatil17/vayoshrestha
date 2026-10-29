@@ -6,3 +6,4 @@ export type { FilterBarProps, FilterConfig, FilterOption };
 export const FilterBar: React.FC<FilterBarProps> = (props) => {
   return <BaseFilterBar {...props} />;
 };
+

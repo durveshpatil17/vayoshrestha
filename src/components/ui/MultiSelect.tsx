@@ -50,7 +50,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           <button
             type="button"
             disabled={disabled}
-            className={`min-h-[32px] w-full rounded-control bg-surface border border-border hover:border-border-strong text-sm text-text px-2 py-1 flex items-center justify-between gap-2 transition-colors duration-fast focus-visible:outline-2 focus-visible:outline-focus-ring focus-visible:outline-offset-1 ${
+            className={`min-h-8 w-full rounded-control bg-surface border border-border hover:border-border-strong text-sm text-text px-2 py-1 flex items-center justify-between gap-2 transition-colors duration-fast focus-visible:outline-2 focus-visible:outline-focus-ring focus-visible:outline-offset-1 ${
               disabled ? 'bg-surface-subtle text-text-disabled cursor-not-allowed' : ''
             }`}
           >
@@ -82,7 +82,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           </button>
         </PopoverTrigger>
 
-        <PopoverContent align="start" className="w-[280px] p-1">
+        <PopoverContent align="start" className="w-72 p-1">
           <div className="max-h-60 overflow-y-auto space-y-0.5">
             {options.map((opt) => {
               const selected = value.includes(opt.value);

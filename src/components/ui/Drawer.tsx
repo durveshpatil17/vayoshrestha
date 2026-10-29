@@ -20,7 +20,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   subtitle,
   children,
   footer,
-  width = 'w-[480px]',
+  width = 'w-field-frame',
   className = '',
 }) => {
   return (

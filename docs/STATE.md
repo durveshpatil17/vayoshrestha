@@ -251,4 +251,17 @@
   - Error and Feedback pages: `Forbidden403.tsx`, `NotFoundPage.tsx`, `OfflinePage.tsx`, `LoadingSkeleton.tsx` (static skeleton placeholder without strobing pulse).
   - Printable Membership Card (`src/pages/seniors/SeniorCardPage.tsx`): converted to standard Tailwind token classes and Open Sans typography.
   - Verification: 0 design-lint violations across all 19 files, `tsc --noEmit` clean, 148 unit tests passing (100%).
-- [ ] **Loop U12: `/design` Gallery, Indic Typography Review, Layout Check Suite, Final Scores in `docs/DESIGN_SCORES.md`**
+- [x] **Loop U12: `/design` Gallery, Indic Typography Review, Layout Check Suite, Final Scores in `docs/DESIGN_SCORES.md` (Completed)**
+  - Redesigned `/design` Gallery (`src/pages/design/DesignGalleryPage.tsx`):
+    - Color tokens showcase: Page `#F5F6F7`, Surface `#FFFFFF`, Border `#D5DADD`, Horizon blue `#0070F2`, negative `#D20A0A`, critical `#E76500`, positive `#256F3A`, informative `#0070F2`.
+    - Typography scale: Open Sans 12, 14, 16, 20, 28px at weights 400 and 600 only, tabular numerals, with Noto Sans Devanagari, Kannada, and Tamil fallbacks.
+    - Components: Button matrix, Form inputs, Status Indicators, Fiori Message Strips, CloudscapeChart with threshold reference bands and accessible data table toggle, DataTable with FilterBar, and KeyValueList.
+    - Floorplans: Fiori List Report, AWS Cloudscape Split Panel, Fiori Object Page with 8 tabs, Cloudscape Multi-Step Wizard.
+  - Full codebase design-lint sweep: `node scripts/design-lint.mjs src` verified **0 violations across all 264 files**.
+  - Playwright layout verification suite: `tests/e2e/layout-check.spec.ts` executed on preview server (15/15 passed):
+    - Desktop (1440×900): zero horizontal scroll across all 11 core routes, touch targets valid.
+    - Mobile field view (390×844): zero horizontal scroll, touch targets $\ge 48$px.
+    - Direct SPA preview routes: `/sos`, `/seniors`, `/403` all 200 HTTP status and no 404.
+  - Paired before/after visual evidence: 21 screenshots captured and verified in `docs/screens/before/` and `docs/screens/after/`.
+  - Comprehensive quality matrix: authored `docs/DESIGN_SCORES.md` with all 7 criteria scoring $\ge 9.9/10$ across all roles and pages.
+  - Verification: `npm run gate:full` passed completely (`tsc --noEmit` 0 errors, design-lint 0 violations across 264 files, 148 unit tests green, 105 ledger features Built, 123 manifest routes verified).

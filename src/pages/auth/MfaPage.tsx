@@ -41,7 +41,7 @@ export const MfaPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-bg-base flex flex-col justify-between">
-      <div className="h-[26px] bg-bg-subtle border-b border-border-hairline text-text-muted text-[11px] font-medium flex items-center justify-between px-6">
+      <div className="h-7 bg-bg-subtle border-b border-border-hairline text-text-muted text-xs flex items-center justify-between px-6">
         <span>Vayoshreshtha Prototype · Mandatory Two-Factor Authentication</span>
         <Link to="/login" className="text-accent hover:underline">
           Cancel & Return to Login
@@ -110,7 +110,7 @@ export const MfaPage: React.FC = () => {
                 setIsRecoveryMode(!isRecoveryMode);
                 setError(null);
               }}
-              className="text-accent hover:underline font-medium inline-flex items-center gap-1.5"
+              className="text-accent hover:underline font-semibold inline-flex items-center gap-1.5"
             >
               <KeyRound className="w-3.5 h-3.5" />
               {isRecoveryMode ? 'Use Authenticator App instead' : 'Lost device? Use emergency recovery code'}

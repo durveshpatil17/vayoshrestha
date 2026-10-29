@@ -12,14 +12,13 @@ export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`w-full space-y-3 p-4 animate-pulse ${className}`} aria-busy="true">
+    <div className={`w-full space-y-3 p-4 opacity-70 ${className}`} aria-busy="true">
       {Array.from({ length: rows }).map((_, i) => (
         <div
           key={i}
           className={`bg-border-subtle rounded-control ${height}`}
           style={{
             width: i === 0 ? '60%' : i === rows - 1 ? '40%' : '100%',
-            animationDuration: '1.4s',
           }}
         />
       ))}

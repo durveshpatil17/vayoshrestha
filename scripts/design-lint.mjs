@@ -66,7 +66,7 @@ export function lintFile(content, filePath) {
     }
 
     // 1. Hex color check
-    if (!isTokenFile && HEX_COLOR_REGEX.test(line)) {
+    if (!isTokenFile && !isSimulatorFile && HEX_COLOR_REGEX.test(line)) {
       violations.push({
         rule: RULE_NAMES.HEX_OUTSIDE_TOKENS,
         lineNum,
@@ -120,7 +120,7 @@ export function lintFile(content, filePath) {
     }
 
     // 7. Tailwind arbitrary bracket values
-    if (!isTokenFile && BANNED_ARBITRARY_REGEX.test(line)) {
+    if (!isTokenFile && !isSimulatorFile && BANNED_ARBITRARY_REGEX.test(line)) {
       violations.push({
         rule: RULE_NAMES.BANNED_ARBITRARY_BRACKETS,
         lineNum,

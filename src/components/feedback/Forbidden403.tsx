@@ -21,7 +21,7 @@ export const Forbidden403: React.FC<Forbidden403Props> = ({
   const effectiveRole = currentRole || user?.role || 'Guest';
 
   return (
-    <div className="min-h-[50vh] flex flex-col items-center justify-center p-8 text-center max-w-md mx-auto select-none">
+    <div className="min-h-96 flex flex-col items-center justify-center p-8 text-center max-w-md mx-auto select-none">
       <ShieldAlert className="w-10 h-10 text-critical stroke-[1.5] mb-3" />
       <span className="text-xs font-semibold text-text-secondary mb-1">
         HTTP 403

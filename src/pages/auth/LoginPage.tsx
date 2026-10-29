@@ -67,9 +67,9 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-bg-base flex flex-col justify-between">
+    <div className="min-h-screen bg-page flex flex-col justify-between">
       {/* Top Banner Ribbon */}
-      <div className="h-[26px] bg-bg-subtle border-b border-border-hairline text-text-muted text-[11px] font-medium flex items-center justify-between px-6">
+      <div className="h-7 bg-surface-subtle border-b border-border text-text-secondary text-xs font-semibold flex items-center justify-between px-6">
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-accent" />
           Vayoshreshtha Prototype · Synthetic Data Only · Vayoh Vikas NGO
@@ -176,12 +176,12 @@ export const LoginPage: React.FC = () => {
                     </button>
                   </div>
                   {capsLockActive && (
-                    <p className="text-[11px] text-warning mt-1 flex items-center gap-1 font-medium">
-                      <Lock className="w-3 h-3" /> Caps Lock is ON
+                    <p className="text-xs text-critical mt-1 flex items-center gap-1 font-semibold">
+                      <Lock className="w-3 h-3 stroke-[1.5]" /> Caps Lock is ON
                     </p>
                   )}
-                  <p className="text-[11px] text-text-muted mt-1 tabular-nums">
-                    Demo Staff Password: <span className="font-semibold text-text-primary">Demo@1234</span>
+                  <p className="text-xs text-text-secondary mt-1 tabular-nums">
+                    Demo Staff Password: <span className="font-semibold text-text">Demo@1234</span>
                   </p>
                 </div>
 
@@ -231,12 +231,12 @@ export const LoginPage: React.FC = () => {
           {/* Prototype Quick Access Switcher Panel */}
           <div className="mt-6 bg-bg-subtle border border-border-hairline rounded p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-semibold text-text-muted flex items-center gap-1.5">
+              <span className="text-xs font-semibold text-text-muted flex items-center gap-1.5">
                 <Shield className="w-3.5 h-3.5 text-accent" />
                 Prototype 1-Click Access Panel (10 Personas)
               </span>
             </div>
-            <p className="text-[11px] text-text-muted mb-3 leading-normal">
+            <p className="text-xs text-text-muted mb-3 leading-normal">
               Click any persona below to simulate authorized role access, scope restrictions, and data masking:
             </p>
 
@@ -280,12 +280,12 @@ export const LoginPage: React.FC = () => {
                   className="text-left px-2.5 py-1.5 rounded bg-bg-base border border-border-hairline hover:border-accent hover:bg-accent-tint/30 transition-all text-xs"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-text-primary text-[11px]">{p.title}</span>
-                    <span className="tabular-nums text-[9px] text-accent font-semibold px-1 bg-accent-tint rounded">
+                    <span className="font-semibold text-text-primary text-xs">{p.title}</span>
+                    <span className="tabular-nums text-xs text-accent font-semibold px-1 bg-accent-tint rounded">
                       {p.role}
                     </span>
                   </div>
-                  <div className="text-[10px] text-text-muted truncate mt-0.5">{p.name}</div>
+                  <div className="text-xs text-text-muted truncate mt-0.5">{p.name}</div>
                 </button>
               ))}
             </div>

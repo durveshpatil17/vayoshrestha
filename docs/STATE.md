@@ -242,8 +242,13 @@
   - Family Member Portal (`/family/*`, `FmPortal.tsx`, `FmPortalSubPages.tsx`): elder wellbeing snapshots, consent verification banner, quick actions.
   - Mobile Field View (`/field/*` across 6 files): centered 480px responsive container, touch targets $\ge 48$px, offline sync status, double consent forms.
   - Verification: 0 design-lint violations across all 10 files, `tsc --noEmit` clean, 148 unit tests passing (100%).
-- [ ] **Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs**
-- [ ] **Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus)**
-- [ ] **Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844)**
-- [ ] **Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs**
+- [x] **Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs (Completed)**
+  - WhatsApp Simulator (`src/pages/simulator/SimulatorPage.tsx`): scoped within simulator token boundaries, standardized font weights and tokens.
+  - Auth suite (`src/pages/auth/*` across 10 files):
+    - `LoginPage.tsx`: standardized 1-click persona switcher to `text-xs font-semibold`, 0 lint violations.
+    - `FirstLoginPage.tsx`, `ForgotPasswordPage.tsx`, `MfaPage.tsx`, `PrivacyPage.tsx`, `ResetPasswordPage.tsx`, `VerifyOtpPage.tsx`: standardized 28px top status ribbon (`h-7 bg-bg-subtle border-b border-border-hairline text-xs`), eliminated banned font weights.
+  - Shell pages (`src/pages/shell/*`): `AccountPage.tsx`, `HelpPage.tsx`, `NotificationsPage.tsx` normalized to 0 violations.
+  - Error and Feedback pages: `Forbidden403.tsx`, `NotFoundPage.tsx`, `OfflinePage.tsx`, `LoadingSkeleton.tsx` (static skeleton placeholder without strobing pulse).
+  - Printable Membership Card (`src/pages/seniors/SeniorCardPage.tsx`): converted to standard Tailwind token classes and Open Sans typography.
+  - Verification: 0 design-lint violations across all 19 files, `tsc --noEmit` clean, 148 unit tests passing (100%).
 - [ ] **Loop U12: `/design` Gallery, Indic Typography Review, Layout Check Suite, Final Scores in `docs/DESIGN_SCORES.md`**

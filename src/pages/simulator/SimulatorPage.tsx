@@ -769,7 +769,7 @@ export const SimulatorPage: React.FC = () => {
                       msg.sender === 'USER'
                         ? 'bg-[#DCF8C6] text-[#111]'
                         : msg.isSosAck
-                        ? 'bg-negative-tint border border-negative/30 text-negative font-medium'
+                        ? 'bg-negative-tint border border-negative/30 text-negative font-semibold'
                         : 'bg-white text-[#111] border border-black/5'
                     }`}
                   >

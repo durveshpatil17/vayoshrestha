@@ -340,3 +340,21 @@
   - Design-lint: 0 violations across all 10 files.
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs.
+
+---
+
+## Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs (Phase U: Final UI Design Pass)
+- **Goal**: Restyle WhatsApp Simulator (`/simulator`), Auth suite (`/login`, `/first-login`, `/mfa`, `/verify-otp`, `/forgot-password`, `/reset-password`), Shell auxiliary pages (`/notifications`, `/help`, `/account`), Error pages (`/403`, `/404`, `/offline`), and printable senior membership cards (`/seniors/:id/card`).
+- **What Changed**:
+  - `src/pages/simulator/SimulatorPage.tsx`: Ensured all scoped simulator tokens adhere to design brief boundaries without global color leaks; normalized font weights to 400 and 600.
+  - `src/pages/auth/*`: Standardized 10 auth pages, replacing arbitrary pixel heights and text sizes with standard Tailwind tokens (`h-7`, `text-xs`, `font-semibold`). Cleaned prototype persona switcher in `LoginPage.tsx`.
+  - `src/pages/shell/*`: Restyled `AccountPage.tsx`, `HelpPage.tsx`, and `NotificationsPage.tsx` with clean Fiori Horizon headers and Cloudscape containers.
+  - `src/components/feedback/*`: Cleaned `LoadingSkeleton.tsx` to use non-strobing static skeleton placeholders (`opacity-70`), restyled `Forbidden403.tsx` with clean standard heights.
+  - `src/pages/seniors/SeniorCardPage.tsx`: Modernized printable emergency elder ID card to standard Open Sans typography, tokenized borders, and tabular numerals.
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+  - Design-lint: 0 violations across all 19 files.
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U12: `/design` Gallery, Indic Typography Review, Layout Check Suite, Final Scores in `docs/DESIGN_SCORES.md`.
+

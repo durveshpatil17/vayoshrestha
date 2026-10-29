@@ -32,7 +32,7 @@ export const FirstLoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-bg-base flex flex-col justify-between">
-      <div className="h-[26px] bg-bg-subtle border-b border-border-hairline text-text-muted text-[11px] font-medium flex items-center justify-between px-6">
+      <div className="h-7 bg-bg-subtle border-b border-border-hairline text-text-muted text-xs flex items-center justify-between px-6">
         <span>Vayoshreshtha Prototype · Initial Account Activation</span>
       </div>
 

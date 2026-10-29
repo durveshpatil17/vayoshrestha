@@ -7,17 +7,17 @@ export const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center max-w-md mx-auto">
-      <div className="w-14 h-14 rounded-full bg-bg-subtle text-text-muted flex items-center justify-center mb-4 border border-border-hairline">
-        <FileQuestion className="w-7 h-7" />
+    <div className="min-h-96 flex flex-col items-center justify-center p-6 text-center max-w-md mx-auto">
+      <div className="w-14 h-14 rounded-full bg-surface-subtle text-text-secondary flex items-center justify-center mb-4 border border-border">
+        <FileQuestion className="w-7 h-7 stroke-[1.5]" />
       </div>
-      <span className="text-xs font-semibold text-text-muted mb-1">
+      <span className="text-xs font-semibold text-text-secondary mb-1">
         HTTP 404
       </span>
-      <h1 className="text-2xl font-semibold text-text-primary mb-2">
+      <h1 className="text-2xl font-semibold text-text mb-2">
         Page Not Found
       </h1>
-      <p className="text-xs text-text-muted mb-6 leading-relaxed">
+      <p className="text-xs text-text-secondary mb-6 leading-relaxed">
         The requested screen does not exist or has been relocated within the Vayoshreshtha eldercare workspace.
       </p>
       <div className="flex gap-3">

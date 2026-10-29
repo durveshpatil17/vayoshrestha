@@ -38,10 +38,10 @@ export const AccountPage: React.FC = () => {
       />
 
       {/* Navigation Tabs */}
-      <div className="flex border-b border-border-hairline mb-6 gap-6 text-xs font-medium">
+      <div className="flex border-b border-border-hairline mb-6 gap-6 text-xs font-semibold">
         <button
           onClick={() => setActiveTab('profile')}
-          className={`pb-2.5 border-b-2 -mb-[1px] ${
+          className={`pb-2.5 border-b-2 -mb-px ${
             activeTab === 'profile' ? 'border-accent text-accent font-semibold' : 'border-transparent text-text-muted hover:text-text-primary'
           }`}
         >
@@ -83,7 +83,7 @@ export const AccountPage: React.FC = () => {
             <div>
               <h3 className="text-base font-semibold text-text-primary">{user?.fullName}</h3>
               <p className="text-xs text-text-muted">{user?.email || user?.phone}</p>
-              <span className="inline-block mt-1 text-[11px] tabular-nums text-accent bg-accent-tint px-2 py-0.5 rounded font-semibold">
+              <span className="inline-block mt-1 text-xs tabular-nums text-accent bg-accent-tint px-2 py-0.5 rounded font-semibold">
                 {user?.role} · {ROLES[user?.role || 'SA']?.name}
               </span>
             </div>
@@ -195,10 +195,10 @@ export const AccountPage: React.FC = () => {
                 <Laptop className="w-5 h-5 text-accent" />
                 <div>
                   <div className="font-semibold text-text-primary">Current Web Session (macOS · Chrome)</div>
-                  <div className="text-[11px] text-text-muted">Pune, Maharashtra · IP 103.21.124.8 · Active now</div>
+                  <div className="text-xs text-text-muted">Pune, Maharashtra · IP 103.21.124.8 · Active now</div>
                 </div>
               </div>
-              <span className="text-[10px] font-semibold text-success bg-success-bg px-2 py-0.5 rounded">
+              <span className="text-xs font-semibold text-success bg-success-bg px-2 py-0.5 rounded">
                 This Device
               </span>
             </div>

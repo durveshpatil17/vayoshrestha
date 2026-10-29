@@ -68,7 +68,7 @@ export const ResetPasswordPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-bg-base flex flex-col justify-between">
-      <div className="h-[26px] bg-bg-subtle border-b border-border-hairline text-text-muted text-[11px] font-medium flex items-center justify-between px-6">
+      <div className="h-7 bg-bg-subtle border-b border-border-hairline text-text-muted text-xs flex items-center justify-between px-6">
         <span>Vayoshreshtha Prototype · Set New Password</span>
         <Link to="/login" className="text-accent hover:underline">
           Cancel & Return to Login
@@ -127,7 +127,7 @@ export const ResetPasswordPage: React.FC = () => {
                     style={{ width: `${(criteriaMet / 5) * 100}%` }}
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-1 text-[11px] pt-1">
+                <div className="grid grid-cols-2 gap-1 text-xs pt-1">
                   <div className={`flex items-center gap-1 ${hasMinLength ? 'text-success' : 'text-text-muted'}`}>
                     {hasMinLength ? <Check className="w-3 h-3" /> : <Cross className="w-3 h-3" />} Min 10 characters
                   </div>

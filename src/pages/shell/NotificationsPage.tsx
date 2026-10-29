@@ -87,10 +87,10 @@ export const NotificationsPage: React.FC = () => {
       />
 
       {/* Filter Tabs */}
-      <div className="flex border-b border-border-hairline mb-4 gap-4 text-xs font-medium">
+      <div className="flex border-b border-border-hairline mb-4 gap-4 text-xs font-semibold">
         <button
           onClick={() => setFilter('ALL')}
-          className={`pb-2 border-b-2 -mb-[1px] ${
+          className={`pb-2 border-b-2 -mb-px ${
             filter === 'ALL' ? 'border-accent text-accent font-semibold' : 'border-transparent text-text-muted hover:text-text-primary'
           }`}
         >
@@ -166,7 +166,7 @@ export const NotificationsPage: React.FC = () => {
               </div>
 
               <div className="text-right shrink-0">
-                <span className="text-[11px] text-text-muted block">{item.timestamp}</span>
+                <span className="text-xs text-text-muted block">{item.timestamp}</span>
                 {!item.isRead && (
                   <span className="w-2 h-2 rounded-full bg-accent inline-block mt-1" />
                 )}

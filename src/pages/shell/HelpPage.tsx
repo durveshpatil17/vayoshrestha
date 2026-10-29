@@ -107,7 +107,7 @@ export const HelpPage: React.FC = () => {
             <div className="p-3 bg-bg-base rounded border border-border-hairline text-xs space-y-1">
               <div className="font-semibold text-text-primary">Vayoh Vikas Field Desk</div>
               <div className="text-accent tabular-nums font-semibold">+91 98220 11999</div>
-              <div className="text-[11px] text-text-muted">Mon–Sat: 08:30 to 18:00 IST</div>
+              <div className="text-xs text-text-muted">Mon–Sat: 08:30 to 18:00 IST</div>
             </div>
           </div>
 
@@ -119,19 +119,19 @@ export const HelpPage: React.FC = () => {
             <div className="space-y-2 text-xs">
               <a
                 href="/privacy"
-                className="block p-2 rounded hover:bg-bg-subtle text-accent font-medium hover:underline"
+                className="block p-2 rounded hover:bg-bg-subtle text-accent font-semibold hover:underline"
               >
                 Plain Language Privacy Charter
               </a>
               <button
                 onClick={() => navigate('/reports/definitions')}
-                className="w-full text-left p-2 rounded hover:bg-bg-subtle text-accent font-medium hover:underline"
+                className="w-full text-left p-2 rounded hover:bg-bg-subtle text-accent font-semibold hover:underline"
               >
                 Measurement Metric Definitions
               </button>
               <button
                 onClick={() => navigate('/complaints/new')}
-                className="w-full text-left p-2 rounded hover:bg-bg-subtle text-accent font-medium hover:underline"
+                className="w-full text-left p-2 rounded hover:bg-bg-subtle text-accent font-semibold hover:underline"
               >
                 Grievance & Redressal Form
               </button>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { RanmDashboard } from './RanmDashboard';
 import { CmDashboard } from './CmDashboard';
@@ -38,6 +39,8 @@ export const DashboardRouter: React.FC = () => {
       return <ScPortal />;
     case 'FM':
       return <FmPortal />;
+    case 'SF':
+      return <Navigate to="/field" replace />;
     default:
       return <RanmDashboard />;
   }

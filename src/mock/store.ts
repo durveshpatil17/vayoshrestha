@@ -102,6 +102,15 @@ class MockDataStore {
           parsed.followUpTasks = parsed.followUpTasks || expanded.followUpTasks;
           parsed.escalations = parsed.escalations || expanded.escalations;
           parsed.complaints = parsed.complaints || expanded.complaints;
+
+          // Merge any newly introduced seed users (e.g. SF, CD-Gov, SP-Legal)
+          const freshSeed = createDeterministicSeed();
+          for (const u of freshSeed.users) {
+            if (!parsed.users.some((existing: any) => existing.id === u.id)) {
+              parsed.users.push(u);
+            }
+          }
+
           return parsed;
         }
       }

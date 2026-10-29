@@ -1,10 +1,9 @@
-# Feature Ledger — Vayoshreshtha v3
+# Vayoshrestha Feature Ledger (F-001 through F-105)
 
-> Machine-readable twin: docs/feature-ledger.json  
-> Ratchet enforces counts never go down: npm run ratchet
+Total Features: 105 | Built: 105 | Partial: 0 | Planned: 0
 
-| ID | Name | FR | Routes | Roles | Status | Notes |
-|----|------|----|--------|-------|--------|-------|
+| ID | Name | Module / FR | Routes | Roles | Status | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
 | F-001 | Authentication & MFA | FR-01 | /login, /mfa, /forgot-password, /reset-password/:token, /first-login | ALL | Built |  |
 | F-002 | Session management & timeout | FR-02 | /session-expired | ALL | Built |  |
 | F-003 | Privacy consent | FR-03 | /privacy | ALL | Built |  |
@@ -21,8 +20,8 @@
 | F-014 | SP dashboard | FR-05 | / (SP) | SP | Built |  |
 | F-015 | SC home portal | FR-05 | /me | SC | Built |  |
 | F-016 | FM home portal | FR-05 | /family | FM | Built |  |
-| F-017 | RBAC permission matrix | FR-06 | — | ALL | Built |  |
-| F-018 | Field masking | FR-07 | — | VF,NK | Built |  |
+| F-017 | RBAC permission matrix | FR-06 |  | ALL | Built |  |
+| F-018 | Field masking | FR-07 |  | VF,NK | Built |  |
 | F-019 | Maker-checker approvals | FR-08 | /admin/approvals | NM,SA | Built |  |
 | F-020 | Audit log | FR-09 | /admin/audit-logs | SA | Built |  |
 | F-021 | Senior onboarding wizard | FR-11 | /onboarding, /onboarding/new, /onboarding/script | CM,VF,RA | Built |  |
@@ -85,3 +84,28 @@
 | F-078 | SC family links | — | /me/family | SC | Built |  |
 | F-079 | FM senior overview | — | /family/:seniorId | FM | Built |  |
 | F-080 | FM family links | — | /family/links | FM | Built |  |
+| F-081 | Field Network Terminal Home | Layer 3 | /field | SF,SA,NM,PM,RA,CM | Built | Mobile-first terminal for active elder field associates; sync status, add peer, task queue. |
+| F-082 | Field Peer Double-Consent Onboarding Wizard | Layer 3 | /field/onboard | SF,CM,VF | Built | 4-step mobile wizard: Peer details -> Consent 1 in-person -> WhatsApp Consent 2 -> AES-GCM encrypted save & coarse geo-stamp. |
+| F-083 | Field Associate Activity Log | Layer 3 | /field/activity | SF | Built | Associate personal log: timestamps, coarse area labels, double consent status chips. |
+| F-084 | Field Offline Sync Queue & Simulation | Layer 3 | /field/sync | SF | Built | Encrypted local queue, simulate offline toggle, manual retry, latency tracking. |
+| F-085 | Field Associate Training Micro-Lessons | Layer 3 | /field/learn | SF | Built | Short field training modules on ethical consent capture and fraud prevention. |
+| F-086 | Field Associate Profile & High-Contrast Toggle | Layer 3 | /field/profile | SF | Built | Display preferences: 22px large type toggle, >=7:1 high-contrast toggle, privacy statement. |
+| F-087 | Field Operations Management & Telemetry Hub | Layer 3 | /field-network | PM,CM,RA,NM,SA | Built | Staff oversight hub embedding the cross-cutting Field Telemetry Card. |
+| F-088 | Field Associates Roster & Chapter Assignment | Layer 3 | /field-network/associates, /field-network/associates/:id | PM,CM,RA,NM,SA | Built | Roster, chapter assignment, training completion, deactivation with type-to-confirm. |
+| F-089 | Field Activity Coarse Audit Stream | Layer 3 | /field-network/activity | PM,CM,RA,NM,SA | Built | Area-level interaction stream with chapter and date filtering; gated export. |
+| F-090 | Field Sync Queue Telemetry & Late-Sync Flags | Layer 3 | /field-network/sync | PM,CM,RA,NM,SA | Built | Central sync telemetry, late-sync flags (>24h), retry monitor. |
+| F-091 | Field Telemetry Card (Cross-Cutting Live Metrics) | Layer 3/4 | /field-network, /reports/pilot | NM,PM,RA,CM,SA,CD | Built | Live event-computed component: Active Field Gigs, Last-Mile Syncs, chapter strips, 24h sparkline, BroadcastChannel ticker. |
+| F-092 | Partner Routing Fabric Overview & Queue | Layer 1 | /routing | PM,NM,RA,CM,SA,CD | Built | Categorical routing overview: capacity load-balancing, auto-routed vs manual, SLA monitoring. |
+| F-093 | Routing Decision Records & Reassignment | Layer 1 | /routing/requests/:id | PM,NM,RA,CM,SA | Built | Transparent decision record (rules matched, capacity, tie-break), reassignment timeline. |
+| F-094 | Routing Rules Configuration & Test Harness | Layer 1 | /routing/rules | PM,NM,RA,SA | Built | Deterministic rule configuration with maker-checker (PM drafts, NM approves), test request tool. |
+| F-095 | Voucher Campaigns & Catalogue Management | Layer 1 | /vouchers, /vouchers/campaigns, /vouchers/campaigns/new, /vouchers/:id | PM,NM,RA,CM,SA | Built | Diagnostic voucher campaigns, validity caps, maker-checker, WhatsApp simulator delivery. |
+| F-096 | Voucher Validation & Single-Use Redemption | Layer 1 | /partner/vouchers, /partner/vouchers/redeem, /me/vouchers | SP,SC,FM,PM,CM | Built | Crockford base-32 check-digit verification, rate-limited validation, single-use idempotent redemption. |
+| F-097 | Pro-Bono Encrypted Legal Intake | Layer 1 | /legal-intake, /legal-intake/:id | SP,PM,NM,CM,SA,SC,FM,SF,VF | Built | Encrypted intake queue: assigned legal SP sees content; staff see metadata; policy closure codes. |
+| F-098 | Virtual Literacy Learning Library | Layer 2 | /learning, /learning/library, /learning/library/new, /learning/library/:id | PM,NM,RA,CM,SA,SC,FM,SF | Built | 4-category micro-lessons, WhatsApp chat bubble preview, allow-listed link safety, maker-checker. |
+| F-099 | Micro-Lesson Daily Series Campaigns | Layer 2 | /learning/series | PM,NM,RA,SA | Built | Drip campaigns, quiet hours enforcement, consent-filtered audience builder. |
+| F-100 | Community Webinars & Broadcast Channels | Layer 2 | /learning/webinars, /learning/channels, /me/events | PM,NM,RA,CM,SA,SC,FM,SF | Built | Event sign-ups, consent-gated reminders, regional one-way broadcast channels. |
+| F-101 | Regional Mastermind Quizzes | Layer 2 | /learning/quizzes, /learning/quizzes/:id, /me/quizzes | PM,NM,RA,CM,SA,SC,FM | Built | Regional quiz rounds delivered via channel, simulator gameplay, minimal privacy-safe leaderboard. |
+| F-102 | Telemetry Engine & Cohort Compliance Dashboard | Layer 4 | /telemetry, /telemetry/trends, /telemetry/privacy | CD,NM,PM,RA,SA | Built | Cohort compliance, coarse 5-category vaccination status, k>=5 suppression, policy decline indicator. |
+| F-103 | Impact Packs Builder & Signed Tamper-Evident PDF | Layer 4 | /telemetry/packs, /telemetry/packs/new, /telemetry/packs/:id, /telemetry/exports | PM,NM,RA,SA,CD | Built | Audience-scoped packs (PM drafts, NM releases), SHA-256 calculation, synthetic watermark, export registry. |
+| F-104 | Public Report Verification Gateway | Layer 4 | /verify, /verify/:code | ALL | Built | Unauthenticated public gateway recomputing SHA-256 in browser to verify impact packs. |
+| F-105 | Ecosystem Strategic Nexus Architecture Map | Nexus | /ecosystem | NM,PM,RA,SA,CD | Built | Interactive diagram of Layers 1-4 with live mock telemetry counters and strategic goals. |

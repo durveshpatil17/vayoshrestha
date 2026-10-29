@@ -36,6 +36,10 @@ import {
   FileSpreadsheet,
   Send,
   HelpCircle,
+  Ticket,
+  Scale,
+  Award,
+  RefreshCw,
 } from 'lucide-react';
 
 interface NavItem {
@@ -136,6 +140,32 @@ export const Sidebar: React.FC = () => {
           >
             <HeartHandshake className="w-5 h-5 stroke-[1.5]" />
             <span>Request support</span>
+          </NavLink>
+          <NavLink
+            to="/me/vouchers"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <Ticket className="w-5 h-5 stroke-[1.5]" />
+            <span>My health & vouchers</span>
+          </NavLink>
+          <NavLink
+            to="/me/learning"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+                isActive
+                  ? 'bg-surface-selected text-accent font-semibold'
+                  : 'text-text hover:bg-surface-hover'
+              }`
+            }
+          >
+            <BookOpen className="w-5 h-5 stroke-[1.5]" />
+            <span>My learning & quizzes</span>
           </NavLink>
           <NavLink
             to="/me/health"
@@ -440,6 +470,35 @@ export const Sidebar: React.FC = () => {
       ],
     },
     {
+      title: 'Field network (Layer 3)',
+      items: [
+        {
+          label: 'Field operations hub',
+          to: '/field-network',
+          icon: <Activity className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'FIELD_ACTIVITY_LOGS',
+        },
+        {
+          label: 'Field associates roster',
+          to: '/field-network/associates',
+          icon: <Users className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'FIELD_ASSOCIATES',
+        },
+        {
+          label: 'Central activity stream',
+          to: '/field-network/activity',
+          icon: <Clock className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'FIELD_ACTIVITY_LOGS',
+        },
+        {
+          label: 'Sync queue monitor',
+          to: '/field-network/sync',
+          icon: <RefreshCw className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'FIELD_SYNC_QUEUE',
+        },
+      ],
+    },
+    {
       title: 'Preventive health',
       items: [
         {
@@ -511,6 +570,30 @@ export const Sidebar: React.FC = () => {
           label: 'Partner network',
           to: '/partners',
           icon: <Building2 className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+        {
+          label: 'Partner routing queue',
+          to: '/routing',
+          icon: <Share2 className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+        {
+          label: 'Routing policies & test',
+          to: '/routing/rules',
+          icon: <Sliders className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+        {
+          label: 'Digital vouchers & campaigns',
+          to: '/vouchers',
+          icon: <Ticket className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+        {
+          label: 'Pro-bono legal intake',
+          to: '/legal-intake',
+          icon: <Scale className="w-5 h-5 stroke-[1.5]" />,
           capability: 'CHAPTERS_ROSTERS',
         },
       ],
@@ -586,12 +669,81 @@ export const Sidebar: React.FC = () => {
       ],
     },
     {
+      title: 'Virtual literacy (Layer 4)',
+      items: [
+        {
+          label: 'Micro-lessons library',
+          to: '/learning',
+          icon: <BookOpen className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+        {
+          label: 'Daily drip campaigns',
+          to: '/learning/series',
+          icon: <Clock className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'REMINDER_TEMPLATES',
+        },
+        {
+          label: 'Webinars & channels',
+          to: '/learning/webinars',
+          icon: <MessageSquare className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+        {
+          label: 'Mastermind quizzes',
+          to: '/learning/quizzes',
+          icon: <Award className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'CHAPTERS_ROSTERS',
+        },
+      ],
+    },
+    {
+      title: 'Ecosystem telemetry (Layer 1)',
+      items: [
+        {
+          label: 'Cohort dashboard (k ≥ 5)',
+          to: '/telemetry',
+          icon: <BarChart3 className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'PILOT_REPORTS',
+        },
+        {
+          label: 'Macro health trends',
+          to: '/telemetry/trends',
+          icon: <Activity className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'PILOT_REPORTS',
+        },
+        {
+          label: 'Impact & policy packs',
+          to: '/telemetry/packs',
+          icon: <FileSpreadsheet className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'PILOT_REPORTS',
+        },
+        {
+          label: 'Telemetry export registry',
+          to: '/telemetry/exports',
+          icon: <FileCheck2 className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'PILOT_REPORTS',
+        },
+        {
+          label: 'Privacy statement & proofs',
+          to: '/telemetry/privacy',
+          icon: <Shield className="w-5 h-5 stroke-[1.5]" />,
+          capability: 'PILOT_REPORTS',
+        },
+      ],
+    },
+    {
       title: 'Simulator and analytics',
       items: [
         {
           label: 'WhatsApp phone simulator',
           to: '/simulator',
           icon: <Smartphone className="w-5 h-5 stroke-[1.5]" />,
+        },
+        {
+          label: 'Ecosystem nexus map',
+          to: '/ecosystem',
+          icon: <Layers className="w-5 h-5 stroke-[1.5]" />,
         },
         {
           label: 'Reports overview',

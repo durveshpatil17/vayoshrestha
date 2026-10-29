@@ -110,16 +110,21 @@ export const useAuthStore = create<AuthState>((set, get) => {
       }
 
       const users = mockStore.getData().users;
-      const scUser = users.find((u) => u.role === 'SC') || users[0];
+      const matchedUser = users.find((u) => u.phone?.replace(/\D/g, '') === cleanPhone);
+      const targetUser =
+        matchedUser ||
+        (cleanPhone.endsWith('01') ? users.find((u) => u.role === 'SF') : null) ||
+        users.find((u) => u.role === 'SC') ||
+        users[0];
 
       set({
-        user: scUser,
+        user: targetUser,
         token: `mock-otp-jwt-${cleanPhone}`,
         isAuthenticated: true,
-        activeRegionId: 'REG-W',
-        activeChapterId: 'HUB-PUN',
-        activeCentreId: 'HUB-PUN',
-        textSize: 'large', // Senior mode default
+        activeRegionId: targetUser.assignedRegion || 'REG-W',
+        activeChapterId: targetUser.assignedChapter || 'HUB-PUN',
+        activeCentreId: targetUser.assignedChapter || 'HUB-PUN',
+        textSize: targetUser.role === 'SC' ? 'large' : 'normal',
       });
 
       return { success: true };

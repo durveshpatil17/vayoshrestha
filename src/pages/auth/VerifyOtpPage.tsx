@@ -57,7 +57,14 @@ export const VerifyOtpPage: React.FC = () => {
 
     const res = loginWithOtp(phone, fullOtp);
     if (res.success) {
-      navigate(returnTo);
+      const currentUser = useAuthStore.getState().user;
+      if (currentUser?.role === 'SF') {
+        navigate('/field');
+      } else if (currentUser?.role === 'SC') {
+        navigate(returnTo !== '/' ? returnTo : '/me');
+      } else {
+        navigate(returnTo);
+      }
     } else {
       const remaining = attemptsLeft - 1;
       setAttemptsLeft(remaining);

@@ -3,7 +3,7 @@
  * Codifies Section 6.2 of the Master Specification into a typed, machine-readable matrix.
  */
 
-export type RoleCode = 'SA' | 'NM' | 'RA' | 'CM' | 'VF' | 'CT' | 'CD' | 'SC' | 'NK' | 'PM' | 'SP' | 'FM';
+export type RoleCode = 'SA' | 'NM' | 'RA' | 'CM' | 'VF' | 'CT' | 'CD' | 'SC' | 'NK' | 'PM' | 'SP' | 'FM' | 'SF';
 
 export interface RoleDefinition {
   code: RoleCode;
@@ -58,7 +58,7 @@ export const ROLES: Record<RoleCode, RoleDefinition> = {
   },
   CD: {
     code: 'CD',
-    name: 'CSR / Donor Reviewer',
+    name: 'CSR / Government / Policy Reviewer',
     description: 'Corporate grant reviewer, institutional donor auditor.',
     scopeDescription: 'Organisation-wide aggregate reports only. Zero personal data; counts <5 suppressed to <5.',
     isStaff: false,
@@ -97,6 +97,13 @@ export const ROLES: Record<RoleCode, RoleDefinition> = {
     description: 'Family member of a registered senior with consent-gated read access.',
     scopeDescription: 'Linked senior(s) only, with explicit consent. Feature-flagged.',
     isStaff: false,
+  },
+  SF: {
+    code: 'SF',
+    name: 'Senior Field Associate',
+    description: 'Active elder community worker capturing peer onboarding, consent and visits in the field.',
+    scopeDescription: 'Assigned chapter, own activity logs and onboarded peers only. Strictly no access to SOS or health records.',
+    isStaff: true,
   },
 };
 
@@ -149,7 +156,24 @@ export type CapabilityCode =
   | 'CAP-25'
   | 'CAP-26'
   | 'CAP-27'
-  | 'CAP-28';
+  | 'CAP-28'
+  | 'CAP-48'
+  | 'CAP-49'
+  | 'CAP-50'
+  | 'CAP-51'
+  | 'CAP-52'
+  | 'CAP-53'
+  | 'CAP-54'
+  | 'CAP-55'
+  | 'CAP-56'
+  | 'CAP-57'
+  | 'CAP-58'
+  | 'CAP-59'
+  | 'CAP-60'
+  | 'CAP-61'
+  | 'CAP-62'
+  | 'CAP-63'
+  | 'CAP-64';
 
 export type CapabilityKey =
   | 'SYSTEM_SETTINGS'
@@ -183,7 +207,24 @@ export type CapabilityKey =
   | 'MEMBER_PROFILES'
   | 'ATTENDANCE'
   | 'HEALTH_REQUESTS'
-  | 'usersAndRoles';
+  | 'usersAndRoles'
+  | 'PARTNER_ROUTING'
+  | 'ROUTING_RULES'
+  | 'VOUCHER_CAMPAIGNS'
+  | 'VOUCHER_REDEMPTION'
+  | 'LEGAL_INTAKE'
+  | 'LEARNING_LIBRARY'
+  | 'WEBINAR_SIGNUPS'
+  | 'QUIZZES_CHANNELS'
+  | 'FIELD_ASSOCIATES'
+  | 'FIELD_ACTIVITY_LOGS'
+  | 'FIELD_SYNC_QUEUE'
+  | 'DOUBLE_CONSENT'
+  | 'VACCINATION_STATUS'
+  | 'MACRO_TELEMETRY'
+  | 'IMPACT_PACKS'
+  | 'ANONYMISATION_SETTINGS'
+  | 'PUBLIC_VERIFICATION';
 
 export const CAPABILITY_MAP: Record<CapabilityKey, CapabilityCode> = {
   SYSTEM_SETTINGS: 'CAP-01',
@@ -219,6 +260,23 @@ export const CAPABILITY_MAP: Record<CapabilityKey, CapabilityCode> = {
   MEMBER_PROFILES: 'CAP-04',
   ATTENDANCE: 'CAP-03',
   HEALTH_REQUESTS: 'CAP-20',
+  PARTNER_ROUTING: 'CAP-48',
+  ROUTING_RULES: 'CAP-49',
+  VOUCHER_CAMPAIGNS: 'CAP-50',
+  VOUCHER_REDEMPTION: 'CAP-51',
+  LEGAL_INTAKE: 'CAP-52',
+  LEARNING_LIBRARY: 'CAP-53',
+  WEBINAR_SIGNUPS: 'CAP-54',
+  QUIZZES_CHANNELS: 'CAP-55',
+  FIELD_ASSOCIATES: 'CAP-56',
+  FIELD_ACTIVITY_LOGS: 'CAP-57',
+  FIELD_SYNC_QUEUE: 'CAP-58',
+  DOUBLE_CONSENT: 'CAP-59',
+  VACCINATION_STATUS: 'CAP-60',
+  MACRO_TELEMETRY: 'CAP-61',
+  IMPACT_PACKS: 'CAP-62',
+  ANONYMISATION_SETTINGS: 'CAP-63',
+  PUBLIC_VERIFICATION: 'CAP-64',
 };
 
 export const REVERSE_CAPABILITY_MAP: Record<CapabilityCode, CapabilityKey> = Object.entries(
@@ -245,6 +303,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-02: Own account & security
@@ -261,6 +320,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read", "update"], scope: "own" },
     SP: { allowed: true, actions: ["read", "update"], scope: "own" },
     FM: { allowed: true, actions: ["read", "update"], scope: "own" },
+    SF: { allowed: true, actions: ['read', 'update'], scope: 'own' },
   },
 
   // CAP-03: Chapters, regions, duty rosters
@@ -277,6 +337,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read", "update"], scope: "all" },
     SP: DENIED,
     FM: DENIED,
+    SF: { allowed: true, actions: ['read'], scope: 'all' },
   },
 
   // CAP-04: Senior profiles
@@ -293,6 +354,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read"], scope: "masked" },
     SP: DENIED,
     FM: { allowed: true, actions: ["read"], scope: "assigned" },
+    SF: { allowed: true, actions: ['create', 'read'], scope: 'assigned', qualifiers: ['masked', 'peers_only'] },
   },
 
   // CAP-05: Onboarding (funnel, sessions, assisted onboarding)
@@ -309,6 +371,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read"], scope: "all" },
     SP: DENIED,
     FM: DENIED,
+    SF: { allowed: true, actions: ['create'], scope: 'chapter', qualifiers: ['peers'] },
   },
 
   // CAP-06: Consent, language, opt-out
@@ -325,6 +388,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read"], scope: "all" },
     SP: DENIED,
     FM: DENIED,
+    SF: { allowed: true, actions: ['create'], scope: 'chapter', qualifiers: ['consent_1'] },
   },
 
   // CAP-07: Emergency contacts (next-of-kin)
@@ -341,6 +405,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: { allowed: true, actions: ['create'], scope: 'chapter', qualifiers: ['basic'] },
   },
 
   // CAP-08: ABHA number, ABHA address, ABDM consent (structure only, Phase 2)
@@ -357,6 +422,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-09: Trigger SOS
@@ -373,6 +439,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-10: SOS alerts and cases
@@ -389,6 +456,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read"], scope: "aggregates_only" },
     SP: DENIED,
     FM: { allowed: true, actions: ["read"], scope: "assigned", qualifiers: ["status_only"] },
+    SF: DENIED,
   },
 
   // CAP-11: SOS escalation chain & SMS fallback log
@@ -405,6 +473,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-12: SOS settings (SLA, escalation chain, fallback behaviour, SMS wording)
@@ -421,6 +490,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-13: Drill mode events
@@ -437,6 +507,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read"], scope: "all" },
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-14: Medication schedules (label + time)
@@ -453,6 +524,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: { allowed: true, actions: ["read"], scope: "assigned" },
+    SF: DENIED,
   },
 
   // CAP-15: Reminder templates (per language)
@@ -469,6 +541,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read", "update"], scope: "all" },
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-16: Reminder & message delivery status
@@ -485,6 +558,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read"], scope: "all" },
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-17: Medication confirmations (adherence log)
@@ -501,6 +575,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: { allowed: true, actions: ["read"], scope: "assigned" },
+    SF: DENIED,
   },
 
   // CAP-18: Vitals log (BP, glucose)
@@ -517,6 +592,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: { allowed: true, actions: ["read"], scope: "assigned" },
+    SF: DENIED,
   },
 
   // CAP-19: Threshold rules (risk bands)
@@ -533,6 +609,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-20: Health flags / anomaly queue
@@ -549,6 +626,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-21: Wellness check-in calls (tasks and outcomes)
@@ -565,6 +643,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-22: Dashboards
@@ -581,6 +660,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read"], scope: "all" },
     SP: { allowed: true, actions: ["read"], scope: "assigned" },
     FM: DENIED,
+    SF: { allowed: true, actions: ['read'], scope: 'own', qualifiers: ['my_tasks'] },
   },
 
   // CAP-23: Pilot outcome reports
@@ -597,6 +677,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read", "export"], scope: "all" },
     SP: { allowed: true, actions: ["read"], scope: "aggregates_only" },
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-24: Data exports (any)
@@ -613,6 +694,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["export"], scope: "all" },
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-25: Audit logs
@@ -629,6 +711,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-26: Approvals queue
@@ -645,6 +728,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read"], scope: "own" },
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-27: Onboarding script (WhatsApp flow)
@@ -661,6 +745,7 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: { allowed: true, actions: ["read"], scope: "all" },
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
 
   // CAP-28: Integration & queue monitor
@@ -677,7 +762,298 @@ export const PERMISSION_MATRIX: Record<CapabilityCode, Record<RoleCode, RoleCapa
     PM: DENIED,
     SP: DENIED,
     FM: DENIED,
+    SF: DENIED,
   },
+
+  // CAP-48: Partner routing: requests, decisions, queue
+  'CAP-48': {
+    SA: { allowed: true, actions: ['read'], scope: 'all' },
+    NM: { allowed: true, actions: ['read'], scope: 'all' },
+    RA: { allowed: true, actions: ['read'], scope: 'region' },
+    CM: { allowed: true, actions: ['read'], scope: 'chapter' },
+    VF: { allowed: true, actions: ['create'], scope: 'chapter', qualifiers: ['on_behalf'] },
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    SC: { allowed: true, actions: ['create'], scope: 'own' },
+    NK: DENIED,
+    PM: { allowed: true, actions: ['create', 'read', 'update'], scope: 'all' },
+    SP: { allowed: true, actions: ['read'], scope: 'assigned', qualifiers: ['minimal'] },
+    FM: { allowed: true, actions: ['create'], scope: 'assigned' },
+    SF: { allowed: true, actions: ['create'], scope: 'chapter', qualifiers: ['on_behalf', 'consented'] },
+  },
+
+  // CAP-49: Routing rules (category, region, language, capacity, SLA, fallback)
+  'CAP-49': {
+    SA: { allowed: true, actions: ['read'], scope: 'all' },
+    NM: { allowed: true, actions: ['approve'], scope: 'all' },
+    RA: { allowed: true, actions: ['read'], scope: 'all' },
+    CM: DENIED,
+    VF: DENIED,
+    CT: DENIED,
+    CD: DENIED,
+    SC: DENIED,
+    NK: DENIED,
+    PM: { allowed: true, actions: ['create', 'read', 'update'], scope: 'all', qualifiers: ['submit'] },
+    SP: DENIED,
+    FM: DENIED,
+    SF: DENIED,
+  },
+
+  // CAP-50: Voucher campaigns & catalogue
+  'CAP-50': {
+    SA: { allowed: true, actions: ['read'], scope: 'all' },
+    NM: { allowed: true, actions: ['approve'], scope: 'all' },
+    RA: { allowed: true, actions: ['read'], scope: 'region' },
+    CM: { allowed: true, actions: ['read'], scope: 'chapter' },
+    VF: { allowed: true, actions: ['read'], scope: 'all' },
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    SC: { allowed: true, actions: ['read'], scope: 'all', qualifiers: ['published'] },
+    NK: DENIED,
+    PM: { allowed: true, actions: ['create', 'read', 'update', 'delete'], scope: 'all', qualifiers: ['submit'] },
+    SP: { allowed: true, actions: ['read'], scope: 'own' },
+    FM: { allowed: true, actions: ['read'], scope: 'all', qualifiers: ['published'] },
+    SF: DENIED,
+  },
+
+  // CAP-51: Voucher issue, validate & redeem
+  'CAP-51': {
+    SA: { allowed: true, actions: ['read'], scope: 'all' },
+    NM: { allowed: true, actions: ['read'], scope: 'all' },
+    RA: { allowed: true, actions: ['read'], scope: 'region' },
+    CM: { allowed: true, actions: ['create', 'read'], scope: 'chapter', qualifiers: ['issue'] },
+    VF: { allowed: true, actions: ['create'], scope: 'chapter', qualifiers: ['propose'] },
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    SC: { allowed: true, actions: ['read'], scope: 'own' },
+    NK: DENIED,
+    PM: { allowed: true, actions: ['create', 'read', 'update'], scope: 'all' },
+    SP: { allowed: true, actions: ['read', 'update'], scope: 'assigned', qualifiers: ['validate', 'redeem'] },
+    FM: { allowed: true, actions: ['read'], scope: 'assigned' },
+    SF: DENIED,
+  },
+
+  // CAP-52: Legal intake files (encrypted)
+  'CAP-52': {
+    SA: { allowed: true, actions: ['read'], scope: 'all', qualifiers: ['meta'] },
+    NM: { allowed: true, actions: ['read'], scope: 'all', qualifiers: ['meta'] },
+    RA: DENIED,
+    CM: { allowed: true, actions: ['read'], scope: 'chapter', qualifiers: ['meta'] },
+    VF: { allowed: true, actions: ['create'], scope: 'chapter', qualifiers: ['on_behalf'] },
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    SC: { allowed: true, actions: ['create', 'read'], scope: 'own' },
+    NK: DENIED,
+    PM: { allowed: true, actions: ['read'], scope: 'all', qualifiers: ['meta'] },
+    SP: { allowed: true, actions: ['read', 'update'], scope: 'assigned', qualifiers: ['legal_partners_only', 'content'] },
+    FM: { allowed: true, actions: ['create', 'read'], scope: 'assigned' },
+    SF: { allowed: true, actions: ['create'], scope: 'chapter', qualifiers: ['on_behalf', 'consented'] },
+  },
+
+  // CAP-53: Learning library, micro-lesson series, webinars content
+  'CAP-53': {
+    SA: { allowed: true, actions: ['read'], scope: 'all' },
+    NM: { allowed: true, actions: ['approve'], scope: 'all' },
+    RA: { allowed: true, actions: ['create', 'read', 'update'], scope: 'region', qualifiers: ['submit'] },
+    CM: { allowed: true, actions: ['read'], scope: 'all' },
+    VF: { allowed: true, actions: ['read'], scope: 'all' },
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    SC: { allowed: true, actions: ['read'], scope: 'own', qualifiers: ['inbox'] },
+    NK: DENIED,
+    PM: { allowed: true, actions: ['create', 'read', 'update'], scope: 'all', qualifiers: ['submit'] },
+    SP: DENIED,
+    FM: { allowed: true, actions: ['read'], scope: 'assigned', qualifiers: ['inbox'] },
+    SF: { allowed: true, actions: ['read'], scope: 'own', qualifiers: ['own_training'] },
+  },
+
+  // CAP-54: Webinar & community-event sign-ups
+  'CAP-54': {
+    SA: { allowed: true, actions: ['read'], scope: 'all' },
+    NM: { allowed: true, actions: ['read'], scope: 'all' },
+    RA: { allowed: true, actions: ['read', 'update'], scope: 'region' },
+    CM: { allowed: true, actions: ['create', 'read', 'update'], scope: 'chapter' },
+    VF: { allowed: true, actions: ['read'], scope: 'chapter' },
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    SC: { allowed: true, actions: ['create', 'read', 'delete'], scope: 'own' },
+    NK: DENIED,
+    PM: { allowed: true, actions: ['create', 'read', 'update', 'delete'], scope: 'all' },
+    SP: DENIED,
+    FM: { allowed: true, actions: ['create', 'read', 'delete'], scope: 'assigned' },
+    SF: { allowed: true, actions: ['read'], scope: 'all' },
+  },
+
+  // CAP-55: Quizzes & regional broadcast channels
+  'CAP-55': {
+    SA: { allowed: true, actions: ['read'], scope: 'all' },
+    NM: { allowed: true, actions: ['approve'], scope: 'all' },
+    RA: { allowed: true, actions: ['create', 'read', 'update'], scope: 'region', qualifiers: ['submit'] },
+    CM: { allowed: true, actions: ['read'], scope: 'chapter' },
+    VF: DENIED,
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    SC: { allowed: true, actions: ['create', 'read'], scope: 'own' },
+    NK: DENIED,
+    PM: { allowed: true, actions: ['create', 'read', 'update', 'delete'], scope: 'all', qualifiers: ['submit'] },
+    SP: DENIED,
+    FM: { allowed: true, actions: ['read'], scope: 'assigned' },
+    SF: DENIED,
+  },
+
+  // CAP-56: Field associates: accounts, assignment, training
+  'CAP-56': {
+    SA: { allowed: true, actions: ['create', 'read', 'update'], scope: 'all' },
+    NM: { allowed: true, actions: ['read'], scope: 'all' },
+    RA: { allowed: true, actions: ['read', 'update'], scope: 'region' },
+    CM: { allowed: true, actions: ['create', 'read', 'update'], scope: 'chapter' },
+    VF: { allowed: true, actions: ['read'], scope: 'chapter' },
+    CT: DENIED,
+    CD: DENIED,
+    SC: DENIED,
+    NK: DENIED,
+    PM: { allowed: true, actions: ['create', 'read', 'update', 'delete'], scope: 'all' },
+    SP: DENIED,
+    FM: DENIED,
+    SF: { allowed: true, actions: ['read', 'update'], scope: 'own' },
+  },
+
+  // CAP-57: Field activity log & coarse geo-stamps
+  'CAP-57': {
+    SA: { allowed: true, actions: ['read'], scope: 'all', qualifiers: ['meta'] },
+    NM: { allowed: true, actions: ['read'], scope: 'all' },
+    RA: { allowed: true, actions: ['read'], scope: 'region' },
+    CM: { allowed: true, actions: ['read'], scope: 'chapter' },
+    VF: { allowed: true, actions: ['read'], scope: 'chapter' },
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    SC: DENIED,
+    NK: DENIED,
+    PM: { allowed: true, actions: ['read'], scope: 'all' },
+    SP: DENIED,
+    FM: DENIED,
+    SF: { allowed: true, actions: ['create', 'read'], scope: 'own' },
+  },
+
+  // CAP-58: Field sync queue & field telemetry
+  'CAP-58': {
+    SA: { allowed: true, actions: ['read', 'update'], scope: 'all', qualifiers: ['retry'] },
+    NM: { allowed: true, actions: ['read'], scope: 'all' },
+    RA: { allowed: true, actions: ['read'], scope: 'region' },
+    CM: { allowed: true, actions: ['read'], scope: 'chapter' },
+    VF: DENIED,
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    SC: DENIED,
+    NK: DENIED,
+    PM: { allowed: true, actions: ['read'], scope: 'all' },
+    SP: DENIED,
+    FM: DENIED,
+    SF: { allowed: true, actions: ['read'], scope: 'own' },
+  },
+
+  // CAP-59: Double-consent capture & confirmation
+  'CAP-59': {
+    SA: DENIED,
+    NM: { allowed: true, actions: ['read'], scope: 'all' },
+    RA: { allowed: true, actions: ['read'], scope: 'region' },
+    CM: { allowed: true, actions: ['create', 'read', 'update'], scope: 'chapter' },
+    VF: { allowed: true, actions: ['create', 'read', 'update'], scope: 'chapter' },
+    CT: DENIED,
+    CD: DENIED,
+    SC: { allowed: true, actions: ['update'], scope: 'own', qualifiers: ['confirm'] },
+    NK: DENIED,
+    PM: { allowed: true, actions: ['read'], scope: 'all' },
+    SP: DENIED,
+    FM: DENIED,
+    SF: { allowed: true, actions: ['create'], scope: 'own', qualifiers: ['capture_first_consent'] },
+  },
+
+  // CAP-60: Vaccination status (coarse, consent-gated)
+  'CAP-60': {
+    SA: DENIED,
+    NM: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    RA: { allowed: true, actions: ['read'], scope: 'region' },
+    CM: { allowed: true, actions: ['read', 'update'], scope: 'chapter' },
+    VF: { allowed: true, actions: ['create', 'update'], scope: 'chapter', qualifiers: ['assigned'] },
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only' },
+    SC: { allowed: true, actions: ['read', 'update'], scope: 'own' },
+    NK: DENIED,
+    PM: { allowed: true, actions: ['read'], scope: 'all' },
+    SP: DENIED,
+    FM: { allowed: true, actions: ['read'], scope: 'assigned' },
+    SF: DENIED,
+  },
+
+  // CAP-61: Telemetry dashboards & macro trends
+  'CAP-61': {
+    SA: { allowed: true, actions: ['read'], scope: 'all', qualifiers: ['system'] },
+    NM: { allowed: true, actions: ['read'], scope: 'all' },
+    RA: { allowed: true, actions: ['read'], scope: 'region', qualifiers: ['agg'] },
+    CM: DENIED,
+    VF: DENIED,
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only', qualifiers: ['rel'] },
+    SC: DENIED,
+    NK: DENIED,
+    PM: { allowed: true, actions: ['read'], scope: 'all' },
+    SP: DENIED,
+    FM: DENIED,
+    SF: DENIED,
+  },
+
+  // CAP-62: Impact packs, tamper-evident PDF, metadata exports
+  'CAP-62': {
+    SA: { allowed: true, actions: ['read'], scope: 'all', qualifiers: ['registry'] },
+    NM: { allowed: true, actions: ['approve', 'read', 'export'], scope: 'all' },
+    RA: { allowed: true, actions: ['read'], scope: 'region' },
+    CM: DENIED,
+    VF: DENIED,
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read', 'export'], scope: 'aggregates_only', qualifiers: ['rel'] },
+    SC: DENIED,
+    NK: DENIED,
+    PM: { allowed: true, actions: ['create', 'read', 'update'], scope: 'all', qualifiers: ['draft'] },
+    SP: DENIED,
+    FM: DENIED,
+    SF: DENIED,
+  },
+
+  // CAP-63: Anonymisation settings (k threshold, suppression rules)
+  'CAP-63': {
+    SA: { allowed: true, actions: ['update'], scope: 'all' },
+    NM: { allowed: true, actions: ['approve'], scope: 'all' },
+    RA: DENIED,
+    CM: DENIED,
+    VF: DENIED,
+    CT: DENIED,
+    CD: { allowed: true, actions: ['read'], scope: 'aggregates_only', qualifiers: ['statement'] },
+    SC: DENIED,
+    NK: DENIED,
+    PM: { allowed: true, actions: ['read'], scope: 'all' },
+    SP: DENIED,
+    FM: DENIED,
+    SF: DENIED,
+  },
+
+  // CAP-64: Public report verification (/verify)
+  'CAP-64': {
+    SA: { allowed: true, actions: ['read'], scope: 'all' },
+    NM: { allowed: true, actions: ['read'], scope: 'all' },
+    RA: { allowed: true, actions: ['read'], scope: 'all' },
+    CM: { allowed: true, actions: ['read'], scope: 'all' },
+    VF: { allowed: true, actions: ['read'], scope: 'all' },
+    CT: { allowed: true, actions: ['read'], scope: 'all' },
+    CD: { allowed: true, actions: ['read'], scope: 'all' },
+    SC: { allowed: true, actions: ['read'], scope: 'all' },
+    NK: { allowed: true, actions: ['read'], scope: 'all' },
+    PM: { allowed: true, actions: ['read'], scope: 'all' },
+    SP: { allowed: true, actions: ['read'], scope: 'all' },
+    FM: { allowed: true, actions: ['read'], scope: 'all' },
+    SF: { allowed: true, actions: ['read'], scope: 'all' },
+  },
+
 };
 
 /**

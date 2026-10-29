@@ -5,6 +5,7 @@ import { PageHeader } from '@/components/layout/PageHeader';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Link } from 'react-router-dom';
+import { FieldTelemetryCard } from '@/components/telemetry/FieldTelemetryCard';
 
 export const PmDashboard: React.FC = () => {
   return (
@@ -20,6 +21,9 @@ export const PmDashboard: React.FC = () => {
           </div>
         }
       />
+
+      {/* Field Telemetry Card */}
+      <FieldTelemetryCard />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KpiTile

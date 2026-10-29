@@ -7,11 +7,16 @@ export default {
     extend: {
       fontFamily: {
         sans: [
-          'Open Sans',
+          'IBM Plex Sans',
           'Noto Sans Devanagari',
           'Noto Sans Kannada',
           'Noto Sans Tamil',
           ...defaultTheme.fontFamily.sans,
+        ],
+        serif: [
+          'Source Serif 4',
+          'IBM Plex Sans',
+          ...defaultTheme.fontFamily.serif,
         ],
       },
       colors: {

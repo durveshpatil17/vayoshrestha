@@ -618,3 +618,289 @@ export interface ComplaintRecord {
   resolutionDetails?: string;
   submittedAt: string;
 }
+
+// ==========================================
+// ECOSYSTEM ADDENDUM v3.1 DATA CONTRACTS
+// ==========================================
+
+export interface FieldAssociate {
+  id: string; // e.g. 'fa-001'
+  userId: string; // e.g. 'u-sf-1'
+  fullName: string;
+  phone: string;
+  chapterId: string;
+  regionId: string;
+  trainingStatus: 'Certified' | 'In Training' | 'Needs Refresher';
+  isActive: boolean;
+  onboardedCount: number;
+  activityCount: number;
+  lastActiveAt: string;
+  joinedAt: string;
+  deactivationReason?: string;
+}
+
+export interface FieldActivityRecord {
+  id: string;
+  associateId: string;
+  associateName: string;
+  chapterId: string;
+  regionId: string;
+  activityType: 'onboarding' | 'check_in_visit' | 'consent_follow_up';
+  peerNameMasked: string;
+  peerPhoneMasked: string;
+  areaLabel: string;
+  latitude: number;
+  longitude: number;
+  doubleConsentStatus: 'confirmed' | 'consent_2_requested' | 'consent_1_captured' | 'expired' | 'declined';
+  capturedOffline: boolean;
+  capturedAt: string;
+  syncedAt?: string;
+  syncDelayMinutes: number;
+  isLateSync: boolean;
+  status: 'synced' | 'pending' | 'conflict' | 'rejected';
+}
+
+export interface RoutingRule {
+  id: string;
+  name: string;
+  category: 'Hospital' | 'Diagnostic lab' | 'Legal network' | 'Financial expert' | 'Insurer';
+  regionId?: string; // all or specific region
+  languages: string[];
+  priority: number;
+  capacityStrategy: 'round-robin' | 'least-loaded';
+  maxDailyCapacity: number;
+  slaHours: number;
+  fallbackTimeoutHours: number;
+  fallbackPartnerId?: string;
+  status: 'Draft' | 'Submitted' | 'Active' | 'Archived';
+  version: number;
+  authorId: string;
+  authorName: string;
+  approvedBy?: string;
+  approvedAt?: string;
+}
+
+export interface RoutingDecisionRecord {
+  id: string;
+  requestId: string;
+  serviceCategory: string;
+  seniorId: string;
+  seniorNameMasked: string;
+  seniorPhoneMasked: string;
+  chapterId: string;
+  regionId: string;
+  selectedPartnerId: string;
+  selectedPartnerName: string;
+  rulesMatched: string[];
+  strategyUsed: string;
+  loadAtRouting: string;
+  routedAt: string;
+  status: 'Auto_Routed' | 'Manual_Assigned' | 'Reassigned_Fallback' | 'Accepted' | 'Declined_Age_Bar' | 'Completed';
+  declineReason?: 'Age_Bar_Exclusion' | 'No_Cover_Available' | 'Capacity_Exceeded' | 'Other';
+  reassignedFromPartnerId?: string;
+  reassignmentReason?: string;
+  slaBreached: boolean;
+  notes?: string;
+}
+
+export interface VoucherCampaign {
+  id: string;
+  title: string;
+  partnerId: string;
+  partnerName: string;
+  category: 'Diagnostic lab' | 'Hospital' | 'Specialist Consultation';
+  packageDescription: string;
+  discountPercentage: number;
+  maxVouchers: number;
+  issuedCount: number;
+  redeemedCount: number;
+  budgetAllocated: number;
+  validityDays: number;
+  status: 'Draft' | 'Submitted' | 'Active' | 'Expired' | 'Paused';
+  authorId: string;
+  authorName: string;
+  approvedBy?: string;
+  approvedAt?: string;
+  expiresAt: string;
+}
+
+export interface VoucherRecord {
+  id: string;
+  code: string; // 10-char Crockford Base32 + Check Digit
+  campaignId: string;
+  campaignTitle: string;
+  partnerId: string;
+  partnerName: string;
+  seniorId: string;
+  seniorNameMasked: string;
+  seniorAgeBand: string;
+  issuedAt: string;
+  deliveredViaWhatsAppAt?: string;
+  expiresAt: string;
+  status: 'Issued' | 'Delivered' | 'Redeemed' | 'Expired' | 'Cancelled';
+  redeemedAt?: string;
+  redeemedByPartnerUserId?: string;
+}
+
+export interface LegalIntakeRecord {
+  id: string;
+  seniorId: string;
+  seniorNameMasked: string;
+  seniorAgeBand: string;
+  chapterId: string;
+  regionId: string;
+  category: 'Property & Wills' | 'Maintenance & Welfare Act' | 'Pension Dispute' | 'Consumer Protection' | 'Elder Abuse';
+  descriptionEncrypted: string;
+  consentToShare: boolean;
+  assignedLegalPartnerId: string;
+  assignedLegalPartnerName: string;
+  status: 'New' | 'Assigned' | 'In_Consultation' | 'Closed';
+  closureReasonCode?: 'Advise_Provided' | 'Settlement_Reached' | 'Declined_Age_Bar_Exclusion' | 'Declined_Jurisdiction' | 'Referred_District_Legal_Services';
+  submittedAt: string;
+  closedAt?: string;
+  accessLogs: { userId: string; role: string; accessedAt: string; reason: string }[];
+}
+
+export interface MicroLesson {
+  id: string;
+  title: string;
+  category: 'Fraud & cyber safety' | 'Digital literacy' | 'Wellness' | 'Schemes awareness';
+  cards: {
+    cardIndex: number;
+    title: string;
+    bodyText: string;
+    bulletPoints?: string[];
+  }[];
+  checkQuestion: {
+    questionText: string;
+    options: string[];
+    correctIndex: number;
+    explanation: string;
+  };
+  languageVariants: {
+    language: 'English' | 'Hindi' | 'Kannada' | 'Marathi' | 'Tamil';
+    isFullTranslation: boolean;
+    title: string;
+    cards: { cardIndex: number; title: string; bodyText: string }[];
+    questionText: string;
+    options: string[];
+  }[];
+  status: 'Draft' | 'Submitted' | 'Approved' | 'Archived';
+  authorId: string;
+  authorName: string;
+  approvedBy?: string;
+  approvedAt?: string;
+}
+
+export interface LessonSeries {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  lessonIds: string[];
+  sendTimeIST: string; // e.g. "10:30"
+  quietHours: { start: string; end: string }; // "21:00" to "07:00"
+  audienceFilter: {
+    chapters: string[];
+    languages: string[];
+    consentRequired: true;
+  };
+  totalSubscribers: number;
+  status: 'Active' | 'Paused' | 'Draft';
+  authorId: string;
+  approvedBy?: string;
+}
+
+export interface WebinarRecord {
+  id: string;
+  title: string;
+  category: string;
+  language: string;
+  scheduledAt: string;
+  durationMinutes: number;
+  presenterName: string;
+  presenterAffiliation: string;
+  description: string;
+  capacity: number;
+  enrolledCount: number;
+  attendedCount: number;
+  joinLinkPlaceholder: string;
+  status: 'Scheduled' | 'Live' | 'Completed' | 'Cancelled';
+}
+
+export interface BroadcastChannelRecord {
+  id: string;
+  name: string;
+  regionId: string;
+  description: string;
+  subscribersCount: number;
+  status: 'Active' | 'Under_Review';
+}
+
+export interface QuizRecord {
+  id: string;
+  title: string;
+  roundNumber: number;
+  regionalChannelId: string;
+  scheduledDate: string;
+  questions: {
+    id: string;
+    questionText: string;
+    options: string[];
+    correctIndex: number;
+  }[];
+  signUpsCount: number;
+  status: 'Upcoming' | 'Active' | 'Closed';
+  leaderboard: {
+    rank: number;
+    firstNameOnly: string;
+    chapterInitial: string;
+    score: number;
+    timeTakenSeconds: number;
+  }[];
+}
+
+export interface VaccinationRecord {
+  id: string;
+  seniorId: string;
+  chapterId: string;
+  regionId: string;
+  vaccineCategory: 'Influenza' | 'Pneumococcal' | 'COVID-19' | 'Shingles' | 'Tetanus_Td';
+  status: 'Yes' | 'No' | 'Unsure' | 'Not_Asked';
+  consentGated: boolean;
+  recordedAt: string;
+}
+
+export interface ImpactPack {
+  id: string;
+  templateType: 'CSR Impact Brief' | 'Government Health Brief' | 'Insurance Age-Bar Evidence' | 'Elder Protection Evidence';
+  title: string;
+  version: number;
+  periodStart: string;
+  periodEnd: string;
+  geography: 'National' | 'West Region' | 'South Region' | 'North Region';
+  releasedAudiences: ('CSR' | 'Government' | 'Policy' | 'Public')[];
+  narrativeSummary: string;
+  sha256Hash?: string;
+  syntheticDataWatermark: true;
+  status: 'Draft' | 'Submitted' | 'Released' | 'Superseded' | 'Revoked';
+  authorId: string;
+  authorName: string;
+  releasedBy?: string;
+  releasedAt?: string;
+}
+
+export interface ExportRegistryEntry {
+  id: string;
+  packId: string;
+  packTitle: string;
+  version: number;
+  sha256Hash: string;
+  exportedByUserId: string;
+  exportedByUserName: string;
+  exportedAt: string;
+  audience: string;
+  isRevoked: boolean;
+  revokedAt?: string;
+  revokedReason?: string;
+}

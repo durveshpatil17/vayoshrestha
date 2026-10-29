@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { StatusChip } from '@/components/ui/StatusChip';
 import { ExportDialog } from '@/components/data/ExportDialog';
 import { suppressSmallNumber } from '@/domain/masking';
+import { FieldTelemetryCard } from '@/components/telemetry/FieldTelemetryCard';
 import {
   FileText,
   Download,
@@ -138,6 +139,9 @@ export const PilotReportsPage: React.FC = () => {
           />
         </div>
       </div>
+
+      {/* Cross-Cutting Field Telemetry Card */}
+      <FieldTelemetryCard />
 
       {/* Primary Pilot Indicator Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

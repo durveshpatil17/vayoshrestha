@@ -8,12 +8,12 @@ import {
 } from '@/permissions/matrix';
 import { authorize, AuthUser } from '@/permissions/authorize';
 
-const ALL_ROLES: RoleCode[] = ['SA', 'NM', 'RA', 'CM', 'VF', 'CT', 'CD', 'SC', 'NK'];
+const ALL_ROLES: RoleCode[] = ['SA', 'NM', 'RA', 'CM', 'VF', 'CT', 'CD', 'SC', 'NK', 'PM', 'SP', 'FM', 'SF'];
 const ALL_CAPABILITIES = Object.keys(PERMISSION_MATRIX) as CapabilityCode[];
 const ALL_ACTIONS: ActionCode[] = ['create', 'read', 'update', 'delete', 'approve', 'export'];
 
 describe('P3: RBAC Property-Based Tests (fast-check) & Exhaustive Matrix Validation', () => {
-  it('exhaustively verifies all 252 matrix cells (9 roles × 28 capabilities)', () => {
+  it('exhaustively verifies all 585 matrix cells (13 roles × 45 capabilities)', () => {
     let cellsChecked = 0;
     ALL_CAPABILITIES.forEach((cap) => {
       ALL_ROLES.forEach((role) => {
@@ -25,7 +25,7 @@ describe('P3: RBAC Property-Based Tests (fast-check) & Exhaustive Matrix Validat
         cellsChecked++;
       });
     });
-    expect(cellsChecked).toBe(252);
+    expect(cellsChecked).toBe(585);
   });
 
   it('Property: disallowed capability is strictly denied regardless of action or resource', () => {

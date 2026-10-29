@@ -1,7 +1,9 @@
-/* === SAP Fiori Horizon + AWS Cloudscape Tokens — Vayoshreshtha === */
-/* Self-hosted Open Sans & Indic Fonts */
-@import '@fontsource/open-sans/400.css';
-@import '@fontsource/open-sans/600.css';
+/* === v3 Design Tokens — Vayoshreshtha === */
+/* Fonts: IBM Plex Sans + Source Serif 4 + Noto Sans Indic */
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/source-serif-4/600.css';
 @import '@fontsource/noto-sans-devanagari/400.css';
 @import '@fontsource/noto-sans-devanagari/600.css';
 @import '@fontsource/noto-sans-kannada/400.css';
@@ -10,43 +12,43 @@
 @import '@fontsource/noto-sans-tamil/600.css';
 
 :root {
-  /* Canvas & Surfaces */
-  --canvas:            #F5F6F7;   /* page background */
-  --surface:           #FFFFFF;   /* surfaces, white cards, forms */
-  --surface-subtle:    #F5F6F7;   /* table header, read-only fields */
-  --surface-hover:     #EBF4FE;   /* row hover tint */
-  --surface-selected:  #EBF4FE;   /* selected row / nav item (Horizon blue tint) */
+  /* Surfaces */
+  --canvas:            #F7F6F3;   /* page background */
+  --surface:           #FFFFFF;   /* cards, tables, forms, shell */
+  --surface-subtle:    #F2F1EE;   /* table header, read-only fields */
+  --surface-hover:     #EDECEA;   /* row hover */
+  --surface-selected:  #E5F2EC;   /* selected row / nav item (green tint) */
 
-  /* Borders (1px) */
-  --border:            #D5DADD;   /* 1px hairline border */
-  --border-subtle:     #E5E9EC;   /* subtle inner divider */
-  --border-strong:     #B0B8BE;   /* input hover, active separators */
+  /* Borders */
+  --border-subtle:     #EAE9E6;   /* row dividers, card inner */
+  --border:            #E4E2DC;   /* 1px hairline border */
+  --border-strong:     #CFCBC2;   /* input hover, strong separators */
 
-  /* Typography */
-  --text:              #1D2D3E;   /* primary text */
-  --text-secondary:    #556B82;   /* secondary muted text */
-  --text-tertiary:     #7B8E9F;   /* disabled or hint text */
-  --text-disabled:     #A6B4C0;
+  /* Text */
+  --text:              #1C1B19;
+  --text-secondary:    #5F5C55;
+  --text-tertiary:     #8A8780;
+  --text-disabled:     #A19D94;
   --text-on-accent:    #FFFFFF;
 
-  /* Accent: One accent (Horizon blue #0070F2) */
-  --accent:            #0070F2;
-  --accent-hover:      #005FD1;
-  --accent-active:     #004EB0;
-  --accent-tint:       #EBF4FE;
-  --focus-ring:        #0070F2;
+  /* One accent: forest green (#1F5F4B) */
+  --accent:            #1F5F4B;
+  --accent-hover:      #1A5242;
+  --accent-active:     #154038;
+  --accent-tint:       #E5F2EC;
+  --focus-ring:        #1F5F4B;
 
   /* Semantic */
-  --negative:          #D20A0A;  --negative-tint:    #FDEDED;
-  --critical:          #E76500;  --critical-tint:    #FEF3EB;
-  --positive:          #256F3A;  --positive-tint:    #EDF7ED;
-  --informative:       #0070F2;  --informative-tint: #EBF4FE;
+  --negative:          #B42318;  --negative-tint:    #FDECEA;
+  --critical:          #9A5B0A;  --critical-tint:    #FEF3E2;
+  --positive:          #2F7D4F;  --positive-tint:    #EAF5EE;
+  --informative:       #1F5F4B;  --informative-tint: #E5F2EC;
 
   /* SOS severity */
-  --sos-critical:      #D20A0A;
-  --sos-high:          #E76500;
-  --sos-medium:        #0070F2;
-  --sos-low:           #556B82;
+  --sos-critical:      #B42318;
+  --sos-high:          #9A5B0A;
+  --sos-medium:        #1F5F4B;
+  --sos-low:           #5F5C55;
 
   /* Radius: 8px on controls, 12px on containers */
   --radius-sm:         4px;
@@ -56,7 +58,7 @@
   --radius-control:    8px;
   --radius-container:  12px;
 
-  /* Spacing Grid: 4px base */
+  /* Spacing grid: 4px base */
   --space-1:  4px;
   --space-2:  8px;
   --space-3:  12px;
@@ -67,20 +69,20 @@
   --space-10: 40px;
   --space-12: 48px;
 
-  /* Shell (Fiori): 52px white shell bar, 256px side navigation */
+  /* Shell */
   --topbar-height:  52px;
   --sidebar-width:  256px;
 
-  /* Page Padding (32px) */
-  --page-padding:   32px;
+  /* Page */
+  --page-padding: 32px;
 
-  /* Elevation: Shadows ONLY on popovers and drawers */
-  --shadow-popover: 0 4px 16px 0 rgba(29, 45, 62, 0.12);
-  --shadow-drawer:  0 0 24px 0 rgba(29, 45, 62, 0.10);
+  /* Elevation: only popovers and drawers */
+  --shadow-popover: 0 4px 16px 0 rgba(28,27,25,0.12);
+  --shadow-drawer:  0 0 24px 0 rgba(28,27,25,0.10);
 }
 
 body {
-  font-family: 'Open Sans', 'Noto Sans Devanagari', 'Noto Sans Kannada', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'IBM Plex Sans', 'Noto Sans Devanagari', 'Noto Sans Kannada', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: var(--canvas);
   color: var(--text);
   margin: 0;

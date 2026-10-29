@@ -162,8 +162,11 @@ export const SimulatorPage: React.FC = () => {
         options: [
           '🚨 Trigger Emergency SOS',
           '💊 Medication & Readings',
+          '🎟️ View Digital Vouchers',
+          '📚 Daily Micro-Lesson',
+          '🧠 Mastermind Quiz',
+          '⚖️ Legal Inquiry',
           '📝 Start Onboarding',
-          '👤 My Details',
           '🛑 Stop Messages',
         ],
       },
@@ -390,6 +393,84 @@ export const SimulatorPage: React.FC = () => {
         timestamp: now,
       };
       setChatMessages((prev) => [...prev, ack]);
+      return;
+    }
+
+    if (text === '🎟️ View Digital Vouchers') {
+      const ack: ChatMessage = {
+        id: `bot-${Date.now()}`,
+        sender: 'BOT',
+        text: `🎟️ *Your Vayoshrestha Health & Grocery Vouchers*\n\n1. *Winter Diagnostic Screening*\n   Code: *7X9K-4MB2-K* (₹600)\n   Status: Valid at Metropolis / Thyrocare\n\n2. *Ekta Nutrition Grocery Drive*\n   Code: *3N8W-9PL5-Y* (₹1,000)\n   Status: Single-use subsidy\n\nPresent this code to the partner cashier or visit https://vayoshrestha.org/me/vouchers`,
+        timestamp: now,
+        options: ['💊 Medication & Readings', '🚨 Trigger Emergency SOS'],
+      };
+      setChatMessages((prev) => [...prev, ack]);
+      addLog('VOUCHER_QUERY', `Senior viewed digital voucher wallet via WhatsApp`);
+      return;
+    }
+
+    if (text === '📚 Daily Micro-Lesson') {
+      const ack: ChatMessage = {
+        id: `bot-${Date.now()}`,
+        sender: 'BOT',
+        text: `⚠️ *सावध रहा: वीज बिल फसवणूक संदेश! (२ मिनिटे वाचन)*\n\nप्रिय मित्र,\nजर असा संदेश आला: _"वीज बिल भरले नाही, रात्री वीज कापली जाईल"_, तर:\n1️⃣ कोणत्याही अनोळखी नंबरवर त्वरित फोन करू नका.\n2️⃣ मेसेजमधील लिंकवर क्लिक करू नका.\n3️⃣ अधिकृत माहिती: https://cybercrime.gov.in\n\n- वयोश्रेष्ठ डिजिटल साक्षरता मंच`,
+        timestamp: now,
+        options: ['🧠 Mastermind Quiz', '🎟️ View Digital Vouchers'],
+      };
+      setChatMessages((prev) => [...prev, ack]);
+      addLog('LITERACY_DISPATCH', `Dispatched Micro-Lesson 001 (Fraud Defense) to WhatsApp simulator`);
+      return;
+    }
+
+    if (text === '🧠 Mastermind Quiz') {
+      const ack: ChatMessage = {
+        id: `bot-${Date.now()}`,
+        sender: 'BOT',
+        text: `🧠 *Weekly Mastermind Challenge: Question 1*\n\nIf you receive an SMS saying your bank account or electricity will be suspended today, what should you do?\n\n1️⃣ Call the phone number inside the SMS immediately\n2️⃣ Ignore or verify via Ekta Hub coordinator\n3️⃣ Send your Aadhaar OTP\n\nReply with 1, 2, or 3!`,
+        timestamp: now,
+        options: ['2️⃣ Verify with Hub', '1️⃣ Call the number', '3️⃣ Send OTP'],
+      };
+      setChatMessages((prev) => [...prev, ack]);
+      addLog('QUIZ_START', `Senior started Mastermind Quiz round`);
+      return;
+    }
+
+    if (text.includes('2️⃣ Verify with Hub')) {
+      const ack: ChatMessage = {
+        id: `bot-${Date.now()}`,
+        sender: 'BOT',
+        text: `🎉 *Correct!* You earned 1 point for your Chapter team!\n\nOfficial electricity boards and banks never send mobile phone numbers for emergency bill recovery.\n\nLeaderboard: Team Kothrud Elders is in 1st place!`,
+        timestamp: now,
+        options: ['📚 Daily Micro-Lesson', '🎟️ View Digital Vouchers'],
+      };
+      setChatMessages((prev) => [...prev, ack]);
+      addLog('QUIZ_CORRECT', `Senior answered Quiz Q1 correctly (Score +1)`);
+      return;
+    }
+
+    if (text === '⚖️ Legal Inquiry') {
+      const ack: ChatMessage = {
+        id: `bot-${Date.now()}`,
+        sender: 'BOT',
+        text: `⚖️ *Vayoshrestha Pro-Bono Legal Intake*\n\nNotice: Vayoh Vikas is an NGO and does not provide direct legal counsel. All cases are mediated by independent verified advocates under the Senior Citizens Act 2007.\n\nWould you like an advocate to contact you regarding property dispute mediation or maintenance allowance?`,
+        timestamp: now,
+        options: ['Yes, Request Legal Support', 'No, return to menu'],
+      };
+      setChatMessages((prev) => [...prev, ack]);
+      addLog('LEGAL_INTAKE_INQUIRY', `Senior inquired about Pro-Bono Legal Intake`);
+      return;
+    }
+
+    if (text === 'Yes, Request Legal Support') {
+      const ack: ChatMessage = {
+        id: `bot-${Date.now()}`,
+        sender: 'BOT',
+        text: `✅ Your confidential intake has been routed to Vidhi Centre for Senior Legal Aid (Case ID: LEG-2026-084).\n\nAn advocate will contact you within 48 working hours. Thank you.`,
+        timestamp: now,
+        options: ['🎟️ View Digital Vouchers', '💊 Medication & Readings'],
+      };
+      setChatMessages((prev) => [...prev, ack]);
+      addLog('LEGAL_INTAKE_SUBMITTED', `Created Case LEG-2026-084 and routed to Vidhi Centre`);
       return;
     }
 

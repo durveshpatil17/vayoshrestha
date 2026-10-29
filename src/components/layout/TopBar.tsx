@@ -290,14 +290,17 @@ export const TopBar: React.FC = () => {
               <div className="px-3 py-1.5 text-xs text-text-secondary font-semibold border-b border-border-subtle">
                 Switch Role Persona:
               </div>
-              {(['SA', 'NM', 'RA', 'PM', 'CM', 'VF', 'CT', 'CD', 'SP', 'SC', 'FM'] as RoleCode[]).map((r) => (
+              {(['SA', 'NM', 'RA', 'PM', 'CM', 'VF', 'CT', 'CD', 'SP', 'SC', 'FM', 'SF'] as RoleCode[]).map((r) => (
                 <button
                   key={r}
                   type="button"
                   onClick={() => {
                     switchPersona(r);
                     setUserMenuOpen(false);
-                    navigate('/');
+                    if (r === 'SF') navigate('/field');
+                    else if (r === 'SC') navigate('/me');
+                    else if (r === 'FM') navigate('/family');
+                    else navigate('/');
                   }}
                   className={`w-full text-left px-3 py-1.5 text-xs flex items-center justify-between hover:bg-surface-hover ${
                     user?.role === r ? 'text-accent font-semibold bg-surface-selected' : 'text-text'

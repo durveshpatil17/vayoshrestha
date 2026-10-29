@@ -251,10 +251,13 @@ export const LoginPage: React.FC = () => {
                 { id: 'u-cm-blr', role: 'CM', name: 'Karthik S.', title: 'Chap. Mgr (Bengaluru)' },
                 { id: 'u-vf-1', role: 'VF', name: 'Pooja Shinde', title: 'Field Volunteer' },
                 { id: 'u-ct-1', role: 'CT', name: 'Meera Kulkarni', title: 'Care Responder' },
-                { id: 'u-sp-1', role: 'SP', name: 'Dr. Rajan Pillai', title: 'Service Partner' },
-                { id: 'u-cd-1', role: 'CD', name: 'Vikram Tata', title: 'CSR / Donor (Agg)' },
+                { id: 'u-sp-1', role: 'SP', name: 'Dr. Rajan Pillai', title: 'Service Partner (Hospital)' },
+                { id: 'u-sp-legal', role: 'SP', name: 'Dr. Shyam Adv.', title: 'Legal Partner (Intake)' },
+                { id: 'u-cd-1', role: 'CD', name: 'Vikram Tata', title: 'CSR Reviewer (CSR)' },
+                { id: 'u-cd-gov', role: 'CD', name: 'Dr. Anita Sen', title: 'Government Reviewer (Gov)' },
                 { id: 'u-sc-1', role: 'SC', name: 'Kamala Devi', title: 'Senior Portal (/me)' },
                 { id: 'u-fm-1', role: 'FM', name: 'Sunita Desai', title: 'Family Portal' },
+                { id: 'u-sf-1', role: 'SF', name: 'Ramakant Shinde', title: 'Senior Field Associate (/field)' },
               ].map((p) => (
                 <button
                   key={p.id}
@@ -266,6 +269,9 @@ export const LoginPage: React.FC = () => {
                     } else if (p.role === 'FM') {
                       switchPersona(p.role as any);
                       navigate('/family');
+                    } else if (p.role === 'SF') {
+                      switchPersona(p.role as any);
+                      navigate('/field');
                     } else {
                       switchPersona(p.role as any);
                       navigate(returnTo);

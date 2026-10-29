@@ -457,7 +457,7 @@ export const SeniorDetailPage: React.FC = () => {
                     <YAxis domain={[60, 200]} tick={{ fontSize: 11 }} />
                     <Tooltip />
                     <ReferenceArea y1={140} y2={200} fill="#FEF3EB" fillOpacity={0.6} />
-                    <Line type="monotone" dataKey="systolic" stroke="#0070F2" strokeWidth={2} name="Systolic (mmHg)" />
+                    <Line type="monotone" dataKey="systolic" stroke="#1F5F4B" strokeWidth={2} name="Systolic (mmHg)" />
                     <Line type="monotone" dataKey="diastolic" stroke="#E76500" strokeWidth={2} name="Diastolic (mmHg)" />
                   </LineChart>
                 </ResponsiveContainer>

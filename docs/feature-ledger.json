@@ -989,7 +989,7 @@
     {
       "id": "F-066",
       "name": "WhatsApp simulator",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/simulator"
       ],
@@ -1003,7 +1003,7 @@
     {
       "id": "F-067",
       "name": "Notifications centre",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/notifications"
       ],
@@ -1016,7 +1016,7 @@
     {
       "id": "F-068",
       "name": "Account settings",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/account"
       ],
@@ -1029,7 +1029,7 @@
     {
       "id": "F-069",
       "name": "Help centre",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/help"
       ],
@@ -1042,7 +1042,7 @@
     {
       "id": "F-070",
       "name": "SC programmes list",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/me/programmes"
       ],
@@ -1055,7 +1055,7 @@
     {
       "id": "F-071",
       "name": "SC bookings",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/me/bookings"
       ],
@@ -1068,7 +1068,7 @@
     {
       "id": "F-072",
       "name": "SC messages",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/me/messages"
       ],
@@ -1081,7 +1081,7 @@
     {
       "id": "F-073",
       "name": "SC services",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/me/services"
       ],
@@ -1094,7 +1094,7 @@
     {
       "id": "F-074",
       "name": "SC profile",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/me/profile"
       ],
@@ -1107,7 +1107,7 @@
     {
       "id": "F-075",
       "name": "SC health view",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/me/health"
       ],
@@ -1120,7 +1120,7 @@
     {
       "id": "F-076",
       "name": "SC feedback",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/me/feedback"
       ],
@@ -1133,7 +1133,7 @@
     {
       "id": "F-077",
       "name": "SC help",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/me/help"
       ],
@@ -1146,7 +1146,7 @@
     {
       "id": "F-078",
       "name": "SC family links",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/me/family"
       ],
@@ -1159,7 +1159,7 @@
     {
       "id": "F-079",
       "name": "FM senior overview",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/family/:seniorId"
       ],
@@ -1172,7 +1172,7 @@
     {
       "id": "F-080",
       "name": "FM family links",
-      "fr": "\u2014",
+      "fr": "—",
       "routes": [
         "/family/links"
       ],
@@ -1181,6 +1181,443 @@
       ],
       "status": "Built",
       "notes": ""
+    },
+    {
+      "id": "F-081",
+      "name": "Field Network Terminal Home",
+      "fr": "Layer 3",
+      "routes": [
+        "/field"
+      ],
+      "roles": [
+        "SF",
+        "SA",
+        "NM",
+        "PM",
+        "RA",
+        "CM"
+      ],
+      "status": "Built",
+      "notes": "Mobile-first terminal for active elder field associates; sync status, add peer, task queue."
+    },
+    {
+      "id": "F-082",
+      "name": "Field Peer Double-Consent Onboarding Wizard",
+      "fr": "Layer 3",
+      "routes": [
+        "/field/onboard"
+      ],
+      "roles": [
+        "SF",
+        "CM",
+        "VF"
+      ],
+      "status": "Built",
+      "notes": "4-step mobile wizard: Peer details -> Consent 1 in-person -> WhatsApp Consent 2 -> AES-GCM encrypted save & coarse geo-stamp."
+    },
+    {
+      "id": "F-083",
+      "name": "Field Associate Activity Log",
+      "fr": "Layer 3",
+      "routes": [
+        "/field/activity"
+      ],
+      "roles": [
+        "SF"
+      ],
+      "status": "Built",
+      "notes": "Associate personal log: timestamps, coarse area labels, double consent status chips."
+    },
+    {
+      "id": "F-084",
+      "name": "Field Offline Sync Queue & Simulation",
+      "fr": "Layer 3",
+      "routes": [
+        "/field/sync"
+      ],
+      "roles": [
+        "SF"
+      ],
+      "status": "Built",
+      "notes": "Encrypted local queue, simulate offline toggle, manual retry, latency tracking."
+    },
+    {
+      "id": "F-085",
+      "name": "Field Associate Training Micro-Lessons",
+      "fr": "Layer 3",
+      "routes": [
+        "/field/learn"
+      ],
+      "roles": [
+        "SF"
+      ],
+      "status": "Built",
+      "notes": "Short field training modules on ethical consent capture and fraud prevention."
+    },
+    {
+      "id": "F-086",
+      "name": "Field Associate Profile & High-Contrast Toggle",
+      "fr": "Layer 3",
+      "routes": [
+        "/field/profile"
+      ],
+      "roles": [
+        "SF"
+      ],
+      "status": "Built",
+      "notes": "Display preferences: 22px large type toggle, >=7:1 high-contrast toggle, privacy statement."
+    },
+    {
+      "id": "F-087",
+      "name": "Field Operations Management & Telemetry Hub",
+      "fr": "Layer 3",
+      "routes": [
+        "/field-network"
+      ],
+      "roles": [
+        "PM",
+        "CM",
+        "RA",
+        "NM",
+        "SA"
+      ],
+      "status": "Built",
+      "notes": "Staff oversight hub embedding the cross-cutting Field Telemetry Card."
+    },
+    {
+      "id": "F-088",
+      "name": "Field Associates Roster & Chapter Assignment",
+      "fr": "Layer 3",
+      "routes": [
+        "/field-network/associates",
+        "/field-network/associates/:id"
+      ],
+      "roles": [
+        "PM",
+        "CM",
+        "RA",
+        "NM",
+        "SA"
+      ],
+      "status": "Built",
+      "notes": "Roster, chapter assignment, training completion, deactivation with type-to-confirm."
+    },
+    {
+      "id": "F-089",
+      "name": "Field Activity Coarse Audit Stream",
+      "fr": "Layer 3",
+      "routes": [
+        "/field-network/activity"
+      ],
+      "roles": [
+        "PM",
+        "CM",
+        "RA",
+        "NM",
+        "SA"
+      ],
+      "status": "Built",
+      "notes": "Area-level interaction stream with chapter and date filtering; gated export."
+    },
+    {
+      "id": "F-090",
+      "name": "Field Sync Queue Telemetry & Late-Sync Flags",
+      "fr": "Layer 3",
+      "routes": [
+        "/field-network/sync"
+      ],
+      "roles": [
+        "PM",
+        "CM",
+        "RA",
+        "NM",
+        "SA"
+      ],
+      "status": "Built",
+      "notes": "Central sync telemetry, late-sync flags (>24h), retry monitor."
+    },
+    {
+      "id": "F-091",
+      "name": "Field Telemetry Card (Cross-Cutting Live Metrics)",
+      "fr": "Layer 3/4",
+      "routes": [
+        "/field-network",
+        "/reports/pilot"
+      ],
+      "roles": [
+        "NM",
+        "PM",
+        "RA",
+        "CM",
+        "SA",
+        "CD"
+      ],
+      "status": "Built",
+      "notes": "Live event-computed component: Active Field Gigs, Last-Mile Syncs, chapter strips, 24h sparkline, BroadcastChannel ticker."
+    },
+    {
+      "id": "F-092",
+      "name": "Partner Routing Fabric Overview & Queue",
+      "fr": "Layer 1",
+      "routes": [
+        "/routing"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA",
+        "CM",
+        "SA",
+        "CD"
+      ],
+      "status": "Built",
+      "notes": "Categorical routing overview: capacity load-balancing, auto-routed vs manual, SLA monitoring."
+    },
+    {
+      "id": "F-093",
+      "name": "Routing Decision Records & Reassignment",
+      "fr": "Layer 1",
+      "routes": [
+        "/routing/requests/:id"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA",
+        "CM",
+        "SA"
+      ],
+      "status": "Built",
+      "notes": "Transparent decision record (rules matched, capacity, tie-break), reassignment timeline."
+    },
+    {
+      "id": "F-094",
+      "name": "Routing Rules Configuration & Test Harness",
+      "fr": "Layer 1",
+      "routes": [
+        "/routing/rules"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA",
+        "SA"
+      ],
+      "status": "Built",
+      "notes": "Deterministic rule configuration with maker-checker (PM drafts, NM approves), test request tool."
+    },
+    {
+      "id": "F-095",
+      "name": "Voucher Campaigns & Catalogue Management",
+      "fr": "Layer 1",
+      "routes": [
+        "/vouchers",
+        "/vouchers/campaigns",
+        "/vouchers/campaigns/new",
+        "/vouchers/:id"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA",
+        "CM",
+        "SA"
+      ],
+      "status": "Built",
+      "notes": "Diagnostic voucher campaigns, validity caps, maker-checker, WhatsApp simulator delivery."
+    },
+    {
+      "id": "F-096",
+      "name": "Voucher Validation & Single-Use Redemption",
+      "fr": "Layer 1",
+      "routes": [
+        "/partner/vouchers",
+        "/partner/vouchers/redeem",
+        "/me/vouchers"
+      ],
+      "roles": [
+        "SP",
+        "SC",
+        "FM",
+        "PM",
+        "CM"
+      ],
+      "status": "Built",
+      "notes": "Crockford base-32 check-digit verification, rate-limited validation, single-use idempotent redemption."
+    },
+    {
+      "id": "F-097",
+      "name": "Pro-Bono Encrypted Legal Intake",
+      "fr": "Layer 1",
+      "routes": [
+        "/legal-intake",
+        "/legal-intake/:id"
+      ],
+      "roles": [
+        "SP",
+        "PM",
+        "NM",
+        "CM",
+        "SA",
+        "SC",
+        "FM",
+        "SF",
+        "VF"
+      ],
+      "status": "Built",
+      "notes": "Encrypted intake queue: assigned legal SP sees content; staff see metadata; policy closure codes."
+    },
+    {
+      "id": "F-098",
+      "name": "Virtual Literacy Learning Library",
+      "fr": "Layer 2",
+      "routes": [
+        "/learning",
+        "/learning/library",
+        "/learning/library/new",
+        "/learning/library/:id"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA",
+        "CM",
+        "SA",
+        "SC",
+        "FM",
+        "SF"
+      ],
+      "status": "Built",
+      "notes": "4-category micro-lessons, WhatsApp chat bubble preview, allow-listed link safety, maker-checker."
+    },
+    {
+      "id": "F-099",
+      "name": "Micro-Lesson Daily Series Campaigns",
+      "fr": "Layer 2",
+      "routes": [
+        "/learning/series"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA",
+        "SA"
+      ],
+      "status": "Built",
+      "notes": "Drip campaigns, quiet hours enforcement, consent-filtered audience builder."
+    },
+    {
+      "id": "F-100",
+      "name": "Community Webinars & Broadcast Channels",
+      "fr": "Layer 2",
+      "routes": [
+        "/learning/webinars",
+        "/learning/channels",
+        "/me/events"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA",
+        "CM",
+        "SA",
+        "SC",
+        "FM",
+        "SF"
+      ],
+      "status": "Built",
+      "notes": "Event sign-ups, consent-gated reminders, regional one-way broadcast channels."
+    },
+    {
+      "id": "F-101",
+      "name": "Regional Mastermind Quizzes",
+      "fr": "Layer 2",
+      "routes": [
+        "/learning/quizzes",
+        "/learning/quizzes/:id",
+        "/me/quizzes"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA",
+        "CM",
+        "SA",
+        "SC",
+        "FM"
+      ],
+      "status": "Built",
+      "notes": "Regional quiz rounds delivered via channel, simulator gameplay, minimal privacy-safe leaderboard."
+    },
+    {
+      "id": "F-102",
+      "name": "Telemetry Engine & Cohort Compliance Dashboard",
+      "fr": "Layer 4",
+      "routes": [
+        "/telemetry",
+        "/telemetry/trends",
+        "/telemetry/privacy"
+      ],
+      "roles": [
+        "CD",
+        "NM",
+        "PM",
+        "RA",
+        "SA"
+      ],
+      "status": "Built",
+      "notes": "Cohort compliance, coarse 5-category vaccination status, k>=5 suppression, policy decline indicator."
+    },
+    {
+      "id": "F-103",
+      "name": "Impact Packs Builder & Signed Tamper-Evident PDF",
+      "fr": "Layer 4",
+      "routes": [
+        "/telemetry/packs",
+        "/telemetry/packs/new",
+        "/telemetry/packs/:id",
+        "/telemetry/exports"
+      ],
+      "roles": [
+        "PM",
+        "NM",
+        "RA",
+        "SA",
+        "CD"
+      ],
+      "status": "Built",
+      "notes": "Audience-scoped packs (PM drafts, NM releases), SHA-256 calculation, synthetic watermark, export registry."
+    },
+    {
+      "id": "F-104",
+      "name": "Public Report Verification Gateway",
+      "fr": "Layer 4",
+      "routes": [
+        "/verify",
+        "/verify/:code"
+      ],
+      "roles": [
+        "ALL"
+      ],
+      "status": "Built",
+      "notes": "Unauthenticated public gateway recomputing SHA-256 in browser to verify impact packs."
+    },
+    {
+      "id": "F-105",
+      "name": "Ecosystem Strategic Nexus Architecture Map",
+      "fr": "Nexus",
+      "routes": [
+        "/ecosystem"
+      ],
+      "roles": [
+        "NM",
+        "PM",
+        "RA",
+        "SA",
+        "CD"
+      ],
+      "status": "Built",
+      "notes": "Interactive diagram of Layers 1-4 with live mock telemetry counters and strategic goals."
     }
   ]
 }

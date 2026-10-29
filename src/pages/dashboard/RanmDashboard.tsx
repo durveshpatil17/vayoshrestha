@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { StatusIndicator } from '@/components/ui/StatusIndicator';
 import { Card } from '@/components/ui/Card';
 import { KpiTile } from '@/components/ui/KpiTile';
+import { FieldTelemetryCard } from '@/components/telemetry/FieldTelemetryCard';
 import {
   AlertOctagon,
   Users,
@@ -215,6 +216,9 @@ export const RanmDashboard: React.FC = () => {
           </div>
         </div>
       </Card>
+
+      {/* Field Network Telemetry Hero Card */}
+      <FieldTelemetryCard />
 
       {/* 6. Needs Attention (Row List, NOT Tiles) */}
       <Card

@@ -84,3 +84,62 @@
     - [x] Applied $\le 4$ headline tiles rule and "Needs attention" row list to `CmDashboard.tsx`, `VfDashboard.tsx`, `CtDashboard.tsx`, `SaDashboard.tsx`, and `CdDashboard.tsx`.
     - [x] `DesignGalleryPage.tsx` fully refreshed to showcase new tokens, Open Sans scale, and component catalog.
   - [x] All test suites passing: `design-lint` clean (0 violations), unit & integration tests (95/95 passed), Playwright SPA navigation tests (3/3 passed), and production build clean (`tsc --noEmit && vite build`).
+
+
+---
+
+## Addendum v3.1 Ecosystem Expansion (Completed)
+
+**Completed Date**: 2026-10-30  
+**Phase**: Ecosystem Layers 1–4, Field Telemetry & Verification Architecture  
+**Status**: 100% Built (105 of 105 Features Built, 0 Planned, 0 Partial)
+
+- [x] **Loop D0: Gap Analysis & Codification (Completed)**
+  - Codified Decision 012 in `docs/DECISIONS.md`.
+  - Produced `docs/ECOSYSTEM_MAP.md` detailing cross-layer aggregation.
+  - Extended RBAC matrix to 13 roles × 45 capabilities (585 cells) with Senior Field Associate (`SF`).
+  - Added features F-081 through F-105 to `docs/feature-ledger.json` and `docs/FEATURE_LEDGER.md`.
+- [x] **Loop D1: Layer 3 Field Network Core (Completed)**
+  - Mobile-first terminal `/field/*` (centered 480px on desktop, 360-430px mobile, $\ge 48$px touch targets).
+  - WebCrypto AES-GCM 256-bit client-side activity file encryption.
+  - Double-consent state machine (in-person Consent 1 + WhatsApp Consent 2).
+  - Coarse 2-decimal geo-stamping (~1.1 km radius, zero continuous GPS trails).
+  - Offline sync queue with late-sync flags (>24h) and BroadcastChannel cross-tab dispatch.
+  - Staff management views at `/field-network/*`.
+- [x] **Loop D2: Field Telemetry Card (Cross-Cutting) (Completed)**
+  - Created `FieldTelemetryCard.tsx` with live Active Field Gigs, Last-Mile Syncs, 9-chapter activity bars, 24h hourly sparkline, and BroadcastChannel ticker.
+  - Embedded on NM/PM/RA Home (`RanmDashboard.tsx`), PM Home (`PmDashboard.tsx`), `/reports/pilot`, and `/field-network`.
+- [x] **Loop D3: Layer 1 Telemetry Engine & DPDP Compliance (Completed)**
+  - Implemented $k \ge 5$ suppression, complementary secondary suppression, and query differencing attack defense.
+  - Built `/telemetry` (Cohort Dashboard), `/telemetry/trends` (Macro Health Trends), and `/telemetry/privacy` (Privacy Statement).
+- [x] **Loop D4: Impact Packs, Tamper-Evident SHA-256 PDF & Verification Gateway (Completed)**
+  - Implemented `packBuilder.ts` with 4 templates, maker-checker lifecycle, and WebCrypto SHA-256 digest computation.
+  - Built `/telemetry/packs`, `/telemetry/packs/new`, `/telemetry/packs/:id`, and `/telemetry/exports`.
+  - Built public unauthenticated verification gateway at `/verify` and `/verify/:code`.
+- [x] **Loop D5: Layer 2 Partner Routing Fabric (Completed)**
+  - Deterministic capacity-aware routing engine (`src/domain/routing/engine.ts`).
+  - Built `/routing` (Intake Queue & Capacity Heatmap), `/routing/requests/:id` (Decision Records), and `/routing/rules` (Policy Editor & Test Tool).
+- [x] **Loop D6: Layer 2 Digital Vouchers & WhatsApp Delivery (Completed)**
+  - Implemented Crockford Base-32 Modulo-37 voucher engine (`src/domain/vouchers/voucherEngine.ts`).
+  - Built `/vouchers`, `/vouchers/campaigns`, `/vouchers/campaigns/new`, `/vouchers/:id`.
+  - Built Partner Redemption Terminal (`/partner/vouchers/redeem`) with single-use idempotent check.
+  - Built Senior citizen voucher wallet (`/me/vouchers`).
+- [x] **Loop D7: Layer 2 Pro-Bono Encrypted Legal Intake (Completed)**
+  - Implemented client-advocate privilege isolation (staff see metadata only; advocates decrypt narrative).
+  - Built `/legal-intake` and `/legal-intake/:id` with permanent statutory disclaimer and policy evidence closure codes.
+- [x] **Loop D8: Layer 4 Virtual Literacy, Series & Quizzes (Completed)**
+  - Implemented 4-domain micro-lessons with WhatsApp speech bubble preview and safe link allowlisting.
+  - Built `/learning`, `/learning/library`, `/learning/library/new`, `/learning/library/:id`.
+  - Built `/learning/series` (Drip Campaigns with 21:00-08:00 Quiet Hours enforcement).
+  - Built `/learning/webinars` & `/learning/channels`.
+  - Built `/learning/quizzes` (Regional Mastermind Quiz with anonymous chapter leaderboard).
+  - Built Senior portal views at `/me/learning`, `/me/quizzes`, `/me/events`.
+- [x] **Loop D9: Ecosystem Strategic Nexus Map & Simulator (Completed)**
+  - Built `/ecosystem` showcasing the complete 4-layer architecture with live mock metrics.
+  - Integrated cross-ecosystem scenarios into `/simulator` (vouchers, lessons, quizzes, legal aid).
+- [x] **Loop D10: Hardening, Reports & Verification (Completed)**
+  - Appended P6 Delta to `docs/SECURITY_FINDINGS.md` (SEC-23 through SEC-28).
+  - Appended P7 Delta to `docs/SCALE_REPORT.md` (Sections 7 & 8).
+  - All 134 unit and integration tests passing.
+  - Design lint passing with 0 violations across 242 files.
+  - Ratchet verified: 168 registered routes, 105/105 built features.

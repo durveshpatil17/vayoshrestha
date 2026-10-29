@@ -385,3 +385,69 @@ When transitioning this prototype to a production environment with a real server
 8. **Rate Limiting & Credential Stuffing Defenses:** Implement Redis-backed token bucket rate limiters on login, password reset, and webhook endpoints with exponential backoff and IP throttling.
 9. **Append-Only Write-Once Audit Logging:** Stream all audit records to immutable, write-once object storage (e.g., AWS S3 Object Lock, CloudWatch) with cryptographic hash chaining.
 10. **Strict Export Formula Sanitization:** Prepend formula-escape prefixes (`'`) to all user-controlled text strings in CSV/Excel export endpoints to neutralize spreadsheet command injection.
+
+
+---
+
+## Addendum v3.1 Ecosystem Security Delta (Loops D0–D10)
+
+### SEC-23: Telemetry Query Differencing Attack Defense & Complementary Suppression
+- **ID:** SEC-23
+- **Title:** Prevention of Re-Identification via Demographic Cross-Tabulation and Small-Cell Derivation
+- **Severity:** High
+- **Affected Roles & Routes:** `CD`, `NM`, `PM`, `/telemetry`, `/telemetry/trends`, `/telemetry/privacy`
+- **Mitigation Implemented:**
+  1. Strict $k$-anonymity constraint ($k \ge 5$): any cohort cell with 1–4 individuals is automatically masked as `"< 5 (Suppressed)"`.
+  2. Complementary secondary suppression: when one cell in a marginal row/column is suppressed, the second-smallest cell is also suppressed, mathematically eliminating deduction via `Cell = Row_Total - Sum(Remaining)`.
+  3. Query differencing defense: consecutive queries whose cohort intersection has a delta $< 5$ are blocked at the engine layer with HTTP 422 Unprocessable Query.
+  4. Temporal binning: timestamps are rounded to week or month epochs, and vaccination records are coarsened to 5 high-level buckets with clinical manufacturer details purged.
+
+### SEC-24: Cryptographic WebCrypto SHA-256 Tamper-Evident Dossiers & Public Gateway
+- **ID:** SEC-24
+- **Title:** Verification of Released Impact Reports and Tamper Detection
+- **Severity:** Medium
+- **Affected Roles & Routes:** Public (`ALL`), `/verify`, `/verify/:code`, `/telemetry/packs/:id`
+- **Mitigation Implemented:**
+  1. Cryptographic canonical hashing: when an impact pack is released under Maker-Checker (PM drafts $\to$ NM releases), an in-browser WebCrypto `subtle.digest('SHA-256')` hash is calculated over the canonical payload and stamped in the immutable registry.
+  2. Public verification gateway at `/verify` and `/verify/:code` executes in-browser WebCrypto hashing over user-uploaded PDFs/JSON or codes, guaranteeing zero-trust verification without sharing sensitive backend tokens.
+  3. Watermark enforcement: every generated dossier carries the permanent legal disclaimer `"SYNTHETIC PILOT DATA · FOR EVALUATION ONLY · VAYOH VIKAS"`.
+
+### SEC-25: Client-Advocate Privilege Isolation in Pro-Bono Legal Intake
+- **ID:** SEC-25
+- **Title:** Protection of Confidential Dispute Details from Non-Advocate Field Staff
+- **Severity:** High
+- **Affected Roles & Routes:** `SF`, `VF`, `CM`, `RA`, `/legal-intake`, `/legal-intake/:id`
+- **Mitigation Implemented:**
+  1. Field staff, coordinators, and volunteer personas only access top-level case metadata (Case ID, Date, General Category e.g. "Property Dispute", Senior ID, Status).
+  2. Specific grievance statements, respondent family identities, and dispute affidavits are blinded (`"Restricted: Legal Partner Content Protected"`).
+  3. Only authenticated advocates (`SP`) or authorized governance managers can decrypt the confidential narrative.
+  4. Permanent statutory disclaimer displayed across all legal views clarifying that Vayoh Vikas is an NGO and does not provide legal representation.
+
+### SEC-26: Crockford Base-32 Modulo-37 Voucher Tamper Resilience & Idempotent Redemption
+- **ID:** SEC-26
+- **Title:** Single-Use Subsidy Redemption Enforcement and Fraud Prevention
+- **Severity:** Critical
+- **Affected Roles & Routes:** `SP`, `SC`, `FM`, `/partner/vouchers/redeem`, `/me/vouchers`
+- **Mitigation Implemented:**
+  1. 10-character Crockford Base-32 code generation omitting ambiguous characters (`I`, `L`, `O`, `U`) with an appended modulo-37 check digit.
+  2. Check digit validation algorithm detects manual typing errors, digit transpositions, and forged codes client-side prior to network dispatch.
+  3. Idempotent state machine: once a voucher transitions to `redeemed`, subsequent redemption attempts are strictly rejected with an explicit error detailing redemption timestamp and partner identity.
+
+### SEC-27: Senior Field Associate Local WebCrypto AES-GCM Storage & Coarse Geo-Stamping
+- **ID:** SEC-27
+- **Title:** Offline Elder Activity File Protection and Location Privacy Safeguards
+- **Severity:** High
+- **Affected Roles & Routes:** `SF` (Senior Field Associate), `/field/*`, `/field-network/*`
+- **Mitigation Implemented:**
+  1. Peer onboarding and activity logs captured by elder field associates are encrypted locally using WebCrypto AES-GCM 256-bit encryption before storing in browser IndexedDB/LocalStorage.
+  2. Coarse geo-stamping: continuous GPS tracking and raw coordinates are strictly banned. The engine truncates coordinates to 2 decimal places ($\approx 1.1$ km radius) and records only general area labels (e.g. "Kothrud Central").
+  3. Double-consent protocol: registrations require in-person read-aloud verification (Consent 1) and independent WhatsApp confirmation (Consent 2) within 24 hours before entering the active roster.
+
+### SEC-28: Quiet Hours Policy Enforcement & Hyperlink Allowlisting
+- **ID:** SEC-28
+- **Title:** Elder Disturbance Prevention and Anti-Phishing Guardrails
+- **Severity:** Medium
+- **Affected Roles & Routes:** `PM`, `CM`, `/learning/series`, `/simulator`
+- **Mitigation Implemented:**
+  1. Automated daily broadcast campaigns enforce quiet hours between 21:00 (9:00 PM) and 08:00 (8:00 AM) local time, queuing messages until the morning window.
+  2. Outbound message hyperlinks are strictly validated against an approved allowlist of government and verified NGO domains (`cybercrime.gov.in`, `abdm.gov.in`, `vayoshrestha.org`), eliminating elder vulnerability to external phishing scams.

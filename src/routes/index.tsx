@@ -111,6 +111,35 @@ import { PartnerListPage } from '@/pages/partners/PartnerListPage';
 import { PartnerDetailPage } from '@/pages/partners/PartnerDetailPage';
 import { PartnerNewPage } from '@/pages/partners/PartnerNewPage';
 
+// Partner Routing Fabric (Layer 2)
+import { RoutingQueuePage } from '@/pages/routing/RoutingQueuePage';
+import { RoutingDetailPage } from '@/pages/routing/RoutingDetailPage';
+import { RoutingRulesPage } from '@/pages/routing/RoutingRulesPage';
+
+// Digital Vouchers (Layer 2)
+import { VouchersOverviewPage } from '@/pages/vouchers/VouchersOverviewPage';
+import { VoucherCampaignsPage } from '@/pages/vouchers/VoucherCampaignsPage';
+import { VoucherCampaignNewPage } from '@/pages/vouchers/VoucherCampaignNewPage';
+import { VoucherDetailPage } from '@/pages/vouchers/VoucherDetailPage';
+import { PartnerRedeemPage } from '@/pages/vouchers/PartnerRedeemPage';
+import { SeniorVouchersPage } from '@/pages/vouchers/SeniorVouchersPage';
+
+// Pro-Bono Legal Intake (Layer 2)
+import { LegalIntakeQueuePage } from '@/pages/legalIntake/LegalIntakeQueuePage';
+import { LegalIntakeDetailPage } from '@/pages/legalIntake/LegalIntakeDetailPage';
+
+// Virtual Literacy & Gamified Education (Layer 4)
+import { LearningLibraryPage } from '@/pages/learning/LearningLibraryPage';
+import { LessonDetailPage } from '@/pages/learning/LessonDetailPage';
+import { LessonNewPage } from '@/pages/learning/LessonNewPage';
+import { DripCampaignsPage } from '@/pages/learning/DripCampaignsPage';
+import { WebinarsPage } from '@/pages/learning/WebinarsPage';
+import { QuizzesPage } from '@/pages/learning/QuizzesPage';
+import { SeniorLearningPage } from '@/pages/learning/SeniorLearningPage';
+
+// Strategic Ecosystem Nexus (Master Architecture)
+import { EcosystemNexusPage } from '@/pages/ecosystem/EcosystemNexusPage';
+
 import { PartnerHomePage } from '@/pages/partnerPortal/PartnerHomePage';
 import { PartnerReferralsPage } from '@/pages/partnerPortal/PartnerReferralsPage';
 import { PartnerProfilePage } from '@/pages/partnerPortal/PartnerProfilePage';
@@ -159,6 +188,31 @@ import {
   FmSeniorOverviewPage,
   FmLinksPage,
 } from '@/pages/family/FmPortalSubPages';
+
+// Field Network Modules (Layer 3)
+import { FieldLayout } from '@/components/layout/FieldLayout';
+import { FieldHomePage } from '@/pages/field/FieldHomePage';
+import { FieldOnboardPage } from '@/pages/field/FieldOnboardPage';
+import { FieldActivityPage } from '@/pages/field/FieldActivityPage';
+import { FieldSyncPage } from '@/pages/field/FieldSyncPage';
+import { FieldLearnPage } from '@/pages/field/FieldLearnPage';
+import { FieldProfilePage } from '@/pages/field/FieldProfilePage';
+
+import { FieldNetworkOverviewPage } from '@/pages/fieldNetwork/FieldNetworkOverviewPage';
+import { FieldAssociatesPage } from '@/pages/fieldNetwork/FieldAssociatesPage';
+import { FieldAssociateDetailPage } from '@/pages/fieldNetwork/FieldAssociateDetailPage';
+import { FieldCentralActivityPage } from '@/pages/fieldNetwork/FieldCentralActivityPage';
+import { FieldSyncMonitorPage } from '@/pages/fieldNetwork/FieldSyncMonitorPage';
+
+// Telemetry & Ecosystem Evidence (Layer 1)
+import { CohortDashboardPage } from '@/pages/telemetry/CohortDashboardPage';
+import { MacroTrendsPage } from '@/pages/telemetry/MacroTrendsPage';
+import { PrivacyStatementPage } from '@/pages/telemetry/PrivacyStatementPage';
+import { ImpactPacksPage } from '@/pages/telemetry/ImpactPacksPage';
+import { ImpactPackNewPage } from '@/pages/telemetry/ImpactPackNewPage';
+import { ImpactPackDetailPage } from '@/pages/telemetry/ImpactPackDetailPage';
+import { ExportRegistryPage } from '@/pages/telemetry/ExportRegistryPage';
+import { PublicVerifyPage } from '@/pages/telemetry/PublicVerifyPage';
 
 /**
  * Route Permission Guard
@@ -239,6 +293,14 @@ export const router = createBrowserRouter([
     path: '/design',
     element: <DesignGalleryPage />,
   },
+  {
+    path: '/verify',
+    element: <PublicVerifyPage />,
+  },
+  {
+    path: '/verify/:code',
+    element: <PublicVerifyPage />,
+  },
 
   // Authenticated App Shell Routes
   {
@@ -265,6 +327,10 @@ export const router = createBrowserRouter([
       {
         path: 'help',
         element: <HelpPage />,
+      },
+      {
+        path: 'ecosystem',
+        element: <EcosystemNexusPage />,
       },
 
       // Module 1: Emergency SOS Routing (Group D)
@@ -569,6 +635,34 @@ export const router = createBrowserRouter([
       { path: 'partners/new', element: <PartnerNewPage /> },
       { path: 'partners/:id', element: <PartnerDetailPage /> },
 
+      // Partner Routing Fabric (Layer 2)
+      { path: 'routing', element: <RoutingQueuePage /> },
+      { path: 'routing/requests/:id', element: <RoutingDetailPage /> },
+      { path: 'routing/rules', element: <RoutingRulesPage /> },
+
+      // Digital Vouchers (Layer 2)
+      { path: 'vouchers', element: <VouchersOverviewPage /> },
+      { path: 'vouchers/campaigns', element: <VoucherCampaignsPage /> },
+      { path: 'vouchers/campaigns/new', element: <VoucherCampaignNewPage /> },
+      { path: 'vouchers/:id', element: <VoucherDetailPage /> },
+      { path: 'partner/vouchers', element: <PartnerRedeemPage /> },
+      { path: 'partner/vouchers/redeem', element: <PartnerRedeemPage /> },
+
+      // Pro-Bono Legal Intake (Layer 2)
+      { path: 'legal-intake', element: <LegalIntakeQueuePage /> },
+      { path: 'legal-intake/:id', element: <LegalIntakeDetailPage /> },
+
+      // Virtual Literacy & Education (Layer 4)
+      { path: 'learning', element: <LearningLibraryPage /> },
+      { path: 'learning/library', element: <LearningLibraryPage /> },
+      { path: 'learning/library/new', element: <LessonNewPage /> },
+      { path: 'learning/library/:id', element: <LessonDetailPage /> },
+      { path: 'learning/series', element: <DripCampaignsPage /> },
+      { path: 'learning/webinars', element: <WebinarsPage /> },
+      { path: 'learning/channels', element: <WebinarsPage /> },
+      { path: 'learning/quizzes', element: <QuizzesPage /> },
+      { path: 'learning/quizzes/:id', element: <QuizzesPage /> },
+
       // Partner Portal (/partner/*)
       { path: 'partner/home', element: <PartnerHomePage /> },
       { path: 'partner/referrals', element: <PartnerReferralsPage /> },
@@ -618,6 +712,10 @@ export const router = createBrowserRouter([
       { path: 'me/bookings', element: <ScBookingsPage /> },
       { path: 'me/messages', element: <ScMessagesPage /> },
       { path: 'me/services', element: <ScServicesPage /> },
+      { path: 'me/vouchers', element: <SeniorVouchersPage /> },
+      { path: 'me/learning', element: <SeniorLearningPage /> },
+      { path: 'me/quizzes', element: <SeniorLearningPage /> },
+      { path: 'me/events', element: <SeniorLearningPage /> },
       { path: 'me/profile', element: <ScProfilePage /> },
       { path: 'me/health', element: <ScHealthPage /> },
       { path: 'me/feedback', element: <ScFeedbackPage /> },
@@ -628,6 +726,36 @@ export const router = createBrowserRouter([
       { path: 'family', element: <FmPortal /> },
       { path: 'family/:seniorId', element: <FmSeniorOverviewPage /> },
       { path: 'family/links', element: <FmLinksPage /> },
+
+      // Field Network Operations (Staff)
+      { path: 'field-network', element: <FieldNetworkOverviewPage /> },
+      { path: 'field-network/associates', element: <FieldAssociatesPage /> },
+      { path: 'field-network/associates/:id', element: <FieldAssociateDetailPage /> },
+      { path: 'field-network/activity', element: <FieldCentralActivityPage /> },
+      { path: 'field-network/sync', element: <FieldSyncMonitorPage /> },
+
+      // Telemetry & Ecosystem Evidence (Layer 1)
+      { path: 'telemetry', element: <CohortDashboardPage /> },
+      { path: 'telemetry/trends', element: <MacroTrendsPage /> },
+      { path: 'telemetry/privacy', element: <PrivacyStatementPage /> },
+      { path: 'telemetry/packs', element: <ImpactPacksPage /> },
+      { path: 'telemetry/packs/new', element: <ImpactPackNewPage /> },
+      { path: 'telemetry/packs/:id', element: <ImpactPackDetailPage /> },
+      { path: 'telemetry/exports', element: <ExportRegistryPage /> },
+    ],
+  },
+
+  // Field View Terminal for Senior Field Associates (/field/*)
+  {
+    path: '/field',
+    element: <FieldLayout />,
+    children: [
+      { index: true, element: <FieldHomePage /> },
+      { path: 'onboard', element: <FieldOnboardPage /> },
+      { path: 'activity', element: <FieldActivityPage /> },
+      { path: 'sync', element: <FieldSyncPage /> },
+      { path: 'learn', element: <FieldLearnPage /> },
+      { path: 'profile', element: <FieldProfilePage /> },
     ],
   },
 

@@ -132,4 +132,23 @@ This document records architectural, UX, data-model, security, and scope decisio
   - Design Lint: Updated `scripts/design-lint.mjs` to strictly enforce these tokens and fail on hex colors outside tokens, serif, monospace, gradients, uppercase/tracking, and shadows outside popovers/drawers.
 - **Rationale**: Complies with Patch 1, Patch 2, and Patch 3 requirements for enterprise-grade product precision.
 
+---
+
+## Decision 012: Addendum v3.1 Architecture — Ecosystem Layers 1–4, Field Telemetry, and Constraint Overrides
+- **Date**: 2026-10-29
+- **Context**: The NGO founder reviewed the prototype and provided directive inputs ("Might try to integrate if it is missing, so we can address what is required") introducing four overarching ecosystem layers, a Senior Field Associate (SF) role, and operational field telemetry.
+- **Decisions**:
+  1. **Field View Mobile Layout Exception (`/field/*`)**: While the primary enterprise platform remains desktop-first (1440×900), `/field/*` is designed mobile-first (360–430px) and displayed inside a centered 480px column on desktop. Features touch targets $\ge 48$px, base type 18px, larger-text toggle to 22px, and high-contrast mode (contrast ratio $\ge 7:1$).
+  2. **Coarse Geo-Stamping Policy (No Continuous Tracking)**: Continuous GPS tracking and real-time maps remain strictly banned. Field activity logging captures a single, consent-gated, coarse ($\approx 1$ km, 2-decimal) coordinate simulated from the chapter's geofence. Staff see area labels (e.g., "Hubballi Central"), never raw coordinates (except SA metadata view). A prominent privacy notice informs the user what is recorded.
+  3. **Simulated Partner & Telemetry Integrations**: Partner routing, voucher issuance/redemption, webinar hosting, WhatsApp dispatches, and PDF signatures are simulated with explicit "Simulated" badges.
+  4. **WebCrypto AES-GCM Encrypted Files**: Field logs and pro-bono legal intakes are encrypted client-side using WebCrypto AES-GCM with wrapped demo keys and audited access logs.
+  5. **Tamper-Evident Impact Packs & Public Verification**: Reports generate a tamper-evident PDF with SHA-256 content hashing, version metadata, issuer ID, synthetic watermark, and registration in an export hash chain. A public, unauthenticated `/verify` route verifies uploaded or code-matched PDFs.
+  6. **Coarse Vaccination Status Capture**: Captures self-reported status for 5 categories (Influenza, Pneumococcal, COVID-19, Shingles, Tetanus/Td; values Yes/No/Unsure/Not asked) under a feature flag. Strictly no certificates or clinical records; exposed exclusively as aggregate telemetry.
+  7. **Role CD Renamed**: CSR / Government / Policy Reviewer, partitioned with audience-scoped impact packs (CSR vs Government).
+  8. **Advanced Referrals Activated**: Activated by default to support Layer 1 Partner Routing Fabric.
+  9. **Strict Non-Advice Disclaimer**: The platform explicitly provides no financial, legal, or insurance advice. Permanent institutional notices accompany all referral workflows.
+  10. **Design System & Palette Alignment**: The design system strictly adheres to Master Prompt v3 (Forest Green `#1F5F4B` accent, Source Serif 4 headings + IBM Plex Sans body, Lucide 1.5 stroke icons, zero blue accents, zero gradients, zero strobing).
+- **Rationale**: Aligns with Addendum v3.1 Section 1 and codifies founder requirements while upholding ethical data-minimization boundaries.
+
+
 

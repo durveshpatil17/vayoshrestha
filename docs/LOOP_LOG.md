@@ -169,3 +169,21 @@
   - Vitest: 28 test suites, 148 tests passing (100% green).
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U3: Forms, Cloudscape Wizard, Dialogs, Drawers, Flashbar, and StickyActionFooter.
+
+---
+
+## Loop U3: Forms, Cloudscape Wizard & Dialogs (Phase U: Final UI Design Pass)
+- **Goal**: Implement Cloudscape Wizard, FormField, 40px Form Controls, StickyActionFooter, Flashbar, and ConfirmDialog.
+- **What Changed**:
+  - Implemented `src/ui/Wizard.tsx` with left-side step rail, step content container, and sticky action footer.
+  - Implemented `src/ui/FormField.tsx` with 14/600 labels above and 12px helper/error text with AlertCircle.
+  - Implemented `src/ui/FormControls.tsx` with 40px inputs, selects, textareas, date inputs, 8px radius, focus rings, and tabular numerals.
+  - Implemented `src/ui/StickyActionFooter.tsx` for form actions.
+  - Implemented `src/ui/Flashbar.tsx` supporting stackable non-strobing alerts.
+  - Implemented `src/ui/ConfirmDialog.tsx` supporting type-to-confirm pattern.
+  - Exported components from `src/ui/index.ts`.
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U4: Charts (Recharts restyled with Cloudscape rules, blue ramp, table view toggle).

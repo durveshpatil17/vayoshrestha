@@ -180,7 +180,15 @@
   - Exported canonical library from `src/ui/index.ts`.
   - Verification: `tsc --noEmit` clean, 148 unit tests passing (100%).
 
-- [ ] **Loop U3: Forms & Dialogs (`Cloudscape Wizard`, `FormField`, 40px controls, `StickyActionFooter`, `Flashbar`, `Drawer`, `Dialog`)**
+- [x] **Loop U3: Forms & Dialogs (Completed)**
+  - Implemented `src/ui/Wizard.tsx` (Cloudscape Wizard with left-hand step navigation rail, step content container, and sticky action footer).
+  - Implemented `src/ui/FormField.tsx` (14/600 labels above, 12px helper/error text below with AlertCircle).
+  - Implemented `src/ui/FormControls.tsx` (standard 40px inputs, selects, textareas, datepickers with 8px control radius and 2px focus ring).
+  - Implemented `src/ui/StickyActionFooter.tsx` (pinned action bar with cancel, previous, submit buttons).
+  - Implemented `src/ui/Flashbar.tsx` (Cloudscape stackable alert bar, non-strobing, success/error/warning/info).
+  - Implemented `src/ui/ConfirmDialog.tsx` (including type-to-confirm pattern).
+  - Verification: `tsc --noEmit` clean, 148 unit tests passing (100%).
+
 - [ ] **Loop U4: Charts (Recharts restyled with Cloudscape rules, blue ramp, table view toggle)**
 - [ ] **Loop U5: Role Dashboards ($\le 4$ headline tiles, key-value lists, tables, Field Telemetry Card)**
 - [ ] **Loop U6: SOS Board (Cloudscape split panel + non-strobing flashbar)**

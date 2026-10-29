@@ -834,9 +834,9 @@ export const Sidebar: React.FC = () => {
           to="/"
           end
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2 rounded-control text-sm transition-colors ${
+            `flex items-center gap-3 h-10 px-3 rounded-control text-sm transition-colors ${
               isActive
-                ? 'bg-surface-selected text-accent font-semibold'
+                ? 'bg-accent-tint text-accent font-semibold'
                 : 'text-text-secondary hover:text-text hover:bg-surface-hover'
             }`
           }
@@ -863,7 +863,7 @@ export const Sidebar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => toggleGroup(group.title)}
-                className="w-full flex items-center justify-between px-3 py-1 text-xs text-text-secondary font-normal hover:text-text"
+                className="w-full flex items-center justify-between px-3 py-1.5 text-xs text-text-secondary font-semibold hover:text-text transition-colors"
               >
                 <span>{group.title}</span>
                 {isCollapsed ? (
@@ -881,9 +881,9 @@ export const Sidebar: React.FC = () => {
                       to={item.to}
                       end={item.exact}
                       className={({ isActive }) =>
-                        `flex items-center justify-between px-3 py-2 rounded-control text-sm transition-colors ${
+                        `flex items-center justify-between h-10 px-3 rounded-control text-sm transition-colors ${
                           isActive
-                            ? 'bg-surface-selected text-accent font-semibold'
+                            ? 'bg-accent-tint text-accent font-semibold'
                             : 'text-text hover:bg-surface-hover'
                         }`
                       }

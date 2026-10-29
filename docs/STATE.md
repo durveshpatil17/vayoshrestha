@@ -162,7 +162,14 @@
   - Created Playwright layout check suite in `tests/e2e/layout-check.spec.ts`.
   - Verification: 148 unit tests passing (100%), `tsc --noEmit` clean, production build clean.
 
-- [ ] **Loop U1: Core Shell & Navigation (`ShellBar`, `SideNav`, Ribbon, `DynamicPageHeader`)**
+- [x] **Loop U1: Core Shell & Navigation (Completed)**
+  - Implemented Fiori 52px Shell Bar (`src/ui/ShellBar.tsx`) with brand wordmark, chapter switcher, Ctrl+K search bar, SOS status chip (neutral when 0, solid red when >0), alert/help menus, user menu with 12-role persona switcher and audio chime toggle.
+  - Pinned prototype notice ribbon (`src/components/layout/Ribbon.tsx`) directly under shell bar in informative tint, session-dismissible.
+  - Built Fiori 256px Side Navigation (`src/ui/SideNav.tsx` & `src/components/layout/Sidebar.tsx`): 12/600 sentence-case group labels, 40px item rows, 20px Lucide 1.5 icons, active item with `--accent-tint` fill and `--accent` text/icon (no outline, no accent bar).
+  - Built `DynamicPageHeader` (`src/ui/DynamicPageHeader.tsx` & `src/components/layout/PageHeader.tsx`): 28/600 title, breadcrumb row on top, collapsing into 56px compact sticky header on scroll with 108px scroll-padding.
+  - Built `MessageStrip` (`src/ui/MessageStrip.tsx`) for informative, positive, critical, and negative banners.
+  - Verification: `tsc --noEmit` clean, 148 unit tests passing (100%).
+
 - [ ] **Loop U2: Data Foundation Components (`DataTable`, `FilterBar`, `KeyValueList`, `StatusIndicator`, `MetricTile`, `Container`, `IllustratedMessage`)**
 - [ ] **Loop U3: Forms & Dialogs (`Cloudscape Wizard`, `FormField`, 40px controls, `StickyActionFooter`, `Flashbar`, `Drawer`, `Dialog`)**
 - [ ] **Loop U4: Charts (Recharts restyled with Cloudscape rules, blue ramp, table view toggle)**

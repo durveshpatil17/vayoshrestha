@@ -134,3 +134,20 @@
   - Production build: `npm run build` cleanly succeeded in 4.54s.
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U1 (Core Shell: `ShellBar`, `SideNav`, Prototype Ribbon, `DynamicPageHeader` with sticky collapse).
+
+---
+
+## Loop U1: Core Shell & Navigation (Phase U: Final UI Design Pass)
+- **Goal**: Implement the SAP Fiori Horizon Shell: 52px Shell Bar with scope switcher, global Ctrl+K search, neutral/red SOS status chip, pinned prototype notice ribbon, 256px Side Navigation with 40px rows and active tint, and Fiori Dynamic Page Header with sticky 56px collapse.
+- **What Changed**:
+  - Implemented `src/ui/ShellBar.tsx` matching Section 1.4 Fiori Shell Bar.
+  - Implemented `src/ui/SideNav.tsx` and restyled `src/components/layout/Sidebar.tsx` with 40px row height (`h-10 px-3`), 12/600 sentence-case group labels, and `--accent-tint` active fill.
+  - Pinned `src/components/layout/Ribbon.tsx` directly under the shell bar in informative tint (`--informative-tint`), dismissible per session.
+  - Implemented `src/ui/DynamicPageHeader.tsx` and updated `src/components/layout/PageHeader.tsx` with 28px/600 title, top breadcrumbs, action slots, and 56px sticky collapsed state on scroll.
+  - Updated `src/components/layout/AppShell.tsx` to mount `ShellBar` on top, followed by `Ribbon`, `Sidebar`, and main container with `scroll-pt-[108px]`.
+  - Implemented `src/ui/MessageStrip.tsx` supporting 4 semantic states.
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - Unit tests: 28 suites, 148 tests passing (100% green).
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U2: Data Foundation Components (`DataTable`, `FilterBar`, `KeyValueList`, `StatusIndicator`, `MetricTile`, `Container`, `IllustratedMessage`, four states).

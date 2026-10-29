@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Ribbon } from './Ribbon';
-import { TopBar } from './TopBar';
+import { ShellBar } from '@/ui/ShellBar';
 import { Sidebar } from './Sidebar';
 import { useAuthStore } from '@/store/authStore';
 import { backgroundJobs } from '@/mock/backgroundJobs';
@@ -33,41 +33,41 @@ export const AppShell: React.FC = () => {
 
   const textSizeClass =
     textSize === 'xlarge'
-      ? 'senior-text-xlarge'
+      ? 'density-large larger-text'
       : textSize === 'large'
-      ? 'senior-text-large'
+      ? 'density-large'
       : '';
 
   return (
-    <div className={`min-h-screen bg-canvas flex flex-col ${textSizeClass}`}>
-      {/* 1. Prototype Watermark Ribbon */}
+    <div className={`min-h-screen bg-page flex flex-col ${textSizeClass}`}>
+      {/* 1. SAP Fiori 52px Shell Bar on top */}
+      <ShellBar />
+
+      {/* 2. Prototype Notice Ribbon pinned directly underneath Shell Bar */}
       <Ribbon />
 
-      {/* 2. Top Application Bar */}
-      <TopBar />
-
-      {/* 3. Main Body: Sidebar + Scrollable Content */}
+      {/* 3. Main Workspace: 256px Side Navigation + Scrollable Content */}
       <div className="flex-1 flex overflow-hidden">
         <Sidebar />
 
-        <main className="flex-1 overflow-y-auto bg-canvas p-8">
-          <div className="max-w-[1280px] mx-auto">
+        <main className="flex-1 overflow-y-auto bg-page p-8 scroll-pt-[108px]">
+          <div className="max-w-[1440px] mx-auto">
             <Outlet />
           </div>
         </main>
       </div>
 
-      {/* Simulated Idle Timeout Warning Dialog (Enforcement Rule 8) */}
+      {/* Session Inactivity Warning Dialog */}
       {idleWarning && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-surface border border-border rounded-card shadow-dialog max-w-md w-full p-6 text-center">
-            <div className="w-12 h-12 rounded-card bg-critical-tint text-critical flex items-center justify-center mx-auto mb-4 border border-critical">
-              <Clock className="w-6 h-6" strokeWidth={1.5} />
+        <div className="fixed inset-0 bg-text/40 flex items-center justify-center z-50 p-4">
+          <div className="bg-surface border border-border rounded-container shadow-overlay max-w-md w-full p-6 text-center">
+            <div className="w-12 h-12 rounded-container bg-critical-tint text-critical flex items-center justify-center mx-auto mb-4 border border-critical/30">
+              <Clock className="w-6 h-6 stroke-[1.5]" />
             </div>
-            <h3 className="text-lg font-semibold text-text mb-2">
-              Session Inactivity Warning
+            <h3 className="text-base font-semibold text-text mb-2">
+              Session inactivity warning
             </h3>
-            <p className="text-sm text-text-secondary mb-6">
+            <p className="text-sm text-text-secondary mb-6 leading-relaxed">
               Due to institutional security protocols, your session will automatically lock in{' '}
               <strong className="text-negative tabular-nums font-semibold">{secondsRemaining}s</strong>. Do you wish to stay signed in?
             </p>
@@ -81,7 +81,7 @@ export const AppShell: React.FC = () => {
                   navigate('/session-expired');
                 }}
               >
-                Sign Out Now
+                Sign out now
               </Button>
               <Button
                 variant="primary"
@@ -91,7 +91,7 @@ export const AppShell: React.FC = () => {
                   setSecondsRemaining(60);
                 }}
               >
-                Continue Working
+                Continue working
               </Button>
             </div>
           </div>

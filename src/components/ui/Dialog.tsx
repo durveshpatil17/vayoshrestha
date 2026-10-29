@@ -1,6 +1,6 @@
 import React from 'react';
 import * as RadixDialog from '@radix-ui/react-dialog';
-import { Dismiss16Regular } from '@fluentui/react-icons';
+import { X } from 'lucide-react';
 
 export interface DialogProps {
   open: boolean;
@@ -53,7 +53,7 @@ export const Dialog: React.FC<DialogProps> = ({
                 className="text-text-tertiary hover:text-text rounded-control p-1 focus:outline-none focus:ring-2 focus:ring-focus-ring"
                 aria-label="Close dialog"
               >
-                <Dismiss16Regular className="w-4 h-4" />
+                <X className="w-4 h-4 stroke-[1.5]" />
               </button>
             </RadixDialog.Close>
           </div>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import * as RadixDialog from '@radix-ui/react-dialog';
-import { Dismiss16Regular } from '@fluentui/react-icons';
+import { X } from 'lucide-react';
 
 export interface DrawerProps {
   open: boolean;
@@ -50,7 +50,7 @@ export const Drawer: React.FC<DrawerProps> = ({
                 className="text-text-tertiary hover:text-text rounded-control p-1 focus:outline-none focus:ring-2 focus:ring-focus-ring"
                 aria-label="Close drawer"
               >
-                <Dismiss16Regular className="w-4 h-4" />
+                <X className="w-4 h-4 stroke-[1.5]" />
               </button>
             </RadixDialog.Close>
           </div>

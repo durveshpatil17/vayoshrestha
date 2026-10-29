@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkmark12Regular } from '@fluentui/react-icons';
+import { Check } from 'lucide-react';
 
 export interface PathStep {
   id: string;
@@ -47,7 +47,7 @@ export const StatusPath: React.FC<StatusPathProps> = ({
               }`}
             >
               {isCompleted ? (
-                <Checkmark12Regular className="text-positive shrink-0" />
+                <Check className="w-3.5 h-3.5 text-positive stroke-[1.5] shrink-0" />
               ) : (
                 <span
                   className={`w-3.5 h-3.5 rounded-full text-[10px] flex items-center justify-center shrink-0 border ${

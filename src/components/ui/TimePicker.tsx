@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock16Regular, ErrorCircle16Regular } from '@fluentui/react-icons';
+import { Clock, AlertCircle } from 'lucide-react';
 
 export interface TimePickerProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   label?: string;
@@ -43,12 +43,12 @@ export const TimePicker: React.FC<TimePickerProps> = ({
           {...props}
         />
         <span className="absolute right-2.5 pointer-events-none text-text-tertiary flex items-center">
-          <Clock16Regular />
+          <Clock className="w-4 h-4 stroke-[1.5]" />
         </span>
       </div>
       {error ? (
         <p className="text-caption text-negative flex items-center gap-1 mt-0.5">
-          <ErrorCircle16Regular className="shrink-0" />
+          <AlertCircle className="w-4 h-4 stroke-[1.5] shrink-0" />
           <span>{error}</span>
         </p>
       ) : helperText ? (

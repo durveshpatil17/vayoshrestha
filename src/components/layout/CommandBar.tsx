@@ -1,11 +1,6 @@
 import React from 'react';
 import { Button } from '../ui/Button';
-import {
-  Add16Regular,
-  ArrowDownload16Regular,
-  ArrowClockwise16Regular,
-  Options16Regular,
-} from '@fluentui/react-icons';
+import { Plus, Download, RefreshCw, SlidersHorizontal } from 'lucide-react';
 
 export interface CommandBarAction {
   id: string;
@@ -45,7 +40,7 @@ export const CommandBar: React.FC<CommandBarProps> = ({
           <Button
             variant="primary"
             size="sm"
-            icon={primaryAction.icon || <Add16Regular />}
+            icon={primaryAction.icon || <Plus className="w-4 h-4 stroke-[1.5]" />}
             onClick={primaryAction.onClick}
             disabled={primaryAction.disabled}
           >
@@ -75,7 +70,7 @@ export const CommandBar: React.FC<CommandBarProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            icon={<ArrowDownload16Regular />}
+            icon={<Download className="w-4 h-4 stroke-[1.5]" />}
             onClick={onExport}
             title="Export data"
           >
@@ -86,7 +81,7 @@ export const CommandBar: React.FC<CommandBarProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            icon={<Options16Regular />}
+            icon={<SlidersHorizontal className="w-4 h-4 stroke-[1.5]" />}
             onClick={onColumnSettings}
             title="Column settings"
           >
@@ -97,7 +92,7 @@ export const CommandBar: React.FC<CommandBarProps> = ({
           <Button
             variant="ghost"
             size="icon"
-            icon={<ArrowClockwise16Regular />}
+            icon={<RefreshCw className="w-4 h-4 stroke-[1.5]" />}
             onClick={onRefresh}
             title="Refresh list"
           />

@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useState, useCallback, useRef } from 'react';
 import * as RadixToast from '@radix-ui/react-toast';
 import {
-  CheckmarkCircle16Regular,
-  Warning16Regular,
-  ErrorCircle16Regular,
-  Info16Regular,
-  Dismiss12Regular,
-} from '@fluentui/react-icons';
+  CheckCircle2,
+  AlertTriangle,
+  AlertCircle,
+  Info,
+  X,
+} from 'lucide-react';
 
 export type ToastType = 'positive' | 'critical' | 'negative' | 'information';
 
@@ -52,14 +52,14 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const getIcon = (type: ToastType = 'information') => {
     switch (type) {
       case 'positive':
-        return <CheckmarkCircle16Regular className="text-positive shrink-0" />;
+        return <CheckCircle2 className="w-4 h-4 text-positive stroke-[1.5] shrink-0" />;
       case 'critical':
-        return <Warning16Regular className="text-critical shrink-0" />;
+        return <AlertTriangle className="w-4 h-4 text-critical stroke-[1.5] shrink-0" />;
       case 'negative':
-        return <ErrorCircle16Regular className="text-negative shrink-0" />;
+        return <AlertCircle className="w-4 h-4 text-negative stroke-[1.5] shrink-0" />;
       case 'information':
       default:
-        return <Info16Regular className="text-accent shrink-0" />;
+        return <Info className="w-4 h-4 text-accent stroke-[1.5] shrink-0" />;
     }
   };
 
@@ -103,7 +103,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 className="text-text-tertiary hover:text-text p-0.5 rounded focus:outline-none"
                 aria-label="Close notification"
               >
-                <Dismiss12Regular />
+                <X className="w-3.5 h-3.5 stroke-[1.5]" />
               </button>
             </RadixToast.Close>
           </RadixToast.Root>

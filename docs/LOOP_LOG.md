@@ -110,3 +110,27 @@
   - Updated `README.md` and finalized loop logs.
 - **Gate Results**:
   - All P8 deliverables complete.
+
+---
+
+## Loop U0: Audit, Baseline Capture & Test Harness (Phase U: Final UI Design Pass)
+- **Goal**: Establish the SAP Fiori Horizon + AWS Cloudscape baseline, capture "before" screenshots of all routes/roles, remove deprecated packages, write the new Design System documentation, establish CSS tokens and generator, build `design-lint` and the layout-check harness.
+- **What Changed**:
+  - Captured 21 "before" screenshots at 1440×900 (and Field View at 390×844) into `docs/screens/before/`.
+  - Audited and eliminated `@fluentui/react-icons` across 14 component files (`DatePicker`, `CommandPalette`, `Drawer`, `TimePicker`, `StatusPath`, `Dialog`, `Toast`, `Checkbox`, `MultiSelect`, `CommandBar`, `ErrorState`, `Forbidden403`, `EmptyState`, `FilterBar`), converting all icons to `lucide-react` (1.5 stroke, 20px).
+  - Uninstalled `@fluentui/react-icons`, `@fontsource/ibm-plex-sans`, `@fontsource/source-serif-4` from `package.json`.
+  - Created canonical tokens in `src/styles/tokens.css` with Open Sans, Noto Sans Indic fallbacks, Horizon blue `#0070F2` accent, `#F5F6F7` page background, `#FFFFFF` surface, `#D5DADD` 1px border.
+  - Created `src/simulator/simulator.tokens.css` for WhatsApp bubbles.
+  - Created `scripts/generate-tokens.mjs` and generated `src/styles/tokens.generated.ts`.
+  - Updated `tailwind.config.js` to map CSS variables and Open Sans typography.
+  - Codified Decision 013 in `docs/DECISIONS.md`.
+  - Completely replaced `docs/DESIGN_SYSTEM.md` with the new design brief.
+  - Implemented `scripts/design-lint.mjs` enforcing the 12 rules from Section 4.1.
+  - Implemented unit tests for design lint in `tests/unit/designLint.test.ts` (10 passing/failing fixtures).
+  - Built Playwright layout check harness in `tests/e2e/layout-check.spec.ts`.
+- **Gate Results**:
+  - TypeScript `tsc --noEmit`: 0 errors (clean).
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+  - Production build: `npm run build` cleanly succeeded in 4.54s.
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U1 (Core Shell: `ShellBar`, `SideNav`, Prototype Ribbon, `DynamicPageHeader` with sticky collapse).

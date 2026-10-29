@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PopoverRoot, PopoverTrigger, PopoverContent } from './Popover';
-import { ChevronDown16Regular, Dismiss12Regular, Checkmark16Regular } from '@fluentui/react-icons';
+import { ChevronDown, X, Check } from 'lucide-react';
 
 export interface MultiSelectOption {
   value: string;
@@ -71,14 +71,14 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                         onClick={(e) => removeOption(val, e)}
                         className="hover:text-accent-active p-0.5 rounded"
                       >
-                        <Dismiss12Regular />
+                        <X className="w-3 h-3 stroke-[1.5]" />
                       </span>
                     </span>
                   );
                 })
               )}
             </div>
-            <ChevronDown16Regular className="text-text-tertiary shrink-0" />
+            <ChevronDown className="w-4 h-4 text-text-tertiary shrink-0 stroke-[1.5]" />
           </button>
         </PopoverTrigger>
 
@@ -97,7 +97,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                   }`}
                 >
                   <span>{opt.label}</span>
-                  {selected && <Checkmark16Regular className="text-accent" />}
+                  {selected && <Check className="w-4 h-4 text-accent stroke-[1.5]" />}
                 </div>
               );
             })}

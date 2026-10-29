@@ -1,0 +1,20 @@
+/* WhatsApp and Cellular SMS Simulator Scoped Palette */
+:root {
+  --sim-wa-header: #075E54;
+  --sim-wa-header-dark: #064E46;
+  --sim-wa-bg: #EFEAE2;
+  --sim-wa-bubble-sent: #E7FFDB;
+  --sim-wa-bubble-received: #FFFFFF;
+  --sim-wa-bubble-border: #D1E7DD;
+  --sim-wa-text: #111B21;
+  --sim-wa-text-muted: #667781;
+  --sim-wa-action: #00A884;
+  --sim-wa-check: #34B7F1;
+  --sim-wa-footer: #F0F2F5;
+
+  /* SMS Phone Frame */
+  --sim-phone-bezel: #1C1B19;
+  --sim-phone-header: #2A2926;
+  --sim-phone-border: #3F3D38;
+  --sim-phone-text-muted: #888888;
+}

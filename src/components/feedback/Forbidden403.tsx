@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/Button';
-import { ShieldDismiss24Regular, ArrowLeft16Regular } from '@fluentui/react-icons';
+import { ShieldAlert, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 
@@ -22,9 +22,7 @@ export const Forbidden403: React.FC<Forbidden403Props> = ({
 
   return (
     <div className="min-h-[50vh] flex flex-col items-center justify-center p-8 text-center max-w-md mx-auto select-none">
-      <div className="w-12 h-12 rounded-full bg-critical-tint border border-critical/30 flex items-center justify-center text-critical mb-4">
-        <ShieldDismiss24Regular className="w-6 h-6" />
-      </div>
+      <ShieldAlert className="w-10 h-10 text-critical stroke-[1.5] mb-3" />
       <span className="text-xs font-semibold text-text-secondary mb-1">
         HTTP 403
       </span>
@@ -33,17 +31,17 @@ export const Forbidden403: React.FC<Forbidden403Props> = ({
       </h1>
       <p className="text-sm text-text-secondary mb-6 leading-relaxed">
         Your role <strong className="text-text font-semibold">{effectiveRole}</strong> lacks the required permission:{' '}
-        <code className="bg-surface-subtle px-1.5 py-0.5 rounded-chip text-xs border border-border-subtle tabular-nums text-text">
+        <span className="bg-surface-subtle px-1.5 py-0.5 rounded-chip text-xs border border-border-subtle tabular-nums text-text">
           {missingPermission}
-        </code>
+        </span>
         {requiredRole && <> (requires role {requiredRole})</>}.
       </p>
       <div className="flex items-center gap-2">
-        <Button variant="default" icon={<ArrowLeft16Regular />} onClick={() => navigate(-1)}>
-          Go Back
+        <Button variant="default" icon={<ArrowLeft className="w-4 h-4 stroke-[1.5]" />} onClick={() => navigate(-1)}>
+          Go back
         </Button>
         <Button variant="primary" onClick={() => navigate('/')}>
-          Back to Home
+          Back to home
         </Button>
       </div>
     </div>

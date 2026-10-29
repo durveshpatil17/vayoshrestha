@@ -143,3 +143,34 @@
   - All 134 unit and integration tests passing.
   - Design lint passing with 0 violations across 242 files.
   - Ratchet verified: 168 registered routes, 105/105 built features.
+
+---
+
+## Phase U: Final UI Design Pass — SAP Fiori Horizon Shell + AWS Cloudscape Data Patterns
+
+- [x] **Loop U0: Audit & Harness (Completed)**
+  - Captured 21 "before" screenshots across all key roles and views into `docs/screens/before/`.
+  - Removed deprecated packages: `@fluentui/react-icons`, `@fontsource/ibm-plex-sans`, `@fontsource/source-serif-4`.
+  - Replaced `@fluentui/react-icons` across 14 component files with `lucide-react` (1.5 stroke, 20px).
+  - Established canonical tokens in `src/styles/tokens.css` (Horizon Blue `#0070F2`, neutral `#F5F6F7`, pure white `#FFFFFF`).
+  - Created `src/simulator/simulator.tokens.css` for scoped WhatsApp simulator styles.
+  - Implemented `scripts/generate-tokens.mjs` and generated `src/styles/tokens.generated.ts`.
+  - Updated `tailwind.config.js` to map CSS variables and Open Sans / Noto Sans fonts.
+  - Codified Decision 013 in `docs/DECISIONS.md`.
+  - Completely replaced `docs/DESIGN_SYSTEM.md`.
+  - Implemented `scripts/design-lint.mjs` with full 12-rule enforcement and 10 unit tests in `tests/unit/designLint.test.ts`.
+  - Created Playwright layout check suite in `tests/e2e/layout-check.spec.ts`.
+  - Verification: 148 unit tests passing (100%), `tsc --noEmit` clean, production build clean.
+
+- [ ] **Loop U1: Core Shell & Navigation (`ShellBar`, `SideNav`, Ribbon, `DynamicPageHeader`)**
+- [ ] **Loop U2: Data Foundation Components (`DataTable`, `FilterBar`, `KeyValueList`, `StatusIndicator`, `MetricTile`, `Container`, `IllustratedMessage`)**
+- [ ] **Loop U3: Forms & Dialogs (`Cloudscape Wizard`, `FormField`, 40px controls, `StickyActionFooter`, `Flashbar`, `Drawer`, `Dialog`)**
+- [ ] **Loop U4: Charts (Recharts restyled with Cloudscape rules, blue ramp, table view toggle)**
+- [ ] **Loop U5: Role Dashboards ($\le 4$ headline tiles, key-value lists, tables, Field Telemetry Card)**
+- [ ] **Loop U6: SOS Board (Cloudscape split panel + non-strobing flashbar)**
+- [ ] **Loop U7: Tranche A Pages (Onboarding, Seniors Object Page, Health & Biomarkers)**
+- [ ] **Loop U8: Tranche B Pages (Chapters, Programmes, Attendance, Communication, Services/Referrals/Partners, Feedback, Support, Reports, Admin)**
+- [ ] **Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus)**
+- [ ] **Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844)**
+- [ ] **Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs**
+- [ ] **Loop U12: `/design` Gallery, Indic Typography Review, Layout Check Suite, Final Scores in `docs/DESIGN_SCORES.md`**

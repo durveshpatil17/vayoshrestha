@@ -1,9 +1,6 @@
-/* === v3 Design Tokens — Vayoshreshtha === */
-/* Fonts: IBM Plex Sans + Source Serif 4 + Noto Sans Indic */
-@import '@fontsource/ibm-plex-sans/400.css';
-@import '@fontsource/ibm-plex-sans/500.css';
-@import '@fontsource/ibm-plex-sans/600.css';
-@import '@fontsource/source-serif-4/600.css';
+/* === Vayoshreshtha Design Tokens — SAP Fiori Horizon + AWS Cloudscape === */
+@import '@fontsource/open-sans/400.css';
+@import '@fontsource/open-sans/600.css';
 @import '@fontsource/noto-sans-devanagari/400.css';
 @import '@fontsource/noto-sans-devanagari/600.css';
 @import '@fontsource/noto-sans-kannada/400.css';
@@ -12,83 +9,124 @@
 @import '@fontsource/noto-sans-tamil/600.css';
 
 :root {
-  /* Surfaces */
-  --canvas:            #F7F6F3;   /* page background */
-  --surface:           #FFFFFF;   /* cards, tables, forms, shell */
-  --surface-subtle:    #F2F1EE;   /* table header, read-only fields */
-  --surface-hover:     #EDECEA;   /* row hover */
-  --surface-selected:  #E5F2EC;   /* selected row / nav item (green tint) */
+  /* neutrals */
+  --page: #F5F6F7;
+  --surface: #FFFFFF;
+  --border: #D5DADD;
+  --text: #1D2D3E;
+  --text-secondary: #556B82;
+  --text-disabled: #8396A9;
 
-  /* Borders */
-  --border-subtle:     #EAE9E6;   /* row dividers, card inner */
-  --border:            #E4E2DC;   /* 1px hairline border */
-  --border-strong:     #CFCBC2;   /* input hover, strong separators */
+  /* single accent: Horizon blue */
+  --accent: #0070F2;
+  --accent-hover: #0064D9;
+  --accent-active: #0055B8;
+  --accent-tint: #EBF5FE;            /* selected nav, selected row */
+  --focus-ring: var(--accent);
 
-  /* Text */
-  --text:              #1C1B19;
-  --text-secondary:    #5F5C55;
-  --text-tertiary:     #8A8780;
-  --text-disabled:     #A19D94;
-  --text-on-accent:    #FFFFFF;
+  /* semantic (each with a light tint for message strips) */
+  --negative: #D20A0A;
+  --negative-tint: #FDECEC;
+  --critical: #E76500;
+  --critical-tint: #FFF1E3;
+  --positive: #256F3A;
+  --positive-tint: #EAF5EC;
+  --informative: #0070F2;
+  --informative-tint: #EBF5FE;
 
-  /* One accent: forest green (#1F5F4B) */
-  --accent:            #1F5F4B;
-  --accent-hover:      #1A5242;
-  --accent-active:     #154038;
-  --accent-tint:       #E5F2EC;
-  --focus-ring:        #1F5F4B;
+  /* chart series: blue ramp + neutrals; always paired with patterns/markers/direct labels */
+  --chart-1: #0070F2;
+  --chart-2: #1D2D3E;
+  --chart-3: #556B82;
+  --chart-4: #5BA3FF;
+  --chart-5: #A9B4C0;
 
-  /* Semantic */
-  --negative:          #B42318;  --negative-tint:    #FDECEA;
-  --critical:          #9A5B0A;  --critical-tint:    #FEF3E2;
-  --positive:          #2F7D4F;  --positive-tint:    #EAF5EE;
-  --informative:       #1F5F4B;  --informative-tint: #E5F2EC;
+  /* shape, space, size */
+  --radius-control: 8px;
+  --radius-container: 12px;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --page-pad: 32px;
+  --shell-h: 52px;
+  --nav-w: 256px;
+  --row-h: 48px;
+  --input-h: 40px;
+  --target-min: 32px;
+  --shadow-overlay: 0 4px 16px rgba(29, 45, 62, 0.16);   /* popovers, drawers, dialogs only */
 
-  /* SOS severity */
-  --sos-critical:      #B42318;
-  --sos-high:          #9A5B0A;
-  --sos-medium:        #1F5F4B;
-  --sos-low:           #5F5C55;
+  /* type */
+  --font: 'Open Sans', 'Noto Sans Devanagari', 'Noto Sans Kannada', 'Noto Sans Tamil', sans-serif;
+  --fs-12: 12px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-20: 20px;
+  --fs-28: 28px;
+  --fw-regular: 400;
+  --fw-semibold: 600;
 
-  /* Radius: 8px on controls, 12px on containers */
-  --radius-sm:         4px;
-  --radius-md:         8px;   /* controls */
-  --radius-lg:         8px;   /* controls */
-  --radius-xl:         12px;  /* containers */
-  --radius-control:    8px;
-  --radius-container:  12px;
+  /* Compatibility aliases during migration */
+  --canvas: var(--page);
+  --surface-subtle: #F8F9FA;
+  --surface-hover: #F0F4F8;
+  --surface-selected: var(--accent-tint);
+  --border-subtle: #E8ECEF;
+  --border-strong: #BAC4CD;
+  --text-tertiary: var(--text-secondary);
+  --text-on-accent: #FFFFFF;
+  --sos-critical: var(--negative);
+  --sos-high: var(--critical);
+  --sos-medium: var(--accent);
+  --sos-low: var(--text-secondary);
+  --radius-sm: 4px;
+  --radius-md: var(--radius-control);
+  --radius-lg: var(--radius-control);
+  --radius-xl: var(--radius-container);
+  --space-1: var(--sp-1);
+  --space-2: var(--sp-2);
+  --space-3: var(--sp-3);
+  --space-4: var(--sp-4);
+  --space-5: 20px;
+  --space-6: var(--sp-6);
+  --space-8: var(--sp-8);
+  --topbar-height: var(--shell-h);
+  --sidebar-width: var(--nav-w);
+  --page-padding: var(--page-pad);
+  --shadow-popover: var(--shadow-overlay);
+  --shadow-drawer: var(--shadow-overlay);
+  --shadow-dialog: var(--shadow-overlay);
+  --shadow-menu: var(--shadow-overlay);
+}
 
-  /* Spacing grid: 4px base */
-  --space-1:  4px;
-  --space-2:  8px;
-  --space-3:  12px;
-  --space-4:  16px;
-  --space-5:  20px;
-  --space-6:  24px;
-  --space-8:  32px;
-  --space-10: 40px;
-  --space-12: 48px;
+.density-large {
+  --fs-14: 18px;
+  --fs-16: 20px;
+  --fs-20: 24px;
+  --fs-28: 28px;
+  --target-min: 48px;
+  --row-h: 56px;
+  --input-h: 48px;
+}
 
-  /* Shell */
-  --topbar-height:  52px;
-  --sidebar-width:  256px;
-
-  /* Page */
-  --page-padding: 32px;
-
-  /* Elevation: only popovers and drawers */
-  --shadow-popover: 0 4px 16px 0 rgba(28,27,25,0.12);
-  --shadow-drawer:  0 0 24px 0 rgba(28,27,25,0.10);
+.density-large.larger-text {
+  --fs-14: 22px;
+  --fs-16: 24px;
+  --fs-20: 28px;
 }
 
 body {
-  font-family: 'IBM Plex Sans', 'Noto Sans Devanagari', 'Noto Sans Kannada', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: var(--canvas);
+  font-family: var(--font);
+  background-color: var(--page);
   color: var(--text);
   margin: 0;
   padding: 0;
-  font-size: 14px;
-  line-height: 1.5;
-  font-weight: 400;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-size: var(--fs-14);
+  line-height: 20px;
+  font-weight: var(--fw-regular);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

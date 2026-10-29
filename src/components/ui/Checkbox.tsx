@@ -1,6 +1,6 @@
 import React from 'react';
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
-import { Checkmark16Regular } from '@fluentui/react-icons';
+import { Check } from 'lucide-react';
 
 export interface CheckboxProps {
   id?: string;
@@ -29,7 +29,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         className="w-4 h-4 rounded-chip border border-border-strong bg-surface hover:border-accent focus-visible:outline-2 focus-visible:outline-focus-ring focus-visible:outline-offset-2 data-[state=checked]:bg-accent data-[state=checked]:border-accent flex items-center justify-center transition-colors duration-fast disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <RadixCheckbox.Indicator className="text-white flex items-center justify-center">
-          <Checkmark16Regular className="w-3.5 h-3.5 stroke-[2]" />
+          <Check className="w-3.5 h-3.5 stroke-[2]" />
         </RadixCheckbox.Indicator>
       </RadixCheckbox.Root>
       {label && (

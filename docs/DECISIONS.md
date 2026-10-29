@@ -152,3 +152,21 @@ This document records architectural, UX, data-model, security, and scope decisio
 
 
 
+
+---
+
+## Decision 013: Final UI Design Pass — SAP Fiori Horizon Shell + AWS Cloudscape Data Patterns (Conflict Resolutions & Design Brief Overrides)
+- **Date**: 2026-10-30
+- **Context**: Autonomous team initiated the comprehensive brownfield UI pass to restyle and restructure every page and role to match first-party SAP Fiori Horizon (shell) and AWS Cloudscape (data patterns) enterprise white-theme specifications.
+- **Decisions**:
+  1. **Spacing Grid**: 4px grid (steps 4/8/12/16/24/32px; page padding 32px) supersedes earlier 8pt system.
+  2. **Type Scale**: Standard scale (12/14/16/20/28px) for staff screens. Senior portal (`/me/*`), family portal (`/family/*`), and Field View (`/field/*`) utilize `.density-large` scale (18 base; 18/20/24/28; 22 with "Larger text" toggle) with 48px touch targets.
+  3. **No Monospace Anywhere**: Open Sans with tabular numerals (`tabular-nums`); formatted codes with spaces (e.g., `VV-HBL-26-00123`, `K7QF 2M9X 4C`); hashes shown truncated with copy action.
+  4. **Emoji Banned in UI**: Permitted exclusively inside simulator message content. App chrome has zero emoji.
+  5. **Simulator Colors**: Scoped WhatsApp palette resides strictly in `src/simulator/simulator.tokens.css`, the sole token file exempt from `design-lint`. Shell chrome around simulator frames adheres to primary tokens.
+  6. **Chart Palette**: Blue ramp + neutrals (`--chart-1: #0070F2`, `--chart-2: #1D2D3E`, `--chart-3: #556B82`, `--chart-4: #5BA3FF`, `--chart-5: #A9B4C0`). Distinguish series via markers, dash patterns, or direct labels—never hue alone.
+  7. **Critical Orange `#E76500` Contrast**: Restricted to icons and 1px left stripes; accompanying text remains `--text` (`#1D2D3E`) to satisfy WCAG AA 4.5:1.
+  8. **Field Telemetry Card**: Defined as one single Cloudscape container placed under Operational metrics on RA/NM/PM homes, `/reports/pilot`, and `/field-network`. Persona homes display $\le 4$ headline tiles.
+  9. **Wizard Pattern**: AWS Cloudscape Wizard (left-hand step navigation, central step content, sticky footer actions).
+  10. **Single Accent & White Theme**: Horizon blue `#0070F2` accent only. Neutral background `--page: #F5F6F7`, surface `--surface: #FFFFFF`, border `--border: #D5DADD`. Removal of all forest green, gradients, card shadows, uppercase/tracking, and secondary icon sets.
+- **Rationale**: Replaces Master Prompt v3 §5 and creates an unambiguous design standard across all 168+ routes and 12 personas.

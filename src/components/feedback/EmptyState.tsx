@@ -1,5 +1,5 @@
 import React from 'react';
-import { DocumentFolder48Regular } from '@fluentui/react-icons';
+import { FolderOpen } from 'lucide-react';
 import { Button } from '../ui/Button';
 
 export interface EmptyStateProps {
@@ -23,8 +23,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
     <div
       className={`py-12 px-6 flex flex-col items-center justify-center text-center max-w-md mx-auto select-none ${className}`}
     >
-      <div className="w-12 h-12 rounded-full bg-surface-subtle border border-border-subtle flex items-center justify-center text-text-disabled mb-3">
-        {icon || <DocumentFolder48Regular className="w-8 h-8" />}
+      <div className="text-text-disabled mb-3 flex items-center justify-center">
+        {icon || <FolderOpen className="w-10 h-10 stroke-[1.5]" />}
       </div>
       <h3 className="text-card-title text-text mb-1">{title}</h3>
       <p className="text-sm text-text-secondary mb-4 leading-normal">

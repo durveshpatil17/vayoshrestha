@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Search16Regular,
-  Dismiss12Regular,
-  ChevronDown16Regular,
-  Filter16Regular,
-} from '@fluentui/react-icons';
+import { Search, X, ChevronDown, Filter } from 'lucide-react';
 import {
   DropdownMenuRoot,
   DropdownMenuTrigger,
@@ -70,7 +65,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               >
                 <span className="text-text-secondary">View:</span>
                 <span className="font-semibold text-text">{activeView}</span>
-                <ChevronDown16Regular className="text-text-tertiary" />
+                <ChevronDown className="w-3.5 h-3.5 text-text-tertiary stroke-[1.5]" />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
@@ -95,7 +90,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           {/* Global Search Input */}
           <div className="relative min-w-[200px] max-w-xs flex-1">
             <span className="absolute left-2.5 top-2 text-text-tertiary pointer-events-none">
-              <Search16Regular />
+              <Search className="w-4 h-4 stroke-[1.5]" />
             </span>
             <input
               type="text"
@@ -111,7 +106,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 className="absolute right-2 top-2 text-text-tertiary hover:text-text p-0.5 rounded"
                 aria-label="Clear search"
               >
-                <Dismiss12Regular />
+                <X className="w-3.5 h-3.5 stroke-[1.5]" />
               </button>
             )}
           </div>
@@ -155,7 +150,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       {activeFilters.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-border-subtle text-xs">
           <span className="text-text-secondary text-[11px] font-medium mr-1 flex items-center gap-1">
-            <Filter16Regular className="w-3 h-3 text-text-tertiary" /> Active Filters:
+            <Filter className="w-3 h-3 text-text-tertiary stroke-[1.5]" /> Active filters:
           </span>
           {activeFilters.map((f) => {
             const selectedOpt = f.options.find((o) => o.value === f.value);
@@ -172,7 +167,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                   className="text-text-tertiary hover:text-text p-0.5 rounded"
                   aria-label={`Remove filter ${f.label}`}
                 >
-                  <Dismiss12Regular />
+                  <X className="w-3 h-3 stroke-[1.5]" />
                 </button>
               </span>
             );

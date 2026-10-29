@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { useNavigate } from 'react-router-dom';
-import {
-  Search16Regular,
-  Person16Regular,
-  AlertUrgent16Regular,
-  Apps16Regular,
-  Dismiss16Regular,
-} from '@fluentui/react-icons';
+import { Search, User, AlertTriangle, LayoutGrid, X } from 'lucide-react';
 
 export interface CommandPaletteProps {
   open: boolean;
@@ -34,14 +28,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   }, [open, onOpenChange]);
 
   const navigationItems = [
-    { label: 'Live SOS Board', path: '/sos', category: 'Navigation', icon: <AlertUrgent16Regular /> },
-    { label: 'Seniors Directory', path: '/seniors', category: 'Navigation', icon: <Person16Regular /> },
-    { label: 'Assisted Onboarding', path: '/onboarding/new', category: 'Actions', icon: <Apps16Regular /> },
-    { label: 'Health Schedules & Calls', path: '/health/schedules', category: 'Navigation', icon: <Apps16Regular /> },
-    { label: 'Pilot Reports & KPIs', path: '/reports/pilot', category: 'Navigation', icon: <Apps16Regular /> },
-    { label: 'WhatsApp Simulator', path: '/simulator', category: 'Tools', icon: <Apps16Regular /> },
-    { label: 'System Audit Logs', path: '/admin/audit-logs', category: 'Administration', icon: <Apps16Regular /> },
-    { label: 'Account & Density Settings', path: '/account', category: 'Preferences', icon: <Apps16Regular /> },
+    { label: 'Live SOS Board', path: '/sos', category: 'Navigation', icon: <AlertTriangle className="w-4 h-4 stroke-[1.5]" /> },
+    { label: 'Seniors Directory', path: '/seniors', category: 'Navigation', icon: <User className="w-4 h-4 stroke-[1.5]" /> },
+    { label: 'Assisted Onboarding', path: '/onboarding/new', category: 'Actions', icon: <LayoutGrid className="w-4 h-4 stroke-[1.5]" /> },
+    { label: 'Health Schedules & Calls', path: '/health/schedules', category: 'Navigation', icon: <LayoutGrid className="w-4 h-4 stroke-[1.5]" /> },
+    { label: 'Pilot Reports & KPIs', path: '/reports/pilot', category: 'Navigation', icon: <LayoutGrid className="w-4 h-4 stroke-[1.5]" /> },
+    { label: 'WhatsApp Simulator', path: '/simulator', category: 'Tools', icon: <LayoutGrid className="w-4 h-4 stroke-[1.5]" /> },
+    { label: 'System Audit Logs', path: '/admin/audit-logs', category: 'Administration', icon: <LayoutGrid className="w-4 h-4 stroke-[1.5]" /> },
+    { label: 'Account & Density Settings', path: '/account', category: 'Preferences', icon: <LayoutGrid className="w-4 h-4 stroke-[1.5]" /> },
   ];
 
   const filteredItems = navigationItems.filter((item) =>
@@ -60,7 +54,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         <RadixDialog.Overlay className="fixed inset-0 bg-text/40 z-50 transition-opacity duration-dur animate-in fade-in" />
         <RadixDialog.Content className="fixed left-1/2 top-1/4 -translate-x-1/2 w-full max-w-[560px] bg-surface rounded-card shadow-dialog border border-border z-50 overflow-hidden focus:outline-none animate-in fade-in zoom-in-95 duration-dur">
           <div className="flex items-center px-3.5 border-b border-border-subtle h-11 gap-2.5">
-            <Search16Regular className="text-text-secondary shrink-0" />
+            <Search className="w-4 h-4 text-text-secondary shrink-0 stroke-[1.5]" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}

@@ -4,6 +4,8 @@
 **Phase**: Pass v4  
 **Scope**: All UI Chrome, Buttons, Modals, Error Messages, and User Communications  
 
+> [!NOTE] Non-Legal & Non-Clinical Notice: Vayoshreshtha provides non-clinical, non-legal care coordination. All operations are DPDP-aligned (prototype). Avoid making claims of formal legal privilege or clinical diagnosis.
+
 ---
 
 ## 1. Canonical Terminology & Glossary
@@ -21,7 +23,7 @@ To ensure professional consistency and institutional trust, the following canoni
 | **Reminder** | An automated scheduled WhatsApp or SMS notification prompting medication or vital check. | "nudge", "alert", "ping", "alarm" |
 | **Referral** | A structured assignment of a senior's need to an accredited NGO, clinic, or diagnostic partner. | "lead", "ticket", "case handover", "transfer" |
 | **Voucher** | A cryptographic, capacity-gated entitlement redeemable by a partner for senior services. | "coupon", "token", "pass", "ticket", "discount" |
-| **Legal intake** | A confidential pro-bono consultation request protected by attorney-client privilege. | "legal case", "lawsuit", "dispute ticket", "court matter" |
+| **Legal intake** | A confidential pro-bono consultation request with non-legal-advice notice and DPDP-aligned (prototype) access isolation. | "legal case", "lawsuit", "dispute ticket", "court matter" |
 | **Impact pack** | A cryptographic, tamper-evident SHA-256 PDF report of audited ecosystem outcomes. | "report bundle", "CSR export", "data pack", "metrics dump" |
 
 ---
@@ -78,7 +80,7 @@ Every error message presented to a user must follow a structured 3-part format:
 Confirmation dialogs for state changes or irreversible actions must clearly state:
 1. **The Target Entity**: Name and ID.
 2. **The Exact Consequence**: What will happen to related records, notifications, or tasks.
-3. **High-Risk Actions**: Actions causing data deletion or statutory record closure must use the type-to-confirm pattern (e.g. typing `PURGE` or `RESOLVE`).
+3. **High-Risk Actions**: Actions causing data deletion or permanent record closure must use the type-to-confirm pattern (e.g. typing `PURGE` or `RESOLVE`).
 
 **Example: Resolving an Emergency SOS**
 > **Title**: Resolve emergency case SOS-26-00042?  
@@ -97,3 +99,4 @@ Confirmation dialogs for state changes or irreversible actions must clearly stat
    - Relative Dates: "3 min ago" with exact timestamp on hover.
    - Numerals: Always use Open Sans tabular figures (`font-variant-numeric: tabular-nums`).
    - Currency: Indian Rupee format (e.g., `₹12,500`).
+

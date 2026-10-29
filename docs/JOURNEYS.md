@@ -4,6 +4,8 @@
 **Phase**: Pass v4  
 **Target Coverage**: Playwright Multi-Context E2E & Funder Live Demo Protocols  
 
+> [!NOTE] Non-Legal & Non-Clinical Notice: Workflows simulate operational coordination only. No clinical, financial, or legal advice is provided by Vayoshreshtha. Data handling is DPDP-aligned (prototype).
+
 ---
 
 ## Journey Architecture & Automation Protocol
@@ -160,7 +162,7 @@ Every journey script follows an identical 5-phase structure:
      - Advocate decrypts case file with session key.
      - Review facts, conduct consultation.
      - Click `Record Outcome`, select `SETTLED_WITH_FAMILY_MEDIATION`.
-  4. *Verification*: Case archived; statutory disclaimer verified in print export; demand analytics updated ($k \ge 5$).
+  4. *Verification*: Case archived; non-legal-advice notice verified in print export; demand analytics updated ($k \ge 5$).
 
 ---
 
@@ -308,3 +310,4 @@ Every journey script follows an identical 5-phase structure:
   4. *Engine Assertion*: Checklist dynamically turns `100% Ready (Green)`. Generates `GO_LIVE_AUTHORIZATION` task for NM.
   5. `[Switch to NM]` Open `/inbox`, click `Authorize Chapter Go-Live`.
   6. *Verification*: Chapter badge switches from `Provisioning` to `Live & Operational`; appears in active chapter filters.
+

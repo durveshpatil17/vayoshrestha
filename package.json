@@ -16,7 +16,8 @@
     "ledger:check": "node scripts/ledger-check.mjs",
     "manifest:check": "node scripts/route-manifest-check.mjs",
     "ratchet": "node scripts/ratchet-check.mjs",
-    "gate:full": "tsc --noEmit && node scripts/design-lint.mjs && vitest run && node scripts/ledger-check.mjs && node scripts/route-manifest-check.mjs && node scripts/ratchet-check.mjs"
+    "gate:full": "tsc --noEmit && node scripts/design-lint.mjs && vitest run && node scripts/ledger-check.mjs && node scripts/route-manifest-check.mjs && node scripts/ratchet-check.mjs",
+    "gate:ui": "playwright test tests/e2e/no-scroll-shell.spec.ts tests/e2e/ia-budget.spec.ts tests/e2e/layout-check.spec.ts tests/e2e/dead-controls.spec.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",

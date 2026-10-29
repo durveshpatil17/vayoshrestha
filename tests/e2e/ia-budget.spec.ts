@@ -95,3 +95,4 @@ test.describe('Section A7: Navigation Budget & Information Architecture', () => 
     expect(forbiddenLinks.hasAdmin).toBe(false);
   });
 });
+

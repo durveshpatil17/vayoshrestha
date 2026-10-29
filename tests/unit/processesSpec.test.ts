@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 
-describe('Loop R0: Business Processes, IA and Content Style Spec Contracts', () => {
+describe('processesSpec: spec lint', () => {
   it('validates docs/PROCESSES.md contains all 15 processes P1 through P15 with terminal states', () => {
     const processesDoc = fs.readFileSync(path.resolve(__dirname, '../../docs/PROCESSES.md'), 'utf8');
 
@@ -82,3 +82,4 @@ describe('Loop R0: Business Processes, IA and Content Style Spec Contracts', () 
     expect(iaDoc).toContain('/telemetry/trends');
   });
 });
+

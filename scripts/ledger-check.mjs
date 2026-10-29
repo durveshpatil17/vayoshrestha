@@ -13,11 +13,11 @@ try {
     process.exit(1);
   }
 
-  const built = features.filter(f => f.status === 'Built').length;
-  const planned = features.filter(f => f.status === 'Planned').length;
+  const built = features.filter(f => f.status === 'Built' || f.status.startsWith('Built')).length;
   const partial = features.filter(f => f.status === 'Partial').length;
+  const missing = features.filter(f => f.status === 'Missing' || f.status === 'Planned').length;
 
-  console.log(`✅  ledger-check: ${features.length} features tracked (${built} Built, ${partial} Partial, ${planned} Planned)`);
+  console.log(`✅  ledger-check: ${features.length} features tracked (${built} Built, ${partial} Partial, ${missing} Missing)`);
   process.exit(0);
 } catch (err) {
   console.error('❌  ledger-check failed:', err.message);

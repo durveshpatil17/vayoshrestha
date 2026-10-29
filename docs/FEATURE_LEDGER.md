@@ -1,6 +1,6 @@
-# Vayoshrestha Feature Ledger (F-001 through F-105)
+# Vayoshrestha Feature Ledger (Features F-001..F-105 & Process Steps P1..P15)
 
-Total Features: 105 | Built: 105 | Partial: 0 | Planned: 0
+Total Items: 171 | Built: 151 | Partial: 16 | Missing/Planned: 4
 
 | ID | Name | Module / FR | Routes | Roles | Status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -109,3 +109,69 @@ Total Features: 105 | Built: 105 | Partial: 0 | Planned: 0
 | F-103 | Impact Packs Builder & Signed Tamper-Evident PDF | Layer 4 | /telemetry/packs, /telemetry/packs/new, /telemetry/packs/:id, /telemetry/exports | PM,NM,RA,SA,CD | Built | Audience-scoped packs (PM drafts, NM releases), SHA-256 calculation, synthetic watermark, export registry. |
 | F-104 | Public Report Verification Gateway | Layer 4 | /verify, /verify/:code | ALL | Built | Unauthenticated public gateway recomputing SHA-256 in browser to verify impact packs. |
 | F-105 | Ecosystem Strategic Nexus Architecture Map | Nexus | /ecosystem | NM,PM,RA,SA,CD | Built | Interactive diagram of Layers 1-4 with live mock telemetry counters and strategic goals. |
+| P01-S1 | P1: Demographic capture (Wizard, Field, Chatbot) | P1 | /onboarding/new, /field/onboard | VF,CM,SF,SC | Built | Assisted wizard and mobile field capture operational. |
+| P01-S2 | P1: Consent capture & DPDP recording | P1 | /onboarding/new, /field/onboard | VF,CM,SF | Built | In-person checkbox and double-consent state machine. |
+| P01-S3 | P1: Duplicate detection evaluation & PM inbox task | P1 | /seniors/duplicates | PM | Partial | Detection logic exists; handoff task in PM inbox missing (Loop R4/R6). |
+| P01-S4 | P1: Member ID issuance & chapter assignment | P1 | /seniors | CM,VF | Built | Luhn-like VV-HBL-26 ID generator and chapter roster. |
+| P01-S5 | P1: Consent-gated welcome message dispatch | P1 | /communication/delivery | CM | Partial | Gateway mock exists; auto-trigger upon duplicate resolution missing. |
+| P02-S1 | P2: Emergency SOS trigger (Portal/Chat/On-behalf) | P2 | /sos, /me | SC,VF,CT | Built | BroadcastChannel dispatch and real-time state machine. |
+| P02-S2 | P2: Real-time chime & Live Board alert | P2 | /sos | CT,CM,RA | Built | Solid red chip and audio alert. |
+| P02-S3 | P2: 60s WhatsApp timeout & Cellular fallback SMS | P2 | /sms-log | CT,SA | Built | Cellular fallback decision and SMS outbox logging. |
+| P02-S4 | P2: Multi-tier escalation chain (CT -> RA -> NM) | P2 | /sos | CT,RA,NM | Built | Escalation timers at 120s and 300s. |
+| P02-S5 | P2: Triage notes & outcome resolution code | P2 | /sos/:id | CT,CM | Built | Case detail notes and terminal resolution codes. |
+| P02-S6 | P2: Mandatory post-case review task for CM | P2 | /sos/:id | CM | Missing | Mandatory 24h CM review checklist task (Loop R4/R7). |
+| P03-S1 | P3: Scheduled vitals & medication prompt dispatch | P3 | /health/schedules | CT,CM | Built | Reminders engine with 08:00 AM morning prompt. |
+| P03-S2 | P3: Vitals response string NLP parsing | P3 | /health/logs | CT | Built | Systolic/diastolic/glucose regex extraction. |
+| P03-S3 | P3: Risk band classification | P3 | /health/rules | CT,CM | Built | Normal, Watch, High-Risk, Critical bands. |
+| P03-S4 | P3: High-risk flag generation | P3 | /health/flags | CT,CM | Built | Flags triage queue with threshold indicators. |
+| P03-S5 | P3: Wellness-call task generation & Take Next outreach | P3 | /health/calls | CT | Partial | Calls list exists; task in inbox and Take Next queue missing (Loop R4/R7). |
+| P04-S1 | P4: Programme scheduling & registration | P4 | /programmes, /schedule | PM,CM | Built | Recurrence engine and capacity limits. |
+| P04-S2 | P4: Session attendance marking & locking | P4 | /attendance | VF,CM | Built | Presence toggle and 2h session locking. |
+| P04-S3 | P4: Attendance correction request submission | P4 | /attendance/corrections | VF | Built | Correction modal with reason documentation. |
+| P04-S4 | P4: Attendance correction approval task for CM | P4 | /attendance/corrections | CM | Partial | Approval action exists; task in CM inbox missing (Loop R4/R8). |
+| P04-S5 | P4: 3-session absence drop-off outreach task | P4 | /feedback/follow-ups | VF,CM | Missing | Disengagement detection and outreach task (Loop R8). |
+| P05-S1 | P5: Campaign template authoring & variable chips | P5 | /communication/templates | PM | Built | Multi-lingual template builder with token chips. |
+| P05-S2 | P5: DPDP consent-gated audience filtering | P5 | /communication/consents | PM,NM | Built | Automatic stripping of opted-out recipients. |
+| P05-S3 | P5: Maker-checker submission to NM inbox | P5 | /communication/templates | NM | Partial | Template status exists; inbox task for NM missing (Loop R4/R8). |
+| P05-S4 | P5: Quiet hours (21:00-08:00) broadcast guard | P5 | /communication/announcements | PM,SA | Partial | Enforced on learning series; broadcaster deferral missing (Loop R8). |
+| P05-S5 | P5: Delivery log & failure retry queue | P5 | /communication/delivery | SA,PM | Built | Delivery states (Sent/Delivered/Read) and retry action. |
+| P06-S1 | P6: Service request initiation | P6 | /services/requests | SC,VF,CM | Built | Diagnostic/mobility service requests. |
+| P06-S2 | P6: Deterministic capacity routing engine | P6 | /routing | PM,NM | Built | Capacity-aware provider matching. |
+| P06-S3 | P6: Crockford-32 Modulo-37 voucher issuance | P6 | /vouchers | PM,SP | Built | VCH-26-XXXX alphanumeric voucher codes. |
+| P06-S4 | P6: Partner referral action task in partner inbox | P6 | /partner/referrals | SP | Partial | Referrals view exists; inbox task model missing (Loop R4/R9). |
+| P06-S5 | P6: Idempotent partner voucher redemption | P6 | /partner/vouchers/redeem | SP | Built | Checksum validation and single-use lock. |
+| P07-S1 | P7: Pro-bono legal intake submission | P7 | /legal-intake | CM,SC | Built | WebCrypto AES-GCM envelope encryption. |
+| P07-S2 | P7: Client-advocate privilege badge & statutory disclaimer | P7 | /legal-intake/:id | SP,CM | Built | Staff metadata-only view; non-legal advice notice. |
+| P07-S3 | P7: Advocate consultation task & statutory closure codes | P7 | /legal-intake/:id | SP | Partial | Outcome codes exist; advocate inbox task missing (Loop R4/R9). |
+| P08-S1 | P8: Micro-lesson authoring & phone preview | P8 | /learning/library/new | PM | Built | 4-step lesson creator with simulated bubbles. |
+| P08-S2 | P8: Curriculum maker-checker approval task for NM | P8 | /learning/library | NM | Partial | Status flag exists; NM approval task missing (Loop R4/R10). |
+| P08-S3 | P8: Quiet hours 21:00-08:00 drip campaign delivery | P8 | /learning/series | PM | Built | Night window delivery block. |
+| P08-S4 | P8: Mastermind quiz & anonymous chapter leaderboard | P8 | /learning/quizzes, /me/quizzes | SC,PM | Built | Instant score evaluation and chapter totals. |
+| P09-S1 | P9: Field associate roster & ward allocation | P9 | /field-network/associates | PM,CM | Built | Staff directory and geographical wards. |
+| P09-S2 | P9: Mobile offline capture with WebCrypto encryption | P9 | /field/onboard | SF | Built | Client-side AES-GCM IndexedDB storage. |
+| P09-S3 | P9: Coarse 2-decimal geo-stamping (~1.1 km radius) | P9 | /field/activity | SF,CM | Built | Zero continuous GPS tracking. |
+| P09-S4 | P9: Sync monitor & >24h late-sync warnings | P9 | /field-network/sync | CM,RA | Built | Delayed sync health tracking. |
+| P09-S5 | P9: Supervisor sync review task in CM inbox | P9 | /field-network/sync | CM | Partial | Late-sync flag exists; supervisor inbox task missing (Loop R4/R6). |
+| P10-S1 | P10: Maker submission of sensitive parameter change | P10 | /admin/approvals | ALL | Built | Draft hold on thresholds and templates. |
+| P10-S2 | P10: Strict maker-checker dual control enforcement | P10 | /admin/approvals | NM,SA | Built | Self-approval blocked (maker_id !== checker_id). |
+| P10-S3 | P10: Governance approval task in NM inbox | P10 | /admin/approvals | NM | Partial | Approvals queue exists; task in inbox missing (Loop R4/R11). |
+| P10-S4 | P10: Cryptographic SHA-256 audit entry recording | P10 | /admin/audit-logs | SA | Built | Tamper-evident audit chain write. |
+| P11-S1 | P11: DPDP deletion/export request submission | P11 | /admin/data-governance | SC,CM | Built | Statutory request intake. |
+| P11-S2 | P11: NM identity verification & approval task | P11 | /admin/data-governance | NM | Partial | Review modal exists; inbox task missing (Loop R4/R11). |
+| P11-S3 | P11: SA irrevocable purge execution with type-to-confirm | P11 | /admin/data-governance | SA | Partial | Purge modal exists; SA execution task missing (Loop R4/R11). |
+| P12-S1 | P12: Grievance/complaint lodging with severity | P12 | /admin/complaints/new | ALL | Built | Complaint submission form. |
+| P12-S2 | P12: Chapter scope-based auto-assignment | P12 | /admin/complaints | CM,NM | Built | Assigned to jurisdictional CM. |
+| P12-S3 | P12: Investigation task & internal notes thread | P12 | /admin/complaints/:id | CM | Partial | Thread notes exist; inbox task missing (Loop R4/R11). |
+| P12-S4 | P12: Remediation action & resolution code recording | P12 | /admin/complaints/:id | CM,NM | Built | Resolution status updates. |
+| P13-S1 | P13: Event store aggregation across 9 chapters | P13 | /telemetry/packs/new | PM | Built | Multi-chapter metric aggregator. |
+| P13-S2 | P13: k >= 5 cell suppression privacy defense | P13 | /telemetry/packs | PM,NM | Built | Small-cell suppression against differencing. |
+| P13-S3 | P13: In-browser SHA-256 digest computation & PDF export | P13 | /telemetry/packs/:id | PM,NM,CD | Built | Tamper-evident client cryptographic digest. |
+| P13-S4 | P13: Impact pack release sign-off task in NM inbox | P13 | /telemetry/packs/:id | NM | Partial | Release button exists; inbox task missing (Loop R4/R10). |
+| P13-S5 | P13: Unauthenticated public verification gateway | P13 | /verify | ALL | Built | Zero-login public hash verification. |
+| P14-S1 | P14: Partner organization profile & 80G/12A details | P14 | /partners/new | PM | Built | Statutory verification registration. |
+| P14-S2 | P14: Partner accreditation task in NM inbox | P14 | /admin/approvals | NM | Partial | Approvals queue exists; inbox task missing (Loop R4/R9). |
+| P14-S3 | P14: Capacity-aware routing pool activation | P14 | /partners | PM,NM | Built | Active status in routing engine. |
+| P15-S1 | P15: Chapter provisioning & regional geofence | P15 | /chapters/new | RA,SA | Built | Chapter creation and locality setup. |
+| P15-S2 | P15: Chapter staff roster allocation | P15 | /admin/chapters | CM,RA | Built | Staff assigned to Ekta Hub. |
+| P15-S3 | P15: Real-time Pilot Readiness Checklist with remediation links | P15 | /admin/settings | CM,NM | Missing | Dynamic checklist tab computed from store state (Loop R11). |
+| P15-S4 | P15: Chapter Go-Live milestone authorization task | P15 | /admin/settings | NM | Missing | Go-live milestone authorization task for NM (Loop R11). |

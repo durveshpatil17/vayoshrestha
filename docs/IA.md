@@ -78,7 +78,9 @@
 
 ---
 
-## 3. Workspace Catalogue & App Consolidation
+## 3. The 11 Workspaces Catalogue & App Consolidation
+
+The product features **11 workspaces** (plus 4 separate portal shells: Senior portal `/me/*`, Family portal `/family/*`, Field View `/field/*`, and Partner portal `/partner/*`).
 
 | Workspace | Section | App (Sidebar Item) | URL | Consolidated Tabs / Views / Old URLs |
 |---|---|---|---|---|
@@ -165,29 +167,29 @@
 
 To maintain the **feature freeze and brownfield integrity rules**, no old URLs are broken. Every consolidated page redirects to the new canonical app location with the appropriate tab or view query parameter.
 
-| Old URL | Canonical New URL | HTTP / SPA Action |
+| Old URL | Canonical New URL | Client & Edge Redirect Action |
 |---|---|---|
-| `/sos/history` | `/sos/cases?tab=all` | Redirect (301 SPA) |
-| `/sos/drills` | `/sos/cases?tab=drills` | Redirect (301 SPA) |
-| `/health/flags` | `/health/queue?tab=flags` | Redirect (301 SPA) |
-| `/health/calls` | `/health/queue?tab=calls` | Redirect (301 SPA) |
-| `/health/logs` | `/health/queue?tab=logs` | Redirect (301 SPA) |
-| `/health/schedules` | `/health/schedules-hub?tab=schedules` | Redirect (301 SPA) |
-| `/health/reminders` | `/health/schedules-hub?tab=templates` | Redirect (301 SPA) |
-| `/health/rules` | `/health/rules-hub?tab=thresholds` | Redirect (301 SPA) |
-| `/support/rules` | `/health/rules-hub?tab=warning-signs` | Redirect (301 SPA) |
-| `/support-requests` | `/support/queue?tab=requests` | Redirect (301 SPA) |
-| `/support/escalations` | `/support/queue?tab=escalations` | Redirect (301 SPA) |
-| `/support/handover` | `/support/queue?tab=handover` | Redirect (301 SPA) |
-| `/onboarding/script` | `/onboarding?tab=script` | Redirect (301 SPA) |
-| `/attendance/corrections` | `/attendance?tab=corrections` | Redirect (301 SPA) |
-| `/attendance/history` | `/attendance?tab=history` | Redirect (301 SPA) |
-| `/feedback/forms` | `/feedback?tab=forms` | Redirect (301 SPA) |
-| `/feedback/engagement` | `/feedback/follow-ups?tab=engagement` | Redirect (301 SPA) |
-| `/vouchers/campaigns` | `/vouchers?tab=campaigns` | Redirect (301 SPA) |
-| `/telemetry/trends` | `/telemetry?tab=trends` | Redirect (301 SPA) |
-| `/telemetry/privacy` | `/telemetry?tab=privacy` | Redirect (301 SPA) |
-| `/telemetry/exports` | `/telemetry/packs?tab=exports` | Redirect (301 SPA) |
+| `/sos/history` | `/sos/cases?tab=all` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/sos/drills` | `/sos/cases?tab=drills` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/health/flags` | `/health/queue?tab=flags` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/health/calls` | `/health/queue?tab=calls` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/health/logs` | `/health/queue?tab=logs` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/health/schedules` | `/health/schedules-hub?tab=schedules` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/health/reminders` | `/health/schedules-hub?tab=templates` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/health/rules` | `/health/rules-hub?tab=thresholds` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/support/rules` | `/health/rules-hub?tab=warning-signs` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/support-requests` | `/support/queue?tab=requests` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/support/escalations` | `/support/queue?tab=escalations` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/support/handover` | `/support/queue?tab=handover` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/onboarding/script` | `/onboarding?tab=script` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/attendance/corrections` | `/attendance?tab=corrections` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/attendance/history` | `/attendance?tab=history` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/feedback/forms` | `/feedback?tab=forms` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/feedback/engagement` | `/feedback/follow-ups?tab=engagement` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/vouchers/campaigns` | `/vouchers?tab=campaigns` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/telemetry/trends` | `/telemetry?tab=trends` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/telemetry/privacy` | `/telemetry?tab=privacy` | Client `<Navigate to="..." replace />` + `vercel.json` |
+| `/telemetry/exports` | `/telemetry/packs?tab=exports` | Client `<Navigate to="..." replace />` + `vercel.json` |
 
 ---
 
@@ -202,3 +204,4 @@ To maintain the **feature freeze and brownfield integrity rules**, no old URLs a
 | **Contextual (1 Click)** | Entity Hover Cards & Links | Directly navigates to Senior Object Page, Chapter Detail, Referral Record, Voucher Detail |
 
 **Verification Guarantee**: Every single route in `docs/route-manifest.json` is reachable in $\le 3$ clicks from Home or via direct Command Palette search.
+

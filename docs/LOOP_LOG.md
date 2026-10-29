@@ -418,5 +418,35 @@
 - **Defects & Blockers**: None.
 - **Next Step**: Loop R1: Shell and layout fix (`100dvh`, workspace tabs, All-workspaces popover, workspace side navigation with Work/Monitor/Configure, collapsible rail, breadcrumbs, redirects).
 
+---
+
+## Loop R0.5: Close-Out & Red Test Baseline Verification (Phase v4: Product-Feel Pass)
+- **Goal**: Complete Loop R0 close-out: run baseline Playwright tests, record dead-control counts, author 15 executable journey specs (J-01..J-15), codify process step gap analysis into the feature ledger, generate click-depth report and reachability test, extend before-screenshots across all 123 routes, update IA.md to 11 workspaces and client/edge redirects, neutralize legal wording, and introduce `gate:ui`.
+- **Test Executions & Baseline Results**:
+  - `tests/e2e/dead-controls.spec.ts`: **8/8 PASSED (GREEN)**. Baseline dead-control count: **0 dead controls** across sampled views.
+  - `tests/e2e/ia-budget.spec.ts`: **3 passed, 1 failed (RED)**. Fails on role-filtered navigation isolation because old sidebar still displays un-partitioned links across modules (target for Loop R1).
+  - `tests/e2e/no-scroll-shell.spec.ts`: **14 failed (RED)**. Confirms diagnosis: `document.scrollingElement.scrollHeight > clientHeight` on all pages (e.g. 2939 vs 720). Shell allows document scrolling rather than locking viewport to `100dvh` (target for Loop R1).
+  - `tests/e2e/journeys/J-01.spec.ts`: **FAILED (RED)** as expected (`Error: Inbox should contain task of type DUPLICATE_REVIEW`) because `/inbox` and Task Service are scheduled for Loop R4.
+- **What Changed**:
+  - Authored 15 executable Playwright journey test specs in `tests/e2e/journeys/` (`J-01.spec.ts` through `J-15.spec.ts`) and helper library `helpers.ts`.
+  - Renamed doc test to `processesSpec: spec lint` in `tests/unit/processesSpec.test.ts`.
+  - Executed process step gap analysis across P1–P15: added 66 granular step rows to `docs/feature-ledger.json` and regenerated `docs/FEATURE_LEDGER.md`. True status: **171 total items (151 Built, 16 Partial, 4 Missing)**. Updated `scripts/ledger-check.mjs`.
+  - Generated `docs/CLICK_DEPTH.md` using `scripts/generate-click-depth.mjs` verifying max click-depth $\le 3$ clicks from Home for all 123 routes. Added `tests/unit/reachability.test.ts` (2/2 passed).
+  - Extended before-screenshot capture runner `scripts/capture-all-v4-before.mjs` across all 123 manifest routes into `docs/screens/v4-before/`. Verified **123/123 captured cleanly (0 infeasible routes)**.
+  - Updated `docs/IA.md` with explicit 11 workspaces catalogue, and replaced "301" with React Router client redirects and `vercel.json` edge redirects. Added `src/routes/redirects.ts` and `tests/unit/redirects.test.ts` (3/3 passed).
+  - Replaced "statutory" and "client-advocate privilege" claims with "DPDP-aligned (prototype)" and added permanent non-legal-advice notices across `docs/PROCESSES.md`, `docs/JOURNEYS.md`, and `docs/CONTENT_STYLE.md`.
+  - Added `"gate:ui"` script to `package.json` covering `no-scroll-shell`, `ia-budget`, `layout-check`, and `dead-controls`.
+- **Gate Results**:
+  - `npm run gate:full`: Passed cleanly.
+  - `tsc --noEmit`: 0 errors.
+  - `npm run design:lint`: 0 violations across 265 files.
+  - `vitest run`: 158 tests passing across 31 test suites (100% green).
+  - `ledger-check`: 171 features tracked (151 Built, 16 Partial, 4 Missing).
+  - `manifest-check`: 123 routes verified in router.
+  - `ratchet-check`: 151 ledger built (no regression).
+- **Defects & Blockers**: None.
+- **Next Step**: Loop R1: Shell and layout fix (`100dvh`, workspace tabs, All-workspaces popover, workspace side navigation with Work/Monitor/Configure, collapsible rail, breadcrumbs, redirects).
+
+
 
 

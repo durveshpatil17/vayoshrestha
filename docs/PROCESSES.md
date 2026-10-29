@@ -4,6 +4,8 @@
 **Status**: Canonical Specification  
 **Architecture**: Mock-API + Task Inbox + Single Event Store + Audit Hash Chain  
 
+> [!NOTE] Non-Legal & Non-Clinical Advice Notice: Vayoshreshtha is a digital care coordination platform operated by the non-profit organization Vayoh Vikas. It does not provide legal, clinical, or financial advice. All legal consultations are referred to independent pro-bono advocates; all medical and biomarker alerts are non-clinical and must be evaluated by licensed medical professionals. Access controls are DPDP-aligned (prototype).
+
 ---
 
 ## Process Overview & Architecture
@@ -24,7 +26,7 @@ flowchart LR
 
 ## P1: Senior Citizen Onboarding (Three Channels)
 
-- **Purpose**: Identify, consent, register, and welcome older adults into the chapter ecosystem with zero duplicate records and statutory DPDP compliance.
+- **Purpose**: Identify, consent, register, and welcome older adults into the chapter ecosystem with zero duplicate records and DPDP-aligned (prototype) data handling.
 - **Channels**:
   1. *WhatsApp Chatbot* (Self-registration by senior or family member).
   2. *Assisted Web Wizard* (Chapter volunteer or Chapter Manager at Ekta Hub).
@@ -146,7 +148,7 @@ flowchart LR
 - **Entry Points**: `+ Create > New Announcement`, `/communication/announcements/new`.
 - **Human Steps**:
   1. *Drafting*: PM creates announcement draft, selects targeted audience (by chapter, age band, language), and drafts template with dynamic variable chips (`{{senior_name}}`, `{{chapter_name}}`).
-  2. *Submission*: PM submits template for statutory review.
+  2. *Submission*: PM submits template for governance review.
   3. *Maker-Checker Review*: NM reviews template at `/admin/approvals`. Action: `Approve` or `Reject with Feedback`.
   4. *Dispatch*: Once approved, scheduled broadcast dispatches during permissible hours (08:00–21:00).
 - **Automated Steps**:
@@ -190,17 +192,17 @@ flowchart LR
 
 ## P7: Pro-Bono Encrypted Legal Intake
 
-- **Purpose**: Provide confidential legal assistance (property disputes, elder neglect, pension rights) with strict statutory client-advocate privilege.
+- **Purpose**: Facilitate confidential pro-bono consultation requests (property disputes, elder neglect, pension queries) with non-legal-advice notices and DPDP-aligned (prototype) access isolation.
 - **Actors**: Senior (`SC`), Chapter Manager (`CM`), Pro-Bono Advocate (`SP`), Legal Lead.
 - **Entry Points**: `/legal-intake/new`, `/me/support`.
 - **Human Steps**:
   1. *Intake*: Senior or CM logs intake. Plain staff view only non-confidential metadata (Category: Property, Urgency: High).
   2. *Advocate Assignment*: System assigns credentialed pro-bono advocate.
-  3. *Privilege Decryption*: Only the assigned advocate decrypts the confidential narrative using in-browser session keys.
-  4. *Consultation & Case Closure*: Advocate conducts legal session, records statutory closure code (`SETTLED`, `LITIGATION_REFERRED`, `COUNSELED`).
+  3. *Confidentiality Isolation*: Only the assigned advocate decrypts the confidential narrative using in-browser session keys.
+  4. *Consultation & Case Closure*: Advocate conducts legal session, records standard closure code (`SETTLED`, `LITIGATION_REFERRED`, `COUNSELED`).
 - **Automated Steps**:
   1. Client-side envelope encryption for case narrative.
-  2. Permanent statutory disclaimer injected into all exports and views.
+  2. Permanent non-legal-advice notice injected into all exports and views.
 - **Handoffs**:
   - Generates: `Task { type: 'LEGAL_CONSULTATION', assigneeRole: 'SP', priority: 'High', sla: '72h' }`.
 - **Terminal States**:
@@ -258,7 +260,7 @@ flowchart LR
 
 ## P10: Maker-Checker Governance Approvals
 
-- **Purpose**: Prevent unauthorized changes to safety parameters, broadcast templates, voucher budgets, and staff privileges through dual-control authorization.
+- **Purpose**: Prevent unauthorized changes to safety parameters, broadcast templates, voucher budgets, and staff permissions through dual-control authorization.
 - **Actors**: Submitting Maker (Any Staff Role), Approving Checker (National Manager `NM` or System Admin `SA`).
 - **Entry Points**: `/admin/approvals`, Contextual Save actions.
 - **Human Steps**:
@@ -280,7 +282,7 @@ flowchart LR
 
 ## P11: Data-Subject Access & Deletion Requests (DPDP)
 
-- **Purpose**: Fulfill citizens' statutory rights to view, rectify, or purge their personal data under the Digital Personal Data Protection Act 2023.
+- **Purpose**: Fulfill citizens' DPDP-aligned (prototype) requests to view, rectify, or purge their personal data.
 - **Actors**: Senior Citizen (`SC`), Family Member (`FM`), Governance Lead (`NM`), System Admin (`SA`).
 - **Entry Points**: Senior Portal `/me/profile`, `/admin/data-governance/new`.
 - **Human Steps**:
@@ -350,7 +352,7 @@ flowchart LR
 - **Actors**: Programme Manager (`PM`), National Manager (`NM`), Service Partner (`SP`).
 - **Entry Points**: `/partners/new`, `/admin/approvals`.
 - **Human Steps**:
-  1. *Partner Profiling*: PM records partner legal entity, statutory 80G/12A registrations, and service catalog.
+  1. *Partner Profiling*: PM records partner legal entity, 80G/12A registrations, and service catalog.
   2. *Document Review*: PM verifies licenses and service level agreements.
   3. *Activation Approval*: NM approves partner for active intake.
   4. *Roster Assignment*: Partner administrator configures staff capacity and operating hours.
@@ -413,3 +415,4 @@ flowchart LR
 | **P13** | Impact Reporting | `NM` (Release Sign-off) | 48h | `Released`, `Revoked` |
 | **P14** | Partner Onboarding | `NM` (Accreditation Sign-off) | 5d | `Active`, `Suspended`, `Terminated` |
 | **P15** | Chapter Go-Live Readiness| `NM` (Go-Live Milestone) | 24h | `Live & Operational`, `Provisioning` |
+

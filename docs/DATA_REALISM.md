@@ -125,3 +125,4 @@ All entities follow deterministic, human-readable formats with year prefix and d
 | **Task Item** | `TSK-<YY>-<NNNNN>` | `TSK-26-00088` |
 | **Impact Pack** | `VV-PACK-<YY>-<QUARTER>-<TAG>` | `VV-PACK-26-Q3-CSR` |
 | **Chapter Code** | `<REGION>-<LOCALITY>` | `KA-HBL-CEN` |
+

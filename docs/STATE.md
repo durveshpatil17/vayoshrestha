@@ -1,8 +1,8 @@
 # VAYOSHRESHTHA v2 — Implementation State & Backlog
 
-**Current Local Time**: 2026-10-30T03:52:00+05:30  
+**Current Local Time**: 2026-10-30T04:12:00+05:30  
 **Current Phase**: Phase v4 (Product-Feel Pass: Real Workflows + Information Architecture)  
-**Current Loop**: Loop R0 Complete -> Advancing to Loop R1  
+**Current Loop**: Loop R0.5 Complete -> Advancing to Loop R1  
 **Active Blocker**: None  
 
 ---
@@ -284,6 +284,17 @@
     - [x] `tests/e2e/dead-controls.spec.ts` (Dead-control crawler and coming-soon toast ban).
     - [x] `tests/unit/processesSpec.test.ts` (153 vitest tests passing across 29 test suites).
   - [x] Verification: `tsc --noEmit` clean, 0 design-lint violations, 105 features Built, 123 manifest routes verified, ratchet verified.
+- [x] **Loop R0.5: Close-Out & Red Test Baseline Verification (Completed)**
+  - [x] Executed baseline Playwright tests: `dead-controls` passed (8/8, 0 dead controls found); `no-scroll-shell` failed (14 RED, confirms document scrolling issue); `ia-budget` failed (1 RED, confirms role nav isolation needed); `J-01` journey failed (RED, confirms missing task inbox).
+  - [x] Renamed doc presence test to `processesSpec: spec lint` in `tests/unit/processesSpec.test.ts`.
+  - [x] Added 15 executable Playwright journey specs `tests/e2e/journeys/J-01.spec.ts`..`J-15.spec.ts` with multi-context assertions.
+  - [x] Completed gap analysis: added 66 process step rows to `docs/feature-ledger.json` and `docs/FEATURE_LEDGER.md`. True counts: 171 items (151 Built, 16 Partial, 4 Missing). Updated `scripts/ledger-check.mjs`.
+  - [x] Generated `docs/CLICK_DEPTH.md` via `scripts/generate-click-depth.mjs` verifying $\le 3$ clicks for all 123 routes. Added `tests/unit/reachability.test.ts` (2/2 passed).
+  - [x] Captured all 123 manifest routes into `docs/screens/v4-before/` via `scripts/capture-all-v4-before.mjs` (0 infeasible routes).
+  - [x] Fixed `docs/IA.md`: 11 workspaces defined; replaced "301" with React Router client redirects and `vercel.json` edge redirects. Added `src/routes/redirects.ts` and `tests/unit/redirects.test.ts` (3/3 passed).
+  - [x] Replaced "statutory" and "client-advocate privilege" claims with "DPDP-aligned (prototype)" and added permanent non-legal-advice notices across `docs/PROCESSES.md`, `docs/JOURNEYS.md`, and `docs/CONTENT_STYLE.md`.
+  - [x] Added `npm run gate:ui` to `package.json`.
+  - [x] Verification: `npm run gate:full` passing cleanly (158 vitest tests green, ratchet verified).
 - [ ] **Loop R1: Shell and Layout Fix (Next)**
   - Fixed-height shell layout (`100dvh`, `overflow: hidden`, main region as sole scroll container).
   - Fiori 52px shell bar with inline workspace tabs (top $\le 5$), "All workspaces" popover, scope switcher, global search / command palette (`Ctrl+K`), `+ Create` menu, SOS chip.

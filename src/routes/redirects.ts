@@ -1,0 +1,35 @@
+/**
+ * Canonical URL Redirect Map (docs/IA.md Section 5)
+ * Enforces zero broken links by replacing consolidated standalone paths
+ * with client-side <Navigate to="..." replace /> and vercel.json edge rules.
+ */
+
+export interface RedirectEntry {
+  source: string;
+  destination: string;
+  permanent: boolean;
+}
+
+export const CANONICAL_REDIRECTS: RedirectEntry[] = [
+  { source: '/sos/history', destination: '/sos/cases?tab=all', permanent: true },
+  { source: '/sos/drills', destination: '/sos/cases?tab=drills', permanent: true },
+  { source: '/health/flags', destination: '/health/queue?tab=flags', permanent: true },
+  { source: '/health/calls', destination: '/health/queue?tab=calls', permanent: true },
+  { source: '/health/logs', destination: '/health/queue?tab=logs', permanent: true },
+  { source: '/health/schedules', destination: '/health/schedules-hub?tab=schedules', permanent: true },
+  { source: '/health/reminders', destination: '/health/schedules-hub?tab=templates', permanent: true },
+  { source: '/health/rules', destination: '/health/rules-hub?tab=thresholds', permanent: true },
+  { source: '/support/rules', destination: '/health/rules-hub?tab=warning-signs', permanent: true },
+  { source: '/support-requests', destination: '/support/queue?tab=requests', permanent: true },
+  { source: '/support/escalations', destination: '/support/queue?tab=escalations', permanent: true },
+  { source: '/support/handover', destination: '/support/queue?tab=handover', permanent: true },
+  { source: '/onboarding/script', destination: '/onboarding?tab=script', permanent: true },
+  { source: '/attendance/corrections', destination: '/attendance?tab=corrections', permanent: true },
+  { source: '/attendance/history', destination: '/attendance?tab=history', permanent: true },
+  { source: '/feedback/forms', destination: '/feedback?tab=forms', permanent: true },
+  { source: '/feedback/engagement', destination: '/feedback/follow-ups?tab=engagement', permanent: true },
+  { source: '/vouchers/campaigns', destination: '/vouchers?tab=campaigns', permanent: true },
+  { source: '/telemetry/trends', destination: '/telemetry?tab=trends', permanent: true },
+  { source: '/telemetry/privacy', destination: '/telemetry?tab=privacy', permanent: true },
+  { source: '/telemetry/exports', destination: '/telemetry/packs?tab=exports', permanent: true },
+];

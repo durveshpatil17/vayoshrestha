@@ -170,7 +170,16 @@
   - Built `MessageStrip` (`src/ui/MessageStrip.tsx`) for informative, positive, critical, and negative banners.
   - Verification: `tsc --noEmit` clean, 148 unit tests passing (100%).
 
-- [ ] **Loop U2: Data Foundation Components (`DataTable`, `FilterBar`, `KeyValueList`, `StatusIndicator`, `MetricTile`, `Container`, `IllustratedMessage`)**
+- [x] **Loop U2: Data Foundation Components (Completed)**
+  - Implemented `src/ui/Container.tsx` (pure white, 1px border, 12px radius, header/action slots, zero box shadow).
+  - Implemented `src/ui/MetricTile.tsx` (14px secondary label, 28/600 tabular numeral figure, unit, status line).
+  - Implemented `src/ui/KeyValueList.tsx` (1–3 responsive columns, 12px secondary label, 14px tabular value).
+  - Implemented `src/ui/StatusIndicator.tsx` (icon + text status for success, error, warning, info, pending, in-progress, stopped).
+  - Implemented `src/ui/IllustratedMessage.tsx` (Fiori empty state pattern: neutral icon, title, description, action).
+  - Implemented `src/ui/DataTable.tsx` and `src/ui/FilterBar.tsx` (Cloudscape table and Fiori list report filter bar).
+  - Exported canonical library from `src/ui/index.ts`.
+  - Verification: `tsc --noEmit` clean, 148 unit tests passing (100%).
+
 - [ ] **Loop U3: Forms & Dialogs (`Cloudscape Wizard`, `FormField`, 40px controls, `StickyActionFooter`, `Flashbar`, `Drawer`, `Dialog`)**
 - [ ] **Loop U4: Charts (Recharts restyled with Cloudscape rules, blue ramp, table view toggle)**
 - [ ] **Loop U5: Role Dashboards ($\le 4$ headline tiles, key-value lists, tables, Field Telemetry Card)**

@@ -151,3 +151,21 @@
   - Unit tests: 28 suites, 148 tests passing (100% green).
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U2: Data Foundation Components (`DataTable`, `FilterBar`, `KeyValueList`, `StatusIndicator`, `MetricTile`, `Container`, `IllustratedMessage`, four states).
+
+---
+
+## Loop U2: Data Foundation Components (Phase U: Final UI Design Pass)
+- **Goal**: Implement AWS Cloudscape data foundation components (`Container`, `MetricTile`, `KeyValueList`, `StatusIndicator`, `IllustratedMessage`, `DataTable`, `FilterBar`) in `src/ui/`.
+- **What Changed**:
+  - Implemented `src/ui/Container.tsx` with 12px radius, 1px border, header, actions, footer, and zero card shadows.
+  - Implemented `src/ui/MetricTile.tsx` conforming to the 14px label, 28/600 tabular figure, unit, and icon + text status line specification.
+  - Implemented `src/ui/KeyValueList.tsx` supporting 1–3 responsive column layouts.
+  - Implemented `src/ui/StatusIndicator.tsx` supporting success, error, warning, info, pending, in-progress, and stopped states without colored circular badges.
+  - Implemented `src/ui/IllustratedMessage.tsx` matching the Fiori empty state pattern.
+  - Implemented `src/ui/DataTable.tsx` and `src/ui/FilterBar.tsx`.
+  - Created centralized library barrel `src/ui/index.ts`.
+- **Gate Results**:
+  - `tsc --noEmit`: Clean (0 errors).
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U3: Forms, Cloudscape Wizard, Dialogs, Drawers, Flashbar, and StickyActionFooter.

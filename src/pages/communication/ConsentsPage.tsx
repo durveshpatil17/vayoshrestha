@@ -47,12 +47,12 @@ export const ConsentsPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/communication" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/communication" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Communication
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Consents</span>
+        <span className="text-text font-semibold">Consents</span>
       </div>
 
       <PageHeader
@@ -64,7 +64,7 @@ export const ConsentsPage: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[var(--border)] text-[var(--text-secondary)]">
+              <tr className="border-b border-border text-text-secondary">
                 <th className="py-2.5 px-3 font-semibold">Member</th>
                 <th className="py-2.5 px-2 font-semibold">WhatsApp Messages</th>
                 <th className="py-2.5 px-2 font-semibold">Family Portal Access</th>
@@ -74,35 +74,35 @@ export const ConsentsPage: React.FC = () => {
             </thead>
             <tbody className="divide-y divide-[var(--border-subtle)]">
               {consents.map((c) => (
-                <tr key={c.id} className="hover:bg-[var(--surface-hover)]">
+                <tr key={c.id} className="hover:bg-surface-hover">
                   <td className="py-3 px-3">
-                    <div className="font-semibold text-[var(--text)]">{c.name}</div>
-                    <div className="text-[11px] text-[var(--text-secondary)]">{c.id} • {c.phone}</div>
+                    <div className="font-semibold text-text">{c.name}</div>
+                    <div className="text-xs text-text-secondary">{c.id} • {c.phone}</div>
                   </td>
                   <td className="py-3 px-2">
                     {c.whatsappConsent ? (
-                      <span className="inline-flex items-center gap-1 text-[var(--positive)] font-semibold">
+                      <span className="inline-flex items-center gap-1 text-positive font-semibold">
                         <Check size={14} /> Consented
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-[var(--text-secondary)]">
+                      <span className="inline-flex items-center gap-1 text-text-secondary">
                         <X size={14} /> Opted-out
                       </span>
                     )}
                   </td>
                   <td className="py-3 px-2">
                     {c.familyShareConsent ? (
-                      <span className="inline-flex items-center gap-1 text-[var(--positive)] font-semibold">
+                      <span className="inline-flex items-center gap-1 text-positive font-semibold">
                         <Check size={14} /> Permitted
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-[var(--text-tertiary)]">
+                      <span className="inline-flex items-center gap-1 text-text-secondary">
                         <X size={14} /> Restricted
                       </span>
                     )}
                   </td>
-                  <td className="py-3 px-2 font-semibold text-[var(--text)]">{c.language}</td>
-                  <td className="py-3 px-3 text-[var(--text-secondary)] tabular-nums">{c.optedInAt}</td>
+                  <td className="py-3 px-2 font-semibold text-text">{c.language}</td>
+                  <td className="py-3 px-3 text-text-secondary tabular-nums">{c.optedInAt}</td>
                 </tr>
               ))}
             </tbody>

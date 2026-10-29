@@ -13,12 +13,12 @@ export const SupportEscalationsPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/support/requests" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/support/requests" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Health support
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Escalations</span>
+        <span className="text-text font-semibold">Escalations</span>
       </div>
 
       <PageHeader
@@ -37,15 +37,15 @@ export const SupportEscalationsPage: React.FC = () => {
             <div key={esc.id} className="py-4 flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-semibold text-[var(--text)] font-sans">{esc.seniorName}</h3>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[var(--negative-tint)] text-[var(--negative)]">
+                  <h3 className="text-sm font-semibold text-text font-sans">{esc.seniorName}</h3>
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded bg-negative-tint text-negative">
                     {esc.severity}
                   </span>
                 </div>
-                <div className="text-[var(--text-secondary)] mt-0.5">
+                <div className="text-text-secondary mt-0.5">
                   Trigger: <strong>{esc.triggeredBy}</strong>
                 </div>
-                <div className="text-[var(--text-tertiary)] mt-1">
+                <div className="text-text-secondary mt-1">
                   Assigned doctor: {esc.assignedDoctorOrStaff} • Opened: {new Date(esc.openedAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}
                 </div>
               </div>

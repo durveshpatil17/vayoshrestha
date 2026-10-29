@@ -8,12 +8,12 @@ import { Button } from '@/components/ui/Button';
 export const SupportVoiceCheckinsPage: React.FC = () => {
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/support/requests" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/support/requests" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Health support
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Voice check-ins</span>
+        <span className="text-text font-semibold">Voice check-ins</span>
       </div>
 
       <PageHeader
@@ -21,7 +21,7 @@ export const SupportVoiceCheckinsPage: React.FC = () => {
         subtitle="Feature-flagged voice recognition flow for illiterate or non-smartphone elders"
       />
 
-      <div className="p-4 rounded-lg bg-[var(--surface-selected)] border border-[var(--border)] text-sm text-[var(--text)]">
+      <div className="p-4 rounded-lg bg-informative-tint border border-border text-sm text-text">
         <strong>Feature Flag:</strong> `FEATURE_VOICE_CHECKINS` enabled. Interactive Voice Response (IVR) places scheduled 45-second morning calls in local dialect asking elders to press 1 for "I am well" or press 2 for "Please call me".
       </div>
 
@@ -34,10 +34,10 @@ export const SupportVoiceCheckinsPage: React.FC = () => {
           ].map((item, idx) => (
             <div key={idx} className="py-3 flex items-center justify-between">
               <div>
-                <span className="text-sm font-semibold text-[var(--text)]">{item.name}</span>
-                <div className="text-[var(--text-secondary)] mt-0.5">{item.time} • Call duration: {item.duration}</div>
+                <span className="text-sm font-semibold text-text">{item.name}</span>
+                <div className="text-text-secondary mt-0.5">{item.time} • Call duration: {item.duration}</div>
               </div>
-              <span className="font-semibold text-[var(--text)]">{item.status}</span>
+              <span className="font-semibold text-text">{item.status}</span>
             </div>
           ))}
         </div>

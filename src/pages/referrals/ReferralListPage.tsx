@@ -57,13 +57,13 @@ export const ReferralListPage: React.FC = () => {
           {filtered.map((ref) => (
             <div key={ref.id} className="py-4 flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-[var(--text)] font-sans">
+                <h3 className="text-sm font-semibold text-text font-sans">
                   {ref.seniorName} — {ref.serviceName}
                 </h3>
-                <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                <div className="text-xs text-text-secondary mt-0.5">
                   ID: <span className="tabular-nums font-semibold">{ref.id}</span> • Assigned Partner: <strong>{ref.partnerName}</strong>
                 </div>
-                <div className="text-xs text-[var(--text-tertiary)] mt-1">
+                <div className="text-xs text-text-secondary mt-1">
                   Referred on: {new Date(ref.referredAt).toLocaleDateString('en-IN', { dateStyle: 'medium' })}
                 </div>
               </div>

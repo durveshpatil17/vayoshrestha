@@ -180,8 +180,20 @@ function walk(dir) {
 
 // CLI Execution if run directly
 if (process.argv[1] && process.argv[1].endsWith('design-lint.mjs')) {
-  const targetDir = process.argv[2] ? resolve(process.argv[2]) : resolve('./src');
-  const files = walk(targetDir);
+  const targetPaths = process.argv.slice(2).length > 0 ? process.argv.slice(2) : ['./src'];
+  const files = [];
+
+  targetPaths.forEach((tp) => {
+    const resolved = resolve(tp);
+    try {
+      if (statSync(resolved).isDirectory()) {
+        files.push(...walk(resolved));
+      } else {
+        files.push(resolved);
+      }
+    } catch (e) {}
+  });
+
   let totalViolations = 0;
 
   files.forEach((file) => {

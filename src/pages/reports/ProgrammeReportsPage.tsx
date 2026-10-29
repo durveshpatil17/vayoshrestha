@@ -8,12 +8,12 @@ import { Button } from '@/components/ui/Button';
 export const ProgrammeReportsPage: React.FC = () => {
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/reports" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/reports" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Reports
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Programmes</span>
+        <span className="text-text font-semibold">Programmes</span>
       </div>
 
       <PageHeader
@@ -36,14 +36,14 @@ export const ProgrammeReportsPage: React.FC = () => {
           ].map((p, idx) => (
             <div key={idx} className="py-3.5 flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-[var(--text)] font-sans">{p.name}</h3>
-                <div className="text-[var(--text-secondary)] mt-0.5">
+                <h3 className="text-sm font-semibold text-text font-sans">{p.name}</h3>
+                <div className="text-text-secondary mt-0.5">
                   Category: {p.category} • Sessions: <span className="tabular-nums font-semibold">{p.sessions}</span> • Enrolled: <span className="tabular-nums font-semibold">{p.elders}</span>
                 </div>
               </div>
               <div className="text-right">
-                <span className="text-[var(--positive)] font-semibold block">{p.retention} Retention</span>
-                <span className="text-[var(--text-secondary)] block tabular-nums">{p.rating} Satisfaction</span>
+                <span className="text-positive font-semibold block">{p.retention} Retention</span>
+                <span className="text-text-secondary block tabular-nums">{p.rating} Satisfaction</span>
               </div>
             </div>
           ))}

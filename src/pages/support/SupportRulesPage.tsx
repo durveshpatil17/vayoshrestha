@@ -7,12 +7,12 @@ import { Card } from '@/components/ui/Card';
 export const SupportRulesPage: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/support/requests" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/support/requests" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Health support
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Rules</span>
+        <span className="text-text font-semibold">Rules</span>
       </div>
 
       <PageHeader
@@ -43,15 +43,15 @@ export const SupportRulesPage: React.FC = () => {
         ].map((rule, idx) => (
           <Card key={idx} title={rule.param}>
             <div className="grid grid-cols-3 gap-3 text-xs">
-              <div className="p-3 rounded bg-[var(--negative-tint)] text-[var(--negative)]">
+              <div className="p-3 rounded bg-negative-tint text-negative">
                 <span className="font-semibold block">Critical Tier-1</span>
                 <span>{rule.critical}</span>
               </div>
-              <div className="p-3 rounded bg-[var(--critical-tint)] text-[var(--critical)]">
+              <div className="p-3 rounded bg-critical-tint text-critical">
                 <span className="font-semibold block">High Tier-2</span>
                 <span>{rule.high}</span>
               </div>
-              <div className="p-3 rounded bg-[var(--surface-subtle)] text-[var(--text-secondary)]">
+              <div className="p-3 rounded bg-surface-subtle text-text-secondary">
                 <span className="font-semibold block">Low Band</span>
                 <span>{rule.low}</span>
               </div>

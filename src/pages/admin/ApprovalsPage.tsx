@@ -4,7 +4,7 @@ import { StatusChip } from '@/components/ui/StatusChip';
 import { Button } from '@/components/ui/Button';
 import { mockStore } from '@/mock/store';
 import { useAuthStore } from '@/store/authStore';
-import { CheckCircle2, XCircle, ShieldCheck, Clock, FileText, Send, Building2 } from 'lucide-react';
+import { CheckCircle2, XCircle, ShieldCheck, Clock, FileText, Send, Building2, X } from 'lucide-react';
 
 interface ApprovalQueueItem {
   id: string;
@@ -118,7 +118,7 @@ export const ApprovalsPage: React.FC = () => {
       {/* Queue Table */}
       <div className="bg-bg-base border border-border-hairline rounded overflow-hidden">
         <table className="w-full text-left text-sm">
-          <thead className="bg-bg-subtle border-b border-border-hairline text-text-muted font-medium text-xs">
+          <thead className="bg-bg-subtle border-b border-border-hairline text-text-muted font-semibold text-xs">
             <tr>
               <th className="py-3 px-4">Item & Category</th>
               <th className="py-3 px-4">Submitted By</th>
@@ -133,7 +133,7 @@ export const ApprovalsPage: React.FC = () => {
               <tr key={item.id} className="hover:bg-bg-subtle/40">
                 <td className="py-3.5 px-4">
                   <div className="font-semibold text-text-primary">{item.title}</div>
-                  <div className="tabular-nums text-[11px] text-accent mt-0.5">{item.category}</div>
+                  <div className="tabular-nums text-xs text-accent mt-0.5">{item.category}</div>
                 </td>
                 <td className="py-3.5 px-4 text-text-muted">{item.submittedBy}</td>
                 <td className="py-3.5 px-4 max-w-sm text-text-muted leading-relaxed">
@@ -185,7 +185,9 @@ export const ApprovalsPage: React.FC = () => {
           <div className="bg-bg-base rounded-md border border-border-hairline max-w-md w-full p-6 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-border-hairline pb-3">
               <h3 className="text-lg font-semibold text-text-primary">{actionType} {selectedItem.category}</h3>
-              <button onClick={() => setSelectedItem(null)} className="text-text-muted hover:text-text-primary">✕</button>
+              <button onClick={() => setSelectedItem(null)} className="text-text-muted hover:text-text-primary p-1">
+                <X className="w-4 h-4 stroke-[1.5]" />
+              </button>
             </div>
 
             <div className="p-3 bg-bg-subtle rounded border border-border-hairline space-y-1">
@@ -195,7 +197,7 @@ export const ApprovalsPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="font-medium text-text-primary block mb-1">Audit Justification / Comment</label>
+              <label className="font-semibold text-text-primary block mb-1">Audit Justification / Comment</label>
               <textarea
                 rows={3}
                 value={comment}

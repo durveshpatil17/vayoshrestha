@@ -33,12 +33,12 @@ export const PartnerReferralsPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/partner/home" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/partner/home" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Partner portal
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Assigned referrals</span>
+        <span className="text-text font-semibold">Assigned referrals</span>
       </div>
 
       <PageHeader
@@ -48,7 +48,7 @@ export const PartnerReferralsPage: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-1 space-y-3">
-          <h2 className="text-sm font-semibold text-[var(--text)]">Open cases</h2>
+          <h2 className="text-sm font-semibold text-text">Open cases</h2>
           <div className="space-y-2">
             {referrals.map((r) => (
               <button
@@ -61,13 +61,13 @@ export const PartnerReferralsPage: React.FC = () => {
                 }}
                 className={`w-full text-left p-3 rounded-lg border transition-all text-xs ${
                   r.id === selectedId
-                    ? 'border-[var(--accent)] bg-[var(--surface-selected)]'
-                    : 'border-[var(--border)] bg-surface hover:bg-[var(--surface-hover)]'
+                    ? 'border-accent bg-informative-tint'
+                    : 'border-border bg-surface hover:bg-surface-hover'
                 }`}
               >
-                <div className="font-semibold text-sm text-[var(--text)]">{r.seniorName}</div>
-                <div className="text-[var(--text-secondary)] mt-0.5">{r.serviceName}</div>
-                <div className="flex items-center justify-between mt-2 pt-1 border-t border-[var(--border-subtle)]">
+                <div className="font-semibold text-sm text-text">{r.seniorName}</div>
+                <div className="text-text-secondary mt-0.5">{r.serviceName}</div>
+                <div className="flex items-center justify-between mt-2 pt-1 border-t border-border-subtle">
                   <span className="tabular-nums font-semibold">{r.id}</span>
                   <StatusChip
                     label={r.status.replace('_', ' ')}
@@ -84,23 +84,23 @@ export const PartnerReferralsPage: React.FC = () => {
             <Card title={`${activeReferral.seniorName} — Clinical referral file`}>
               <div className="space-y-4 text-xs">
                 <div>
-                  <span className="text-[var(--text-secondary)] block">Service requested</span>
-                  <span className="text-sm font-semibold text-[var(--text)]">{activeReferral.serviceName}</span>
+                  <span className="text-text-secondary block">Service requested</span>
+                  <span className="text-sm font-semibold text-text">{activeReferral.serviceName}</span>
                 </div>
                 <div>
-                  <span className="text-[var(--text-secondary)] block">Clinical context / symptoms</span>
-                  <p className="text-sm text-[var(--text)] bg-[var(--surface-subtle)] p-3 rounded border border-[var(--border-subtle)] mt-1">
+                  <span className="text-text-secondary block">Clinical context / symptoms</span>
+                  <p className="text-sm text-text bg-surface-subtle p-3 rounded border border-border-subtle mt-1">
                     "{activeReferral.notes}"
                   </p>
                 </div>
                 <div className="grid grid-cols-2 gap-4 pt-2">
                   <div>
-                    <span className="text-[var(--text-secondary)] block">Hub origin</span>
-                    <span className="font-semibold text-[var(--text)]">{activeReferral.chapterId}</span>
+                    <span className="text-text-secondary block">Hub origin</span>
+                    <span className="font-semibold text-text">{activeReferral.chapterId}</span>
                   </div>
                   <div>
-                    <span className="text-[var(--text-secondary)] block">Date received</span>
-                    <span className="font-semibold text-[var(--text)]">
+                    <span className="text-text-secondary block">Date received</span>
+                    <span className="font-semibold text-text">
                       {new Date(activeReferral.referredAt).toLocaleDateString('en-IN', { dateStyle: 'medium' })}
                     </span>
                   </div>
@@ -111,11 +111,11 @@ export const PartnerReferralsPage: React.FC = () => {
             <Card title="Consultation status & outcome documentation">
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[var(--text)] mb-1">Referral status</label>
+                  <label className="block text-xs font-semibold text-text mb-1">Referral status</label>
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value as any)}
-                    className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+                    className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
                   >
                     <option value="Requested">Requested (Reviewing clinical availability)</option>
                     <option value="Assigned">Assigned (Visiting doctor assigned)</option>
@@ -126,18 +126,18 @@ export const PartnerReferralsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[var(--text)] mb-1">Doctor findings & next steps</label>
+                  <label className="block text-xs font-semibold text-text mb-1">Doctor findings & next steps</label>
                   <textarea
                     rows={4}
                     placeholder="Document clinical diagnosis, prescriptions, follow-up advice..."
                     value={outcome}
                     onChange={(e) => setOutcome(e.target.value)}
-                    className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+                    className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
                   />
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
-                  {saved && <span className="text-xs text-[var(--positive)] font-semibold">Outcome saved successfully!</span>}
+                  {saved && <span className="text-xs text-positive font-semibold">Outcome saved successfully!</span>}
                   <Button variant="primary" onClick={handleSave} icon={<Save size={16} />}>
                     Save consultation record
                   </Button>

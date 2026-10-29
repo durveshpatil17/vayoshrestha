@@ -100,7 +100,7 @@ export const UserNewPage: React.FC = () => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block font-medium text-text-muted mb-1">
+            <label className="block font-semibold text-text-muted mb-1">
               Full Legal Name <span className="text-danger">*</span>
             </label>
             <input
@@ -114,7 +114,7 @@ export const UserNewPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block font-medium text-text-muted mb-1">
+            <label className="block font-semibold text-text-muted mb-1">
               Institutional Email Address <span className="text-danger">*</span>
             </label>
             <input
@@ -128,7 +128,7 @@ export const UserNewPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block font-medium text-text-muted mb-1">
+            <label className="block font-semibold text-text-muted mb-1">
               Operational Role <span className="text-danger">*</span>
             </label>
             <select
@@ -148,7 +148,7 @@ export const UserNewPage: React.FC = () => {
 
           {role === 'RA' && (
             <div>
-              <label className="block font-medium text-text-muted mb-1">Assigned Region:</label>
+              <label className="block font-semibold text-text-muted mb-1">Assigned Region:</label>
               <select
                 value={regionId}
                 onChange={(e) => setRegionId(e.target.value)}
@@ -165,7 +165,7 @@ export const UserNewPage: React.FC = () => {
 
           {(role === 'CM' || role === 'VF') && (
             <div>
-              <label className="block font-medium text-text-muted mb-1">Assigned Chapter Hub:</label>
+              <label className="block font-semibold text-text-muted mb-1">Assigned Chapter Hub:</label>
               <select
                 value={chapterId}
                 onChange={(e) => setChapterId(e.target.value)}

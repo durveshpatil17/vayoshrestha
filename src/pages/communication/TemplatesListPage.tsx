@@ -47,12 +47,12 @@ export const TemplatesListPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/communication" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/communication" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Communication
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Templates</span>
+        <span className="text-text font-semibold">Templates</span>
       </div>
 
       <PageHeader
@@ -89,22 +89,22 @@ export const TemplatesListPage: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {templates.map((tpl) => (
-          <Card key={tpl.id} className="hover:border-[var(--border-strong)] transition-colors">
+          <Card key={tpl.id} className="hover:border-border-strong transition-colors">
             <div className="flex items-start justify-between mb-2">
               <div>
-                <span className="text-[11px] font-semibold text-[var(--accent)] bg-[var(--surface-selected)] px-2 py-0.5 rounded">
+                <span className="text-xs font-semibold text-accent bg-informative-tint px-2 py-0.5 rounded">
                   {tpl.category.replace('_', ' ')}
                 </span>
-                <h3 className="text-sm font-semibold text-[var(--text)] font-sans mt-1.5">{tpl.name}</h3>
+                <h3 className="text-sm font-semibold text-text font-sans mt-1.5">{tpl.name}</h3>
               </div>
               <StatusChip label={tpl.status} status="active" />
             </div>
 
-            <div className="p-3 rounded bg-[var(--surface-subtle)] border border-[var(--border-subtle)] text-xs text-[var(--text)] my-3 font-sans">
+            <div className="p-3 rounded bg-surface-subtle border border-border-subtle text-xs text-text my-3 font-sans">
               "{tpl.body}"
             </div>
 
-            <div className="flex items-center justify-between text-xs text-[var(--text-secondary)]">
+            <div className="flex items-center justify-between text-xs text-text-secondary">
               <span>{tpl.languages.length} language variants</span>
               <Link to={`/communication/templates/${tpl.id}`}>
                 <Button size="sm" variant="outline">View variants</Button>

@@ -113,7 +113,7 @@ export const UserDirectoryPage: React.FC = () => {
       {/* Users Table */}
       <div className="bg-bg-base border border-border-hairline rounded overflow-hidden">
         <table className="w-full text-left text-sm">
-          <thead className="bg-bg-subtle border-b border-border-hairline text-text-muted font-medium text-xs">
+          <thead className="bg-bg-subtle border-b border-border-hairline text-text-muted font-semibold text-xs">
             <tr>
               <th className="py-3 px-4">User Name</th>
               <th className="py-3 px-4">Role & Scope</th>
@@ -131,21 +131,21 @@ export const UserDirectoryPage: React.FC = () => {
                 <tr key={u.id} className="hover:bg-bg-subtle/40">
                   <td className="py-3.5 px-4">
                     <div className="font-semibold text-text-primary">{u.fullName}</div>
-                    <div className="tabular-nums text-[11px] text-text-muted">{u.id}</div>
+                    <div className="tabular-nums text-xs text-text-muted">{u.id}</div>
                   </td>
                   <td className="py-3.5 px-4">
-                    <div className="font-medium text-text-primary">{ROLES[u.role as RoleCode]?.name || u.role}</div>
-                    <div className="text-text-muted text-[11px] tabular-nums">({u.role}) • {ROLES[u.role as RoleCode]?.scopeDescription}</div>
+                    <div className="font-semibold text-text-primary">{ROLES[u.role as RoleCode]?.name || u.role}</div>
+                    <div className="text-text-muted text-xs tabular-nums">({u.role}) • {ROLES[u.role as RoleCode]?.scopeDescription}</div>
                   </td>
                   <td className="py-3.5 px-4 text-text-muted">
                     <div>{u.email}</div>
-                    <div className="tabular-nums text-[11px]">{u.phone}</div>
+                    <div className="tabular-nums text-xs">{u.phone}</div>
                   </td>
                   <td className="py-3.5 px-4">
                     {u.assignedCentres && u.assignedCentres.length > 0 ? (
                       <div className="flex flex-wrap gap-1">
                         {u.assignedCentres.map((cId) => (
-                          <span key={cId} className="tabular-nums text-[10px] px-1.5 py-0.5 bg-bg-subtle border border-border-hairline rounded text-text-muted">
+                          <span key={cId} className="tabular-nums text-xs px-1.5 py-0.5 bg-bg-subtle border border-border-hairline rounded text-text-muted">
                             {data.centres.find((c) => c.id === cId)?.code || cId}
                           </span>
                         ))}

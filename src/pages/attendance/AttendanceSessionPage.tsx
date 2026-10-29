@@ -67,12 +67,12 @@ export const AttendanceSessionPage: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/attendance" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/attendance" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Attendance
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">{session.title}</span>
+        <span className="text-text font-semibold">{session.title}</span>
       </div>
 
       <PageHeader
@@ -80,7 +80,7 @@ export const AttendanceSessionPage: React.FC = () => {
         subtitle={`${session.chapterName} • ${roster.length} participants registered`}
         actions={
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded bg-[var(--critical-tint)] text-xs text-[var(--critical)] font-semibold border border-[var(--border)]">
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded bg-critical-tint text-xs text-critical font-semibold border border-border">
               <Clock size={13} /> Auto-locks in 14h 15m
             </div>
             <Button
@@ -97,19 +97,19 @@ export const AttendanceSessionPage: React.FC = () => {
 
       {/* Summary KPI */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="p-3.5 rounded-lg bg-surface border border-[var(--border)] text-center">
-          <span className="text-xs text-[var(--text-secondary)] block">Present & Walk-ins</span>
-          <span className="text-xl font-semibold text-[var(--positive)] tabular-nums">{presentCount}</span>
+        <div className="p-3.5 rounded-lg bg-surface border border-border text-center">
+          <span className="text-xs text-text-secondary block">Present & Walk-ins</span>
+          <span className="text-xl font-semibold text-positive tabular-nums">{presentCount}</span>
         </div>
-        <div className="p-3.5 rounded-lg bg-surface border border-[var(--border)] text-center">
-          <span className="text-xs text-[var(--text-secondary)] block">Absent</span>
-          <span className="text-xl font-semibold text-[var(--negative)] tabular-nums">
+        <div className="p-3.5 rounded-lg bg-surface border border-border text-center">
+          <span className="text-xs text-text-secondary block">Absent</span>
+          <span className="text-xl font-semibold text-negative tabular-nums">
             {roster.filter((r) => r.status === 'Absent').length}
           </span>
         </div>
-        <div className="p-3.5 rounded-lg bg-surface border border-[var(--border)] text-center">
-          <span className="text-xs text-[var(--text-secondary)] block">Attendance rate</span>
-          <span className="text-xl font-semibold text-[var(--text)] tabular-nums">
+        <div className="p-3.5 rounded-lg bg-surface border border-border text-center">
+          <span className="text-xs text-text-secondary block">Attendance rate</span>
+          <span className="text-xl font-semibold text-text tabular-nums">
             {Math.round((presentCount / roster.length) * 100)}%
           </span>
         </div>
@@ -129,14 +129,14 @@ export const AttendanceSessionPage: React.FC = () => {
         }
       >
         {showWalkIn && (
-          <form onSubmit={handleAddWalkIn} className="p-3 mb-4 rounded bg-[var(--surface-subtle)] border border-[var(--border)] flex items-center gap-3">
+          <form onSubmit={handleAddWalkIn} className="p-3 mb-4 rounded bg-surface-subtle border border-border flex items-center gap-3">
             <input
               type="text"
               required
               placeholder="Enter senior citizen full name..."
               value={walkInName}
               onChange={(e) => setWalkInName(e.target.value)}
-              className="flex-1 px-3 py-1.5 text-sm rounded border border-[var(--border)] bg-surface focus:outline-none"
+              className="flex-1 px-3 py-1.5 text-sm rounded border border-border bg-surface focus:outline-none"
             />
             <Button size="sm" variant="primary" type="submit">Add to roster</Button>
             <Button size="sm" variant="outline" type="button" onClick={() => setShowWalkIn(false)}>Cancel</Button>
@@ -147,8 +147,8 @@ export const AttendanceSessionPage: React.FC = () => {
           {roster.map((person, idx) => (
             <div key={person.id} className="py-3 flex items-center justify-between">
               <div>
-                <div className="text-sm font-semibold text-[var(--text)]">{person.name}</div>
-                <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                <div className="text-sm font-semibold text-text">{person.name}</div>
+                <div className="text-xs text-text-secondary mt-0.5">
                   ID: <span className="tabular-nums font-semibold">{person.id}</span> • {person.phone}
                 </div>
               </div>
@@ -158,10 +158,10 @@ export const AttendanceSessionPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => toggleStatus(idx, 'Present')}
-                  className={`min-h-[44px] min-w-[70px] px-3 py-2 text-xs font-semibold rounded border transition-colors flex items-center justify-center gap-1 ${
+                  className={`h-11 min-w-16 px-3 py-2 text-xs font-semibold rounded border transition-colors flex items-center justify-center gap-1 ${
                     person.status === 'Present' || person.status === 'Walk_in'
-                      ? 'bg-[var(--positive)] text-white border-[var(--positive)]'
-                      : 'bg-surface text-[var(--text-secondary)] border-[var(--border)] hover:bg-[var(--surface-hover)]'
+                      ? 'bg-positive text-white border-positive'
+                      : 'bg-surface text-text-secondary border-border hover:bg-surface-hover'
                   }`}
                 >
                   <Check size={14} /> Present
@@ -169,10 +169,10 @@ export const AttendanceSessionPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => toggleStatus(idx, 'Absent')}
-                  className={`min-h-[44px] min-w-[70px] px-3 py-2 text-xs font-semibold rounded border transition-colors flex items-center justify-center gap-1 ${
+                  className={`h-11 min-w-16 px-3 py-2 text-xs font-semibold rounded border transition-colors flex items-center justify-center gap-1 ${
                     person.status === 'Absent'
-                      ? 'bg-[var(--negative)] text-white border-[var(--negative)]'
-                      : 'bg-surface text-[var(--text-secondary)] border-[var(--border)] hover:bg-[var(--surface-hover)]'
+                      ? 'bg-negative text-white border-negative'
+                      : 'bg-surface text-text-secondary border-border hover:bg-surface-hover'
                   }`}
                 >
                   <X size={14} /> Absent

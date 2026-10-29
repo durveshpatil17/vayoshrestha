@@ -77,15 +77,15 @@ export const ChapterListPage: React.FC = () => {
           const primaryResponder = chapter.onDutyRoster?.find((m) => m.isPrimaryResponder);
 
           return (
-            <Card key={chapter.id} className="hover:border-[var(--border-strong)] transition-colors">
+            <Card key={chapter.id} className="hover:border-border-strong transition-colors">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-2.5">
-                  <div className="p-2 rounded bg-[var(--surface-subtle)] text-[var(--accent)]">
+                  <div className="p-2 rounded bg-surface-subtle text-accent">
                     <Building2 size={20} />
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-[var(--text)] font-sans">{chapter.name}</h3>
-                    <div className="text-xs text-[var(--text-secondary)] mt-0.5 flex items-center gap-1">
+                    <h3 className="text-base font-semibold text-text font-sans">{chapter.name}</h3>
+                    <div className="text-xs text-text-secondary mt-0.5 flex items-center gap-1">
                       <MapPin size={12} />
                       {chapter.city}, {chapter.state} • Code: <span className="tabular-nums font-semibold">{chapter.code}</span>
                     </div>
@@ -97,29 +97,29 @@ export const ChapterListPage: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-2.5 py-3 border-y border-[var(--border-subtle)] text-xs text-[var(--text-secondary)] my-3">
+              <div className="grid grid-cols-2 gap-2.5 py-3 border-y border-border-subtle text-xs text-text-secondary my-3">
                 <div>
-                  <span className="block text-[var(--text-tertiary)]">Registered seniors</span>
-                  <span className="text-sm font-semibold text-[var(--text)] tabular-nums">
+                  <span className="block text-text-secondary">Registered seniors</span>
+                  <span className="text-sm font-semibold text-text tabular-nums">
                     {registeredSeniors > 0 ? registeredSeniors : '142'}
                   </span>
                 </div>
                 <div>
-                  <span className="block text-[var(--text-tertiary)]">SOS duty roster</span>
-                  <span className="text-sm font-semibold text-[var(--text)] tabular-nums">
+                  <span className="block text-text-secondary">SOS duty roster</span>
+                  <span className="text-sm font-semibold text-text tabular-nums">
                     {onDutyCount} staff active
                   </span>
                 </div>
                 <div className="col-span-2">
-                  <span className="block text-[var(--text-tertiary)]">Primary responder</span>
-                  <span className="text-xs font-semibold text-[var(--text)] truncate">
+                  <span className="block text-text-secondary">Primary responder</span>
+                  <span className="text-xs font-semibold text-text truncate">
                     {primaryResponder ? `${primaryResponder.userName} (${primaryResponder.role})` : chapter.contactPerson}
                   </span>
                 </div>
               </div>
 
               <div className="flex items-center justify-between pt-1">
-                <span className="text-xs text-[var(--text-tertiary)]">
+                <span className="text-xs text-text-secondary">
                   Languages: {chapter.languagesServed?.join(', ') || 'English, Marathi'}
                 </span>
                 <Link to={`/chapters/${chapter.id}`}>

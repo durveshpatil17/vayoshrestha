@@ -82,10 +82,10 @@ export const ProgrammeListPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredProgrammes.map((prog) => {
           return (
-            <Card key={prog.id} className="hover:border-[var(--border-strong)] transition-colors flex flex-col justify-between">
+            <Card key={prog.id} className="hover:border-border-strong transition-colors flex flex-col justify-between">
               <div>
                 <div className="flex items-start justify-between mb-3">
-                  <span className="text-[11px] font-semibold text-[var(--accent)] bg-[var(--surface-selected)] px-2 py-0.5 rounded">
+                  <span className="text-xs font-semibold text-accent bg-informative-tint px-2 py-0.5 rounded-control">
                     {prog.category}
                   </span>
                   <StatusChip
@@ -94,26 +94,26 @@ export const ProgrammeListPage: React.FC = () => {
                   />
                 </div>
 
-                <h3 className="text-base font-semibold text-[var(--text)] font-sans mb-1.5">{prog.name}</h3>
-                <p className="text-xs text-[var(--text-secondary)] line-clamp-2 mb-3">
+                <h3 className="text-base font-semibold text-text font-sans mb-1.5">{prog.name}</h3>
+                <p className="text-xs text-text-secondary line-clamp-2 mb-3">
                   {prog.description}
                 </p>
               </div>
 
               <div>
-                <div className="grid grid-cols-2 gap-2 py-2.5 border-y border-[var(--border-subtle)] text-xs text-[var(--text-secondary)] mb-3">
+                <div className="grid grid-cols-2 gap-2 py-2.5 border-y border-border-subtle text-xs text-text-secondary mb-3">
                   <div>
-                    <span className="block text-[var(--text-tertiary)]">Enrolled elders</span>
-                    <span className="text-sm font-semibold text-[var(--text)] tabular-nums">{prog.enrolledCount}</span>
+                    <span className="block text-text-secondary">Enrolled elders</span>
+                    <span className="text-sm font-semibold text-text tabular-nums">{prog.enrolledCount}</span>
                   </div>
                   <div>
-                    <span className="block text-[var(--text-tertiary)]">Delivered sessions</span>
-                    <span className="text-sm font-semibold text-[var(--text)] tabular-nums">{prog.sessionsCount}</span>
+                    <span className="block text-text-secondary">Delivered sessions</span>
+                    <span className="text-sm font-semibold text-text tabular-nums">{prog.sessionsCount}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-[var(--text-tertiary)] truncate">
+                  <span className="text-xs text-text-secondary truncate">
                     Chapters: {prog.chapterIds?.length || 1} Hubs
                   </span>
                   <Link to={`/programmes/${prog.id}`}>

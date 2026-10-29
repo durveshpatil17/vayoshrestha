@@ -81,7 +81,7 @@ export const DefinitionsPage: React.FC = () => {
               {d.term}
             </h3>
             <p className="text-xs text-text-primary leading-relaxed">{d.canonical}</p>
-            <div className="p-2.5 bg-surface-subtle border border-border-hairline rounded text-[11px] tabular-nums space-y-1">
+            <div className="p-2.5 bg-surface-subtle border border-border-hairline rounded text-xs tabular-nums space-y-1">
               <div>
                 <strong className="text-text-muted">Computation Rule:</strong> {d.rule}
               </div>

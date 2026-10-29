@@ -36,12 +36,12 @@ export const FeedbackNewPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/feedback" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/feedback" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Feedback
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Record response</span>
+        <span className="text-text font-semibold">Record response</span>
       </div>
 
       <PageHeader
@@ -52,23 +52,23 @@ export const FeedbackNewPage: React.FC = () => {
       <Card title="Survey response entry">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Senior member</label>
+            <label className="block text-xs font-semibold text-text mb-1">Senior member</label>
             <input
               type="text"
               required
               value={seniorName}
               onChange={(e) => setSeniorName(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Programme attended</label>
+              <label className="block text-xs font-semibold text-text mb-1">Programme attended</label>
               <select
                 value={programmeName}
                 onChange={(e) => setProgrammeName(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
               >
                 <option value="Swasthya Seva — Geriatric Preventive Health">Swasthya Seva</option>
                 <option value="Digital Sahayata — Smartphone Independence">Digital Sahayata</option>
@@ -77,11 +77,11 @@ export const FeedbackNewPage: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Channel</label>
+              <label className="block text-xs font-semibold text-text mb-1">Channel</label>
               <select
                 value={channel}
                 onChange={(e) => setChannel(e.target.value as any)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
               >
                 <option value="In_Person">In-person session interview</option>
                 <option value="WhatsApp">WhatsApp micro-survey reply</option>
@@ -91,7 +91,7 @@ export const FeedbackNewPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Overall rating (1 to 5 Stars)</label>
+            <label className="block text-xs font-semibold text-text mb-1">Overall rating (1 to 5 Stars)</label>
             <div className="flex items-center gap-2">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
@@ -100,8 +100,8 @@ export const FeedbackNewPage: React.FC = () => {
                   onClick={() => setRating(star)}
                   className={`p-2 rounded border transition-colors ${
                     rating >= star
-                      ? 'bg-[var(--surface-selected)] text-[var(--positive)] border-[var(--positive)]'
-                      : 'bg-surface text-[var(--text-disabled)] border-[var(--border)]'
+                      ? 'bg-informative-tint text-positive border-positive'
+                      : 'bg-surface text-text-disabled border-border'
                   }`}
                 >
                   <Star size={18} fill={rating >= star ? 'currentColor' : 'none'} />
@@ -111,18 +111,18 @@ export const FeedbackNewPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Elder comments & suggestions</label>
+            <label className="block text-xs font-semibold text-text mb-1">Elder comments & suggestions</label>
             <textarea
               required
               rows={3}
               placeholder="Verbatim comments, praises, or concerns..."
               value={feedbackText}
               onChange={(e) => setFeedbackText(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[var(--border)]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
             <Link to="/feedback">
               <Button variant="outline" type="button">Cancel</Button>
             </Link>

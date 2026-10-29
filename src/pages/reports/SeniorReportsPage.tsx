@@ -8,12 +8,12 @@ import { Button } from '@/components/ui/Button';
 export const SeniorReportsPage: React.FC = () => {
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/reports" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/reports" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Reports
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Seniors</span>
+        <span className="text-text font-semibold">Seniors</span>
       </div>
 
       <PageHeader
@@ -27,17 +27,17 @@ export const SeniorReportsPage: React.FC = () => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Average age</span>
-          <span className="text-2xl font-semibold text-[var(--text)] tabular-nums">71.4 yrs</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Average age</span>
+          <span className="text-2xl font-semibold text-text tabular-nums">71.4 yrs</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Female / Male ratio</span>
-          <span className="text-2xl font-semibold text-[var(--text)] tabular-nums">54% / 46%</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Female / Male ratio</span>
+          <span className="text-2xl font-semibold text-text tabular-nums">54% / 46%</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Living alone (High vulnerability)</span>
-          <span className="text-2xl font-semibold text-[var(--negative)] tabular-nums">28% (284 elders)</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Living alone (High vulnerability)</span>
+          <span className="text-2xl font-semibold text-negative tabular-nums">28% (284 elders)</span>
         </div>
       </div>
 
@@ -51,12 +51,12 @@ export const SeniorReportsPage: React.FC = () => {
             { condition: 'Chronic Kidney Disease (Stage 1-2)', count: 78, pct: '7.8%' },
           ].map((item, idx) => (
             <div key={idx} className="space-y-1">
-              <div className="flex justify-between font-semibold text-[var(--text)]">
+              <div className="flex justify-between font-semibold text-text">
                 <span>{item.condition}</span>
                 <span className="tabular-nums">{item.count} elders ({item.pct})</span>
               </div>
-              <div className="w-full bg-[var(--surface-subtle)] h-2 rounded overflow-hidden">
-                <div className="bg-[var(--accent)] h-full rounded" style={{ width: item.pct }} />
+              <div className="w-full bg-surface-subtle h-2 rounded overflow-hidden">
+                <div className="bg-accent h-full rounded" style={{ width: item.pct }} />
               </div>
             </div>
           ))}

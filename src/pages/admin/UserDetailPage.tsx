@@ -179,7 +179,7 @@ export const UserDetailPage: React.FC = () => {
           )}
 
           <div className="pt-2 border-t border-border-hairline flex items-center justify-between">
-            <label className="flex items-center gap-2 text-xs cursor-pointer font-medium text-text-primary">
+            <label className="flex items-center gap-2 text-xs cursor-pointer font-semibold text-text-primary">
               <input
                 type="checkbox"
                 checked={isActive}

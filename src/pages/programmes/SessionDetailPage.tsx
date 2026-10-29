@@ -31,12 +31,12 @@ export const SessionDetailPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/schedule" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/schedule" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Schedule
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">{session.title}</span>
+        <span className="text-text font-semibold">{session.title}</span>
       </div>
 
       <PageHeader
@@ -64,22 +64,22 @@ export const SessionDetailPage: React.FC = () => {
           <Card title="Session logistics & venue">
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-xs text-[var(--text-secondary)] block">Date & Time</span>
-                <span className="font-semibold text-[var(--text)]">
+                <span className="text-xs text-text-secondary block">Date & Time</span>
+                <span className="font-semibold text-text">
                   {dateObj.toLocaleString('en-IN', { dateStyle: 'full', timeStyle: 'short' })}
                 </span>
               </div>
               <div>
-                <span className="text-xs text-[var(--text-secondary)] block">Duration</span>
-                <span className="font-semibold text-[var(--text)]">{session.durationMinutes} minutes</span>
+                <span className="text-xs text-text-secondary block">Duration</span>
+                <span className="font-semibold text-text">{session.durationMinutes} minutes</span>
               </div>
               <div>
-                <span className="text-xs text-[var(--text-secondary)] block">Location & Room</span>
-                <span className="font-semibold text-[var(--text)]">{session.location}</span>
+                <span className="text-xs text-text-secondary block">Location & Room</span>
+                <span className="font-semibold text-text">{session.location}</span>
               </div>
               <div>
-                <span className="text-xs text-[var(--text-secondary)] block">Lead facilitator</span>
-                <span className="font-semibold text-[var(--text)]">{session.instructorName}</span>
+                <span className="text-xs text-text-secondary block">Lead facilitator</span>
+                <span className="font-semibold text-text">{session.instructorName}</span>
               </div>
             </div>
           </Card>
@@ -94,16 +94,16 @@ export const SessionDetailPage: React.FC = () => {
               ].map((p) => (
                 <div key={p.id} className="py-2.5 flex items-center justify-between">
                   <div>
-                    <span className="font-semibold text-[var(--text)]">{p.name}</span>
-                    <span className="text-xs text-[var(--text-secondary)] ml-2 tabular-nums">({p.id})</span>
+                    <span className="font-semibold text-text">{p.name}</span>
+                    <span className="text-xs text-text-secondary ml-2 tabular-nums">({p.id})</span>
                   </div>
                   <span
                     className={`text-xs font-semibold px-2 py-0.5 rounded ${
                       p.status === 'Present'
-                        ? 'bg-[var(--positive-tint)] text-[var(--positive)]'
+                        ? 'bg-positive-tint text-positive'
                         : p.status === 'Walk_in'
-                        ? 'bg-[var(--surface-selected)] text-[var(--accent)]'
-                        : 'bg-[var(--negative-tint)] text-[var(--negative)]'
+                        ? 'bg-informative-tint text-accent'
+                        : 'bg-negative-tint text-negative'
                     }`}
                   >
                     {p.status.replace('_', ' ')}
@@ -117,16 +117,16 @@ export const SessionDetailPage: React.FC = () => {
         <div className="space-y-6">
           <Card title="Capacity & Attendance lock">
             <div className="space-y-4 text-sm">
-              <div className="p-4 rounded bg-[var(--surface-subtle)] text-center">
-                <span className="text-xs text-[var(--text-secondary)] block">Total capacity</span>
-                <span className="text-2xl font-semibold text-[var(--text)] tabular-nums">{session.capacity}</span>
-                <div className="text-xs text-[var(--text-tertiary)] mt-1">
+              <div className="p-4 rounded bg-surface-subtle text-center">
+                <span className="text-xs text-text-secondary block">Total capacity</span>
+                <span className="text-2xl font-semibold text-text tabular-nums">{session.capacity}</span>
+                <div className="text-xs text-text-secondary mt-1">
                   {session.capacity - session.enrolledCount} open spots remaining
                 </div>
               </div>
 
-              <div className="p-3.5 rounded border border-[var(--border)] text-xs text-[var(--text-secondary)]">
-                <span className="font-semibold text-[var(--text)] block mb-1">24-hour Auto-Lock</span>
+              <div className="p-3.5 rounded border border-border text-xs text-text-secondary">
+                <span className="font-semibold text-text block mb-1">24-hour Auto-Lock</span>
                 Attendance rosters auto-lock 24 hours after completion. Corrections require Maker-Checker NM approval.
               </div>
             </div>

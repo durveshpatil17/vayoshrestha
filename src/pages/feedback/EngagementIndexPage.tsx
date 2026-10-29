@@ -14,20 +14,20 @@ export const EngagementIndexPage: React.FC = () => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">High engagement cohort</span>
-          <span className="text-2xl font-semibold text-[var(--positive)] tabular-nums">78%</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">Attending &gt;2 sessions/week</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">High engagement cohort</span>
+          <span className="text-2xl font-semibold text-positive tabular-nums">78%</span>
+          <span className="text-xs text-text-secondary block mt-1">Attending &gt;2 sessions/week</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Moderate engagement</span>
-          <span className="text-2xl font-semibold text-[var(--text)] tabular-nums">16%</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">Attending 1 session/fortnight</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Moderate engagement</span>
+          <span className="text-2xl font-semibold text-text tabular-nums">16%</span>
+          <span className="text-xs text-text-secondary block mt-1">Attending 1 session/fortnight</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">At-risk of dropout</span>
-          <span className="text-2xl font-semibold text-[var(--negative)] tabular-nums">6% (24 elders)</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">Inactive for &gt;14 days</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">At-risk of dropout</span>
+          <span className="text-2xl font-semibold text-negative tabular-nums">6% (24 elders)</span>
+          <span className="text-xs text-text-secondary block mt-1">Inactive for &gt;14 days</span>
         </div>
       </div>
 
@@ -40,11 +40,11 @@ export const EngagementIndexPage: React.FC = () => {
           ].map((elder) => (
             <div key={elder.id} className="py-3 flex items-center justify-between">
               <div>
-                <span className="font-semibold text-sm text-[var(--text)]">{elder.name}</span>
-                <div className="text-[var(--text-secondary)] mt-0.5">
-                  {elder.chapter} • Inactive for <strong className="text-[var(--negative)]">{elder.daysInactive} days</strong>
+                <span className="font-semibold text-sm text-text">{elder.name}</span>
+                <div className="text-text-secondary mt-0.5">
+                  {elder.chapter} • Inactive for <strong className="text-negative">{elder.daysInactive} days</strong>
                 </div>
-                <p className="text-[var(--text-tertiary)] mt-1">Risk trigger: {elder.reason}</p>
+                <p className="text-text-secondary mt-1">Risk trigger: {elder.reason}</p>
               </div>
               <Link to="/follow-ups">
                 <Button size="sm" variant="outline">Assign volunteer</Button>

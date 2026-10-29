@@ -37,12 +37,12 @@ export const ReferralNewPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/referrals" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/referrals" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Referrals
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">New referral</span>
+        <span className="text-text font-semibold">New referral</span>
       </div>
 
       <PageHeader
@@ -53,23 +53,23 @@ export const ReferralNewPage: React.FC = () => {
       <Card title="Referral parameters">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Select senior citizen</label>
+            <label className="block text-xs font-semibold text-text mb-1">Select senior citizen</label>
             <input
               type="text"
               required
               value={seniorName}
               onChange={(e) => setSeniorName(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Service required</label>
+              <label className="block text-xs font-semibold text-text mb-1">Service required</label>
               <select
                 value={serviceName}
                 onChange={(e) => setServiceName(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
               >
                 <option value="Geriatric Home Health Check-up">Geriatric Home Health Check-up</option>
                 <option value="Mobility Aid & Walker Assessment">Mobility Aid & Walker Assessment</option>
@@ -77,11 +77,11 @@ export const ReferralNewPage: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Assigned partner</label>
+              <label className="block text-xs font-semibold text-text mb-1">Assigned partner</label>
               <select
                 value={partnerName}
                 onChange={(e) => setPartnerName(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
               >
                 <option value="HealthBridge Geriatric Care">HealthBridge Geriatric Care</option>
                 <option value="Sanjeevani Mobility & Physiotherapy">Sanjeevani Mobility & Physiotherapy</option>
@@ -91,22 +91,22 @@ export const ReferralNewPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Clinical / Context notes</label>
+            <label className="block text-xs font-semibold text-text mb-1">Clinical / Context notes</label>
             <textarea
               required
               rows={3}
               placeholder="Reason for referral, observed symptoms, or special mobility requirements..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
-          <div className="p-3 rounded bg-[var(--surface-selected)] border border-[var(--border)] text-xs text-[var(--accent)]">
+          <div className="p-3 rounded bg-informative-tint border border-border text-xs text-accent">
             Consent check: Senior has granted consent for sharing relevant health records with vetted partners.
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[var(--border)]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
             <Link to="/referrals">
               <Button variant="outline" type="button">Cancel</Button>
             </Link>

@@ -17,12 +17,12 @@ export const ExportsPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/reports" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/reports" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Reports
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Data exports</span>
+        <span className="text-text font-semibold">Data exports</span>
       </div>
 
       <PageHeader
@@ -33,11 +33,11 @@ export const ExportsPage: React.FC = () => {
       <Card title="Export configuration">
         <div className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Select dataset</label>
+            <label className="block text-xs font-semibold text-text mb-1">Select dataset</label>
             <select
               value={dataset}
               onChange={(e) => setDataset(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
             >
               <option value="seniors">Senior Citizen Demographics & Baseline Health</option>
               <option value="attendance">Session Attendance Roster & Heatmap Data</option>
@@ -47,22 +47,22 @@ export const ExportsPage: React.FC = () => {
             </select>
           </div>
 
-          <div className="p-4 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)] flex items-start gap-3">
+          <div className="p-4 rounded-lg bg-surface-subtle border border-border flex items-start gap-3">
             <input
               type="checkbox"
               id="maskPii"
               checked={maskPii}
               onChange={(e) => setMaskPii(e.target.checked)}
-              className="mt-1 h-4 w-4 rounded border-[var(--border)] text-[var(--accent)] focus:ring-[var(--accent)]"
+              className="mt-1 h-4 w-4 rounded border-border text-accent focus:ring-[var(--accent)]"
             />
-            <label htmlFor="maskPii" className="text-xs text-[var(--text)]">
+            <label htmlFor="maskPii" className="text-xs text-text">
               <strong className="block font-semibold">Enforce PII Masking (Recommended)</strong>
               Masks direct identifiers (phone numbers, full addresses, next-of-kin names) per DPDP Act standards.
             </label>
           </div>
 
-          <div className="flex items-center justify-between pt-4 border-t border-[var(--border)]">
-            {exported && <span className="text-xs text-[var(--positive)] font-semibold">CSV export generated and downloaded!</span>}
+          <div className="flex items-center justify-between pt-4 border-t border-border">
+            {exported && <span className="text-xs text-positive font-semibold">CSV export generated and downloaded!</span>}
             <Button variant="primary" onClick={handleDownload} icon={<Download size={16} />}>
               Generate & download CSV
             </Button>

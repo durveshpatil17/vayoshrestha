@@ -38,12 +38,12 @@ export const ServiceNewPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/services" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/services" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Services
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">New service</span>
+        <span className="text-text font-semibold">New service</span>
       </div>
 
       <PageHeader
@@ -54,24 +54,24 @@ export const ServiceNewPage: React.FC = () => {
       <Card title="Service details">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Service name</label>
+            <label className="block text-xs font-semibold text-text mb-1">Service name</label>
             <input
               type="text"
               required
               placeholder="e.g. Geriatric Home Physiotherapy"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Category</label>
+              <label className="block text-xs font-semibold text-text mb-1">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
               >
                 <option value="Clinical Care">Clinical Care</option>
                 <option value="Assistive Devices">Assistive Devices</option>
@@ -80,11 +80,11 @@ export const ServiceNewPage: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Cost to senior</label>
+              <label className="block text-xs font-semibold text-text mb-1">Cost to senior</label>
               <select
                 value={costType}
                 onChange={(e) => setCostType(e.target.value as any)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
               >
                 <option value="Free">Free / Fully funded</option>
                 <option value="Subsidised">Subsidised by NGO</option>
@@ -94,41 +94,41 @@ export const ServiceNewPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Description</label>
+            <label className="block text-xs font-semibold text-text mb-1">Description</label>
             <textarea
               required
               rows={3}
               placeholder="Scope of service, eligibility, and booking instructions..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Partner contact person</label>
+              <label className="block text-xs font-semibold text-text mb-1">Partner contact person</label>
               <input
                 type="text"
                 required
                 value={contactPerson}
                 onChange={(e) => setContactPerson(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Partner contact phone</label>
+              <label className="block text-xs font-semibold text-text mb-1">Partner contact phone</label>
               <input
                 type="text"
                 required
                 value={contactPhone}
                 onChange={(e) => setContactPhone(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[var(--border)]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
             <Link to="/services">
               <Button variant="outline" type="button">Cancel</Button>
             </Link>

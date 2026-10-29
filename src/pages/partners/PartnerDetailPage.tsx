@@ -25,12 +25,12 @@ export const PartnerDetailPage: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/partners" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/partners" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Partners
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">{partner.name}</span>
+        <span className="text-text font-semibold">{partner.name}</span>
       </div>
 
       <PageHeader
@@ -46,28 +46,28 @@ export const PartnerDetailPage: React.FC = () => {
           <Card title="MOU & organisation details">
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <span className="text-[var(--text-secondary)] block">Legal entity type</span>
-                <span className="text-sm font-semibold text-[var(--text)]">{partner.type}</span>
+                <span className="text-text-secondary block">Legal entity type</span>
+                <span className="text-sm font-semibold text-text">{partner.type}</span>
               </div>
               <div>
-                <span className="text-[var(--text-secondary)] block">MOU status</span>
-                <span className="text-sm font-semibold text-[var(--positive)]">{partner.mouStatus.replace('_', ' ')}</span>
+                <span className="text-text-secondary block">MOU status</span>
+                <span className="text-sm font-semibold text-positive">{partner.mouStatus.replace('_', ' ')}</span>
               </div>
               <div>
-                <span className="text-[var(--text-secondary)] block">Primary contact</span>
-                <span className="text-sm font-semibold text-[var(--text)]">{partner.contactPerson}</span>
+                <span className="text-text-secondary block">Primary contact</span>
+                <span className="text-sm font-semibold text-text">{partner.contactPerson}</span>
               </div>
               <div>
-                <span className="text-[var(--text-secondary)] block">Official email</span>
-                <span className="text-sm font-semibold text-[var(--text)]">{partner.email}</span>
+                <span className="text-text-secondary block">Official email</span>
+                <span className="text-sm font-semibold text-text">{partner.email}</span>
               </div>
               <div>
-                <span className="text-[var(--text-secondary)] block">Direct phone</span>
-                <span className="text-sm font-semibold text-[var(--text)]">{partner.phone}</span>
+                <span className="text-text-secondary block">Direct phone</span>
+                <span className="text-sm font-semibold text-text">{partner.phone}</span>
               </div>
               <div>
-                <span className="text-[var(--text-secondary)] block">Operating city</span>
-                <span className="text-sm font-semibold text-[var(--text)]">{partner.city}</span>
+                <span className="text-text-secondary block">Operating city</span>
+                <span className="text-sm font-semibold text-text">{partner.city}</span>
               </div>
             </div>
           </Card>
@@ -77,8 +77,8 @@ export const PartnerDetailPage: React.FC = () => {
               {assignedReferrals.map((r) => (
                 <div key={r.id} className="py-3 flex items-center justify-between">
                   <div>
-                    <span className="font-semibold text-sm text-[var(--text)]">{r.seniorName}</span>
-                    <div className="text-[var(--text-secondary)] mt-0.5">{r.serviceName} • {r.id}</div>
+                    <span className="font-semibold text-sm text-text">{r.seniorName}</span>
+                    <div className="text-text-secondary mt-0.5">{r.serviceName} • {r.id}</div>
                   </div>
                   <StatusChip
                     label={r.status.replace('_', ' ')}
@@ -92,7 +92,7 @@ export const PartnerDetailPage: React.FC = () => {
 
         <div className="space-y-6">
           <Card title="Partner portal login">
-            <div className="space-y-3 text-xs text-[var(--text-secondary)]">
+            <div className="space-y-3 text-xs text-text-secondary">
               <p>
                 Service partners log into their dedicated external dashboard to view assigned senior referrals and submit consultation outcomes.
               </p>

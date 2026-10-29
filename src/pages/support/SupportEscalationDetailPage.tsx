@@ -37,12 +37,12 @@ export const SupportEscalationDetailPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/support/escalations" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/support/escalations" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Escalations
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">{escalation.id}</span>
+        <span className="text-text font-semibold">{escalation.id}</span>
       </div>
 
       <PageHeader
@@ -51,7 +51,7 @@ export const SupportEscalationDetailPage: React.FC = () => {
       />
 
       <Card title="Clinical trigger description">
-        <div className="p-3.5 rounded bg-[var(--negative-tint)] border border-[var(--border)] text-sm text-[var(--negative)]">
+        <div className="p-3.5 rounded bg-negative-tint border border-border text-sm text-negative">
           <strong>Observation:</strong> {escalation.triggeredBy}
         </div>
       </Card>
@@ -59,18 +59,18 @@ export const SupportEscalationDetailPage: React.FC = () => {
       <Card title="Clinical response & discharge plan">
         <div className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Clinician consultation notes</label>
+            <label className="block text-xs font-semibold text-text mb-1">Clinician consultation notes</label>
             <textarea
               rows={4}
               placeholder="Record diagnostic impression, updated medication dosage, and family advice..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
           <div className="flex items-center justify-between pt-2">
-            <span className="text-xs text-[var(--text-secondary)]">
+            <span className="text-xs text-text-secondary">
               Status: <strong>{resolved ? 'Resolved' : 'Active Escalation'}</strong>
             </span>
             <Button variant="primary" onClick={handleResolve} disabled={resolved}>

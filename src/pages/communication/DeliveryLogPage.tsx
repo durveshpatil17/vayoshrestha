@@ -38,12 +38,12 @@ export const DeliveryLogPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/communication" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/communication" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Communication
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Delivery monitor</span>
+        <span className="text-text font-semibold">Delivery monitor</span>
       </div>
 
       <PageHeader
@@ -57,23 +57,23 @@ export const DeliveryLogPage: React.FC = () => {
             <div key={m.id} className="py-3.5 space-y-1">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-sm font-semibold text-[var(--text)]">{m.recipient}</span>
-                  <span className="text-xs text-[var(--text-secondary)] ml-2">({m.chapter})</span>
+                  <span className="text-sm font-semibold text-text">{m.recipient}</span>
+                  <span className="text-xs text-text-secondary ml-2">({m.chapter})</span>
                 </div>
                 <span
                   className={`text-xs font-semibold px-2 py-0.5 rounded ${
                     m.status === 'Read'
-                      ? 'bg-[var(--positive-tint)] text-[var(--positive)]'
+                      ? 'bg-positive-tint text-positive'
                       : m.status === 'Delivered_SMS'
-                      ? 'bg-[var(--surface-selected)] text-[var(--accent)]'
-                      : 'bg-[var(--surface-subtle)] text-[var(--text-secondary)]'
+                      ? 'bg-informative-tint text-accent'
+                      : 'bg-surface-subtle text-text-secondary'
                   }`}
                 >
                   {m.status.replace('_', ' ')}
                 </span>
               </div>
-              <div className="text-xs text-[var(--text-secondary)]">Template: <strong>{m.template}</strong></div>
-              <div className="text-xs tabular-nums text-[var(--text-tertiary)] bg-[var(--surface-subtle)] p-2 rounded mt-1">
+              <div className="text-xs text-text-secondary">Template: <strong>{m.template}</strong></div>
+              <div className="text-xs tabular-nums text-text-secondary bg-surface-subtle p-2 rounded mt-1">
                 {m.timeline}
               </div>
             </div>

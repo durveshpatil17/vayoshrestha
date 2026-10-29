@@ -141,7 +141,7 @@ export const SettingsPage: React.FC = () => {
                 onChange={(e) => setSettings({ ...settings, activeMemberWindowDays: parseInt(e.target.value, 10) || 30 })}
                 className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent tabular-nums"
               />
-              <span className="text-[11px] text-text-muted mt-1 block">Default: 30 days</span>
+              <span className="text-xs text-text-muted mt-1 block">Default: 30 days</span>
             </div>
 
             <div>
@@ -152,7 +152,7 @@ export const SettingsPage: React.FC = () => {
                 onChange={(e) => setSettings({ ...settings, attendanceLockHours: parseInt(e.target.value, 10) || 24 })}
                 className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent tabular-nums"
               />
-              <span className="text-[11px] text-text-muted mt-1 block">Corrections needed after lock</span>
+              <span className="text-xs text-text-muted mt-1 block">Corrections needed after lock</span>
             </div>
 
             <div>
@@ -163,7 +163,7 @@ export const SettingsPage: React.FC = () => {
                 onChange={(e) => setSettings({ ...settings, whatsappMessageVolumeCap: parseInt(e.target.value, 10) || 10000 })}
                 className="w-full border border-border-hairline rounded p-2.5 bg-bg-base text-text-primary focus:ring-1 focus:ring-accent tabular-nums"
               />
-              <span className="text-[11px] text-text-muted mt-1 block">10,000 monthly pilot limit</span>
+              <span className="text-xs text-text-muted mt-1 block">10,000 monthly pilot limit</span>
             </div>
           </div>
         </div>

@@ -19,12 +19,12 @@ export const TemplateDetailPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/communication/templates" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/communication/templates" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Templates
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">{id || 'TPL-001'}</span>
+        <span className="text-text font-semibold">{id || 'TPL-001'}</span>
       </div>
 
       <PageHeader
@@ -34,7 +34,7 @@ export const TemplateDetailPage: React.FC = () => {
 
       <Card title="Multi-language translations">
         <div className="space-y-4">
-          <div className="flex gap-2 border-b border-[var(--border)] pb-2">
+          <div className="flex gap-2 border-b border-border pb-2">
             {[
               { key: 'en', label: 'English' },
               { key: 'hi', label: 'हिंदी (Hindi)' },
@@ -47,8 +47,8 @@ export const TemplateDetailPage: React.FC = () => {
                 onClick={() => setLang(l.key as any)}
                 className={`px-3 py-1.5 text-xs font-semibold rounded transition-colors ${
                   lang === l.key
-                    ? 'bg-[var(--surface-selected)] text-[var(--accent)]'
-                    : 'text-[var(--text-secondary)] hover:text-[var(--text)]'
+                    ? 'bg-informative-tint text-accent'
+                    : 'text-text-secondary hover:text-text'
                 }`}
               >
                 {l.label}
@@ -56,11 +56,11 @@ export const TemplateDetailPage: React.FC = () => {
             ))}
           </div>
 
-          <div className="p-4 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)] text-sm leading-relaxed font-sans">
+          <div className="p-4 rounded-lg bg-surface-subtle border border-border text-sm leading-relaxed font-sans">
             {variants[lang]}
           </div>
 
-          <div className="p-3 rounded bg-[var(--surface-selected)] border border-[var(--border)] text-xs text-[var(--accent)] flex items-center gap-2">
+          <div className="p-3 rounded bg-informative-tint border border-border text-xs text-accent flex items-center gap-2">
             <CheckCircle2 size={16} />
             <span>Interactive quick-reply buttons configured: <strong>[ Yes, Attending ]</strong>, <strong>[ Need Transport ]</strong>, <strong>[ Cannot Attend ]</strong></span>
           </div>

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { mockStore } from '@/mock/store';
 import { useAuthStore } from '@/store/authStore';
 import { AuditEvent } from '@/api/contracts';
-import { ShieldCheck, Search, Filter, Hash, ArrowLeft, Download } from 'lucide-react';
+import { ShieldCheck, Search, Filter, Hash, ArrowLeft, Download, CheckCircle2, X } from 'lucide-react';
 
 export const AuditLogsPage: React.FC = () => {
   const { user } = useAuthStore();
@@ -81,7 +81,7 @@ export const AuditLogsPage: React.FC = () => {
       <div className="bg-white border border-border-hairline rounded overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-surface-subtle border-b border-border-hairline text-text-muted font-medium">
+            <thead className="bg-surface-subtle border-b border-border-hairline text-text-muted font-semibold">
               <tr>
                 <th className="py-2.5 px-4">Timestamp (IST)</th>
                 <th className="py-2.5 px-4">Actor & Role</th>
@@ -100,11 +100,11 @@ export const AuditLogsPage: React.FC = () => {
                       timeZone: 'Asia/Kolkata',
                     })}
                   </td>
-                  <td className="py-2.5 px-4 font-sans font-medium text-text-primary">
+                  <td className="py-2.5 px-4 font-sans font-semibold text-text-primary">
                     {ev.actorName || ev.actorId} ({ev.actorRole})
                   </td>
                   <td className="py-2.5 px-4 font-sans">
-                    <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-surface-subtle border border-border-hairline text-text-primary">
+                    <span className="px-1.5 py-0.5 rounded text-xs font-semibold bg-surface-subtle border border-border-hairline text-text-primary">
                       {ev.action}
                     </span>
                   </td>
@@ -114,8 +114,14 @@ export const AuditLogsPage: React.FC = () => {
                   <td className="py-2.5 px-4 font-sans text-text-muted max-w-xs truncate">
                     {ev.details || ev.reason || 'Standard operation'}
                   </td>
-                  <td className="py-2.5 px-4 text-text-muted text-[10px] tabular-nums">
-                    {ev.hash ? `${ev.hash.slice(0, 10)}...` : '✓ Chain Valid'}
+                  <td className="py-2.5 px-4 text-text-muted text-xs tabular-nums">
+                    {ev.hash ? (
+                      `${ev.hash.slice(0, 10)}...`
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-positive font-semibold">
+                        <CheckCircle2 className="w-3.5 h-3.5" /> Chain Valid
+                      </span>
+                    )}
                   </td>
                   <td className="py-2.5 px-4 text-right font-sans">
                     <button
@@ -142,9 +148,9 @@ export const AuditLogsPage: React.FC = () => {
               </h3>
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="text-text-muted hover:text-text-primary font-semibold"
+                className="text-text-muted hover:text-text-primary font-semibold p-1"
               >
-                ✕
+                <X className="w-4 h-4 stroke-[1.5]" />
               </button>
             </div>
 
@@ -170,7 +176,7 @@ export const AuditLogsPage: React.FC = () => {
                 </div>
                 <div>
                   <strong>Cryptographic Hash:</strong>{' '}
-                  <span className="tabular-nums text-[10px] break-all">
+                  <span className="tabular-nums text-xs break-all">
                     {selectedEvent.hash || 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'}
                   </span>
                 </div>
@@ -179,7 +185,7 @@ export const AuditLogsPage: React.FC = () => {
               {selectedEvent.diff && (
                 <div>
                   <span className="font-semibold text-text-primary block mb-1">State Diff:</span>
-                  <pre className="p-3 bg-surface-subtle border border-border-hairline rounded tabular-nums text-[11px] overflow-x-auto whitespace-pre-wrap max-h-40">
+                  <pre className="p-3 bg-surface-subtle border border-border-hairline rounded tabular-nums text-xs overflow-x-auto whitespace-pre-wrap max-h-40">
                     {JSON.stringify(selectedEvent.diff, null, 2)}
                   </pre>
                 </div>

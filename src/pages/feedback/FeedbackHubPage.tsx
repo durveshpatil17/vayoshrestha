@@ -30,22 +30,22 @@ export const FeedbackHubPage: React.FC = () => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Average satisfaction score</span>
-          <span className="text-2xl font-semibold text-[var(--positive)] tabular-nums flex items-center justify-center gap-1">
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Average satisfaction score</span>
+          <span className="text-2xl font-semibold text-positive tabular-nums flex items-center justify-center gap-1">
             <Star size={20} fill="currentColor" /> 4.8 / 5.0
           </span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">Based on 182 verified surveys</span>
+          <span className="text-xs text-text-secondary block mt-1">Based on 182 verified surveys</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Net promoter score (NPS)</span>
-          <span className="text-2xl font-semibold text-[var(--positive)] tabular-nums">+74</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">Exceptional elder recommendation</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Net promoter score (NPS)</span>
+          <span className="text-2xl font-semibold text-positive tabular-nums">+74</span>
+          <span className="text-xs text-text-secondary block mt-1">Exceptional elder recommendation</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Actionable follow-ups created</span>
-          <span className="text-2xl font-semibold text-[var(--accent)] tabular-nums">6</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">Converted to coordinator tasks</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Actionable follow-ups created</span>
+          <span className="text-2xl font-semibold text-accent tabular-nums">6</span>
+          <span className="text-xs text-text-secondary block mt-1">Converted to coordinator tasks</span>
         </div>
       </div>
 
@@ -55,17 +55,17 @@ export const FeedbackHubPage: React.FC = () => {
             <div key={fb.id} className="py-4 space-y-1">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-sm font-semibold text-[var(--text)]">{fb.seniorName || 'Anonymous Member'}</span>
-                  <span className="text-xs text-[var(--text-secondary)] ml-2">({fb.channel})</span>
+                  <span className="text-sm font-semibold text-text">{fb.seniorName || 'Anonymous Member'}</span>
+                  <span className="text-xs text-text-secondary ml-2">({fb.channel})</span>
                 </div>
-                <span className="text-xs font-semibold text-[var(--positive)] flex items-center gap-1">
+                <span className="text-xs font-semibold text-positive flex items-center gap-1">
                   <Star size={12} fill="currentColor" /> {fb.rating} / 5
                 </span>
               </div>
               {fb.programmeName && (
-                <div className="text-xs text-[var(--text-secondary)]">Programme: <strong>{fb.programmeName}</strong></div>
+                <div className="text-xs text-text-secondary">Programme: <strong>{fb.programmeName}</strong></div>
               )}
-              <p className="text-xs text-[var(--text)] pt-1 italic">"{fb.feedbackText}"</p>
+              <p className="text-xs text-text pt-1 italic">"{fb.feedbackText}"</p>
             </div>
           ))}
         </div>

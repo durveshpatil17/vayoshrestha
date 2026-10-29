@@ -24,25 +24,25 @@ export const CommunicationHubPage: React.FC = () => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Messages sent today</span>
-          <span className="text-2xl font-semibold text-[var(--text)] tabular-nums">482</span>
-          <span className="text-xs text-[var(--positive)] font-semibold block mt-1">Cap: 5 msgs/senior/day</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Messages sent today</span>
+          <span className="text-2xl font-semibold text-text tabular-nums">482</span>
+          <span className="text-xs text-positive font-semibold block mt-1">Cap: 5 msgs/senior/day</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Delivery success rate</span>
-          <span className="text-2xl font-semibold text-[var(--positive)] tabular-nums">98.6%</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">WhatsApp Cloud API</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Delivery success rate</span>
+          <span className="text-2xl font-semibold text-positive tabular-nums">98.6%</span>
+          <span className="text-xs text-text-secondary block mt-1">WhatsApp Cloud API</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Active broadcast templates</span>
-          <span className="text-2xl font-semibold text-[var(--text)] tabular-nums">16</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">5 languages approved</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Active broadcast templates</span>
+          <span className="text-2xl font-semibold text-text tabular-nums">16</span>
+          <span className="text-xs text-text-secondary block mt-1">5 languages approved</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Consent opt-in rate</span>
-          <span className="text-2xl font-semibold text-[var(--accent)] tabular-nums">99.1%</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">Digital DPDP-ready consent</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Consent opt-in rate</span>
+          <span className="text-2xl font-semibold text-accent tabular-nums">99.1%</span>
+          <span className="text-xs text-text-secondary block mt-1">Digital DPDP-ready consent</span>
         </div>
       </div>
 
@@ -53,25 +53,25 @@ export const CommunicationHubPage: React.FC = () => {
               {[
                 {
                   to: '/communication/templates',
-                  icon: <FileText size={20} className="text-[var(--accent)]" />,
+                  icon: <FileText size={20} className="text-accent" />,
                   title: 'Template manager',
                   desc: 'Pre-approved WhatsApp Interactive message templates across Hindi, Marathi, Kannada, Tamil, and English.',
                 },
                 {
                   to: '/communication/announcements',
-                  icon: <Bell size={20} className="text-[var(--accent)]" />,
+                  icon: <Bell size={20} className="text-accent" />,
                   title: 'Broadcast announcements',
                   desc: 'Targeted chapter bulletins for festival timings, weather alerts, and doctor visit schedules.',
                 },
                 {
                   to: '/communication/delivery',
-                  icon: <CheckCheck size={20} className="text-[var(--accent)]" />,
+                  icon: <CheckCheck size={20} className="text-accent" />,
                   title: 'Delivery monitor & queue log',
                   desc: 'Live message queue status, failed recipient retries, and SMS fallback audit.',
                 },
                 {
                   to: '/communication/consents',
-                  icon: <ShieldCheck size={20} className="text-[var(--accent)]" />,
+                  icon: <ShieldCheck size={20} className="text-accent" />,
                   title: 'Consent & opt-out registry',
                   desc: 'Manage elder communication preferences, language choices, and quiet-hours adherence.',
                 },
@@ -79,15 +79,15 @@ export const CommunicationHubPage: React.FC = () => {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="py-4 flex items-center justify-between hover:bg-[var(--surface-hover)] px-2 rounded transition-colors"
+                  className="py-4 flex items-center justify-between hover:bg-surface-hover px-2 rounded transition-colors"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="p-2.5 rounded bg-[var(--surface-subtle)] shrink-0">
+                    <div className="p-2.5 rounded bg-surface-subtle shrink-0">
                       {item.icon}
                     </div>
                     <div>
-                      <h3 className="text-sm font-semibold text-[var(--text)] font-sans">{item.title}</h3>
-                      <p className="text-xs text-[var(--text-secondary)] mt-0.5">{item.desc}</p>
+                      <h3 className="text-sm font-semibold text-text font-sans">{item.title}</h3>
+                      <p className="text-xs text-text-secondary mt-0.5">{item.desc}</p>
                     </div>
                   </div>
                   <Button size="sm" variant="outline">Open</Button>
@@ -99,14 +99,14 @@ export const CommunicationHubPage: React.FC = () => {
 
         <div className="space-y-6">
           <Card title="Quiet hours policy">
-            <div className="space-y-3 text-xs text-[var(--text-secondary)]">
+            <div className="space-y-3 text-xs text-text-secondary">
               <p>
                 <strong>Active Window:</strong> 07:00 AM – 09:00 PM IST
               </p>
               <p>
                 Non-critical announcements and reminders are automatically queued outside this window to respect senior sleep routines.
               </p>
-              <div className="p-3 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-xs text-[var(--text)]">
+              <div className="p-3 rounded bg-surface-subtle border border-border text-xs text-text">
                 <strong>Exception:</strong> Emergency SOS alerts bypass quiet hours automatically.
               </div>
             </div>

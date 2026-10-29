@@ -284,3 +284,20 @@
   - Design-lint: 0 violations across all 8 files in `src/pages/health/`, 0 across all 3 files in `src/pages/onboarding/`, and 0 across all 4 files in `src/pages/seniors/`.
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U8: Tranche B Pages (Chapters, Programmes, Attendance, Communication, Services/Referrals/Partners, Feedback, Support, Reports, Admin).
+
+---
+
+## Loop U8: Tranche B Pages (Phase U: Final UI Design Pass)
+- **Goal**: Restyle and normalize all 69 pages in Tranche B (`/chapters/*`, `/programmes/*`, `/attendance/*`, `/communication/*`, `/services/*`, `/referrals/*`, `/partners/*`, `/partner/*`, `/feedback/*`, `/support/*`, `/reports/*`, `/admin/*`) to SAP Fiori Horizon and AWS Cloudscape design tokens, 0 design-lint violations, 400 and 600 font weights only, sentence case, no arbitrary brackets, and keep 100% green test suite.
+- **What Changed**:
+  - Replaced arbitrary bracket tokens with Tailwind token utilities across 69 files in `src/pages/`.
+  - Migrated `font-medium` to `font-semibold` or standard normal text.
+  - Replaced manual unicode glyphs (such as `✕`) with standard Lucide 1.5 icons (`X`, `CheckCircle2`).
+  - Removed `animate-pulse` from `src/pages/admin/IntegrationsPage.tsx`.
+  - Upgraded `scripts/design-lint.mjs` to handle multi-path CLI arguments and recursive folder exploration.
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+  - Design-lint: 0 violations across all 69 files in Tranche B.
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus).

@@ -48,8 +48,8 @@ export const SupportRequestsPage: React.FC = () => {
           ].map((req) => (
             <div key={req.id} className="py-3.5 flex items-center justify-between">
               <div>
-                <span className="font-semibold text-sm text-[var(--text)]">{req.senior}</span>
-                <div className="text-[var(--text-secondary)] mt-0.5">
+                <span className="font-semibold text-sm text-text">{req.senior}</span>
+                <div className="text-text-secondary mt-0.5">
                   Type: <strong>{req.type}</strong> • Hub: {req.hub} • Assigned to: {req.coordinator}
                 </div>
               </div>

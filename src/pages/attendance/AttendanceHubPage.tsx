@@ -34,20 +34,20 @@ export const AttendanceHubPage: React.FC = () => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Sessions needing attendance</span>
-          <span className="text-2xl font-semibold text-[var(--critical)] tabular-nums">{pendingAttendance.length || 1}</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">Requires volunteer or coordinator sign-off</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Sessions needing attendance</span>
+          <span className="text-2xl font-semibold text-critical tabular-nums">{pendingAttendance.length || 1}</span>
+          <span className="text-xs text-text-secondary block mt-1">Requires volunteer or coordinator sign-off</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Completed sessions this week</span>
-          <span className="text-2xl font-semibold text-[var(--positive)] tabular-nums">12</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">Rosters safely locked</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Completed sessions this week</span>
+          <span className="text-2xl font-semibold text-positive tabular-nums">12</span>
+          <span className="text-xs text-text-secondary block mt-1">Rosters safely locked</span>
         </div>
-        <div className="p-4 rounded-lg bg-surface border border-[var(--border)]">
-          <span className="text-xs text-[var(--text-secondary)] block">Pending correction requests</span>
-          <span className="text-2xl font-semibold text-[var(--text)] tabular-nums">2</span>
-          <span className="text-xs text-[var(--text-tertiary)] block mt-1">Awaiting NM maker-checker review</span>
+        <div className="p-4 rounded-lg bg-surface border border-border">
+          <span className="text-xs text-text-secondary block">Pending correction requests</span>
+          <span className="text-2xl font-semibold text-text tabular-nums">2</span>
+          <span className="text-xs text-text-secondary block mt-1">Awaiting NM maker-checker review</span>
         </div>
       </div>
 
@@ -57,11 +57,11 @@ export const AttendanceHubPage: React.FC = () => {
             pendingAttendance.map((sess) => (
               <div key={sess.id} className="py-4 flex items-center justify-between">
                 <div>
-                  <h3 className="text-sm font-semibold text-[var(--text)] font-sans">{sess.title}</h3>
-                  <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                  <h3 className="text-sm font-semibold text-text font-sans">{sess.title}</h3>
+                  <div className="text-xs text-text-secondary mt-0.5">
                     {sess.programmeName} • Chapter: {sess.chapterName} • Facilitator: {sess.instructorName}
                   </div>
-                  <div className="text-xs text-[var(--critical)] font-semibold mt-1 flex items-center gap-1">
+                  <div className="text-xs text-critical font-semibold mt-1 flex items-center gap-1">
                     <Clock size={12} /> Auto-locks in 14 hours 20 mins
                   </div>
                 </div>
@@ -73,7 +73,7 @@ export const AttendanceHubPage: React.FC = () => {
               </div>
             ))
           ) : (
-            <div className="py-6 text-center text-sm text-[var(--text-secondary)]">
+            <div className="py-6 text-center text-sm text-text-secondary">
               All recent session attendance rosters are fully submitted.
             </div>
           )}

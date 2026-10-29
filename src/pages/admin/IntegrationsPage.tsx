@@ -81,7 +81,7 @@ export const IntegrationsPage: React.FC = () => {
         <div className="bg-bg-base border border-border-hairline rounded p-4">
           <div className="flex items-center justify-between text-xs text-text-muted">
             <span>WhatsApp Business API</span>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
           </div>
           <div className="text-xl font-semibold text-text-primary mt-1">Operational (99.98%)</div>
           <div className="text-xs text-text-muted mt-1">Provider: Meta Cloud API / BSP Mock</div>
@@ -114,7 +114,7 @@ export const IntegrationsPage: React.FC = () => {
           <div className="p-3 bg-bg-subtle rounded border border-border-hairline flex items-center justify-between">
             <div>
               <span className="font-semibold text-text-primary">Handset Switched Off / Out of Coverage Area</span>
-              <span className="text-text-muted block text-[11px]">Provider Error Code: 131026</span>
+              <span className="text-text-muted block text-xs">Provider Error Code: 131026</span>
             </div>
             <span className="tabular-nums font-semibold text-rose-700">12 Failures</span>
           </div>
@@ -122,7 +122,7 @@ export const IntegrationsPage: React.FC = () => {
           <div className="p-3 bg-bg-subtle rounded border border-border-hairline flex items-center justify-between">
             <div>
               <span className="font-semibold text-text-primary">Number Not Registered on WhatsApp</span>
-              <span className="text-text-muted block text-[11px]">Provider Error Code: 131047</span>
+              <span className="text-text-muted block text-xs">Provider Error Code: 131047</span>
             </div>
             <span className="tabular-nums font-semibold text-rose-700">6 Failures</span>
           </div>
@@ -130,7 +130,7 @@ export const IntegrationsPage: React.FC = () => {
           <div className="p-3 bg-bg-subtle rounded border border-border-hairline flex items-center justify-between">
             <div>
               <span className="font-semibold text-text-primary">Explicit Channel Opt-out ("STOP" keyword logged)</span>
-              <span className="text-text-muted block text-[11px]">Internal Rule Block: FR-29 Consent Gate</span>
+              <span className="text-text-muted block text-xs">Internal Rule Block: FR-29 Consent Gate</span>
             </div>
             <span className="tabular-nums font-semibold text-amber-700">Blocked (By Design)</span>
           </div>

@@ -71,7 +71,7 @@ export const RolesMatrixPage: React.FC = () => {
           <button
             key={code}
             onClick={() => setActiveRole(code as RoleCode)}
-            className={`px-3 py-1.5 rounded text-xs font-medium transition-all ${
+            className={`px-3 py-1.5 rounded text-xs font-semibold transition-all ${
               activeRole === code
                 ? 'bg-accent text-white '
                 : 'bg-bg-base border border-border-hairline text-text-muted hover:text-text-primary'
@@ -111,20 +111,20 @@ export const RolesMatrixPage: React.FC = () => {
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <span className="font-medium text-text-primary tabular-nums text-[11px]">{capKey}</span>
+                  <span className="font-semibold text-text-primary tabular-nums text-xs">{capKey}</span>
                   {hasAccess ? (
-                    <span className="font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded text-[10px]">
+                    <span className="font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded text-xs">
                       {rule.actions.join(', ')}
                     </span>
                   ) : (
-                    <span className="text-text-muted text-[10px]">—</span>
+                    <span className="text-text-muted text-xs">—</span>
                   )}
                 </div>
 
                 {hasAccess && (
-                  <div className="text-[10px] text-text-muted flex items-center justify-between pt-1 border-t border-border-hairline/60">
+                  <div className="text-xs text-text-muted flex items-center justify-between pt-1 border-t border-border-hairline/60">
                     <span>Scope: <strong>{rule.scope}</strong></span>
-                    {rule.maskedFields && rule.maskedFields.length > 0 && <span className="text-amber-800 font-medium">Masked Fields</span>}
+                    {rule.maskedFields && rule.maskedFields.length > 0 && <span className="text-amber-800 font-semibold">Masked Fields</span>}
                   </div>
                 )}
               </div>

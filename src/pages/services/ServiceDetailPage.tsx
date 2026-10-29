@@ -23,12 +23,12 @@ export const ServiceDetailPage: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/services" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/services" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Services
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">{service.name}</span>
+        <span className="text-text font-semibold">{service.name}</span>
       </div>
 
       <PageHeader
@@ -45,26 +45,26 @@ export const ServiceDetailPage: React.FC = () => {
 
       <Card title="Service overview">
         <div className="space-y-4">
-          <p className="text-sm text-[var(--text)] leading-relaxed">
+          <p className="text-sm text-text leading-relaxed">
             {service.description}
           </p>
 
-          <div className="grid grid-cols-2 gap-4 text-xs pt-4 border-t border-[var(--border)]">
+          <div className="grid grid-cols-2 gap-4 text-xs pt-4 border-t border-border">
             <div>
-              <span className="text-[var(--text-secondary)] block">Pricing structure</span>
-              <span className="text-sm font-semibold text-[var(--text)]">{service.costType.replace('_', ' ')}</span>
+              <span className="text-text-secondary block">Pricing structure</span>
+              <span className="text-sm font-semibold text-text">{service.costType.replace('_', ' ')}</span>
             </div>
             <div>
-              <span className="text-[var(--text-secondary)] block">Partner organization</span>
-              <span className="text-sm font-semibold text-[var(--text)]">{service.partnerName}</span>
+              <span className="text-text-secondary block">Partner organization</span>
+              <span className="text-sm font-semibold text-text">{service.partnerName}</span>
             </div>
             <div>
-              <span className="text-[var(--text-secondary)] block">Lead contact</span>
-              <span className="text-sm font-semibold text-[var(--text)]">{service.contactPerson}</span>
+              <span className="text-text-secondary block">Lead contact</span>
+              <span className="text-sm font-semibold text-text">{service.contactPerson}</span>
             </div>
             <div>
-              <span className="text-[var(--text-secondary)] block">Contact telephone</span>
-              <span className="text-sm font-semibold text-[var(--text)]">{service.contactPhone}</span>
+              <span className="text-text-secondary block">Contact telephone</span>
+              <span className="text-sm font-semibold text-text">{service.contactPhone}</span>
             </div>
           </div>
         </div>

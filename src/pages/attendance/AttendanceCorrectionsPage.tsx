@@ -51,12 +51,12 @@ export const AttendanceCorrectionsPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/attendance" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/attendance" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Attendance
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Corrections</span>
+        <span className="text-text font-semibold">Corrections</span>
       </div>
 
       <PageHeader
@@ -64,7 +64,7 @@ export const AttendanceCorrectionsPage: React.FC = () => {
         subtitle="Maker-checker governance: locked session rosters cannot be edited without independent reviewer approval"
       />
 
-      <div className="p-4 rounded-lg bg-[var(--surface-selected)] border border-[var(--border)] text-sm text-[var(--text)]">
+      <div className="p-4 rounded-lg bg-informative-tint border border-border text-sm text-text">
         <strong>Maker-Checker Policy:</strong> The staff member who marked or requested an attendance edit (Maker) cannot approve their own request. Default approval role is <strong>NGO Management (NM)</strong> or <strong>Regional Admin (RA)</strong>.
       </div>
 
@@ -78,8 +78,8 @@ export const AttendanceCorrectionsPage: React.FC = () => {
               <div key={c.id} className="py-4 space-y-2">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-sm font-semibold text-[var(--text)] font-sans">{c.seniorName}</h3>
-                    <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                    <h3 className="text-sm font-semibold text-text font-sans">{c.seniorName}</h3>
+                    <div className="text-xs text-text-secondary mt-0.5">
                       Session: <strong>{c.sessionTitle}</strong> • Chapter: {c.chapter} • Requested on: {c.date}
                     </div>
                   </div>
@@ -89,15 +89,15 @@ export const AttendanceCorrectionsPage: React.FC = () => {
                   />
                 </div>
 
-                <div className="text-xs p-3 rounded bg-[var(--surface-subtle)] border border-[var(--border)] space-y-1">
+                <div className="text-xs p-3 rounded bg-surface-subtle border border-border space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-[var(--text-secondary)]">Change:</span>
-                    <span className="font-semibold text-[var(--negative)]">{c.currentStatus}</span>
+                    <span className="text-text-secondary">Change:</span>
+                    <span className="font-semibold text-negative">{c.currentStatus}</span>
                     <span>→</span>
-                    <span className="font-semibold text-[var(--positive)]">{c.requestedStatus}</span>
-                    <span className="text-[var(--text-tertiary)] ml-2">• Requested by {c.requestedBy}</span>
+                    <span className="font-semibold text-positive">{c.requestedStatus}</span>
+                    <span className="text-text-secondary ml-2">• Requested by {c.requestedBy}</span>
                   </div>
-                  <p className="text-[var(--text-secondary)] pt-1">
+                  <p className="text-text-secondary pt-1">
                     <strong>Reason:</strong> {c.reason}
                   </p>
                 </div>
@@ -105,7 +105,7 @@ export const AttendanceCorrectionsPage: React.FC = () => {
                 {isPending && (
                   <div className="flex items-center justify-end gap-3 pt-2">
                     {isOwnRequest ? (
-                      <span className="text-xs text-[var(--critical)] flex items-center gap-1 font-semibold">
+                      <span className="text-xs text-critical flex items-center gap-1 font-semibold">
                         <AlertCircle size={13} /> You are the Maker — awaiting independent review
                       </span>
                     ) : canApprove ? (
@@ -128,7 +128,7 @@ export const AttendanceCorrectionsPage: React.FC = () => {
                         </Button>
                       </>
                     ) : (
-                      <span className="text-xs text-[var(--text-tertiary)]">
+                      <span className="text-xs text-text-secondary">
                         Requires NM / RA approval
                       </span>
                     )}

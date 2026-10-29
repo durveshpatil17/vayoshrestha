@@ -8,12 +8,12 @@ import { Button } from '@/components/ui/Button';
 export const FeedbackFormsPage: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/feedback" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/feedback" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Feedback
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Survey forms</span>
+        <span className="text-text font-semibold">Survey forms</span>
       </div>
 
       <PageHeader
@@ -41,9 +41,9 @@ export const FeedbackFormsPage: React.FC = () => {
           },
         ].map((form, idx) => (
           <Card key={idx} title={form.title}>
-            <div className="space-y-2 text-xs text-[var(--text)]">
+            <div className="space-y-2 text-xs text-text">
               {form.questions.map((q, qIdx) => (
-                <div key={qIdx} className="p-2 rounded bg-[var(--surface-subtle)]">
+                <div key={qIdx} className="p-2 rounded bg-surface-subtle">
                   {q}
                 </div>
               ))}

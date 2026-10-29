@@ -75,20 +75,20 @@ export const ScheduleCalendarPage: React.FC = () => {
             return (
               <div key={sess.id} className="py-4 flex items-center justify-between">
                 <div className="flex items-start gap-4">
-                  <div className="w-16 text-center p-2 rounded bg-[var(--surface-subtle)] border border-[var(--border)] shrink-0">
-                    <span className="text-xs font-semibold text-[var(--accent)] block">
+                  <div className="w-16 text-center p-2 rounded bg-surface-subtle border border-border shrink-0">
+                    <span className="text-xs font-semibold text-accent block">
                       {dateObj.toLocaleDateString('en-IN', { weekday: 'short' })}
                     </span>
-                    <span className="text-lg font-semibold text-[var(--text)] tabular-nums block">
+                    <span className="text-lg font-semibold text-text tabular-nums block">
                       {dateObj.getDate()}
                     </span>
                   </div>
 
                   <div>
-                    <Link to={`/sessions/${sess.id}`} className="text-base font-semibold text-[var(--text)] hover:text-[var(--accent)]">
+                    <Link to={`/sessions/${sess.id}`} className="text-base font-semibold text-text hover:text-accent">
                       {sess.title}
                     </Link>
-                    <div className="text-xs text-[var(--text-secondary)] mt-1 flex flex-wrap items-center gap-3">
+                    <div className="text-xs text-text-secondary mt-1 flex flex-wrap items-center gap-3">
                       <span className="flex items-center gap-1">
                         <Clock size={13} /> {timeStr} ({sess.durationMinutes} min)
                       </span>
@@ -102,8 +102,8 @@ export const ScheduleCalendarPage: React.FC = () => {
 
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <span className="text-xs text-[var(--text-secondary)] block">Enrolled / Cap</span>
-                    <span className="text-sm font-semibold text-[var(--text)] tabular-nums">
+                    <span className="text-xs text-text-secondary block">Enrolled / Cap</span>
+                    <span className="text-sm font-semibold text-text tabular-nums">
                       {sess.enrolledCount} / {sess.capacity}
                     </span>
                   </div>

@@ -54,12 +54,12 @@ export const ChapterNewPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/chapters" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/chapters" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Chapters
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">New chapter</span>
+        <span className="text-text font-semibold">New chapter</span>
       </div>
 
       <PageHeader
@@ -71,22 +71,22 @@ export const ChapterNewPage: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Chapter code</label>
+              <label className="block text-xs font-semibold text-text mb-1">Chapter code</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. THN, GOA, KOL"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Region</label>
+              <label className="block text-xs font-semibold text-text mb-1">Region</label>
               <select
                 value={regionId}
                 onChange={(e) => setRegionId(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
               >
                 <option value="REG-W">West (REG-W)</option>
                 <option value="REG-S">South (REG-S)</option>
@@ -96,86 +96,86 @@ export const ChapterNewPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Chapter / Hub name</label>
+            <label className="block text-xs font-semibold text-text mb-1">Chapter / Hub name</label>
             <input
               type="text"
               required
               placeholder="e.g. Thane Ekta Hub (Naupada Centre)"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">City</label>
+              <label className="block text-xs font-semibold text-text mb-1">City</label>
               <input
                 type="text"
                 required
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">State</label>
+              <label className="block text-xs font-semibold text-text mb-1">State</label>
               <input
                 type="text"
                 required
                 value={state}
                 onChange={(e) => setState(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Facility street address</label>
+            <label className="block text-xs font-semibold text-text mb-1">Facility street address</label>
             <textarea
               required
               rows={2}
               placeholder="Full physical building and road address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Chapter coordinator name</label>
+              <label className="block text-xs font-semibold text-text mb-1">Chapter coordinator name</label>
               <input
                 type="text"
                 required
                 value={contactPerson}
                 onChange={(e) => setContactPerson(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Emergency contact phone</label>
+              <label className="block text-xs font-semibold text-text mb-1">Emergency contact phone</label>
               <input
                 type="text"
                 required
                 value={contactPhone}
                 onChange={(e) => setContactPhone(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Languages served (comma-separated)</label>
+            <label className="block text-xs font-semibold text-text mb-1">Languages served (comma-separated)</label>
             <input
               type="text"
               value={languages}
               onChange={(e) => setLanguages(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[var(--border)]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
             <Link to="/chapters">
               <Button variant="outline" type="button">Cancel</Button>
             </Link>

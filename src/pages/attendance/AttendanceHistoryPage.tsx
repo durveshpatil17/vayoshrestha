@@ -13,12 +13,12 @@ export const AttendanceHistoryPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/attendance" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/attendance" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Attendance
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">History heatmap</span>
+        <span className="text-text font-semibold">History heatmap</span>
       </div>
 
       <PageHeader
@@ -54,8 +54,8 @@ export const AttendanceHistoryPage: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[var(--border)] text-[var(--text-secondary)]">
-                <th className="py-2.5 px-3 font-semibold min-w-[160px]">Senior Member</th>
+              <tr className="border-b border-border text-text-secondary">
+                <th className="py-2.5 px-3 font-semibold min-w-40">Senior Member</th>
                 <th className="py-2.5 px-2 font-semibold">Rate</th>
                 {days.map((d) => (
                   <th key={d} className="py-2.5 px-1 font-semibold text-center w-6 tabular-nums">
@@ -72,11 +72,11 @@ export const AttendanceHistoryPage: React.FC = () => {
                 { name: 'Sulabha Joshi (SEN-004)', rate: '100%', pattern: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] },
                 { name: 'Dattatray Pawar (SEN-005)', rate: '78%', pattern: [1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1] },
               ].map((row, idx) => (
-                <tr key={idx} className="hover:bg-[var(--surface-hover)]">
-                  <td className="py-2.5 px-3 font-semibold text-[var(--text)] whitespace-nowrap">
+                <tr key={idx} className="hover:bg-surface-hover">
+                  <td className="py-2.5 px-3 font-semibold text-text whitespace-nowrap">
                     {row.name}
                   </td>
-                  <td className="py-2.5 px-2 font-semibold text-[var(--positive)] tabular-nums">
+                  <td className="py-2.5 px-2 font-semibold text-positive tabular-nums">
                     {row.rate}
                   </td>
                   {row.pattern.map((val, dIdx) => (
@@ -84,8 +84,8 @@ export const AttendanceHistoryPage: React.FC = () => {
                       <span
                         className={`inline-block w-4 h-4 rounded-sm ${
                           val === 1
-                            ? 'bg-[var(--positive)]'
-                            : 'bg-[var(--border-subtle)]'
+                            ? 'bg-positive'
+                            : 'bg-border-subtle'
                         }`}
                         title={`Day ${dIdx + 1}: ${val === 1 ? 'Attended' : 'No attendance'}`}
                       />
@@ -97,12 +97,12 @@ export const AttendanceHistoryPage: React.FC = () => {
           </table>
         </div>
 
-        <div className="flex items-center gap-4 pt-4 mt-4 border-t border-[var(--border)] text-xs text-[var(--text-secondary)]">
+        <div className="flex items-center gap-4 pt-4 mt-4 border-t border-border text-xs text-text-secondary">
           <span className="flex items-center gap-1.5">
-            <span className="inline-block w-3.5 h-3.5 rounded-sm bg-[var(--positive)]" /> Attended session
+            <span className="inline-block w-3.5 h-3.5 rounded-sm bg-positive" /> Attended session
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="inline-block w-3.5 h-3.5 rounded-sm bg-[var(--border-subtle)]" /> No session / Absent
+            <span className="inline-block w-3.5 h-3.5 rounded-sm bg-border-subtle" /> No session / Absent
           </span>
         </div>
       </Card>

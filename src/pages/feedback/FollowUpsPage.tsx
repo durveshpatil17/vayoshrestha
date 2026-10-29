@@ -24,16 +24,16 @@ export const FollowUpsPage: React.FC = () => {
             <div key={t.id} className="py-4 flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-semibold text-[var(--text)] font-sans">{t.seniorName}</h3>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)]">
+                  <h3 className="text-sm font-semibold text-text font-sans">{t.seniorName}</h3>
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded bg-surface-subtle border border-border">
                     {t.reason.replace('_', ' ')}
                   </span>
                 </div>
-                <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                <div className="text-xs text-text-secondary mt-0.5">
                   Due: <span className="tabular-nums font-semibold">{t.dueDate}</span> • Priority: <strong>{t.priority}</strong>
                 </div>
                 {t.outcomeNotes && (
-                  <p className="text-xs text-[var(--text-tertiary)] mt-1">Note: {t.outcomeNotes}</p>
+                  <p className="text-xs text-text-secondary mt-1">Note: {t.outcomeNotes}</p>
                 )}
               </div>
 

@@ -218,7 +218,15 @@
     - `ThresholdRulesPage.tsx`: Maker-checker approval banner, interactive rule evaluation scratchpad, BP and glucose threshold inputs.
     - `WellnessCallsPage.tsx`: Fiori List Report with telephone outreach queue and mark done action.
   - Verification: 0 design-lint violations, `tsc --noEmit` clean, 148 unit tests passing (100%).
-- [ ] **Loop U8: Tranche B Pages (Chapters, Programmes, Attendance, Communication, Services/Referrals/Partners, Feedback, Support, Reports, Admin)**
+- [x] **Loop U8: Tranche B Pages (Chapters, Programmes, Attendance, Communication, Services/Referrals/Partners, Feedback, Support, Reports, Admin) (Completed)**
+  - Normalized all token mappings across all 69 files in Tranche B (`chapters`, `programmes`, `attendance`, `communication`, `services`, `referrals`, `partners`, `partnerPortal`, `feedback`, `support`, `reports`, `admin`).
+  - Replaced arbitrary brackets with standard Tailwind token utilities (`text-text`, `text-accent`, `text-text-secondary`, `border-border`, `bg-page`, `bg-surface`, `bg-informative-tint`, `min-w-40`, `h-11 min-w-16`).
+  - Standardized font weights to 400 and 600 only (`font-normal` and `font-semibold`), eliminated all `font-medium`.
+  - Replaced all ad-hoc unicode symbols (such as `✕`) with standard 1.5-stroke Lucide icons (`X`, `CheckCircle2`).
+  - Removed strobing animations (`animate-pulse` in `IntegrationsPage.tsx`).
+  - Enhanced `scripts/design-lint.mjs` to support multi-path CLI arguments and directory recursion.
+  - Verification: 0 design-lint violations across all 69 files, `tsc --noEmit` clean, 148 unit tests passing (100%).
+- [ ] **Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus)**
 - [ ] **Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus)**
 - [ ] **Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844)**
 - [ ] **Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs**

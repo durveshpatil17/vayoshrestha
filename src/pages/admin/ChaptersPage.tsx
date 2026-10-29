@@ -120,7 +120,7 @@ export const ChaptersPage: React.FC = () => {
           <button
             key={ch.id}
             onClick={() => setSelectedChapterId(ch.id)}
-            className={`px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap transition-colors ${
+            className={`px-3 py-1.5 rounded text-xs font-semibold whitespace-nowrap transition-colors ${
               selectedChapterId === ch.id
                 ? 'bg-accent text-white font-semibold'
                 : 'bg-white border border-border-hairline text-text-primary hover:bg-surface-subtle'
@@ -163,7 +163,7 @@ export const ChaptersPage: React.FC = () => {
               </div>
               <div>
                 <span className="text-text-muted">Languages Served:</span>
-                <div className="text-text-primary font-medium mt-0.5">
+                <div className="text-text-primary font-semibold mt-0.5">
                   {selectedChapter.languagesServed?.join(', ') || 'English'}
                 </div>
               </div>
@@ -184,7 +184,7 @@ export const ChaptersPage: React.FC = () => {
                   <UserCheck className="w-4 h-4 text-accent" />
                   On-Duty Emergency Response Roster
                 </h3>
-                <p className="text-[11px] text-text-muted mt-0.5">
+                <p className="text-xs text-text-muted mt-0.5">
                   Staff receiving automated phone notifications when an unacknowledged SOS escalates.
                 </p>
               </div>
@@ -206,11 +206,11 @@ export const ChaptersPage: React.FC = () => {
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-text-primary">{member.userName}</span>
                         {member.isPrimaryResponder && (
-                          <span className="px-1.5 py-0.2 text-[9px] bg-accent text-white rounded font-semibold">
+                          <span className="px-1.5 py-0.2 text-xs bg-accent text-white rounded font-semibold">
                             Primary On-Call
                           </span>
                         )}
-                        <span className="px-1.5 py-0.2 text-[10px] bg-white border border-border-hairline rounded text-text-muted tabular-nums">
+                        <span className="px-1.5 py-0.2 text-xs bg-white border border-border-hairline rounded text-text-muted tabular-nums">
                           {member.role}
                         </span>
                       </div>
@@ -241,7 +241,7 @@ export const ChaptersPage: React.FC = () => {
 
             <form onSubmit={handleAddRosterMember} className="space-y-3 text-xs">
               <div>
-                <label className="block font-medium text-text-muted mb-1">Responder Full Name:</label>
+                <label className="block font-semibold text-text-muted mb-1">Responder Full Name:</label>
                 <input
                   type="text"
                   value={newRosterName}
@@ -254,7 +254,7 @@ export const ChaptersPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-medium text-text-muted mb-1">Role in Chapter:</label>
+                  <label className="block font-semibold text-text-muted mb-1">Role in Chapter:</label>
                   <select
                     value={newRosterRole}
                     onChange={(e) => setNewRosterRole(e.target.value as any)}
@@ -267,7 +267,7 @@ export const ChaptersPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block font-medium text-text-muted mb-1">Shift Hours:</label>
+                  <label className="block font-semibold text-text-muted mb-1">Shift Hours:</label>
                   <input
                     type="text"
                     value={newRosterShift}
@@ -280,7 +280,7 @@ export const ChaptersPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block font-medium text-text-muted mb-1">
+                <label className="block font-semibold text-text-muted mb-1">
                   On-Call Emergency Mobile (+91):
                 </label>
                 <input

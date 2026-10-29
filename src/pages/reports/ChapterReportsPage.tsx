@@ -8,12 +8,12 @@ import { Button } from '@/components/ui/Button';
 export const ChapterReportsPage: React.FC = () => {
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/reports" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/reports" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Reports
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Chapters</span>
+        <span className="text-text font-semibold">Chapters</span>
       </div>
 
       <PageHeader
@@ -30,7 +30,7 @@ export const ChapterReportsPage: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[var(--border)] text-[var(--text-secondary)]">
+              <tr className="border-b border-border text-text-secondary">
                 <th className="py-2.5 px-3 font-semibold">Chapter</th>
                 <th className="py-2.5 px-2 font-semibold">Region</th>
                 <th className="py-2.5 px-2 font-semibold">Enrolled</th>
@@ -47,14 +47,14 @@ export const ChapterReportsPage: React.FC = () => {
                 { name: 'Bengaluru Ekta Hub (HUB-BLR)', reg: 'South', enrolled: 180, vol: 14, ratio: '1:13', sos: '76s', att: '99.1%' },
                 { name: 'Nagpur Ekta Hub (HUB-NAG)', reg: 'West', enrolled: 85, vol: 6, ratio: '1:14', sos: '115s', att: '95.0%' },
               ].map((c, idx) => (
-                <tr key={idx} className="hover:bg-[var(--surface-hover)]">
-                  <td className="py-3 px-3 font-semibold text-[var(--text)]">{c.name}</td>
-                  <td className="py-3 px-2 text-[var(--text-secondary)]">{c.reg}</td>
-                  <td className="py-3 px-2 font-semibold text-[var(--text)] tabular-nums">{c.enrolled}</td>
-                  <td className="py-3 px-2 text-[var(--text-secondary)] tabular-nums">{c.vol}</td>
-                  <td className="py-3 px-2 text-[var(--positive)] font-semibold">{c.ratio}</td>
-                  <td className="py-3 px-2 text-[var(--text)] tabular-nums">{c.sos}</td>
-                  <td className="py-3 px-3 text-[var(--positive)] font-semibold tabular-nums">{c.att}</td>
+                <tr key={idx} className="hover:bg-surface-hover">
+                  <td className="py-3 px-3 font-semibold text-text">{c.name}</td>
+                  <td className="py-3 px-2 text-text-secondary">{c.reg}</td>
+                  <td className="py-3 px-2 font-semibold text-text tabular-nums">{c.enrolled}</td>
+                  <td className="py-3 px-2 text-text-secondary tabular-nums">{c.vol}</td>
+                  <td className="py-3 px-2 text-positive font-semibold">{c.ratio}</td>
+                  <td className="py-3 px-2 text-text tabular-nums">{c.sos}</td>
+                  <td className="py-3 px-3 text-positive font-semibold tabular-nums">{c.att}</td>
                 </tr>
               ))}
             </tbody>

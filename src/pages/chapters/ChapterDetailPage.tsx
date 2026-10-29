@@ -34,7 +34,7 @@ export const ChapterDetailPage: React.FC = () => {
     return (
       <div className="p-8 text-center">
         <h2 className="text-xl font-semibold">Chapter not found</h2>
-        <Link to="/chapters" className="text-[var(--accent)] text-sm mt-2 inline-block">Back to chapters</Link>
+        <Link to="/chapters" className="text-accent text-sm mt-2 inline-block">Back to chapters</Link>
       </div>
     );
   }
@@ -44,12 +44,12 @@ export const ChapterDetailPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/chapters" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/chapters" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Chapters
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">{chapter.name}</span>
+        <span className="text-text font-semibold">{chapter.name}</span>
       </div>
 
       <PageHeader
@@ -70,7 +70,7 @@ export const ChapterDetailPage: React.FC = () => {
       />
 
       {/* 7 Tabs */}
-      <div className="border-b border-[var(--border)] flex gap-6 overflow-x-auto">
+      <div className="border-b border-border flex gap-6 overflow-x-auto">
         {[
           { key: 'overview', label: 'Overview' },
           { key: 'schedule', label: 'Schedule' },
@@ -83,10 +83,10 @@ export const ChapterDetailPage: React.FC = () => {
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key as any)}
-            className={`pb-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 -mb-[2px] ${
+            className={`pb-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 -mb-0.5 ${
               activeTab === tab.key
-                ? 'border-[var(--accent)] text-[var(--accent)]'
-                : 'border-transparent text-[var(--text-secondary)] hover:text-[var(--text)]'
+                ? 'border-accent text-accent'
+                : 'border-transparent text-text-secondary hover:text-text'
             }`}
           >
             {tab.label}
@@ -101,45 +101,45 @@ export const ChapterDetailPage: React.FC = () => {
             <Card title="Chapter facility details">
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="text-xs text-[var(--text-secondary)] block">Address</span>
-                  <span className="font-semibold text-[var(--text)]">{chapter.address}</span>
+                  <span className="text-xs text-text-secondary block">Address</span>
+                  <span className="font-semibold text-text">{chapter.address}</span>
                 </div>
                 <div>
-                  <span className="text-xs text-[var(--text-secondary)] block">City & State</span>
-                  <span className="font-semibold text-[var(--text)]">{chapter.city}, {chapter.state}</span>
+                  <span className="text-xs text-text-secondary block">City & State</span>
+                  <span className="font-semibold text-text">{chapter.city}, {chapter.state}</span>
                 </div>
                 <div>
-                  <span className="text-xs text-[var(--text-secondary)] block">Centre coordinator</span>
-                  <span className="font-semibold text-[var(--text)]">{chapter.contactPerson}</span>
+                  <span className="text-xs text-text-secondary block">Centre coordinator</span>
+                  <span className="font-semibold text-text">{chapter.contactPerson}</span>
                 </div>
                 <div>
-                  <span className="text-xs text-[var(--text-secondary)] block">Contact phone</span>
-                  <span className="font-semibold text-[var(--text)]">{chapter.contactPhone}</span>
+                  <span className="text-xs text-text-secondary block">Contact phone</span>
+                  <span className="font-semibold text-text">{chapter.contactPhone}</span>
                 </div>
                 <div>
-                  <span className="text-xs text-[var(--text-secondary)] block">Languages supported</span>
-                  <span className="font-semibold text-[var(--text)]">{chapter.languagesServed?.join(', ') || 'English, Marathi'}</span>
+                  <span className="text-xs text-text-secondary block">Languages supported</span>
+                  <span className="font-semibold text-text">{chapter.languagesServed?.join(', ') || 'English, Marathi'}</span>
                 </div>
                 <div>
-                  <span className="text-xs text-[var(--text-secondary)] block">Operating hours</span>
-                  <span className="font-semibold text-[var(--text)]">Mon – Sat, 9:00 AM – 6:00 PM IST</span>
+                  <span className="text-xs text-text-secondary block">Operating hours</span>
+                  <span className="font-semibold text-text">Mon – Sat, 9:00 AM – 6:00 PM IST</span>
                 </div>
               </div>
             </Card>
 
             <Card title="Community impact snapshot">
               <div className="grid grid-cols-3 gap-4">
-                <div className="p-4 rounded bg-[var(--surface-subtle)] text-center">
-                  <div className="text-2xl font-semibold text-[var(--text)] tabular-nums">{registeredSeniors.length || 142}</div>
-                  <div className="text-xs text-[var(--text-secondary)] mt-1">Enrolled seniors</div>
+                <div className="p-4 rounded bg-surface-subtle text-center">
+                  <div className="text-2xl font-semibold text-text tabular-nums">{registeredSeniors.length || 142}</div>
+                  <div className="text-xs text-text-secondary mt-1">Enrolled seniors</div>
                 </div>
-                <div className="p-4 rounded bg-[var(--surface-subtle)] text-center">
-                  <div className="text-2xl font-semibold text-[var(--positive)] tabular-nums">94.2%</div>
-                  <div className="text-xs text-[var(--text-secondary)] mt-1">Session attendance rate</div>
+                <div className="p-4 rounded bg-surface-subtle text-center">
+                  <div className="text-2xl font-semibold text-positive tabular-nums">94.2%</div>
+                  <div className="text-xs text-text-secondary mt-1">Session attendance rate</div>
                 </div>
-                <div className="p-4 rounded bg-[var(--surface-subtle)] text-center">
-                  <div className="text-2xl font-semibold text-[var(--accent)] tabular-nums">18</div>
-                  <div className="text-xs text-[var(--text-secondary)] mt-1">Monthly sessions</div>
+                <div className="p-4 rounded bg-surface-subtle text-center">
+                  <div className="text-2xl font-semibold text-accent tabular-nums">18</div>
+                  <div className="text-xs text-text-secondary mt-1">Monthly sessions</div>
                 </div>
               </div>
             </Card>
@@ -148,15 +148,15 @@ export const ChapterDetailPage: React.FC = () => {
           <div className="space-y-6">
             <Card title="Primary emergency contact">
               <div className="space-y-3 text-sm">
-                <div className="flex items-center gap-3 p-3 rounded bg-[var(--surface-selected)] border border-[var(--border)]">
-                  <ShieldCheck size={20} className="text-[var(--accent)] shrink-0" />
+                <div className="flex items-center gap-3 p-3 rounded bg-informative-tint border border-border">
+                  <ShieldCheck size={20} className="text-accent shrink-0" />
                   <div>
-                    <div className="font-semibold text-[var(--text)]">{chapter.contactPerson}</div>
-                    <div className="text-xs text-[var(--text-secondary)]">Primary Hub Responder</div>
-                    <div className="text-xs font-semibold text-[var(--accent)] mt-0.5">{chapter.contactPhone}</div>
+                    <div className="font-semibold text-text">{chapter.contactPerson}</div>
+                    <div className="text-xs text-text-secondary">Primary Hub Responder</div>
+                    <div className="text-xs font-semibold text-accent mt-0.5">{chapter.contactPhone}</div>
                   </div>
                 </div>
-                <p className="text-xs text-[var(--text-tertiary)]">
+                <p className="text-xs text-text-secondary">
                   Calls forwarded automatically if unanswered within 120 seconds.
                 </p>
               </div>
@@ -177,14 +177,14 @@ export const ChapterDetailPage: React.FC = () => {
             ].map((s, idx) => (
               <div key={idx} className="py-3 flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-semibold text-[var(--text)]">{s.title}</div>
-                  <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                  <div className="text-sm font-semibold text-text">{s.title}</div>
+                  <div className="text-xs text-text-secondary mt-0.5">
                     {s.day} • {s.room} • Facilitator: {s.instructor}
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className="text-xs text-[var(--text-secondary)] block">Registered</span>
-                  <span className="text-sm font-semibold text-[var(--text)] tabular-nums">{s.capacity}</span>
+                  <span className="text-xs text-text-secondary block">Registered</span>
+                  <span className="text-sm font-semibold text-text tabular-nums">{s.capacity}</span>
                 </div>
               </div>
             ))}
@@ -200,8 +200,8 @@ export const ChapterDetailPage: React.FC = () => {
               chapterStaff.map((staff) => (
                 <div key={staff.id} className="py-3 flex items-center justify-between">
                   <div>
-                    <div className="text-sm font-semibold text-[var(--text)]">{staff.fullName}</div>
-                    <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                    <div className="text-sm font-semibold text-text">{staff.fullName}</div>
+                    <div className="text-xs text-text-secondary mt-0.5">
                       Role: <strong>{staff.role}</strong> • Email: {staff.email}
                     </div>
                   </div>
@@ -209,7 +209,7 @@ export const ChapterDetailPage: React.FC = () => {
                 </div>
               ))
             ) : (
-              <div className="py-6 text-center text-sm text-[var(--text-secondary)]">
+              <div className="py-6 text-center text-sm text-text-secondary">
                 Coordinator: {chapter.contactPerson} ({chapter.contactPhone})
               </div>
             )}
@@ -221,21 +221,21 @@ export const ChapterDetailPage: React.FC = () => {
       {activeTab === 'roster' && (
         <Card title="SOS Duty Roster & Escalation Roster">
           <div className="space-y-4">
-            <div className="text-xs text-[var(--text-secondary)]">
+            <div className="text-xs text-text-secondary">
               Primary responders are notified immediately on emergency SOS trigger via interactive WhatsApp prompt and audible chime.
             </div>
             <div className="divide-y divide-[var(--border-subtle)]">
               {(chapter.onDutyRoster || []).map((m, idx) => (
                 <div key={idx} className="py-3 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded bg-[var(--surface-subtle)] text-[var(--accent)]">
+                    <div className="p-2 rounded bg-surface-subtle text-accent">
                       <UserCheck size={18} />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-[var(--text)]">
-                        {m.userName} {m.isPrimaryResponder && <span className="text-xs text-[var(--accent)] font-semibold">(Primary Responder)</span>}
+                      <div className="text-sm font-semibold text-text">
+                        {m.userName} {m.isPrimaryResponder && <span className="text-xs text-accent font-semibold">(Primary Responder)</span>}
                       </div>
-                      <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                      <div className="text-xs text-text-secondary mt-0.5">
                         Shift: {m.shift} • Contact: {m.onCallPhone}
                       </div>
                     </div>
@@ -259,14 +259,14 @@ export const ChapterDetailPage: React.FC = () => {
             ].map((p, idx) => (
               <div key={idx} className="py-3.5 flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-semibold text-[var(--text)]">{p.name}</div>
-                  <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                  <div className="text-sm font-semibold text-text">{p.name}</div>
+                  <div className="text-xs text-text-secondary mt-0.5">
                     Category: {p.category} • Frequency: {p.sessions}
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className="text-xs text-[var(--text-secondary)] block">Enrolled elders</span>
-                  <span className="text-sm font-semibold text-[var(--text)] tabular-nums">{p.enrolled}</span>
+                  <span className="text-xs text-text-secondary block">Enrolled elders</span>
+                  <span className="text-sm font-semibold text-text tabular-nums">{p.enrolled}</span>
                 </div>
               </div>
             ))}
@@ -279,17 +279,17 @@ export const ChapterDetailPage: React.FC = () => {
         <Card title="Monthly participation analytics">
           <div className="space-y-4">
             <div className="grid grid-cols-3 gap-4">
-              <div className="p-4 rounded bg-[var(--surface-subtle)]">
-                <span className="text-xs text-[var(--text-secondary)] block">Total session visits</span>
-                <span className="text-xl font-semibold text-[var(--text)] tabular-nums">482</span>
+              <div className="p-4 rounded bg-surface-subtle">
+                <span className="text-xs text-text-secondary block">Total session visits</span>
+                <span className="text-xl font-semibold text-text tabular-nums">482</span>
               </div>
-              <div className="p-4 rounded bg-[var(--surface-subtle)]">
-                <span className="text-xs text-[var(--text-secondary)] block">Unique seniors attending</span>
-                <span className="text-xl font-semibold text-[var(--text)] tabular-nums">128</span>
+              <div className="p-4 rounded bg-surface-subtle">
+                <span className="text-xs text-text-secondary block">Unique seniors attending</span>
+                <span className="text-xl font-semibold text-text tabular-nums">128</span>
               </div>
-              <div className="p-4 rounded bg-[var(--surface-subtle)]">
-                <span className="text-xs text-[var(--text-secondary)] block">Average satisfaction score</span>
-                <span className="text-xl font-semibold text-[var(--positive)] tabular-nums">4.8 / 5.0</span>
+              <div className="p-4 rounded bg-surface-subtle">
+                <span className="text-xs text-text-secondary block">Average satisfaction score</span>
+                <span className="text-xl font-semibold text-positive tabular-nums">4.8 / 5.0</span>
               </div>
             </div>
           </div>
@@ -303,10 +303,10 @@ export const ChapterDetailPage: React.FC = () => {
             {(registeredSeniors.slice(0, 10)).map((s) => (
               <div key={s.id} className="py-3 flex items-center justify-between">
                 <div>
-                  <Link to={`/seniors/${s.id}`} className="text-sm font-semibold text-[var(--text)] hover:text-[var(--accent)]">
+                  <Link to={`/seniors/${s.id}`} className="text-sm font-semibold text-text hover:text-accent">
                     {s.name} ({s.age}y, {s.gender})
                   </Link>
-                  <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                  <div className="text-xs text-text-secondary mt-0.5">
                     Member ID: <span className="tabular-nums font-semibold">{s.id}</span> • Phone: {s.phone}
                   </div>
                 </div>

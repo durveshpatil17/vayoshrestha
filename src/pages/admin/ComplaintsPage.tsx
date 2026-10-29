@@ -31,21 +31,21 @@ export const ComplaintsPage: React.FC = () => {
             <div key={c.id} className="py-4 space-y-1">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="font-semibold text-sm text-[var(--text)]">{c.complainantName}</span>
-                  <span className="text-[var(--text-secondary)] ml-2">({c.category.replace('_', ' ')})</span>
+                  <span className="font-semibold text-sm text-text">{c.complainantName}</span>
+                  <span className="text-text-secondary ml-2">({c.category.replace('_', ' ')})</span>
                 </div>
                 <StatusChip
                   label={c.status}
                   status={c.status === 'Resolved' ? 'active' : 'warning'}
                 />
               </div>
-              <p className="text-[var(--text)] mt-0.5">"{c.description}"</p>
+              <p className="text-text mt-0.5">"{c.description}"</p>
               {c.resolutionDetails && (
-                <div className="p-2.5 rounded bg-[var(--positive-tint)] text-[var(--positive)] font-semibold mt-1">
+                <div className="p-2.5 rounded bg-positive-tint text-positive font-semibold mt-1">
                   Resolution: {c.resolutionDetails}
                 </div>
               )}
-              <div className="text-[var(--text-tertiary)] pt-1">
+              <div className="text-text-secondary pt-1">
                 Chapter: {c.chapterId} • Contact: {c.complainantPhone} • Lodged: {new Date(c.submittedAt).toLocaleDateString('en-IN', { dateStyle: 'medium' })}
               </div>
             </div>

@@ -34,12 +34,12 @@ export const ComplaintNewPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/admin/complaints" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/admin/complaints" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Complaints
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Lodge grievance</span>
+        <span className="text-text font-semibold">Lodge grievance</span>
       </div>
 
       <PageHeader
@@ -51,35 +51,35 @@ export const ComplaintNewPage: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Complainant name</label>
+              <label className="block text-xs font-semibold text-text mb-1">Complainant name</label>
               <input
                 type="text"
                 required
                 placeholder="Senior, family member, or neighbor"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Contact phone</label>
+              <label className="block text-xs font-semibold text-text mb-1">Contact phone</label>
               <input
                 type="text"
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Category</label>
+              <label className="block text-xs font-semibold text-text mb-1">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
               >
                 <option value="Service_Quality">Service Quality</option>
                 <option value="Staff_Behavior">Staff / Volunteer Behavior</option>
@@ -89,11 +89,11 @@ export const ComplaintNewPage: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--text)] mb-1">Ekta Hub chapter</label>
+              <label className="block text-xs font-semibold text-text mb-1">Ekta Hub chapter</label>
               <select
                 value={chapterId}
                 onChange={(e) => setChapterId(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)] bg-surface"
+                className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent bg-surface"
               >
                 <option value="HUB-PUN">Pune Ekta Hub</option>
                 <option value="HUB-NSK">Nashik Ekta Hub</option>
@@ -103,18 +103,18 @@ export const ComplaintNewPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[var(--text)] mb-1">Grievance description</label>
+            <label className="block text-xs font-semibold text-text mb-1">Grievance description</label>
             <textarea
               required
               rows={4}
               placeholder="Provide exact event details, dates, and names of individuals involved..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none focus:border-[var(--accent)]"
+              className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none focus:border-accent"
             />
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[var(--border)]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
             <Link to="/admin/complaints">
               <Button variant="outline" type="button">Cancel</Button>
             </Link>

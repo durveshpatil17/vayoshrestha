@@ -33,24 +33,24 @@ export const ServiceListPage: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {services.map((srv) => (
-          <Card key={srv.id} className="hover:border-[var(--border-strong)] transition-colors flex flex-col justify-between">
+          <Card key={srv.id} className="hover:border-border-strong transition-colors flex flex-col justify-between">
             <div>
               <div className="flex items-start justify-between mb-2">
-                <span className="text-[11px] font-semibold text-[var(--accent)] bg-[var(--surface-selected)] px-2 py-0.5 rounded">
+                <span className="text-xs font-semibold text-accent bg-informative-tint px-2 py-0.5 rounded">
                   {srv.category}
                 </span>
-                <span className="text-xs font-semibold text-[var(--text-secondary)]">
+                <span className="text-xs font-semibold text-text-secondary">
                   {srv.costType.replace('_', ' ')}
                 </span>
               </div>
-              <h3 className="text-base font-semibold text-[var(--text)] font-sans mb-1.5">{srv.name}</h3>
-              <p className="text-xs text-[var(--text-secondary)] line-clamp-2 mb-3">
+              <h3 className="text-base font-semibold text-text font-sans mb-1.5">{srv.name}</h3>
+              <p className="text-xs text-text-secondary line-clamp-2 mb-3">
                 {srv.description}
               </p>
             </div>
 
             <div>
-              <div className="py-2.5 border-t border-[var(--border-subtle)] text-xs text-[var(--text-secondary)] space-y-1 mb-3">
+              <div className="py-2.5 border-t border-border-subtle text-xs text-text-secondary space-y-1 mb-3">
                 <div>Partner: <strong>{srv.partnerName}</strong></div>
                 <div>Contact: {srv.contactPerson} ({srv.contactPhone})</div>
               </div>

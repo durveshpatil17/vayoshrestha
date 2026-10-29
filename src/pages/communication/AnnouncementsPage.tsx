@@ -39,12 +39,12 @@ export const AnnouncementsPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/communication" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/communication" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Communication
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Announcements</span>
+        <span className="text-text font-semibold">Announcements</span>
       </div>
 
       <PageHeader
@@ -64,15 +64,15 @@ export const AnnouncementsPage: React.FC = () => {
           {broadcasts.map((b) => (
             <div key={b.id} className="py-4 flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-[var(--text)] font-sans">{b.title}</h3>
-                <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                <h3 className="text-sm font-semibold text-text font-sans">{b.title}</h3>
+                <div className="text-xs text-text-secondary mt-0.5">
                   Target: <strong>{b.chapter}</strong> • {b.sentAt}
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <div className="text-right">
-                  <span className="text-xs text-[var(--text-secondary)] block">Delivered / Target</span>
-                  <span className="text-sm font-semibold text-[var(--text)] tabular-nums">
+                  <span className="text-xs text-text-secondary block">Delivered / Target</span>
+                  <span className="text-sm font-semibold text-text tabular-nums">
                     {b.deliveredCount > 0 ? `${b.deliveredCount} / ${b.recipientsCount}` : `${b.recipientsCount} recipients`}
                   </span>
                 </div>

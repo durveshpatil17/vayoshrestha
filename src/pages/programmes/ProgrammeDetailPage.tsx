@@ -33,12 +33,12 @@ export const ProgrammeDetailPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/programmes" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/programmes" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={14} /> Programmes
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">{programme.name}</span>
+        <span className="text-text font-semibold">{programme.name}</span>
       </div>
 
       <PageHeader
@@ -59,7 +59,7 @@ export const ProgrammeDetailPage: React.FC = () => {
       />
 
       {/* 6 Tabs */}
-      <div className="border-b border-[var(--border)] flex gap-6 overflow-x-auto">
+      <div className="border-b border-border flex gap-6 overflow-x-auto">
         {[
           { key: 'details', label: 'Details' },
           { key: 'sessions', label: `Sessions (${sessions.length})` },
@@ -71,10 +71,10 @@ export const ProgrammeDetailPage: React.FC = () => {
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key as any)}
-            className={`pb-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 -mb-[2px] ${
+            className={`pb-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 -mb-0.5 ${
               activeTab === tab.key
-                ? 'border-[var(--accent)] text-[var(--accent)]'
-                : 'border-transparent text-[var(--text-secondary)] hover:text-[var(--text)]'
+                ? 'border-accent text-accent'
+                : 'border-transparent text-text-secondary hover:text-text'
             }`}
           >
             {tab.label}
@@ -87,17 +87,17 @@ export const ProgrammeDetailPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-6">
             <Card title="Programme description & pedagogy">
-              <p className="text-sm text-[var(--text)] leading-relaxed mb-4">
+              <p className="text-sm text-text leading-relaxed mb-4">
                 {programme.description}
               </p>
               <div className="grid grid-cols-2 gap-4 text-xs">
                 <div>
-                  <span className="text-[var(--text-secondary)] block">Target elder demographic</span>
-                  <span className="text-sm font-semibold text-[var(--text)]">{programme.targetAudience}</span>
+                  <span className="text-text-secondary block">Target elder demographic</span>
+                  <span className="text-sm font-semibold text-text">{programme.targetAudience}</span>
                 </div>
                 <div>
-                  <span className="text-[var(--text-secondary)] block">Participating chapters</span>
-                  <span className="text-sm font-semibold text-[var(--text)]">
+                  <span className="text-text-secondary block">Participating chapters</span>
+                  <span className="text-sm font-semibold text-text">
                     {programme.chapterIds?.join(', ') || 'Pune, Nashik, Bengaluru'}
                   </span>
                 </div>
@@ -106,17 +106,17 @@ export const ProgrammeDetailPage: React.FC = () => {
 
             <Card title="Key performance indicators">
               <div className="grid grid-cols-3 gap-4 text-center">
-                <div className="p-4 rounded bg-[var(--surface-subtle)]">
-                  <span className="text-2xl font-semibold text-[var(--text)] tabular-nums">{programme.enrolledCount}</span>
-                  <span className="text-xs text-[var(--text-secondary)] block mt-1">Total registered elders</span>
+                <div className="p-4 rounded bg-surface-subtle">
+                  <span className="text-2xl font-semibold text-text tabular-nums">{programme.enrolledCount}</span>
+                  <span className="text-xs text-text-secondary block mt-1">Total registered elders</span>
                 </div>
-                <div className="p-4 rounded bg-[var(--surface-subtle)]">
-                  <span className="text-2xl font-semibold text-[var(--positive)] tabular-nums">92%</span>
-                  <span className="text-xs text-[var(--text-secondary)] block mt-1">Average retention rate</span>
+                <div className="p-4 rounded bg-surface-subtle">
+                  <span className="text-2xl font-semibold text-positive tabular-nums">92%</span>
+                  <span className="text-xs text-text-secondary block mt-1">Average retention rate</span>
                 </div>
-                <div className="p-4 rounded bg-[var(--surface-subtle)]">
-                  <span className="text-2xl font-semibold text-[var(--accent)] tabular-nums">{programme.sessionsCount}</span>
-                  <span className="text-xs text-[var(--text-secondary)] block mt-1">Sessions conducted</span>
+                <div className="p-4 rounded bg-surface-subtle">
+                  <span className="text-2xl font-semibold text-accent tabular-nums">{programme.sessionsCount}</span>
+                  <span className="text-xs text-text-secondary block mt-1">Sessions conducted</span>
                 </div>
               </div>
             </Card>
@@ -126,16 +126,16 @@ export const ProgrammeDetailPage: React.FC = () => {
             <Card title="Programme governance">
               <div className="space-y-3 text-xs">
                 <div>
-                  <span className="text-[var(--text-secondary)] block">Lead Coordinator</span>
-                  <span className="text-sm font-semibold text-[var(--text)]">Priya Menon (Programme Manager)</span>
+                  <span className="text-text-secondary block">Lead Coordinator</span>
+                  <span className="text-sm font-semibold text-text">Priya Menon (Programme Manager)</span>
                 </div>
                 <div>
-                  <span className="text-[var(--text-secondary)] block">Curriculum approval</span>
-                  <span className="text-sm font-semibold text-[var(--positive)]">Approved by NGO Management (NM)</span>
+                  <span className="text-text-secondary block">Curriculum approval</span>
+                  <span className="text-sm font-semibold text-positive">Approved by NGO Management (NM)</span>
                 </div>
                 <div>
-                  <span className="text-[var(--text-secondary)] block">Created date</span>
-                  <span className="text-sm font-semibold text-[var(--text)]">
+                  <span className="text-text-secondary block">Created date</span>
+                  <span className="text-sm font-semibold text-text">
                     {new Date(programme.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
                   </span>
                 </div>
@@ -161,15 +161,15 @@ export const ProgrammeDetailPage: React.FC = () => {
             {sessions.map((sess) => (
               <div key={sess.id} className="py-3 flex items-center justify-between">
                 <div>
-                  <Link to={`/sessions/${sess.id}`} className="text-sm font-semibold text-[var(--text)] hover:text-[var(--accent)]">
+                  <Link to={`/sessions/${sess.id}`} className="text-sm font-semibold text-text hover:text-accent">
                     {sess.title}
                   </Link>
-                  <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                  <div className="text-xs text-text-secondary mt-0.5">
                     {new Date(sess.dateTime).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })} • {sess.location} • Facilitator: {sess.instructorName}
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-xs text-[var(--text-secondary)] tabular-nums">
+                  <span className="text-xs text-text-secondary tabular-nums">
                     {sess.enrolledCount}/{sess.capacity} enrolled
                   </span>
                   <StatusChip
@@ -198,16 +198,16 @@ export const ProgrammeDetailPage: React.FC = () => {
             ].map((reg) => (
               <div key={reg.id} className="py-3 flex items-center justify-between">
                 <div>
-                  <Link to={`/seniors/${reg.id}`} className="font-semibold text-[var(--text)] hover:text-[var(--accent)]">
+                  <Link to={`/seniors/${reg.id}`} className="font-semibold text-text hover:text-accent">
                     {reg.name} ({reg.age}y)
                   </Link>
-                  <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                  <div className="text-xs text-text-secondary mt-0.5">
                     ID: <span className="tabular-nums">{reg.id}</span> • Chapter: {reg.chapter} • Registered: {reg.enrolledAt}
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className="text-xs text-[var(--text-secondary)] block">Attendance</span>
-                  <span className="text-sm font-semibold text-[var(--positive)] tabular-nums">{reg.attendance}</span>
+                  <span className="text-xs text-text-secondary block">Attendance</span>
+                  <span className="text-sm font-semibold text-positive tabular-nums">{reg.attendance}</span>
                 </div>
               </div>
             ))}
@@ -220,22 +220,22 @@ export const ProgrammeDetailPage: React.FC = () => {
         <div className="space-y-6">
           <Card title="Attendance performance & lock compliance">
             <div className="grid grid-cols-3 gap-4 text-center mb-6">
-              <div className="p-4 rounded bg-[var(--surface-subtle)]">
-                <span className="text-xs text-[var(--text-secondary)] block">Overall presence rate</span>
-                <span className="text-2xl font-semibold text-[var(--positive)] tabular-nums">91.4%</span>
+              <div className="p-4 rounded bg-surface-subtle">
+                <span className="text-xs text-text-secondary block">Overall presence rate</span>
+                <span className="text-2xl font-semibold text-positive tabular-nums">91.4%</span>
               </div>
-              <div className="p-4 rounded bg-[var(--surface-subtle)]">
-                <span className="text-xs text-[var(--text-secondary)] block">Walk-in attendees</span>
-                <span className="text-2xl font-semibold text-[var(--text)] tabular-nums">14</span>
+              <div className="p-4 rounded bg-surface-subtle">
+                <span className="text-xs text-text-secondary block">Walk-in attendees</span>
+                <span className="text-2xl font-semibold text-text tabular-nums">14</span>
               </div>
-              <div className="p-4 rounded bg-[var(--surface-subtle)]">
-                <span className="text-xs text-[var(--text-secondary)] block">Attendance lock SLA compliance</span>
-                <span className="text-2xl font-semibold text-[var(--accent)] tabular-nums">98.2%</span>
+              <div className="p-4 rounded bg-surface-subtle">
+                <span className="text-xs text-text-secondary block">Attendance lock SLA compliance</span>
+                <span className="text-2xl font-semibold text-accent tabular-nums">98.2%</span>
               </div>
             </div>
 
             <div className="flex justify-between items-center pt-2">
-              <span className="text-xs text-[var(--text-secondary)]">Rosters auto-lock 24 hours after session completion.</span>
+              <span className="text-xs text-text-secondary">Rosters auto-lock 24 hours after session completion.</span>
               <Link to="/attendance/history">
                 <Button variant="outline" size="sm">Attendance heatmap</Button>
               </Link>
@@ -250,18 +250,18 @@ export const ProgrammeDetailPage: React.FC = () => {
           <div className="space-y-4">
             {feedbackList.length > 0 ? (
               feedbackList.map((fb) => (
-                <div key={fb.id} className="p-4 rounded bg-[var(--surface-subtle)] border border-[var(--border)]">
+                <div key={fb.id} className="p-4 rounded bg-surface-subtle border border-border">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm font-semibold text-[var(--text)]">{fb.seniorName || 'Anonymous Elder'}</span>
-                    <span className="text-xs text-[var(--positive)] font-semibold flex items-center gap-1">
+                    <span className="text-sm font-semibold text-text">{fb.seniorName || 'Anonymous Elder'}</span>
+                    <span className="text-xs text-positive font-semibold flex items-center gap-1">
                       <Star size={12} fill="currentColor" /> {fb.rating} / 5 ({fb.satisfactionCategory})
                     </span>
                   </div>
-                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{fb.feedbackText}</p>
+                  <p className="text-xs text-text-secondary leading-relaxed">{fb.feedbackText}</p>
                 </div>
               ))
             ) : (
-              <p className="text-sm text-[var(--text-secondary)] py-4 text-center">
+              <p className="text-sm text-text-secondary py-4 text-center">
                 Average satisfaction across 42 survey responses: <strong>4.8 / 5.0</strong>
               </p>
             )}
@@ -273,13 +273,13 @@ export const ProgrammeDetailPage: React.FC = () => {
       {activeTab === 'publish' && (
         <Card title="Programme publication status">
           <div className="space-y-4 max-w-xl">
-            <p className="text-sm text-[var(--text-secondary)]">
+            <p className="text-sm text-text-secondary">
               When published, this programme appears in the chapter schedules, field volunteer rosters, and senior citizen portals across all assigned Ekta Hubs.
             </p>
-            <div className="flex items-center justify-between p-4 rounded bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <div className="flex items-center justify-between p-4 rounded bg-surface-subtle border border-border">
               <div>
-                <div className="text-sm font-semibold text-[var(--text)]">Publish to Member Ecosystem</div>
-                <div className="text-xs text-[var(--text-secondary)]">Currently: {published ? 'Published (Live)' : 'Draft / Unpublished'}</div>
+                <div className="text-sm font-semibold text-text">Publish to Member Ecosystem</div>
+                <div className="text-xs text-text-secondary">Currently: {published ? 'Published (Live)' : 'Draft / Unpublished'}</div>
               </div>
               <Button
                 variant={published ? 'destructive' : 'primary'}

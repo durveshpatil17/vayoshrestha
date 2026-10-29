@@ -9,10 +9,7 @@ import { maskPhoneNumber } from '@/domain/masking';
 import {
   AlertOctagon,
   Clock,
-  ShieldCheck,
   PhoneCall,
-  MessageSquare,
-  CheckCircle,
   Radio,
   ArrowLeft,
   WifiOff,
@@ -22,6 +19,7 @@ import {
   User,
   AlertTriangle,
   RotateCcw,
+  CheckCircle2,
 } from 'lucide-react';
 
 export const SosCaseDetailPage: React.FC = () => {
@@ -40,12 +38,12 @@ export const SosCaseDetailPage: React.FC = () => {
 
   if (!event) {
     return (
-      <div className="p-8 text-center bg-white border border-border-hairline rounded max-w-md mx-auto my-12">
-        <AlertTriangle className="w-8 h-8 text-warning mx-auto mb-3" />
-        <h3 className="font-semibold text-base text-text-primary">SOS Case Not Found</h3>
-        <p className="text-xs text-text-muted mt-1">The requested SOS incident ID does not exist.</p>
+      <div className="p-8 text-center bg-surface border border-border rounded-container max-w-md mx-auto my-12">
+        <AlertTriangle className="w-8 h-8 text-critical mx-auto mb-3 stroke-[1.5]" />
+        <h3 className="font-semibold text-base text-text">SOS case not found</h3>
+        <p className="text-xs text-text-secondary mt-1">The requested SOS incident ID does not exist.</p>
         <Button variant="outline" size="sm" className="mt-4" onClick={() => navigate('/sos')}>
-          Return to SOS Board
+          Return to SOS board
         </Button>
       </div>
     );
@@ -53,7 +51,6 @@ export const SosCaseDetailPage: React.FC = () => {
 
   const senior = data.seniorCitizens.find((s) => s.id === event.seniorId);
   const contacts = data.emergencyContacts.filter((c) => c.seniorId === event.seniorId);
-  const assignee = data.users.find((u) => u.id === event.assignedResponderId);
   const fallbackRecord = data.smsFallbackRecords.find((r) => r.sosEventId === event.id);
 
   const isOpenCase = event.status !== 'RESOLVED' && event.status !== 'CANCELLED_BY_SENIOR';
@@ -98,63 +95,97 @@ export const SosCaseDetailPage: React.FC = () => {
 
     mockStore.persist();
     setNewNote('');
-    setActionFeedback('Note logged to permanent case record.');
+    setActionFeedback('Note appended to case audit record.');
+  };
+
+  const handleRetryFallbackSms = () => {
+    if (!fallbackRecord) return;
+    fallbackRecord.status = 'SENT';
+    fallbackRecord.retryCount = (fallbackRecord.retryCount || 0) + 1;
+    fallbackRecord.deliveredAt = new Date(Date.now() + 1500).toISOString();
+
+    data.auditEvents.unshift({
+      id: `AUD-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorId: user?.id || 'SYSTEM',
+      actorRole: user?.role || 'RA',
+      chapterId: event.chapterId,
+      action: 'SMS_FALLBACK_RETRY',
+      entityType: 'SOS',
+      entityId: fallbackRecord.id,
+      details: `Retried SMS fallback dispatch to ${fallbackRecord.recipientPhoneNumber} for SOS ${event.id}.`,
+    });
+
+    mockStore.persist();
+    setActionFeedback('Cellular SMS re-sent to carrier gateway.');
   };
 
   const handleResolveCase = () => {
     event.status = 'RESOLVED';
     event.resolvedAt = new Date().toISOString();
-    event.notes = `${event.notes || ''}\n[Case Closed - Outcome: ${resolveOutcome}]: ${resolveNotes}`;
+    const resolutionNote = `[Resolved: ${resolveOutcome} by ${user?.name || user?.role}]: ${
+      resolveNotes.trim() || 'Safe confirmation recorded.'
+    }`;
+    event.notes = event.notes ? `${event.notes}\n${resolutionNote}` : resolutionNote;
 
+    data.auditEvents.unshift({
+      id: `AUD-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorId: user?.id || 'SYSTEM',
+      actorRole: user?.role || 'CM',
+      chapterId: event.chapterId,
+      action: 'SOS_RESOLVE',
+      entityType: 'SOS',
+      entityId: event.id,
+      details: `Case resolved with outcome "${resolveOutcome}".`,
+    });
+
+    mockStore.persist();
+    setResolveModalOpen(false);
+    setActionFeedback('Case marked as resolved and safely closed.');
+  };
+
+  const handleSimulatedCall = (calleeName: string, phoneNumber: string) => {
     data.auditEvents.unshift({
       id: `AUD-${Date.now()}`,
       timestamp: new Date().toISOString(),
       actorId: user?.id || 'SYSTEM',
       actorRole: user?.role || 'CT',
       chapterId: event.chapterId,
-      action: 'SOS_RESOLVE',
+      action: 'VOICE_CALL_INITIATED',
       entityType: 'SOS',
       entityId: event.id,
-      details: `Emergency case resolved with outcome ${resolveOutcome}. Reason: ${resolveNotes}`,
+      details: `Simulated carrier phone call initiated to ${calleeName} (${phoneNumber}).`,
     });
-
     mockStore.persist();
-    setResolveModalOpen(false);
-    setActionFeedback('Case successfully marked as RESOLVED.');
-  };
-
-  const handleSimulatedCall = (targetName: string, phone: string) => {
-    setActionFeedback(`Simulated call connected to ${targetName} (${phone}). Audio channel active.`);
-  };
-
-  const handleRetryFallbackSms = () => {
-    if (fallbackRecord) {
-      fallbackRecord.status = 'SENT';
-      mockStore.persist();
-      setActionFeedback('Fallback SMS re-queued to Next-of-Kin carrier gateway.');
-    }
+    setActionFeedback(`Simulated call placed to ${calleeName} (${maskPhoneNumber(phoneNumber)}).`);
   };
 
   return (
     <div className="space-y-6 max-w-6xl pb-16">
+      {/* Back button and breadcrumb */}
       <div className="flex items-center gap-2">
         <Button
           variant="outline"
           size="sm"
           onClick={() => navigate('/sos')}
-          className="gap-1 text-xs"
+          className="gap-1.5 text-xs"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          Back to Live SOS Board
+          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
+          Back to Live SOS board
         </Button>
       </div>
 
       {actionFeedback && (
-        <div className="p-3 bg-accent-tint border border-accent/20 rounded text-xs text-accent flex items-center justify-between">
-          <span>{actionFeedback}</span>
+        <div className="p-3 bg-accent-tint border border-accent/20 rounded-control text-xs text-accent flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 stroke-[1.5]" />
+            <span>{actionFeedback}</span>
+          </div>
           <button
+            type="button"
             onClick={() => setActionFeedback(null)}
-            className="text-xs font-semibold text-accent hover:underline ml-2"
+            className="font-semibold underline ml-2"
           >
             Dismiss
           </button>
@@ -162,12 +193,12 @@ export const SosCaseDetailPage: React.FC = () => {
       )}
 
       {/* Case Header */}
-      <div className="bg-white border border-border-hairline rounded p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-surface border border-border rounded-container p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2.5">
-            <h2 className="font-semibold text-lg text-text-primary">
-              Emergency Case: {event.id}
-            </h2>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-text-secondary font-semibold tabular-nums">
+              Case ID: {event.id}
+            </span>
             <StatusChip
               status={
                 event.status === 'TRIGGERED'
@@ -181,19 +212,16 @@ export const SosCaseDetailPage: React.FC = () => {
               label={event.status}
             />
             {event.isDrill && (
-              <span className="px-2 py-0.5 text-xs bg-slate-200 text-slate-700 rounded font-semibold">
-                Simulated Drill
+              <span className="px-2 py-0.5 text-xs bg-surface-subtle text-text-secondary border border-border rounded-chip font-semibold">
+                Simulated drill
               </span>
             )}
           </div>
-          <p className="text-xs text-text-muted mt-1">
-            Triggered:{' '}
-            {new Date(event.triggeredAt).toLocaleString('en-IN', {
-              timeZone: 'Asia/Kolkata',
-              dateStyle: 'medium',
-              timeStyle: 'medium',
-            })}{' '}
-            IST · Chapter: <strong>{event.chapterId}</strong>
+          <h2 className="text-xl font-semibold text-text mt-1">
+            Emergency SOS: {senior?.fullName || 'Senior member'}
+          </h2>
+          <p className="text-xs text-text-secondary mt-0.5 tabular-nums">
+            Triggered: {new Date(event.triggeredAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} · Chapter: {event.chapterId}
           </p>
         </div>
 
@@ -203,9 +231,10 @@ export const SosCaseDetailPage: React.FC = () => {
               variant="primary"
               size="sm"
               onClick={handleAcknowledge}
-              className="bg-danger hover:bg-danger/90 text-white font-semibold text-xs"
+              className="bg-negative hover:bg-negative/90 text-white font-semibold text-xs gap-1.5"
             >
-              Acknowledge Alert
+              <AlertOctagon className="w-3.5 h-3.5 stroke-[1.5]" />
+              Acknowledge alert
             </Button>
           )}
           {isOpenCase && (
@@ -213,9 +242,9 @@ export const SosCaseDetailPage: React.FC = () => {
               variant="primary"
               size="sm"
               onClick={() => setResolveModalOpen(true)}
-              className="text-xs bg-accent hover:bg-accent-hover"
+              className="text-xs bg-accent hover:bg-accent-hover font-semibold"
             >
-              Resolve Case
+              Resolve case
             </Button>
           )}
         </div>
@@ -224,48 +253,48 @@ export const SosCaseDetailPage: React.FC = () => {
       {/* Latency & Cellular Fallback Highlight Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Enqueue-to-Dashboard Latency */}
-        <div className="bg-white border border-border-hairline rounded p-4 flex items-center justify-between">
+        <div className="bg-surface border border-border rounded-container p-4 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-semibold text-text-muted">
-              Alert Delivery Latency
+            <span className="text-xs font-semibold text-text-secondary">
+              Alert delivery latency
             </span>
             <div className="flex items-baseline gap-2 mt-1">
               <span className="text-2xl tabular-nums font-semibold text-accent">
                 {event.latencyMs} ms
               </span>
-              <span className="text-xs text-success font-medium">✓ Sub-second Target Met</span>
+              <span className="text-xs text-positive font-semibold">Sub-second target met</span>
             </div>
-            <p className="text-[11px] text-text-muted mt-1">
+            <p className="text-xs text-text-secondary mt-1">
               Simulated enqueue-to-dashboard latency across in-browser BroadcastChannel.
             </p>
           </div>
-          <Clock className="w-8 h-8 text-accent opacity-30" />
+          <Clock className="w-8 h-8 text-accent opacity-30 stroke-[1.5]" />
         </div>
 
         {/* Cellular Fallback Status */}
-        <div className="bg-white border border-border-hairline rounded p-4 flex items-center justify-between">
+        <div className="bg-surface border border-border rounded-container p-4 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-semibold text-text-muted">
-              Cellular Fallback Trigger
+            <span className="text-xs font-semibold text-text-secondary">
+              Cellular fallback trigger
             </span>
             <div className="flex items-baseline gap-2 mt-1">
               {event.cellularFallbackTriggered ? (
-                <span className="text-base font-semibold text-danger flex items-center gap-1.5">
-                  <WifiOff className="w-4 h-4" /> Dispatched to NOK
+                <span className="text-base font-semibold text-negative flex items-center gap-1.5">
+                  <WifiOff className="w-4 h-4 stroke-[1.5]" /> Dispatched to NOK
                 </span>
               ) : (
-                <span className="text-base font-semibold text-success flex items-center gap-1.5">
-                  <Wifi className="w-4 h-4" /> Data Channel Stable
+                <span className="text-base font-semibold text-positive flex items-center gap-1.5">
+                  <Wifi className="w-4 h-4 stroke-[1.5]" /> Data channel stable
                 </span>
               )}
             </div>
-            <p className="text-[11px] text-text-muted mt-1">
+            <p className="text-xs text-text-secondary mt-1">
               {event.cellularFallbackTriggered
                 ? 'Mobile data dropped during SOS; automated transactional SMS pushed to next-of-kin.'
                 : 'Webhook delivered over standard WhatsApp data network without cellular degradation.'}
             </p>
           </div>
-          <Radio className="w-8 h-8 text-text-muted opacity-30" />
+          <Radio className="w-8 h-8 text-text-secondary opacity-30 stroke-[1.5]" />
         </div>
       </div>
 
@@ -273,101 +302,101 @@ export const SosCaseDetailPage: React.FC = () => {
         {/* Left Column: Timeline & Fallback Details */}
         <div className="lg:col-span-2 space-y-6">
           {/* Incident Timeline */}
-          <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
-              <Clock className="w-4 h-4 text-accent" />
-              Incident Timeline
+          <div className="bg-surface border border-border rounded-container p-5 space-y-4">
+            <h3 className="font-semibold text-sm text-text flex items-center gap-2">
+              <Clock className="w-4 h-4 text-accent stroke-[1.5]" />
+              Incident timeline
             </h3>
 
-            <div className="space-y-4 border-l-2 border-border-hairline pl-4 ml-2">
+            <div className="space-y-4 border-l-2 border-border pl-4 ml-2">
               <div className="relative">
-                <div className="w-2.5 h-2.5 rounded-full bg-danger absolute -left-[21px] top-1"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-negative absolute -left-5 top-1" />
                 <div className="flex items-center justify-between">
-                  <span className="font-medium text-xs text-text-primary">
-                    1. 🚨 SOS Triggered by Senior
+                  <span className="font-semibold text-xs text-text">
+                    1. SOS triggered by senior
                   </span>
-                  <span className="tabular-nums text-[11px] text-text-muted">
+                  <span className="tabular-nums text-xs text-text-secondary">
                     {new Date(event.triggeredAt).toLocaleTimeString('en-IN', {
                       timeZone: 'Asia/Kolkata',
                     })}
                   </span>
                 </div>
-                <p className="text-xs text-text-muted mt-0.5">
-                  Tapped "🚨 Trigger Emergency SOS" quick reply in WhatsApp chat.
+                <p className="text-xs text-text-secondary mt-0.5">
+                  Tapped "Trigger Emergency SOS" quick reply in WhatsApp chat.
                 </p>
               </div>
 
               <div className="relative">
-                <div className="w-2.5 h-2.5 rounded-full bg-accent absolute -left-[21px] top-1"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-accent absolute -left-5 top-1" />
                 <div className="flex items-center justify-between">
-                  <span className="font-medium text-xs text-text-primary">
-                    2. Webhook Ingested & Dashboard Alerted
+                  <span className="font-semibold text-xs text-text">
+                    2. Webhook ingested & dashboard alerted
                   </span>
-                  <span className="tabular-nums text-[11px] text-text-muted">
+                  <span className="tabular-nums text-xs text-text-secondary">
                     +{event.latencyMs} ms
                   </span>
                 </div>
-                <p className="text-xs text-text-muted mt-0.5">
+                <p className="text-xs text-text-secondary mt-0.5">
                   Payload verified and BroadcastChannel broadcast delivered to regional operators.
                 </p>
               </div>
 
               {event.cellularFallbackTriggered && (
                 <div className="relative">
-                  <div className="w-2.5 h-2.5 rounded-full bg-warning absolute -left-[21px] top-1"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-critical absolute -left-5 top-1" />
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-xs text-warning">
-                      3. Cellular Fallback Dispatched
+                    <span className="font-semibold text-xs text-critical">
+                      3. Cellular fallback dispatched
                     </span>
-                    <span className="tabular-nums text-[11px] text-text-muted">
-                      {event.cellularFallbackDelivered ? 'Delivered' : 'Pending Carrier'}
+                    <span className="tabular-nums text-xs text-text-secondary">
+                      {event.cellularFallbackDelivered ? 'Delivered' : 'Pending carrier'}
                     </span>
                   </div>
-                  <p className="text-xs text-text-muted mt-0.5">
+                  <p className="text-xs text-text-secondary mt-0.5">
                     Data disconnection detected mid-transaction. Pushed transactional SMS to
-                    registered Next-of-Kin.
+                    registered next-of-kin.
                   </p>
                 </div>
               )}
 
               {event.acknowledgedAt ? (
                 <div className="relative">
-                  <div className="w-2.5 h-2.5 rounded-full bg-success absolute -left-[21px] top-1"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-positive absolute -left-5 top-1" />
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-xs text-text-primary">
-                      4. Alert Acknowledged
+                    <span className="font-semibold text-xs text-text">
+                      4. Alert acknowledged
                     </span>
-                    <span className="tabular-nums text-[11px] text-text-muted">
+                    <span className="tabular-nums text-xs text-text-secondary">
                       {new Date(event.acknowledgedAt).toLocaleTimeString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                       })}
                     </span>
                   </div>
-                  <p className="text-xs text-text-muted mt-0.5">
+                  <p className="text-xs text-text-secondary mt-0.5">
                     Operator took ownership within acknowledgement SLA target.
                   </p>
                 </div>
               ) : (
                 <div className="relative">
-                  <div className="w-2.5 h-2.5 rounded-full bg-danger animate-pulse absolute -left-[21px] top-1"></div>
-                  <span className="font-medium text-xs text-danger">
-                    Awaiting Regional Operator Acknowledgment...
+                  <div className="w-2.5 h-2.5 rounded-full bg-negative absolute -left-5 top-1" />
+                  <span className="font-semibold text-xs text-negative">
+                    Awaiting regional operator acknowledgment...
                   </span>
                 </div>
               )}
 
               {event.resolvedAt && (
                 <div className="relative">
-                  <div className="w-2.5 h-2.5 rounded-full bg-success absolute -left-[21px] top-1"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-positive absolute -left-5 top-1" />
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-xs text-success">5. Case Resolved</span>
-                    <span className="tabular-nums text-[11px] text-text-muted">
+                    <span className="font-semibold text-xs text-positive">5. Case resolved</span>
+                    <span className="tabular-nums text-xs text-text-secondary">
                       {new Date(event.resolvedAt).toLocaleTimeString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                       })}
                     </span>
                   </div>
-                  <p className="text-xs text-text-muted mt-0.5">
+                  <p className="text-xs text-text-secondary mt-0.5">
                     Assistance confirmed with senior and next-of-kin.
                   </p>
                 </div>
@@ -377,11 +406,11 @@ export const SosCaseDetailPage: React.FC = () => {
 
           {/* Cellular Fallback Detailed Panel */}
           {event.cellularFallbackTriggered && fallbackRecord && (
-            <div className="bg-white border border-border-hairline rounded p-5 space-y-3">
+            <div className="bg-surface border border-border rounded-container p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
-                  <Radio className="w-4 h-4 text-accent" />
-                  Cellular SMS Fallback Record
+                <h3 className="font-semibold text-sm text-text flex items-center gap-2">
+                  <Radio className="w-4 h-4 text-accent stroke-[1.5]" />
+                  Cellular SMS fallback record
                 </h3>
                 <StatusChip
                   status={fallbackRecord.status === 'DELIVERED' ? 'success' : 'warning'}
@@ -389,24 +418,24 @@ export const SosCaseDetailPage: React.FC = () => {
                 />
               </div>
 
-              <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs space-y-1.5 tabular-nums">
+              <div className="p-3 bg-surface-subtle border border-border rounded-control text-xs space-y-1.5 tabular-nums">
                 <div className="flex justify-between">
-                  <span className="text-text-muted">Recipient NOK:</span>
-                  <span className="font-semibold text-text-primary">
+                  <span className="text-text-secondary">Recipient NOK:</span>
+                  <span className="font-semibold text-text">
                     {fallbackRecord.recipientPhoneNumber}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-muted">Trigger Reason:</span>
-                  <span className="text-text-primary">{fallbackRecord.triggerReason}</span>
+                  <span className="text-text-secondary">Trigger reason:</span>
+                  <span className="text-text">{fallbackRecord.triggerReason}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-muted">DLT Template ID:</span>
-                  <span className="text-text-primary">{fallbackRecord.dltTemplateId}</span>
+                  <span className="text-text-secondary">DLT template ID:</span>
+                  <span className="text-text">{fallbackRecord.dltTemplateId}</span>
                 </div>
-                <div className="pt-2 border-t border-border-hairline font-sans text-xs text-text-primary">
-                  <strong>SMS Message Text:</strong>
-                  <div className="mt-1 p-2 bg-white border border-border-hairline rounded italic">
+                <div className="pt-2 border-t border-border text-xs text-text">
+                  <strong>SMS message text:</strong>
+                  <div className="mt-1 p-2 bg-surface border border-border rounded-control italic">
                     "{fallbackRecord.messageText}"
                   </div>
                 </div>
@@ -418,24 +447,24 @@ export const SosCaseDetailPage: React.FC = () => {
                     variant="outline"
                     size="sm"
                     onClick={handleRetryFallbackSms}
-                    className="text-xs gap-1"
+                    className="text-xs gap-1.5"
                   >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                    Retry Carrier Dispatch
+                    <RotateCcw className="w-3.5 h-3.5 stroke-[1.5]" />
+                    Retry carrier dispatch
                   </Button>
                 </div>
               )}
             </div>
           )}
 
-          {/* Location & Case Notes */}
-          <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
-              <FileText className="w-4 h-4 text-accent" />
-              Operator Notes & Action Log
+          {/* Operator Notes & Action Log */}
+          <div className="bg-surface border border-border rounded-container p-5 space-y-4">
+            <h3 className="font-semibold text-sm text-text flex items-center gap-2">
+              <FileText className="w-4 h-4 text-accent stroke-[1.5]" />
+              Operator notes & action log
             </h3>
 
-            <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs tabular-nums whitespace-pre-wrap max-h-48 overflow-y-auto">
+            <div className="p-3 bg-surface-subtle border border-border rounded-control text-xs tabular-nums whitespace-pre-wrap max-h-48 overflow-y-auto leading-relaxed">
               {event.notes || 'No notes logged yet.'}
             </div>
 
@@ -443,13 +472,13 @@ export const SosCaseDetailPage: React.FC = () => {
               <form onSubmit={handleAddNote} className="flex gap-2">
                 <input
                   type="text"
-                  placeholder="Enter operational note (e.g. Called daughter; ambulance requested)..."
+                  placeholder="Enter operational note (e.g. Called daughter; care volunteer dispatched)..."
                   value={newNote}
                   onChange={(e) => setNewNote(e.target.value)}
-                  className="flex-1 text-xs px-3 py-2 border border-border-hairline rounded focus:outline-none focus:border-accent"
+                  className="flex-1 text-xs px-3 py-2 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
                 />
-                <Button type="submit" variant="outline" size="sm" className="text-xs">
-                  Add Note
+                <Button type="submit" variant="outline" size="sm" className="text-xs font-semibold">
+                  Add note
                 </Button>
               </form>
             )}
@@ -459,106 +488,108 @@ export const SosCaseDetailPage: React.FC = () => {
         {/* Right Column: Senior Profile & Next-of-Kin Contacts */}
         <div className="space-y-6">
           {/* Senior Profile Summary */}
-          <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-            <div className="flex items-center justify-between border-b border-border-hairline pb-3">
-              <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
-                <User className="w-4 h-4 text-accent" />
-                Senior Profile
+          <div className="bg-surface border border-border rounded-container p-5 space-y-4">
+            <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+              <h3 className="font-semibold text-sm text-text flex items-center gap-2">
+                <User className="w-4 h-4 text-accent stroke-[1.5]" />
+                Senior profile
               </h3>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => navigate(`/seniors/${senior?.id}`)}
-                className="text-[11px] h-6 px-2"
+                className="text-xs h-7 px-2.5"
               >
-                View Full
+                View full
               </Button>
             </div>
 
             {senior ? (
               <div className="space-y-2 text-xs">
                 <div>
-                  <span className="text-text-muted">Full Legal Name:</span>
-                  <div className="font-semibold text-text-primary text-sm">{senior.fullName}</div>
+                  <span className="text-text-secondary">Full legal name:</span>
+                  <div className="font-semibold text-text text-sm">{senior.fullName}</div>
                 </div>
                 <div>
-                  <span className="text-text-muted">Member ID:</span>
-                  <div className="tabular-nums text-text-primary">{senior.memberId}</div>
+                  <span className="text-text-secondary">Member ID:</span>
+                  <div className="tabular-nums text-text font-semibold">{senior.memberId}</div>
                 </div>
                 <div>
-                  <span className="text-text-muted">Direct Mobile:</span>
-                  <div className="tabular-nums text-text-primary flex items-center justify-between">
+                  <span className="text-text-secondary">Direct mobile:</span>
+                  <div className="tabular-nums text-text flex items-center justify-between">
                     <span>{senior.phoneNumber}</span>
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => handleSimulatedCall(senior.fullName, senior.phoneNumber || senior.phone || '')}
-                      className="text-[11px] h-6 px-2 gap-1 text-accent"
+                      onClick={() => handleSimulatedCall(senior.fullName, senior.phoneNumber || '')}
+                      className="text-xs h-7 px-2 gap-1 text-accent"
                     >
-                      <PhoneCall className="w-3 h-3" /> Call
+                      <PhoneCall className="w-3 h-3 stroke-[1.5]" />
+                      Call
                     </Button>
                   </div>
                 </div>
                 <div>
-                  <span className="text-text-muted">Preferred Language:</span>
-                  <div className="text-text-primary">{senior.preferredLanguage}</div>
+                  <span className="text-text-secondary">Preferred language:</span>
+                  <div className="text-text">{senior.preferredLanguage}</div>
                 </div>
                 <div>
-                  <span className="text-text-muted">Primary Address:</span>
-                  <div className="text-text-primary mt-0.5">
+                  <span className="text-text-secondary">Primary address:</span>
+                  <div className="text-text mt-0.5">
                     {senior.address || 'Address not recorded'}
                   </div>
                 </div>
               </div>
             ) : (
-              <p className="text-xs text-text-muted">Senior record unlinked.</p>
+              <p className="text-xs text-text-secondary">Senior record unlinked.</p>
             )}
 
             {/* Permanent 112 Notice */}
-            <div className="p-3 bg-danger-surface border border-danger/30 rounded text-xs text-danger font-medium leading-relaxed">
-              ⚠️ <strong>Emergency Notice:</strong> In a life-threatening or medical emergency,
-              immediately dial <strong>112</strong>.
+            <div className="p-3 bg-negative-tint border border-negative/30 rounded-control text-xs text-text leading-relaxed">
+              <strong className="text-negative font-semibold">Emergency notice:</strong> In a life-threatening or medical emergency,
+              immediately dial <strong className="font-semibold">112</strong>.
             </div>
           </div>
 
           {/* Emergency Contacts with One-Click Call */}
-          <div className="bg-white border border-border-hairline rounded p-5 space-y-3">
-            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
-              <PhoneCall className="w-4 h-4 text-accent" />
-              Emergency Contacts (NOK)
+          <div className="bg-surface border border-border rounded-container p-5 space-y-3">
+            <h3 className="font-semibold text-sm text-text flex items-center gap-2">
+              <PhoneCall className="w-4 h-4 text-accent stroke-[1.5]" />
+              Emergency contacts (NOK)
             </h3>
-            <p className="text-[11px] text-text-muted">
+            <p className="text-xs text-text-secondary">
               Pre-registered next-of-kin unmasked during active emergency investigation.
             </p>
 
             <div className="space-y-2.5">
               {contacts.length === 0 ? (
-                <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs text-text-muted">
+                <div className="p-3 bg-surface-subtle border border-border rounded-control text-xs text-text-secondary">
                   No emergency contacts on file for this senior.
                 </div>
               ) : (
                 contacts.map((c, i) => (
                   <div
                     key={c.id || i}
-                    className="p-3 bg-surface-subtle border border-border-hairline rounded space-y-1.5"
+                    className="p-3 bg-surface-subtle border border-border rounded-control space-y-1.5"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-xs text-text-primary">
-                        {c.name} ({c.relationship})
+                      <span className="font-semibold text-xs text-text">
+                        {c.fullName || c.name} ({c.relationship})
                       </span>
-                      <span className="text-[10px] bg-white px-1.5 py-0.5 rounded border border-border-hairline">
+                      <span className="text-xs bg-surface px-1.5 py-0.5 rounded-control border border-border text-text-secondary">
                         Priority {c.priority}
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="tabular-nums text-text-primary">{c.phoneNumber}</span>
+                      <span className="tabular-nums text-text">{c.phoneNumber}</span>
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleSimulatedCall(c.name, c.phoneNumber || c.phone || '')}
-                        className="text-[11px] h-6 px-2 gap-1 text-accent"
+                        onClick={() => handleSimulatedCall(c.fullName || c.name, c.phoneNumber || '')}
+                        className="text-xs h-7 px-2 gap-1 text-accent"
                       >
-                        <PhoneCall className="w-3 h-3" /> Call NOK
+                        <PhoneCall className="w-3 h-3 stroke-[1.5]" />
+                        Call NOK
                       </Button>
                     </div>
                   </div>
@@ -568,17 +599,17 @@ export const SosCaseDetailPage: React.FC = () => {
           </div>
 
           {/* Map-less Static Location Pin */}
-          <div className="bg-white border border-border-hairline rounded p-5 space-y-3">
-            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-accent" />
-              Last Known Hub Location
+          <div className="bg-surface border border-border rounded-container p-5 space-y-3">
+            <h3 className="font-semibold text-sm text-text flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-accent stroke-[1.5]" />
+              Last known hub location
             </h3>
-            <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs space-y-1">
-              <p className="font-medium text-text-primary">Ekta Hub: {event.chapterId}</p>
-              <p className="text-text-muted">
+            <div className="p-3 bg-surface-subtle border border-border rounded-control text-xs space-y-1">
+              <p className="font-semibold text-text">Ekta Hub: {event.chapterId}</p>
+              <p className="text-text-secondary tabular-nums">
                 Latitude: 12.9716° N · Longitude: 77.5946° E (Bengaluru Core)
               </p>
-              <p className="text-[11px] text-text-muted italic pt-1">
+              <p className="text-xs text-text-secondary italic pt-1">
                 Static hub baseline coordinates · Map integration scheduled for Phase 2.
               </p>
             </div>
@@ -589,55 +620,55 @@ export const SosCaseDetailPage: React.FC = () => {
       {/* Resolve Case Modal */}
       {resolveModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 space-y-4">
-            <h3 className="font-semibold text-base text-text-primary flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-success" />
-              Resolve Emergency Case
+          <div className="bg-surface border border-border rounded-container max-w-md w-full p-6 space-y-4">
+            <h3 className="font-semibold text-base text-text flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-positive stroke-[1.5]" />
+              Resolve emergency case
             </h3>
-            <p className="text-xs text-text-muted">
+            <p className="text-xs text-text-secondary">
               Record the verified outcome code and closing notes. The incident will be marked
               completed and archived to the historical registry.
             </p>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-medium text-text-primary mb-1">
-                  Incident Resolution Outcome:
+                <label className="block text-xs font-semibold text-text mb-1">
+                  Incident resolution outcome:
                 </label>
                 <select
                   value={resolveOutcome}
                   onChange={(e) => setResolveOutcome(e.target.value)}
-                  className="w-full text-xs px-3 py-2 border border-border-hairline rounded bg-white"
+                  className="w-full text-xs px-3 py-2 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
                 >
                   <option value="ASSISTANCE_DISPATCHED">
-                    Assistance Dispatched (Care Team / Field Volunteer)
+                    Assistance dispatched (Care Team / Field Volunteer)
                   </option>
                   <option value="NOK_COORDINATED">
-                    Resolved by Next-of-Kin (Daughter/Son on site)
+                    Resolved by next-of-kin (Daughter/Son on site)
                   </option>
                   <option value="MEDICAL_SUPPORT">
-                    Medical Support / 112 Coordinated
+                    Medical support / 112 coordinated
                   </option>
-                  <option value="FALSE_ALARM">False Alarm / Accidental Button Tap</option>
-                  <option value="CANCELLED_CONFIRMED">Cancelled by Senior (Confirmed OK)</option>
+                  <option value="FALSE_ALARM">False alarm / accidental button tap</option>
+                  <option value="CANCELLED_CONFIRMED">Cancelled by senior (Confirmed safe)</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-text-primary mb-1">
-                  Closing Notes:
+                <label className="block text-xs font-semibold text-text mb-1">
+                  Closing notes:
                 </label>
                 <textarea
                   rows={3}
                   value={resolveNotes}
                   onChange={(e) => setResolveNotes(e.target.value)}
                   placeholder="Summarize phone conversation with senior or NOK..."
-                  className="w-full text-xs px-3 py-2 border border-border-hairline rounded focus:outline-none focus:border-accent"
+                  className="w-full text-xs p-2.5 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-border-hairline">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-border-subtle">
               <Button
                 variant="outline"
                 size="sm"
@@ -650,9 +681,9 @@ export const SosCaseDetailPage: React.FC = () => {
                 variant="primary"
                 size="sm"
                 onClick={handleResolveCase}
-                className="text-xs bg-success hover:bg-success/90 text-white font-medium"
+                className="text-xs bg-positive hover:bg-positive/90 text-white font-semibold"
               >
-                Confirm Resolution
+                Confirm resolution
               </Button>
             </div>
           </div>

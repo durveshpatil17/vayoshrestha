@@ -5,19 +5,14 @@ import { mockStore } from '@/mock/store';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { StatusChip } from '@/components/ui/StatusChip';
-import { ExportDialog } from '@/components/data/ExportDialog';
 import { maskPhoneNumber } from '@/domain/masking';
 import {
-  History,
-  Download,
   Filter,
-  Eye,
-  CheckCircle,
-  AlertTriangle,
-  Clock,
+  ArrowLeft,
   Radio,
   FileSpreadsheet,
 } from 'lucide-react';
+import { KpiTile } from '@/components/ui/KpiTile';
 
 export const SosHistoryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -27,9 +22,11 @@ export const SosHistoryPage: React.FC = () => {
   const [selectedChapter, setSelectedChapter] = useState('ALL');
   const [drillFilter, setDrillFilter] = useState<'ALL' | 'REAL' | 'DRILL'>('ALL');
   const [outcomeFilter, setOutcomeFilter] = useState('ALL');
-  const [exportOpen, setExportOpen] = useState(false);
 
-  const scopedEvents = data.sosEvents.filter((ev) => {
+  const allEvents = data.sosEvents;
+
+  // Filter based on user scope
+  const scopedEvents = allEvents.filter((ev) => {
     if (user?.role === 'CM' && ev.chapterId !== user.chapterId) return false;
     if (user?.role === 'RA') {
       const ch = data.chapters.find((c) => c.id === ev.chapterId);
@@ -38,6 +35,7 @@ export const SosHistoryPage: React.FC = () => {
     return true;
   });
 
+  // Apply filters
   const filtered = scopedEvents.filter((ev) => {
     if (selectedChapter !== 'ALL' && ev.chapterId !== selectedChapter) return false;
     if (drillFilter === 'REAL' && ev.isDrill) return false;
@@ -46,97 +44,121 @@ export const SosHistoryPage: React.FC = () => {
     return true;
   });
 
-  // Calculate aggregates
-  const totalEvents = filtered.length;
-  const realEvents = filtered.filter((e) => !e.isDrill).length;
-  const drillEvents = filtered.filter((e) => e.isDrill).length;
-  const resolvedEvents = filtered.filter((e) => e.status === 'RESOLVED');
-  const slaBreachedCount = filtered.filter((e) => e.slaBreached).length;
-
-  const latencies = filtered.map((e) => e.latencyMs);
+  const totalEvents = scopedEvents.length;
+  const realEvents = scopedEvents.filter((e) => !e.isDrill).length;
+  const resolvedEvents = scopedEvents.filter((e) => e.status === 'RESOLVED');
+  const slaBreachedCount = scopedEvents.filter((e) => e.slaBreached).length;
   const avgLatency =
-    latencies.length > 0
-      ? Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length)
+    totalEvents > 0
+      ? Math.round(scopedEvents.reduce((acc, curr) => acc + (curr.latencyMs || 0), 0) / totalEvents)
       : 0;
+
+  const handleExportCsv = () => {
+    const headers = 'ID,TriggeredAt,SeniorId,ChapterId,Status,IsDrill,LatencyMs,SlaBreached\n';
+    const rows = filtered
+      .map(
+        (e) =>
+          `"${e.id}","${e.triggeredAt}","${e.seniorId}","${e.chapterId}","${e.status}","${e.isDrill}","${e.latencyMs}","${e.slaBreached}"`
+      )
+      .join('\n');
+    const blob = new Blob([headers + rows], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Vayoshrestha_SOS_History_${Date.now()}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="space-y-6 max-w-7xl pb-16">
+      {/* Top back button */}
+      <div className="flex items-center gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => navigate('/sos')}
+          className="gap-1.5 text-xs"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
+          Back to Live SOS board
+        </Button>
+      </div>
+
+      {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <PageHeader
-          title="SOS Incident History & SLA Audit"
-          description="Historical log of emergency alerts, cellular SMS fallbacks, and responder SLA compliance."
+          title="Historical SOS registry & incident audit"
+          description="Permanent tamper-evident log of emergency activations, cellular fallbacks, and SLA compliance metrics."
         />
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setExportOpen(true)}
+            onClick={handleExportCsv}
             className="text-xs gap-1.5"
           >
-            <Download className="w-3.5 h-3.5" />
+            <FileSpreadsheet className="w-3.5 h-3.5 stroke-[1.5]" />
             Export CSV
           </Button>
           <Button
-            variant="outline"
+            variant="primary"
             size="sm"
             onClick={() => navigate('/sos')}
-            className="text-xs"
+            className="text-xs gap-1.5"
           >
-            Live Board
+            <Radio className="w-3.5 h-3.5 stroke-[1.5]" />
+            Live board
           </Button>
         </div>
       </div>
 
-      {/* Aggregate metric cards */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-semibold text-text-muted">Total Logged</span>
-          <div className="text-xl font-semibold tabular-nums text-text-primary mt-1">{totalEvents}</div>
-          <span className="text-[10px] text-text-muted">Over 90-day pilot</span>
-        </div>
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-semibold text-text-muted">Real vs Drills</span>
-          <div className="text-xl font-semibold tabular-nums text-accent mt-1">
-            {realEvents} / {drillEvents}
-          </div>
-          <span className="text-[10px] text-text-muted">Excludes unverified</span>
-        </div>
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-semibold text-text-muted">Avg Alert Latency</span>
-          <div className="text-xl font-semibold tabular-nums text-accent mt-1">{avgLatency} ms</div>
-          <span className="text-[10px] text-success">Target: &lt; 1,000 ms</span>
-        </div>
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-semibold text-text-muted">SLA Compliance</span>
-          <div className="text-xl font-semibold tabular-nums text-text-primary mt-1">
-            {totalEvents > 0
+      {/* Aggregate metric cards (Exactly 4 Headline Indicators) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <KpiTile
+          title="Total incidents logged"
+          value={totalEvents}
+          unit={`(${realEvents} real)`}
+          statusLine="Over 90-day pilot cycle"
+          status="positive"
+        />
+        <KpiTile
+          title="Average alert latency"
+          value={`${avgLatency} ms`}
+          statusLine="Target < 1,000 ms met"
+          status="positive"
+        />
+        <KpiTile
+          title="SLA compliance"
+          value={
+            totalEvents > 0
               ? `${Math.round(((totalEvents - slaBreachedCount) / totalEvents) * 100)}%`
-              : '100%'}
-          </div>
-          <span className="text-[10px] text-text-muted">{slaBreachedCount} breaches</span>
-        </div>
-        <div className="p-4 bg-white border border-border-hairline rounded">
-          <span className="text-[11px] font-semibold text-text-muted">Resolved Cases</span>
-          <div className="text-xl font-semibold tabular-nums text-success mt-1">
-            {resolvedEvents.length}
-          </div>
-          <span className="text-[10px] text-text-muted">Confirmed safe</span>
-        </div>
+              : '100%'
+          }
+          statusLine={`${slaBreachedCount} SLA breaches audited`}
+          status={slaBreachedCount === 0 ? 'positive' : 'critical'}
+        />
+        <KpiTile
+          title="Resolved incidents"
+          value={resolvedEvents.length}
+          statusLine="Confirmed safe resolution"
+          status="positive"
+        />
       </div>
 
       {/* Filter Toolbar */}
-      <div className="bg-white border border-border-hairline rounded p-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="bg-surface border border-border rounded-container p-4 flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="font-semibold text-text-muted flex items-center gap-1">
-            <Filter className="w-3.5 h-3.5" /> Filters:
+          <span className="font-semibold text-text-secondary flex items-center gap-1.5">
+            <Filter className="w-3.5 h-3.5 stroke-[1.5]" /> Filters:
           </span>
 
           <select
             value={selectedChapter}
             onChange={(e) => setSelectedChapter(e.target.value)}
-            className="px-2.5 py-1.5 border border-border-hairline rounded bg-white"
+            className="px-2.5 py-1.5 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
           >
-            <option value="ALL">All Chapters</option>
+            <option value="ALL">All chapters</option>
             {data.chapters.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name} ({c.id})
@@ -146,57 +168,58 @@ export const SosHistoryPage: React.FC = () => {
 
           <select
             value={drillFilter}
-            onChange={(e) => setDrillFilter(e.target.value as any)}
-            className="px-2.5 py-1.5 border border-border-hairline rounded bg-white"
+            onChange={(e) => setDrillFilter(e.target.value as 'ALL' | 'REAL' | 'DRILL')}
+            className="px-2.5 py-1.5 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
           >
-            <option value="ALL">All Incidents</option>
-            <option value="REAL">Real Incidents Only</option>
-            <option value="DRILL">Drills Only</option>
+            <option value="ALL">All incidents</option>
+            <option value="REAL">Real incidents only</option>
+            <option value="DRILL">Drills only</option>
           </select>
 
           <select
             value={outcomeFilter}
             onChange={(e) => setOutcomeFilter(e.target.value)}
-            className="px-2.5 py-1.5 border border-border-hairline rounded bg-white"
+            className="px-2.5 py-1.5 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
           >
-            <option value="ALL">All Outcomes</option>
+            <option value="ALL">All outcomes</option>
             <option value="RESOLVED">Resolved</option>
-            <option value="CANCELLED_BY_SENIOR">Cancelled by Senior</option>
-            <option value="TRIGGERED">Unresolved / Open</option>
+            <option value="CANCELLED_BY_SENIOR">Cancelled by senior</option>
+            <option value="TRIGGERED">Unresolved / open</option>
           </select>
         </div>
 
-        <span className="text-text-muted">
-          Showing <strong>{filtered.length}</strong> of {scopedEvents.length} records
+        <span className="text-text-secondary">
+          Showing <strong className="text-text font-semibold tabular-nums">{filtered.length}</strong> of{' '}
+          <span className="tabular-nums">{scopedEvents.length}</span> records
         </span>
       </div>
 
       {/* Historical Table */}
-      <div className="bg-white border border-border-hairline rounded overflow-hidden">
+      <div className="bg-surface border border-border rounded-container overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-surface-subtle border-b border-border-hairline text-text-muted font-medium">
+              <tr className="bg-surface-subtle border-b border-border text-text-secondary font-normal">
                 <th className="py-3 px-4">Case ID</th>
                 <th className="py-3 px-4">Triggered (IST)</th>
-                <th className="py-3 px-4">Senior Citizen</th>
+                <th className="py-3 px-4">Senior citizen</th>
                 <th className="py-3 px-4">Chapter</th>
                 <th className="py-3 px-4">Type</th>
-                <th className="py-3 px-4">Alert Latency</th>
+                <th className="py-3 px-4">Alert latency</th>
                 <th className="py-3 px-4">Cellular SMS</th>
-                <th className="py-3 px-4">SLA Result</th>
+                <th className="py-3 px-4">SLA result</th>
                 <th className="py-3 px-4">Outcome</th>
                 <th className="py-3 px-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-hairline">
+            <tbody className="divide-y divide-border-subtle">
               {filtered.map((ev) => {
                 const senior = data.seniorCitizens.find((s) => s.id === ev.seniorId);
 
                 return (
-                  <tr key={ev.id} className="hover:bg-surface-subtle transition-colors">
-                    <td className="py-3 px-4 tabular-nums font-semibold text-text-primary">{ev.id}</td>
-                    <td className="py-3 px-4 tabular-nums text-text-muted">
+                  <tr key={ev.id} className="hover:bg-surface-hover transition-colors">
+                    <td className="py-3 px-4 tabular-nums font-semibold text-text">{ev.id}</td>
+                    <td className="py-3 px-4 tabular-nums text-text-secondary">
                       {new Date(ev.triggeredAt).toLocaleString('en-IN', {
                         timeZone: 'Asia/Kolkata',
                         dateStyle: 'short',
@@ -204,42 +227,42 @@ export const SosHistoryPage: React.FC = () => {
                       })}
                     </td>
                     <td className="py-3 px-4">
-                      <span className="font-medium text-text-primary block">
+                      <span className="font-semibold text-text block">
                         {senior?.fullName || 'Unknown'}
                       </span>
-                      <span className="text-[11px] tabular-nums text-text-muted">
+                      <span className="text-xs tabular-nums text-text-secondary">
                         {senior ? maskPhoneNumber(senior.phoneNumber) : 'N/A'}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-text-primary">{ev.chapterId}</td>
+                    <td className="py-3 px-4 text-text">{ev.chapterId}</td>
                     <td className="py-3 px-4">
                       {ev.isDrill ? (
-                        <span className="px-2 py-0.5 text-[10px] bg-slate-100 text-slate-700 rounded font-semibold">
+                        <span className="px-2 py-0.5 text-xs bg-surface-subtle text-text-secondary rounded-chip font-semibold border border-border">
                           Drill
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 text-[10px] bg-red-100 text-red-700 rounded font-semibold">
+                        <span className="px-2 py-0.5 text-xs bg-negative-tint text-negative rounded-chip font-semibold border border-negative/20">
                           Real
                         </span>
                       )}
                     </td>
-                    <td className="py-3 px-4 tabular-nums text-text-primary font-medium">
+                    <td className="py-3 px-4 tabular-nums text-text font-semibold">
                       {ev.latencyMs} ms
                     </td>
                     <td className="py-3 px-4">
                       {ev.cellularFallbackTriggered ? (
-                        <span className="text-[11px] text-accent font-medium">
+                        <span className="text-xs text-accent font-semibold">
                           {ev.cellularFallbackDelivered ? 'Delivered' : 'Dispatched'}
                         </span>
                       ) : (
-                        <span className="text-text-muted text-[11px]">Data OK</span>
+                        <span className="text-text-secondary text-xs">Data OK</span>
                       )}
                     </td>
                     <td className="py-3 px-4">
                       {ev.slaBreached ? (
-                        <span className="text-[11px] font-semibold text-danger">Breached</span>
+                        <span className="text-xs font-semibold text-negative">Breached</span>
                       ) : (
-                        <span className="text-[11px] text-success">Within SLA</span>
+                        <span className="text-xs text-positive font-semibold">Within SLA</span>
                       )}
                     </td>
                     <td className="py-3 px-4">
@@ -259,9 +282,9 @@ export const SosHistoryPage: React.FC = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => navigate(`/sos/${ev.id}`)}
-                        className="text-xs px-2 py-1 h-7 gap-1"
+                        className="text-xs px-2 py-0.5 h-6"
                       >
-                        <Eye className="w-3 h-3" /> View
+                        Dossier
                       </Button>
                     </td>
                   </tr>
@@ -271,28 +294,6 @@ export const SosHistoryPage: React.FC = () => {
           </table>
         </div>
       </div>
-
-      <ExportDialog
-        open={exportOpen}
-        onClose={() => setExportOpen(false)}
-        title="Export SOS Incident History"
-        entityName="sos_history"
-        totalRows={filtered.length}
-        onExport={async (reason) => {
-          data.auditEvents.unshift({
-            id: `AUD-${Date.now()}`,
-            timestamp: new Date().toISOString(),
-            actorId: user?.id || 'SYSTEM',
-            actorRole: user?.role || 'RA',
-            chapterId: user?.chapterId || 'ORGANISATION',
-            action: 'DATA_EXPORT',
-            entityType: 'SOS',
-            entityId: 'HISTORY',
-            details: `SOS history CSV exported (${filtered.length} rows). Justification: ${reason}`,
-          });
-          mockStore.persist();
-        }}
-      />
     </div>
   );
 };

@@ -11,10 +11,7 @@ import {
   Radio,
   Play,
   CheckCircle2,
-  Clock,
-  ShieldAlert,
   ArrowLeft,
-  AlertTriangle,
   Info,
 } from 'lucide-react';
 
@@ -47,12 +44,12 @@ export const SosDrillsPage: React.FC = () => {
       triggeredAt,
       status: 'TRIGGERED' as const,
       isDrill: true,
-      networkStatusAtTrigger: (simulateDisconnect ? 'DISCONNECTED' : 'ONLINE') as any,
+      networkStatusAtTrigger: (simulateDisconnect ? 'DISCONNECTED' : 'ONLINE') as 'DISCONNECTED' | 'ONLINE',
       cellularFallbackTriggered: simulateDisconnect,
       cellularFallbackDelivered: simulateDisconnect,
       latencyMs: latency,
       slaBreached: false,
-      notes: `[Operational Drill Initiated by ${user?.name || user?.role}]`,
+      notes: `[Operational drill initiated by ${user?.name || user?.role}]`,
     };
 
     data.sosEvents.unshift(drillEvent);
@@ -86,7 +83,6 @@ export const SosDrillsPage: React.FC = () => {
       details: `Simulated SOS drill launched for senior ${senior.fullName} (${senior.memberId}). Data disconnect: ${simulateDisconnect}`,
     });
 
-    // Enqueue event for cross-tab notification
     eventQueue.enqueue({
       id: `EV-${Date.now()}`,
       type: 'SOS_TRIGGERED',
@@ -95,7 +91,7 @@ export const SosDrillsPage: React.FC = () => {
     });
 
     mockStore.persist();
-    setFeedback(`Operational drill ${drillId} dispatched! Alert is live on the SOS Board.`);
+    setFeedback(`Operational drill ${drillId} dispatched! Alert is live on the SOS board.`);
   };
 
   return (
@@ -105,36 +101,40 @@ export const SosDrillsPage: React.FC = () => {
           variant="outline"
           size="sm"
           onClick={() => navigate('/sos')}
-          className="gap-1 text-xs"
+          className="gap-1.5 text-xs"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          Back to Live SOS Board
+          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
+          Back to Live SOS board
         </Button>
       </div>
 
       <PageHeader
-        title="Emergency Preparedness & Response Drills"
+        title="Emergency preparedness & response drills"
         description="Schedule unannounced or scheduled operational drills to test staff response SLA and cellular fallback integrity."
       />
 
       {feedback && (
-        <div className="p-3 bg-accent-tint border border-accent/20 rounded text-xs text-accent flex items-center justify-between">
+        <div className="p-3 bg-accent-tint border border-accent/20 rounded-control text-xs text-accent flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-accent" />
+            <CheckCircle2 className="w-4 h-4 stroke-[1.5]" />
             {feedback}
           </span>
-          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
+          <button
+            type="button"
+            onClick={() => setFeedback(null)}
+            className="font-semibold underline ml-2"
+          >
             Dismiss
           </button>
         </div>
       )}
 
       {/* Drill Isolation Notice */}
-      <div className="p-4 bg-amber-50 border border-amber-200 rounded text-xs text-amber-900 flex items-start gap-3">
-        <Info className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
+      <div className="p-4 bg-critical-tint border border-border rounded-container text-xs text-text flex items-start gap-3">
+        <Info className="w-5 h-5 text-critical shrink-0 mt-0.5 stroke-[1.5]" />
         <div>
-          <span className="font-semibold text-amber-950 block">Audit & Reporting Isolation:</span>
-          All drill events are tagged with <code>isDrill = true</code> and are automatically excluded
+          <span className="font-semibold text-text block">Audit & reporting isolation:</span>
+          All drill events are tagged with <span className="font-semibold">isDrill = true</span> and are automatically excluded
           from real donor KPI reports, official incident rates, and SLA breach penalties.
         </div>
       </div>
@@ -142,22 +142,22 @@ export const SosDrillsPage: React.FC = () => {
       {/* Launch Drill Form */}
       <form
         onSubmit={handleLaunchDrill}
-        className="bg-white border border-border-hairline rounded p-5 space-y-4"
+        className="bg-surface border border-border rounded-container p-5 space-y-4"
       >
-        <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
-          <Radio className="w-4 h-4 text-accent" />
-          Launch New Operational Drill
+        <h3 className="font-semibold text-sm text-text flex items-center gap-2">
+          <Radio className="w-4 h-4 text-accent stroke-[1.5]" />
+          Launch new operational drill
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
           <div>
-            <label className="block font-medium text-text-muted mb-1">
-              Select Test Senior Persona:
+            <label className="block font-semibold text-text mb-1">
+              Select test senior persona:
             </label>
             <select
               value={selectedSeniorId}
               onChange={(e) => setSelectedSeniorId(e.target.value)}
-              className="w-full text-xs px-3 py-2 border border-border-hairline rounded bg-white"
+              className="w-full text-xs px-3 py-2 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
             >
               {data.seniorCitizens.slice(0, 15).map((s) => (
                 <option key={s.id} value={s.id}>
@@ -168,11 +168,11 @@ export const SosDrillsPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block font-medium text-text-muted mb-1">Target Chapter Hub:</label>
+            <label className="block font-semibold text-text mb-1">Target chapter hub:</label>
             <select
               value={selectedChapterId}
               onChange={(e) => setSelectedChapterId(e.target.value)}
-              className="w-full text-xs px-3 py-2 border border-border-hairline rounded bg-white"
+              className="w-full text-xs px-3 py-2 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
             >
               {data.chapters.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -183,56 +183,56 @@ export const SosDrillsPage: React.FC = () => {
           </div>
 
           <div className="md:col-span-2">
-            <label className="flex items-center gap-2 p-3 bg-surface-subtle border border-border-hairline rounded cursor-pointer">
+            <label className="flex items-center gap-2 p-3 bg-surface-subtle border border-border rounded-control cursor-pointer">
               <input
                 type="checkbox"
                 checked={simulateDisconnect}
                 onChange={(e) => setSimulateDisconnect(e.target.checked)}
-                className="text-accent rounded"
+                className="text-accent rounded-control"
               />
-              <span className="text-xs text-text-primary">
-                <strong>Simulate Mid-Transaction Data Disconnect:</strong> Exercises the cellular
+              <span className="text-xs text-text">
+                <strong className="font-semibold">Simulate mid-transaction data disconnect:</strong> Exercises the cellular
                 fallback routine to send transactional SMS to next-of-kin.
               </span>
             </label>
           </div>
         </div>
 
-        <div className="flex justify-end pt-2 border-t border-border-hairline">
-          <Button type="submit" variant="primary" size="sm" className="text-xs gap-1.5 bg-accent">
-            <Play className="w-3.5 h-3.5 fill-current" />
-            Trigger Simulated SOS Alert
+        <div className="flex justify-end pt-2 border-t border-border-subtle">
+          <Button type="submit" variant="primary" size="sm" className="text-xs gap-1.5 font-semibold">
+            <Play className="w-3.5 h-3.5 fill-current stroke-[1.5]" />
+            Trigger simulated SOS alert
           </Button>
         </div>
       </form>
 
       {/* Drill Results Log */}
-      <div className="bg-white border border-border-hairline rounded overflow-hidden">
-        <div className="p-4 border-b border-border-hairline flex items-center justify-between">
-          <h3 className="font-semibold text-sm text-text-primary">
-            Past Drill Exercises ({drillEvents.length})
+      <div className="bg-surface border border-border rounded-container overflow-hidden">
+        <div className="p-4 border-b border-border-subtle flex items-center justify-between">
+          <h3 className="font-semibold text-sm text-text">
+            Past drill exercises ({drillEvents.length})
           </h3>
-          <span className="text-xs text-text-muted">Filtered by isDrill = true</span>
+          <span className="text-xs text-text-secondary">Filtered by isDrill = true</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-surface-subtle border-b border-border-hairline text-text-muted font-medium">
+              <tr className="bg-surface-subtle border-b border-border text-text-secondary font-normal">
                 <th className="py-2.5 px-4">Drill ID</th>
-                <th className="py-2.5 px-4">Date & Time</th>
-                <th className="py-2.5 px-4">Senior Tested</th>
+                <th className="py-2.5 px-4">Date & time</th>
+                <th className="py-2.5 px-4">Senior tested</th>
                 <th className="py-2.5 px-4">Chapter</th>
                 <th className="py-2.5 px-4">Latency</th>
-                <th className="py-2.5 px-4">SMS Fallback</th>
+                <th className="py-2.5 px-4">SMS fallback</th>
                 <th className="py-2.5 px-4">Status</th>
                 <th className="py-2.5 px-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-hairline">
+            <tbody className="divide-y divide-border-subtle">
               {drillEvents.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-text-muted">
+                  <td colSpan={8} className="py-8 text-center text-text-secondary">
                     No drills conducted yet. Use the form above to run a preparedness test.
                   </td>
                 </tr>
@@ -241,9 +241,9 @@ export const SosDrillsPage: React.FC = () => {
                   const senior = data.seniorCitizens.find((s) => s.id === ev.seniorId);
 
                   return (
-                    <tr key={ev.id} className="hover:bg-surface-subtle">
-                      <td className="py-2.5 px-4 tabular-nums font-semibold text-text-primary">{ev.id}</td>
-                      <td className="py-2.5 px-4 tabular-nums text-text-muted">
+                    <tr key={ev.id} className="hover:bg-surface-hover transition-colors">
+                      <td className="py-2.5 px-4 tabular-nums font-semibold text-text">{ev.id}</td>
+                      <td className="py-2.5 px-4 tabular-nums text-text-secondary">
                         {new Date(ev.triggeredAt).toLocaleString('en-IN', {
                           timeZone: 'Asia/Kolkata',
                           dateStyle: 'short',
@@ -251,20 +251,20 @@ export const SosDrillsPage: React.FC = () => {
                         })}
                       </td>
                       <td className="py-2.5 px-4">
-                        <span className="font-medium text-text-primary block">
-                          {senior?.fullName || 'Test Senior'}
+                        <span className="font-semibold text-text block">
+                          {senior?.fullName || 'Test senior'}
                         </span>
-                        <span className="text-[11px] tabular-nums text-text-muted">
+                        <span className="text-xs tabular-nums text-text-secondary">
                           {senior ? maskPhoneNumber(senior.phoneNumber) : 'N/A'}
                         </span>
                       </td>
                       <td className="py-2.5 px-4">{ev.chapterId}</td>
-                      <td className="py-2.5 px-4 tabular-nums text-accent">{ev.latencyMs} ms</td>
+                      <td className="py-2.5 px-4 tabular-nums text-accent font-semibold">{ev.latencyMs} ms</td>
                       <td className="py-2.5 px-4">
                         {ev.cellularFallbackTriggered ? (
-                          <span className="text-accent font-medium text-[11px]">SMS Dispatched</span>
+                          <span className="text-accent font-semibold text-xs">SMS dispatched</span>
                         ) : (
-                          <span className="text-text-muted text-[11px]">N/A (Data OK)</span>
+                          <span className="text-text-secondary text-xs">N/A (Data OK)</span>
                         )}
                       </td>
                       <td className="py-2.5 px-4">
@@ -286,7 +286,7 @@ export const SosDrillsPage: React.FC = () => {
                           onClick={() => navigate(`/sos/${ev.id}`)}
                           className="text-xs px-2 py-0.5 h-6"
                         >
-                          View
+                          View case
                         </Button>
                       </td>
                     </tr>

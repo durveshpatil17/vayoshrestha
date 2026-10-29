@@ -218,3 +218,26 @@
   - Design-lint: 0 violations across all 20 `src/ui` files, 0 violations across all 9 `src/pages/dashboard` files, and 0 in `FieldTelemetryCard.tsx`.
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U6: SOS Board (`/sos`, `/sos/*`, `/sms-log`) with Cloudscape Split Panel and Flashbar.
+
+---
+
+## Loop U6: SOS Board & Emergency Response Protocol (Phase U: Final UI Design Pass)
+- **Goal**: Restructure `/sos` into an AWS Cloudscape Split Panel (triage queue table on left, live incident inspection drawer on right), non-strobing Flashbar for open emergencies, and restyle `/sos/*` (`SosCaseDetailPage`, `SosDrillsPage`, `SosHistoryPage`, `SosSettingsPage`) and `/sms-log` (`SmsLogPage`) as Fiori List Reports and Object Pages with clean tokens, tabular numbers, zero emoji in UI chrome, and zero design-lint violations.
+- **What Changed**:
+  - Restructured `src/pages/sos/SosBoardPage.tsx` into an AWS Cloudscape Split Panel layout:
+    - Primary column (7 cols): Interactive triage queue table with filter controls (Real / Drill / All; Active / All / Triggered / etc.), age / SLA countdowns, and quick row selection.
+    - Split Panel (5 cols, sticky): Live incident summary, senior profile & masked phone, emergency contacts with priority, fallback cellular SMS status, immediate action bar (Acknowledge, Assign Responder, Resolve), and incident notes feed with quick note entry.
+    - Cloudscape Flashbar: Non-strobing alert for active critical cases with "Focus active alerts" quick action.
+    - Removed emoji from document title and UI chrome.
+  - Refactored `src/pages/sos/SosCaseDetailPage.tsx` to Fiori Object Page with latency & fallback summary cards, incident timeline, NOK emergency contacts, static hub location, and resolve dialog. Removed `animate-pulse` and emoji.
+  - Restyled `src/pages/sos/SmsLogPage.tsx` as Fiori List Report with delivery status chips, tabular timestamps, and retry action.
+  - Restyled `src/pages/sos/SosDrillsPage.tsx` with preparedness launch form and drill exercise audit table.
+  - Restyled `src/pages/sos/SosHistoryPage.tsx` with exactly 4 headline `KpiTile` metrics and filterable historical registry.
+  - Restyled `src/pages/sos/SosSettingsPage.tsx` with maker-checker approval policy card and SLA escalation inputs.
+  - Audited `src/pages/sos/`: 0 design-lint violations across all 6 files.
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+  - Design-lint: 0 violations across all 6 files in `src/pages/sos/`.
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U7: Tranche A Pages (Onboarding, Seniors Object Page, Health & Biomarkers).

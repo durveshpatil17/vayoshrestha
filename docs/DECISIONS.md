@@ -170,3 +170,19 @@ This document records architectural, UX, data-model, security, and scope decisio
   9. **Wizard Pattern**: AWS Cloudscape Wizard (left-hand step navigation, central step content, sticky footer actions).
   10. **Single Accent & White Theme**: Horizon blue `#0070F2` accent only. Neutral background `--page: #F5F6F7`, surface `--surface: #FFFFFF`, border `--border: #D5DADD`. Removal of all forest green, gradients, card shadows, uppercase/tracking, and secondary icon sets.
 - **Rationale**: Replaces Master Prompt v3 §5 and creates an unambiguous design standard across all 168+ routes and 12 personas.
+
+---
+
+## Decision 014: Pass v4 — Real Workflows + Information Architecture (SAP Fiori Spaces & AWS Management Console Consolidation)
+- **Date**: 2026-10-30
+- **Context**: Autonomous team initiated Pass v4 to eliminate the remaining "vibe-coded" friction points, replacing equal-weight sidebar sprawl with 10 consolidated workspaces, an actionable task-based handoff model (`/inbox`), single event store reconciliation, and full end-to-end execution of processes P1 through P15.
+- **Decisions**:
+  1. **Fixed-Height Viewport Layout Hard Rule**: Shell layout strictly fixed at `height: 100dvh; overflow: hidden`. The document element never scrolls. Side navigation is bounded (`scrollHeight <= clientHeight`). The main region (`min-height: 0; overflow: auto`) is the sole scroll container.
+  2. **10 Domain Workspaces & Navigation Budget**: Workspaces are Emergency, Care, Seniors, Community, Learning, Messaging, Partners, Field network, Insights, Governance, Administration (with isolated shells for `/me`, `/family`, `/field`, `/partner`). Side navigation has $\le 8$ apps per workspace, ordered Work / Monitor / Configure (Configure collapsed by default). Pinned items are Home (`/`) and My work (`/inbox`) with live task badge.
+  3. **Zero Broken Old URLs & Explicit Redirect Map**: In adherence to the feature freeze and brownfield rules, all 21 consolidated standalone views redirect seamlessly via 301 SPA redirects to their canonical tabs (codified in `docs/IA.md`).
+  4. **Task Inbox & Inter-Role Handoff Model**: All human process steps generate typed `Task` records managed by `src/services/taskService.ts`, surfacing in `/inbox` with split panel, queue filters, and `Take next` claiming.
+  5. **Stateful Process Flows & Context Rails**: Stateful entities feature horizontal Process Flow indicators and a 320px collapsible Context Rail (Process Flow, Related Objects, Activity Feed, Internal Notes, Help).
+  6. **Single Event Store & Selector Reconciliation**: Eliminates disconnected mock arrays; all dashboard tiles, landing pages, reports, and telemetry derive strictly from the single event store.
+  7. **Canonical In-Flight Stories**: Seeds 8 named in-flight cases (Lakshmi Devi, Ramesh Kulkarni, Abdul Rehman, Savitri Patil, Mohan Lal, Dharwad Quiz, etc.) allowing immediate, mid-workflow live demonstrations to CSR funders.
+- **Rationale**: Elevates the prototype from disjointed static screens into an integrated enterprise operating system suitable for national scale.
+

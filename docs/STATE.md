@@ -1,8 +1,8 @@
 # VAYOSHRESHTHA v2 — Implementation State & Backlog
 
-**Current Local Time**: 2026-10-28T20:10:00+05:30  
-**Current Phase**: Phase P9 Complete (SAP Fiori Horizon + AWS Cloudscape Refinement)  
-**Current Loop**: Final Verification & Gate Clearance  
+**Current Local Time**: 2026-10-30T03:52:00+05:30  
+**Current Phase**: Phase v4 (Product-Feel Pass: Real Workflows + Information Architecture)  
+**Current Loop**: Loop R0 Complete -> Advancing to Loop R1  
 **Active Blocker**: None  
 
 ---
@@ -265,3 +265,42 @@
   - Paired before/after visual evidence: 21 screenshots captured and verified in `docs/screens/before/` and `docs/screens/after/`.
   - Comprehensive quality matrix: authored `docs/DESIGN_SCORES.md` with all 7 criteria scoring $\ge 9.9/10$ across all roles and pages.
   - Verification: `npm run gate:full` passed completely (`tsc --noEmit` 0 errors, design-lint 0 violations across 264 files, 148 unit tests green, 105 ledger features Built, 123 manifest routes verified).
+
+---
+
+## Phase v4: Product-Feel Pass — Real Workflows + Information Architecture
+
+- [x] **Loop R0: Audit, Inventory, Process Specs & Test Harness (Completed)**
+  - [x] Captured 29 baseline before-screenshots across all personas and views into `docs/screens/v4-before/` via `scripts/capture-v4-before.mjs`.
+  - [x] Authored `docs/IA.md`: 10 workspaces, Work/Monitor/Configure groups, $\le 8$ apps budget, role mapping, 21-route redirect map, click-depth analysis.
+  - [x] Authored `docs/PROCESSES.md`: Detailed end-to-end specifications for P1 through P15 (entry points, human steps, automated steps, task handoffs, SLA timers, exceptions, terminal states, feeds, and audit trail).
+  - [x] Authored `docs/JOURNEYS.md`: 15 step-by-step user journey scripts (J-01 through J-15) for multi-context automated testing and funder presentations.
+  - [x] Authored `docs/CONTENT_STYLE.md`: Canonical glossary, "Verb + Object" button grammar, `E-XXXX` error code formatting, and sentence case standards.
+  - [x] Authored `docs/DATA_REALISM.md`: Demographic realism, non-round metrics, weekday rhythms, and 8 canonical in-flight stories for live demonstration.
+  - [x] Codified Decision 014 in `docs/DECISIONS.md`.
+  - [x] Authored test harness:
+    - [x] `tests/e2e/no-scroll-shell.spec.ts` (Fixed-height shell layout assertion).
+    - [x] `tests/e2e/ia-budget.spec.ts` (Navigation budget, ordering, and permission-built nav).
+    - [x] `tests/e2e/dead-controls.spec.ts` (Dead-control crawler and coming-soon toast ban).
+    - [x] `tests/unit/processesSpec.test.ts` (153 vitest tests passing across 29 test suites).
+  - [x] Verification: `tsc --noEmit` clean, 0 design-lint violations, 105 features Built, 123 manifest routes verified, ratchet verified.
+- [ ] **Loop R1: Shell and Layout Fix (Next)**
+  - Fixed-height shell layout (`100dvh`, `overflow: hidden`, main region as sole scroll container).
+  - Fiori 52px shell bar with inline workspace tabs (top $\le 5$), "All workspaces" popover, scope switcher, global search / command palette (`Ctrl+K`), `+ Create` menu, SOS chip.
+  - Workspace side navigation: Workspace name + purpose, pinned Home (`/`) and My work (`/inbox`), Work / Monitor / Configure sections (Configure collapsed by default), $\le 8$ apps budget.
+  - Breadcrumb hierarchy: Workspace > App > Record.
+  - SPA 301 Redirect router enforcing `docs/IA.md` explicit redirect map.
+- [ ] **Loop R2: Launchpad Home, Workspace Landing Pages, `/apps`, Recents, Favourites, Create Menu & Command Palette**
+- [ ] **Loop R3: Consolidation into App Hubs with Tabs per `docs/IA.md`**
+- [ ] **Loop R4: Task Service Backbone, My Work `/inbox`, Split Panel, Entity Hover Cards, Process Flow & Context Rail**
+- [ ] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories**
+- [ ] **Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End**
+- [ ] **Loop R7: Processes P2 & P3 (Emergency SOS & Daily Health Routine) End to End**
+- [ ] **Loop R8: Processes P4 & P5 (Community Programmes & Communication Campaigns) End to End**
+- [ ] **Loop R9: Processes P6, P7 & P14 (Service Routing, Vouchers, Legal Intake, Partner Onboarding) End to End**
+- [ ] **Loop R10: Processes P8 & P13 (Learning Delivery & Impact Reporting) End to End**
+- [ ] **Loop R11: Processes P10, P11, P12 & P15 (Maker-Checker, Data Requests, Complaints, Pilot Readiness) End to End**
+- [ ] **Loop R12: Scenario Engine (S1–S6), Ambient Operations Simulator, Demo Director & Guided Demo Panel**
+- [ ] **Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour**
+- [ ] **Loop R14: Final Sweep, Multi-Role Test Matrix, Score Summary & `docs/CSR_DEMO_PLAYBOOK.md`**
+

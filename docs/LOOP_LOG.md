@@ -388,4 +388,35 @@
 - **Defects & Blockers**: None.
 - **Phase Status**: Phase U (Final UI Design Pass) 100% COMPLETE.
 
+---
+
+## Loop R0: Audit, Inventory, Process Specs & Test Harness (Phase v4: Product-Feel Pass)
+- **Goal**: Establish the foundation for Pass v4: capture baseline before-screenshots, define the 10-workspace IA and redirect map (`docs/IA.md`), specify all 15 business processes (`docs/PROCESSES.md`), author user journey scripts (`docs/JOURNEYS.md`), codify content style and canonical glossary (`docs/CONTENT_STYLE.md`), specify seed realism standards and in-flight stories (`docs/DATA_REALISM.md`), update `docs/DECISIONS.md` (Decision 014), and author the test harness.
+- **What Changed**:
+  - Captured 29 baseline screenshots across all personas and views into `docs/screens/v4-before/` via `scripts/capture-v4-before.mjs`.
+  - Authored `docs/IA.md`:
+    - 10 Workspaces (Emergency, Care, Seniors, Community, Learning, Messaging, Partners, Field network, Insights, Governance, Administration) + 4 specialized shells (`/me`, `/family`, `/field`, `/partner`).
+    - Work / Monitor / Configure app categorization with $\le 8$ apps per workspace budget.
+    - Role-to-workspaces matrix for all 12 roles.
+    - Explicit 21-route redirect map ensuring 0 broken URLs and 0 404s.
+    - Click-depth inventory asserting all routes reachable in $\le 3$ clicks from Home.
+  - Authored `docs/PROCESSES.md`: Detailed end-to-end specifications for P1 through P15 (entry points, human steps, automated steps, task handoffs, SLA timers, exceptions, terminal states, feeds, and audit trail).
+  - Authored `docs/JOURNEYS.md`: 15 step-by-step user journey scripts (J-01 through J-15) for multi-context automated testing and funder presentations.
+  - Authored `docs/CONTENT_STYLE.md`: Canonical glossary ("Chapter", "Senior", "Field associate", "Emergency", "Wellness call", "Reading", "Reminder", "Referral", "Voucher", "Legal intake", "Impact pack"), "Verb + Object" button grammar, `E-XXXX` error code formatting, and sentence case standards.
+  - Authored `docs/DATA_REALISM.md`: Demographic realism, non-round metrics, weekday rhythms, and 8 canonical in-flight stories for live demonstration.
+  - Codified Decision 014 in `docs/DECISIONS.md`.
+  - Authored Red Test Suites:
+    - `tests/e2e/no-scroll-shell.spec.ts`: Verifies fixed-height shell layout (`document.scrollingElement.scrollHeight === clientHeight` at 1440×900 and 1280×720, sidebar `scrollHeight <= clientHeight`).
+    - `tests/e2e/ia-budget.spec.ts`: Verifies $\le 8$ apps per workspace budget, Work/Monitor/Configure order, Configure collapsed by default, pinned Home & My work.
+    - `tests/e2e/dead-controls.spec.ts`: Verifies zero coming-soon toasts, zero dead controls, and zero console errors.
+    - `tests/unit/processesSpec.test.ts`: Asserts process definitions, journey coverage, glossary terms, error codes, in-flight stories, and redirect maps.
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - `npm run design:lint`: 0 violations across 264 files.
+  - `npm run test`: 153 tests passing across 29 test suites (100% green).
+  - `npm run gate:full`: Passed cleanly (ledger 105 Built, manifest 123 valid, ratchet verified).
+- **Defects & Blockers**: None.
+- **Next Step**: Loop R1: Shell and layout fix (`100dvh`, workspace tabs, All-workspaces popover, workspace side navigation with Work/Monitor/Configure, collapsible rail, breadcrumbs, redirects).
+
+
 

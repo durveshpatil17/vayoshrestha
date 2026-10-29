@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { getFieldQueue, FieldQueueItem } from '@/domain/field/offlineQueue';
+import { getFieldQueue } from '@/domain/field/offlineQueue';
 import {
-  Wifi,
-  WifiOff,
   Activity,
-  Clock,
-  MapPin,
-  RefreshCw,
   Table,
-  CheckCircle,
+  MapPin,
+  CheckCircle2,
+  Clock,
   AlertTriangle,
-  ExternalLink,
 } from 'lucide-react';
 
 interface TickerEvent {
@@ -134,159 +130,157 @@ export const FieldTelemetryCard: React.FC<{ className?: string }> = ({ className
 
   return (
     <div
-      className={`bg-bg-surface border border-border rounded-xl p-5  space-y-4 ${className}`}
+      className={`bg-surface border border-border rounded-container p-6 space-y-5 transition-colors ${className}`}
       data-testid="field-telemetry-card"
     >
-      {/* Header with Title, Live Badge, and View Mode Toggle */}
-      <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-border-hairline">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-accent-tint text-accent flex items-center justify-center">
-            <Activity className="w-4 h-4" />
-          </div>
+      {/* Header: Title, Live indicator, Inline figures, View as Table */}
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 border-b border-border-subtle">
+        <div className="flex items-center gap-3">
+          <Activity className="w-5 h-5 text-accent stroke-[1.5]" />
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-text-primary text-base">
-                Field Network Telemetry
+            <div className="flex items-center gap-2.5">
+              <h3 className="font-semibold text-text text-base">
+                Operational field network
               </h3>
-              <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-positive-tint text-positive text-[11px] font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-positive animate-pulse" />
-                Live Feed
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-chip bg-positive-tint text-positive text-xs font-semibold">
+                <CheckCircle2 className="w-3.5 h-3.5 stroke-[1.5]" />
+                Live feed
               </span>
             </div>
-            <div className="text-xs text-text-muted mt-0.5">
-              Real-time last-mile synchronization across 9 Ekta Hub chapters
-            </div>
+            <p className="text-xs text-text-secondary mt-0.5">
+              Last-mile field synchronization across 9 chapters
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <span className="text-[11px] tabular-nums text-text-muted">
-            Last updated: <span className="font-medium text-text-secondary">{lastUpdated}</span>
-          </span>
+        {/* Inline headline figures */}
+        <div className="flex flex-wrap items-center gap-6">
+          <div>
+            <span className="text-xs text-text-secondary block">Active field gigs</span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-xl font-semibold text-text tabular-nums">{activeGigs60m}</span>
+              <span className="text-xs text-text-secondary tabular-nums">/ {activeGigs24h} (24h)</span>
+            </div>
+          </div>
 
-          <button
-            type="button"
-            onClick={() => setViewMode(viewMode === 'visual' ? 'table' : 'visual')}
-            className="flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium border border-border-hairline bg-bg-subtle text-text-secondary hover:text-text-primary transition-colors"
-          >
-            <Table className="w-3.5 h-3.5" />
-            <span>{viewMode === 'visual' ? 'View as Table' : 'View as Graphic'}</span>
-          </button>
+          <div className="border-l border-border-subtle pl-6">
+            <span className="text-xs text-text-secondary block">Last-mile syncs</span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-xl font-semibold text-text tabular-nums">{syncsToday}</span>
+              <span className="text-xs text-positive font-semibold tabular-nums">+{syncsLastHour} / 1h</span>
+            </div>
+          </div>
+
+          <div className="border-l border-border-subtle pl-6 flex items-center gap-3">
+            <span className="text-xs tabular-nums text-text-secondary">
+              {lastUpdated}
+            </span>
+
+            <button
+              type="button"
+              onClick={() => setViewMode(viewMode === 'visual' ? 'table' : 'visual')}
+              className="h-8 px-2.5 rounded-control text-xs font-semibold border border-border bg-surface-subtle text-text hover:bg-surface-hover flex items-center gap-1.5 transition-colors"
+            >
+              <Table className="w-3.5 h-3.5 stroke-[1.5]" />
+              <span>{viewMode === 'visual' ? 'View as table' : 'View as graphic'}</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {viewMode === 'visual' ? (
         <>
-          {/* Key Metric Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <div className="p-3 bg-bg-subtle/50 rounded-lg border border-border-hairline">
-              <div className="text-[11px] font-medium text-text-muted">Active Field Gigs</div>
-              <div className="text-2xl font-semibold text-accent tabular-nums mt-1">
-                {activeGigs60m}
-                <span className="text-xs font-normal text-text-muted ml-1.5">
-                  / {activeGigs24h} (24h)
-                </span>
-              </div>
-              <div className="text-[10px] text-text-secondary mt-1 flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-positive inline-block" />
-                42 associates online
-              </div>
+          {/* Key-Value Operational Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-control bg-page border border-border">
+            <div>
+              <span className="text-xs text-text-secondary block">Median delay</span>
+              <span className="text-base font-semibold text-text tabular-nums">
+                {medianDelayMinutes} min
+              </span>
+              <span className="text-xs text-text-secondary block mt-0.5">&lt;45m target</span>
             </div>
 
-            <div className="p-3 bg-bg-subtle/50 rounded-lg border border-border-hairline">
-              <div className="text-[11px] font-medium text-text-muted">Last-Mile Syncs Today</div>
-              <div className="text-2xl font-semibold text-text-primary tabular-nums mt-1">
-                {syncsToday}
-                <span className="text-xs font-semibold text-positive ml-1.5">
-                  +{syncsLastHour} / 1h
-                </span>
-              </div>
-              <div className="text-[10px] text-text-muted mt-1">
-                Median delay: <strong className="font-semibold text-text-primary">{medianDelayMinutes}m</strong>
-              </div>
-            </div>
-
-            <div className="p-3 bg-bg-subtle/50 rounded-lg border border-border-hairline">
-              <div className="text-[11px] font-medium text-text-muted">Offline Queues Depth</div>
-              <div className="text-2xl font-semibold text-critical tabular-nums mt-1">
-                {pendingInQueue}
-                <span className="text-xs font-normal text-text-muted ml-1.5">
-                  waiting sync
-                </span>
-              </div>
-              <div className="text-[10px] text-text-muted mt-1">
-                Encrypted in browser storage
-              </div>
-            </div>
-
-            <div className="p-3 bg-bg-subtle/50 rounded-lg border border-border-hairline">
-              <div className="text-[11px] font-medium text-text-muted">Late Syncs (&gt;24h)</div>
-              <div className="text-2xl font-semibold text-text-primary tabular-nums mt-1">
+            <div>
+              <span className="text-xs text-text-secondary block">Late syncs (&gt;24h)</span>
+              <span className="text-base font-semibold text-critical tabular-nums">
                 {lateSyncs}
-                <span className="text-xs font-medium text-text-muted ml-1.5">
-                  ({((lateSyncs / syncsToday) * 100).toFixed(1)}%)
-                </span>
-              </div>
-              <div className="text-[10px] text-text-muted mt-1">
-                Audited & flagged SLA
-              </div>
+              </span>
+              <span className="text-xs text-text-secondary block mt-0.5">
+                {((lateSyncs / syncsToday) * 100).toFixed(1)}% of total
+              </span>
+            </div>
+
+            <div>
+              <span className="text-xs text-text-secondary block">Offline queue depth</span>
+              <span className="text-base font-semibold text-text tabular-nums">
+                {pendingInQueue} items
+              </span>
+              <span className="text-xs text-text-secondary block mt-0.5">Encrypted in browser</span>
+            </div>
+
+            <div>
+              <span className="text-xs text-text-secondary block">Associates online</span>
+              <span className="text-base font-semibold text-positive tabular-nums">
+                42 active
+              </span>
+              <span className="text-xs text-text-secondary block mt-0.5">Coarse geostamp</span>
             </div>
           </div>
 
-          {/* 24-Hour Sync Sparkline & Chapter Activity Bars */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-            {/* 24-Hour Sparkline */}
-            <div className="p-3 bg-bg-subtle/30 rounded-lg border border-border-hairline space-y-2">
+          {/* 24-Hour Sparkline & 9-Chapter Distribution Table */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 24-Hour Synchronization Volume */}
+            <div className="p-4 rounded-control bg-surface border border-border space-y-3">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-text-primary">
-                  Hourly Synchronization Volume (24h)
+                <span className="font-semibold text-text">
+                  Hourly synchronization volume (24h)
                 </span>
-                <span className="text-[11px] text-text-muted tabular-nums">Peak: 82 syncs/h</span>
+                <span className="text-xs text-text-secondary tabular-nums">Peak: 82 syncs/h</span>
               </div>
 
-              {/* Sparkline Visual SVG */}
-              <div className="h-16 flex items-end gap-1 pt-2">
+              {/* Sparkline Bars */}
+              <div className="h-20 flex items-end gap-1 pt-2">
                 {sparklineData.map((val, idx) => {
-                  const heightPct = Math.max(10, Math.round((val / 85) * 100));
+                  const heightPct = Math.max(12, Math.round((val / 85) * 100));
                   return (
                     <div
                       key={idx}
                       className="flex-1 bg-accent/80 hover:bg-accent rounded-t transition-all"
                       style={{ height: `${heightPct}%` }}
-                      title={`Hour ${idx}:00 — ${val} synchronizations`}
+                      title={`Hour ${idx}:00 — ${val} syncs`}
                     />
                   );
                 })}
               </div>
-              <div className="flex justify-between text-[10px] text-text-muted pt-1">
+              <div className="flex justify-between text-xs text-text-secondary border-t border-border-subtle pt-1.5 tabular-nums">
                 <span>00:00 IST</span>
                 <span>12:00 IST</span>
                 <span>Now</span>
               </div>
             </div>
 
-            {/* Per-Chapter Activity Strip (9 chapters) */}
-            <div className="p-3 bg-bg-subtle/30 rounded-lg border border-border-hairline space-y-2">
+            {/* 9 Chapters Activity Table with Inline Bars */}
+            <div className="p-4 rounded-control bg-surface border border-border space-y-3">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-text-primary">
-                  Chapter Activity Share (9 Hubs)
+                <span className="font-semibold text-text">
+                  Chapter activity distribution (9 hubs)
                 </span>
-                <span className="text-[11px] text-text-muted">Tabular &amp; Inline Bars</span>
+                <span className="text-xs text-text-secondary">Tabular counts</span>
               </div>
 
-              <div className="space-y-1.5 max-h-24 overflow-y-auto pr-1">
+              <div className="space-y-1.5 max-h-32 overflow-y-auto pr-1">
                 {chaptersActivity.map((ch) => (
-                  <div key={ch.code} className="flex items-center gap-2 text-xs">
-                    <span className="w-16 text-[11px] text-text-secondary truncate">
+                  <div key={ch.code} className="flex items-center gap-3 text-xs">
+                    <span className="w-20 text-text-secondary truncate">
                       {ch.name}
                     </span>
-                    <div className="flex-1 h-2 bg-border-hairline rounded-full overflow-hidden">
+                    <div className="flex-1 h-2 bg-page rounded-full overflow-hidden border border-border">
                       <div
                         className="h-full bg-accent rounded-full transition-all"
                         style={{ width: `${ch.percent}%` }}
                       />
                     </div>
-                    <span className="w-8 text-right font-semibold text-text-primary tabular-nums text-[11px]">
+                    <span className="w-10 text-right font-semibold text-text tabular-nums">
                       {ch.count}
                     </span>
                   </div>
@@ -295,77 +289,77 @@ export const FieldTelemetryCard: React.FC<{ className?: string }> = ({ className
             </div>
           </div>
 
-          {/* Live Activity Ticker (BroadcastChannel Real-Time) */}
-          <div className="p-3 bg-accent-tint/30 rounded-lg border border-accent/20 flex flex-wrap items-center justify-between gap-2 text-xs">
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-accent text-white">
-                Live Ticker
+          {/* Real-Time Live Activity Ticker (BroadcastChannel) */}
+          <div className="p-3 rounded-control bg-accent-tint border border-accent/20 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2.5">
+              <span className="font-semibold text-accent">
+                Activity ticker:
               </span>
-              <div className="flex items-center gap-2 text-text-primary truncate max-w-[500px]">
-                <MapPin className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-                <span className="font-medium">{tickerEvents[0]?.chapterName}:</span>
-                <span className="text-text-secondary">{tickerEvents[0]?.areaLabel}</span>
-                <span className="text-text-muted">· {tickerEvents[0]?.activityType}</span>
-                <span className="text-text-muted text-[10px]">({tickerEvents[0]?.timeAgo})</span>
+              <div className="flex items-center gap-2 text-text truncate max-w-xl">
+                <MapPin className="w-3.5 h-3.5 text-accent shrink-0 stroke-[1.5]" />
+                <span className="font-semibold">{tickerEvents[0]?.chapterName}</span>
+                <span className="text-text-secondary">({tickerEvents[0]?.areaLabel})</span>
+                <span>· {tickerEvents[0]?.activityType}</span>
+                <span className="text-text-secondary tabular-nums">({tickerEvents[0]?.timeAgo})</span>
               </div>
             </div>
 
-            <div className="text-[11px] text-accent font-medium">
-              Listening on BroadcastChannel across tabs
-            </div>
+            <span className="text-xs text-accent font-semibold">
+              BroadcastChannel cross-tab synchronized
+            </span>
           </div>
         </>
       ) : (
-        /* Accessible Data Table View */
+        /* Accessible Table View */
         <div className="overflow-x-auto text-xs">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-border text-text-muted text-[11px] font-semibold bg-bg-subtle/50">
-                <th className="py-2 px-3">Metric Name</th>
-                <th className="py-2 px-3">Current Value</th>
-                <th className="py-2 px-3">24-Hour Benchmark</th>
-                <th className="py-2 px-3">Calculation Rule</th>
+              <tr className="border-b border-border text-text-secondary text-xs font-semibold bg-surface-subtle">
+                <th className="py-2.5 px-3">Metric name</th>
+                <th className="py-2.5 px-3 text-right">Current value</th>
+                <th className="py-2.5 px-3">24-hour benchmark</th>
+                <th className="py-2.5 px-3">Calculation rule</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-hairline text-text-secondary">
-              <tr>
-                <td className="py-2 px-3 font-medium text-text-primary">Active Field Gigs</td>
-                <td className="py-2 px-3 font-semibold text-accent tabular-nums">{activeGigs60m}</td>
-                <td className="py-2 px-3 tabular-nums">{activeGigs24h} in 24h</td>
-                <td className="py-2 px-3 text-[11px] text-text-muted">
-                  Associates with ≥1 logged activity in the 60m / 24h window
+            <tbody className="divide-y divide-border-subtle text-text">
+              <tr className="h-10 hover:bg-surface-hover">
+                <td className="py-2 px-3 font-semibold">Active field gigs</td>
+                <td className="py-2 px-3 text-right font-semibold text-accent tabular-nums">{activeGigs60m}</td>
+                <td className="py-2 px-3 tabular-nums text-text-secondary">{activeGigs24h} in 24h</td>
+                <td className="py-2 px-3 text-text-secondary">
+                  Field associates with ≥1 logged activity in 60m / 24h window
                 </td>
               </tr>
-              <tr>
-                <td className="py-2 px-3 font-medium text-text-primary">Last-Mile Synchronizations</td>
-                <td className="py-2 px-3 font-semibold text-text-primary tabular-nums">{syncsToday}</td>
-                <td className="py-2 px-3 tabular-nums">+{syncsLastHour} in last hour</td>
-                <td className="py-2 px-3 text-[11px] text-text-muted">
-                  Offline-captured items successfully committed to central store
+              <tr className="h-10 hover:bg-surface-hover">
+                <td className="py-2 px-3 font-semibold">Last-mile synchronizations</td>
+                <td className="py-2 px-3 text-right font-semibold text-text tabular-nums">{syncsToday}</td>
+                <td className="py-2 px-3 tabular-nums text-text-secondary">+{syncsLastHour} in last hour</td>
+                <td className="py-2 px-3 text-text-secondary">
+                  Offline-captured items successfully committed to store
                 </td>
               </tr>
-              <tr>
-                <td className="py-2 px-3 font-medium text-text-primary">Median Capture-to-Sync Delay</td>
-                <td className="py-2 px-3 font-semibold text-text-primary tabular-nums">{medianDelayMinutes} min</td>
-                <td className="py-2 px-3 tabular-nums">&lt;45 min SLA</td>
-                <td className="py-2 px-3 text-[11px] text-text-muted">
+              <tr className="h-10 hover:bg-surface-hover">
+                <td className="py-2 px-3 font-semibold">Median capture-to-sync delay</td>
+                <td className="py-2 px-3 text-right font-semibold text-text tabular-nums">{medianDelayMinutes} min</td>
+                <td className="py-2 px-3 text-text-secondary">&lt;45 min SLA</td>
+                <td className="py-2 px-3 text-text-secondary">
                   Time elapsed between local device timestamp and sync commit
                 </td>
               </tr>
-              <tr>
-                <td className="py-2 px-3 font-medium text-text-primary">Late Synchronizations (&gt;24h)</td>
-                <td className="py-2 px-3 font-semibold text-critical tabular-nums">{lateSyncs}</td>
-                <td className="py-2 px-3 tabular-nums">&lt;5% threshold</td>
-                <td className="py-2 px-3 text-[11px] text-text-muted">
-                  Sync delay exceeding 24 hours; automatically audited for review
+              <tr className="h-10 hover:bg-surface-hover">
+                <td className="py-2 px-3 font-semibold">Late synchronizations (&gt;24h)</td>
+                <td className="py-2 px-3 text-right font-semibold text-critical tabular-nums">{lateSyncs}</td>
+                <td className="py-2 px-3 text-text-secondary">&lt;5% threshold</td>
+                <td className="py-2 px-3 text-text-secondary">
+                  Sync delay exceeding 24 hours; audited for review
                 </td>
               </tr>
-              <tr>
-                <td className="py-2 px-3 font-medium text-text-primary">Waiting in Local Queues</td>
-                <td className="py-2 px-3 font-semibold text-critical tabular-nums">{pendingInQueue}</td>
-                <td className="py-2 px-3 tabular-nums">—</td>
-                <td className="py-2 px-3 text-[11px] text-text-muted">
-                  Encrypted AES-GCM payloads currently waiting on field devices
+              <tr className="h-10 hover:bg-surface-hover">
+                <td className="py-2 px-3 font-semibold">Waiting in local offline queues</td>
+                <td className="py-2 px-3 text-right font-semibold text-critical tabular-nums">{pendingInQueue}</td>
+                <td className="py-2 px-3 text-text-secondary">—</td>
+                <td className="py-2 px-3 text-text-secondary">
+                  Encrypted AES-GCM payloads currently waiting on local devices
                 </td>
               </tr>
             </tbody>
@@ -373,14 +367,13 @@ export const FieldTelemetryCard: React.FC<{ className?: string }> = ({ className
         </div>
       )}
 
-      {/* Footer Demo Guidance Link */}
-      <div className="pt-2 border-t border-border-hairline flex flex-wrap items-center justify-between text-[11px] text-text-muted">
+      {/* Definitions caption beneath */}
+      <div className="pt-3 border-t border-border-subtle flex flex-wrap items-center justify-between text-xs text-text-secondary">
         <div>
-          <span className="font-semibold text-text-primary">Definitions: </span>
-          Active Field Gig = associate with ≥1 logged activity · Last-Mile Sync = offline-captured item delivered.
+          <strong className="text-text font-semibold">Definitions:</strong> Active field gig = associate with ≥1 logged activity · Last-mile sync = offline-captured item delivered.
         </div>
-        <div className="font-medium text-accent">
-          Try demo: Open <code className="bg-bg-subtle px-1 rounded text-text-primary">/field</code> in another tab, add a peer, then sync!
+        <div className="font-semibold text-accent">
+          Try demo: Open /field in another tab, log a peer, then sync!
         </div>
       </div>
     </div>

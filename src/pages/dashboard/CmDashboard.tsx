@@ -212,7 +212,7 @@ export const CmDashboard: React.FC = () => {
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-text">{person.userName}</span>
                         {person.isPrimaryResponder && (
-                          <span className="px-1.5 py-0.5 text-[11px] bg-accent-tint text-accent rounded-chip font-semibold">
+                          <span className="px-1.5 py-0.5 text-xs bg-accent-tint text-accent rounded-chip font-semibold">
                             Primary
                           </span>
                         )}
@@ -221,7 +221,7 @@ export const CmDashboard: React.FC = () => {
                         Shift: {person.shift} · Role: {person.role}
                       </span>
                     </div>
-                    <span className="tabular-nums text-text font-medium">
+                    <span className="tabular-nums text-text font-normal">
                       {person.onCallPhone}
                     </span>
                   </div>

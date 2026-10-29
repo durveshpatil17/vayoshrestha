@@ -201,3 +201,20 @@
   - Vitest: 28 test suites, 148 tests passing (100% green).
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U5: Role Dashboards ($\le 4$ headline tiles, key-value lists, tables, Field Telemetry Card).
+
+---
+
+## Loop U5: Role Dashboards & Field Telemetry Card (Phase U: Final UI Design Pass)
+- **Goal**: Standardize all role dashboards (`RanmDashboard`, `PmDashboard`, `CmDashboard`, `VfDashboard`, `CtDashboard`, `CdDashboard`, `SaDashboard`, `SpDashboard`) to have at most 4 headline numeric tiles (`MetricTile`/`KpiTile`), secondary metrics migrated into Cloudscape key-value lists or tables, actionable "Needs attention" lists, and restyle `FieldTelemetryCard.tsx` with live 9-chapter activity bars and BroadcastChannel real-time ticker.
+- **What Changed**:
+  - Restyled `src/components/telemetry/FieldTelemetryCard.tsx` strictly to Fiori/Cloudscape tokens, removed `animate-pulse`, replaced colored circle icons with Lucide 1.5 icons, and provided accessible table view toggle.
+  - Refactored `src/pages/dashboard/PmDashboard.tsx` to 4 headline tiles, key-value operational metrics, active programmes table, and actionable Needs Attention list.
+  - Polished `src/pages/dashboard/CmDashboard.tsx`, `CtDashboard.tsx`, `SaDashboard.tsx`, `SpDashboard.tsx`, `RanmDashboard.tsx` to eliminate arbitrary bracket classes, arbitrary font sizes, and banned font weights.
+  - Resolved all design-lint warnings in `src/ui/` components (`ShellBar`, `Wizard`, `FormField`, `MetricTile`, `DynamicPageHeader`, `StickyActionFooter`, `ChartTableToggle`).
+  - Audited `src/pages/dashboard/`: 0 design-lint violations across all 9 dashboard files.
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+  - Design-lint: 0 violations across all 20 `src/ui` files, 0 violations across all 9 `src/pages/dashboard` files, and 0 in `FieldTelemetryCard.tsx`.
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U6: SOS Board (`/sos`, `/sos/*`, `/sms-log`) with Cloudscape Split Panel and Flashbar.

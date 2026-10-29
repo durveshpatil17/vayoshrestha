@@ -28,7 +28,7 @@ export const StickyActionFooter: React.FC<StickyActionFooterProps> = ({
     <div
       role="region"
       aria-label="Actions footer"
-      className={`sticky bottom-0 z-20 bg-surface border-t border-border px-8 py-3.5 flex items-center justify-between gap-4 -mx-8 -mb-8 mt-8 shadow-overlay ${className}`}
+      className={`sticky bottom-0 z-20 bg-surface border-t border-border px-8 py-3.5 flex items-center justify-between gap-4 -mx-8 -mb-8 mt-8 ${className}`}
     >
       <div className="min-w-0 text-xs text-text-secondary">
         {leftContent}

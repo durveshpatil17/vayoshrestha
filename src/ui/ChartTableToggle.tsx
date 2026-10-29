@@ -23,7 +23,7 @@ export const ChartTableToggle: React.FC<ChartTableToggleProps> = ({
         onClick={() => onChange('chart')}
         className={`h-7 px-2.5 rounded-control text-xs font-semibold flex items-center gap-1.5 transition-colors ${
           view === 'chart'
-            ? 'bg-surface text-accent shadow-sm'
+            ? 'bg-surface text-accent border border-border'
             : 'text-text-secondary hover:text-text'
         }`}
       >
@@ -36,7 +36,7 @@ export const ChartTableToggle: React.FC<ChartTableToggleProps> = ({
         onClick={() => onChange('table')}
         className={`h-7 px-2.5 rounded-control text-xs font-semibold flex items-center gap-1.5 transition-colors ${
           view === 'table'
-            ? 'bg-surface text-accent shadow-sm'
+            ? 'bg-surface text-accent border border-border'
             : 'text-text-secondary hover:text-text'
         }`}
       >

@@ -188,7 +188,7 @@ export const CtDashboard: React.FC = () => {
                         <span className="font-semibold text-text block">
                           {senior?.fullName || 'Senior'}
                         </span>
-                        <span className="text-[11px] text-text-secondary tabular-nums">
+                        <span className="text-xs text-text-secondary tabular-nums">
                           {senior ? maskPhoneNumber(senior.phoneNumber) : 'N/A'}
                         </span>
                       </td>

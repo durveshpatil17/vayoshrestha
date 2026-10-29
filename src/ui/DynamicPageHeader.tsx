@@ -52,7 +52,7 @@ export const DynamicPageHeader: React.FC<DynamicPageHeaderProps> = ({
     <header
       className={`transition-all duration-150 select-none ${
         isScrolled
-          ? 'sticky top-0 z-30 bg-surface border-b border-border shadow-overlay px-8 h-14 flex items-center justify-between -mx-8 -mt-8 mb-6'
+          ? 'sticky top-0 z-30 bg-surface border-b border-border px-8 h-14 flex items-center justify-between -mx-8 -mt-8 mb-6'
           : 'pb-4 mb-6 border-b border-border'
       } ${className}`}
     >
@@ -67,7 +67,7 @@ export const DynamicPageHeader: React.FC<DynamicPageHeaderProps> = ({
                   <button
                     type="button"
                     onClick={() => navigate(backLink.to)}
-                    className="inline-flex items-center gap-1 text-text-secondary hover:text-accent mr-2 font-medium"
+                    className="inline-flex items-center gap-1 text-text-secondary hover:text-accent mr-2 font-normal"
                   >
                     <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
                     <span>{backLink.label || 'Back'}</span>
@@ -93,7 +93,7 @@ export const DynamicPageHeader: React.FC<DynamicPageHeaderProps> = ({
               <button
                 type="button"
                 onClick={() => navigate(backLink.to)}
-                className="inline-flex items-center gap-1 text-text-secondary hover:text-accent font-medium mb-1"
+                className="inline-flex items-center gap-1 text-text-secondary hover:text-accent font-normal mb-1"
               >
                 <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
                 <span>{backLink.label || 'Back'}</span>
@@ -105,7 +105,7 @@ export const DynamicPageHeader: React.FC<DynamicPageHeaderProps> = ({
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="min-w-0">
               <div className="flex items-center gap-3">
-                <h1 className="text-[28px] leading-[36px] font-semibold text-text truncate">
+                <h1 className="text-2xl font-semibold text-text truncate">
                   {title}
                 </h1>
                 {statusIndicator && <div className="shrink-0">{statusIndicator}</div>}

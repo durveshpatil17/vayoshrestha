@@ -42,7 +42,7 @@ export const SpDashboard: React.FC = () => {
       </div>
 
       <Card title="Assigned referrals awaiting action">
-        <div className="divide-y divide-[var(--border-subtle)]">
+        <div className="divide-y divide-border-subtle">
           {[
             {
               id: 'REF-2026-081',
@@ -71,8 +71,8 @@ export const SpDashboard: React.FC = () => {
           ].map((item) => (
             <div key={item.id} className="py-3.5 flex items-center justify-between">
               <div>
-                <div className="text-sm font-semibold text-[var(--text)]">{item.senior} — {item.service}</div>
-                <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                <div className="text-sm font-semibold text-text">{item.senior} — {item.service}</div>
+                <div className="text-xs text-text-secondary mt-0.5">
                   ID: <span className="tabular-nums">{item.id}</span> • Chapter: {item.hub} • Referred: {item.date}
                 </div>
               </div>

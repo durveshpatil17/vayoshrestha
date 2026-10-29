@@ -38,7 +38,7 @@ export const KpiTile: React.FC<KpiTileProps> = ({
 
   return (
     <div
-      className={`bg-surface border border-border rounded-[12px] p-5 flex flex-col justify-between ${className}`}
+      className={`bg-surface border border-border rounded-container p-5 flex flex-col justify-between ${className}`}
     >
       <div className="flex items-center justify-between gap-2">
         <span className="text-xs font-semibold text-text-secondary truncate">{displayLabel}</span>
@@ -47,7 +47,7 @@ export const KpiTile: React.FC<KpiTileProps> = ({
             <Tooltip content={definition}>
               <button
                 type="button"
-                className="text-text-tertiary hover:text-text-secondary focus:outline-none rounded p-0.5"
+                className="text-text-secondary hover:text-text focus:outline-none rounded-control p-0.5"
                 aria-label={`Metric definition: ${displayLabel}`}
               >
                 <Info className="w-4 h-4 stroke-[1.5]" />
@@ -58,9 +58,9 @@ export const KpiTile: React.FC<KpiTileProps> = ({
       </div>
 
       <div className="my-2.5 flex items-baseline gap-2">
-        <span className="text-[28px] leading-[36px] font-semibold text-text tabular-nums">{value}</span>
+        <span className="text-2xl font-semibold text-text tabular-nums">{value}</span>
         {displayUnit && (
-          <span className="text-xs text-text-secondary font-medium tabular-nums">{displayUnit}</span>
+          <span className="text-xs text-text-secondary font-normal tabular-nums">{displayUnit}</span>
         )}
       </div>
 

@@ -195,14 +195,14 @@ export const SaDashboard: React.FC = () => {
                       timeZone: 'Asia/Kolkata',
                     })}
                   </td>
-                  <td className="py-2 px-4 tabular-nums text-text font-medium">{ev.actorId}</td>
+                  <td className="py-2 px-4 tabular-nums text-text font-normal">{ev.actorId}</td>
                   <td className="py-2 px-4">
-                    <span className="px-1.5 py-0.5 bg-surface-subtle border border-border rounded-chip text-[11px] text-text font-medium">
+                    <span className="px-1.5 py-0.5 bg-surface-subtle border border-border rounded-chip text-xs text-text font-normal">
                       {ev.actorRole}
                     </span>
                   </td>
                   <td className="py-2 px-4 font-semibold text-text">{ev.action}</td>
-                  <td className="py-2 px-4 tabular-nums text-[11px] text-text-secondary">
+                  <td className="py-2 px-4 tabular-nums text-xs text-text-secondary">
                     {ev.entityType} ({ev.entityId})
                   </td>
                   <td className="py-2 px-4 text-text-secondary max-w-xs truncate">{ev.details}</td>

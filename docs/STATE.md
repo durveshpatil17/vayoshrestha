@@ -200,7 +200,7 @@
     - Informative definition caption beneath every chart.
   - Verification: `tsc --noEmit` clean, 148 unit tests passing (100%).
 
-- [ ] **Loop U5: Role Dashboards ($\le 4$ headline tiles, key-value lists, tables, Field Telemetry Card)**
+- [x] **Loop U5: Role Dashboards ($\le 4$ headline tiles, key-value lists, tables, Field Telemetry Card)**
 - [ ] **Loop U6: SOS Board (Cloudscape split panel + non-strobing flashbar)**
 - [ ] **Loop U7: Tranche A Pages (Onboarding, Seniors Object Page, Health & Biomarkers)**
 - [ ] **Loop U8: Tranche B Pages (Chapters, Programmes, Attendance, Communication, Services/Referrals/Partners, Feedback, Support, Reports, Admin)**

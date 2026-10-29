@@ -57,7 +57,7 @@ export const MetricTile: React.FC<MetricTileProps> = ({
 
       {/* Metric Figure (28/600) + Unit (14px) */}
       <div className="my-3 flex items-baseline gap-2">
-        <span className="text-[28px] leading-[36px] font-semibold text-text tabular-nums">
+        <span className="text-2xl font-semibold text-text tabular-nums">
           {value}
         </span>
         {unit && (

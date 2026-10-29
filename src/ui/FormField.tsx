@@ -40,7 +40,7 @@ export const FormField: React.FC<FormFieldProps> = ({
       <div>{children}</div>
 
       {effectiveHelper && (
-        <div className="min-h-[18px]">
+        <div className="min-h-4">
           {error ? (
             <p className="text-xs text-negative flex items-center gap-1 font-normal">
               <AlertCircle className="w-3.5 h-3.5 stroke-[1.5] shrink-0" />

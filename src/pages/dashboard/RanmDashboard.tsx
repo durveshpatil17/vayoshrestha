@@ -361,12 +361,12 @@ export const RanmDashboard: React.FC = () => {
                   >
                     <td className="py-2 px-4">
                       <span className="font-semibold text-text block">{ch.name}</span>
-                      <span className="text-[11px] text-text-secondary">{ch.id}</span>
+                      <span className="text-xs text-text-secondary">{ch.id}</span>
                     </td>
                     <td className="py-2 px-4 text-text-secondary">
                       {ch.city} ({ch.regionId})
                     </td>
-                    <td className="py-2 px-4 text-right tabular-nums font-medium text-text">
+                    <td className="py-2 px-4 text-right tabular-nums font-normal text-text">
                       {chSeniors.length}
                     </td>
                     <td className="py-2 px-4 text-right tabular-nums text-accent font-semibold">

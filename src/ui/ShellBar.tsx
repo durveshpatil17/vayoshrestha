@@ -57,7 +57,7 @@ export const ShellBar: React.FC = () => {
     <>
       <header
         role="banner"
-        className="h-[52px] bg-surface border-b border-border px-6 flex items-center justify-between gap-4 select-none shrink-0 z-30"
+        className="h-13 bg-surface border-b border-border px-6 flex items-center justify-between gap-4 select-none shrink-0 z-30"
       >
         {/* Left: Brand + Scope Switcher */}
         <div className="flex items-center gap-6 min-w-0">
@@ -81,7 +81,7 @@ export const ShellBar: React.FC = () => {
               className="h-8 px-2.5 rounded-control bg-surface-subtle border border-border text-xs text-text hover:bg-surface-hover flex items-center gap-1.5 transition-colors"
             >
               <Building2 className="w-4 h-4 text-text-secondary stroke-[1.5]" />
-              <span className="font-semibold text-text max-w-[140px] truncate">
+              <span className="font-semibold text-text max-w-36 truncate">
                 {activeChapter ? activeChapter.name : 'All chapters'}
               </span>
               <ChevronDown className="w-3.5 h-3.5 text-text-secondary stroke-[1.5]" />
@@ -108,7 +108,7 @@ export const ShellBar: React.FC = () => {
                       }`}
                     >
                       <span className="truncate">{chap.name}</span>
-                      <span className="text-text-secondary text-[11px] tabular-nums">
+                      <span className="text-text-secondary text-xs tabular-nums">
                         {chap.regionId}
                       </span>
                     </button>
@@ -130,7 +130,7 @@ export const ShellBar: React.FC = () => {
               <Search className="w-4 h-4 text-text-secondary stroke-[1.5]" />
               <span>Search seniors, emergency alerts, chapters...</span>
             </div>
-            <kbd className="px-1.5 py-0.5 rounded-control bg-surface border border-border text-[11px] text-text-secondary tabular-nums">
+            <kbd className="px-1.5 py-0.5 rounded-control bg-surface border border-border text-xs text-text-secondary tabular-nums">
               Ctrl K
             </kbd>
           </button>
@@ -185,11 +185,11 @@ export const ShellBar: React.FC = () => {
               onClick={() => setUserMenuOpen(!userMenuOpen)}
               className="h-8 px-2.5 rounded-control bg-surface border border-border flex items-center gap-2 hover:bg-surface-hover transition-colors"
             >
-              <div className="w-5 h-5 rounded-full bg-surface-subtle text-text-secondary border border-border flex items-center justify-center text-[10px] font-semibold">
+              <div className="w-5 h-5 rounded-full bg-surface-subtle text-text-secondary border border-border flex items-center justify-center text-xs font-semibold">
                 {user?.fullName?.charAt(0) || 'U'}
               </div>
               <div className="text-left hidden lg:block">
-                <span className="text-xs font-semibold text-text block truncate max-w-[120px]">
+                <span className="text-xs font-semibold text-text block truncate max-w-32">
                   {user?.fullName}
                 </span>
               </div>
@@ -200,8 +200,8 @@ export const ShellBar: React.FC = () => {
               <div className="absolute right-0 top-9 w-64 bg-surface border border-border rounded-control shadow-overlay py-1 z-40 animate-in fade-in-0 duration-150">
                 <div className="px-3 py-2 border-b border-border-subtle">
                   <div className="font-semibold text-xs text-text">{user?.fullName}</div>
-                  <div className="text-[11px] text-text-secondary">{user?.email}</div>
-                  <div className="text-[11px] text-accent font-semibold mt-0.5">
+                  <div className="text-xs text-text-secondary">{user?.email}</div>
+                  <div className="text-xs text-accent font-semibold mt-0.5">
                     Role: {ROLES[user?.role || 'RA']?.name}
                   </div>
                 </div>
@@ -244,7 +244,7 @@ export const ShellBar: React.FC = () => {
                     }`}
                   >
                     <span>{ROLES[r].name}</span>
-                    <span className="text-[11px] text-text-secondary">{r}</span>
+                    <span className="text-xs text-text-secondary">{r}</span>
                   </button>
                 ))}
 

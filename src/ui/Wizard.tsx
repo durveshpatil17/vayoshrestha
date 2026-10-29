@@ -68,7 +68,7 @@ export const Wizard: React.FC<WizardProps> = ({
           aria-label="Wizard steps"
           className="lg:col-span-3 bg-surface border border-border rounded-container p-4 select-none"
         >
-          <div className="text-xs font-semibold text-text-secondary uppercase tracking-normal mb-3 px-2">
+          <div className="text-xs font-semibold text-text-secondary mb-3 px-2">
             Steps
           </div>
           <ol className="space-y-1">
@@ -92,7 +92,7 @@ export const Wizard: React.FC<WizardProps> = ({
                     }`}
                   >
                     <span
-                      className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] tabular-nums shrink-0 ${
+                      className={`w-5 h-5 rounded-full flex items-center justify-center text-xs tabular-nums shrink-0 ${
                         isCurrent
                           ? 'border border-accent text-accent font-semibold'
                           : isCompleted
@@ -123,14 +123,14 @@ export const Wizard: React.FC<WizardProps> = ({
             )}
           </div>
 
-          <div className="min-h-[280px]">
+          <div className="min-h-72">
             {currentStep.content}
           </div>
         </div>
       </div>
 
       {/* Sticky Action Footer */}
-      <footer className="sticky bottom-0 z-20 bg-surface border border-border rounded-container px-6 py-3.5 flex items-center justify-between gap-4 shadow-overlay">
+      <footer className="sticky bottom-0 z-20 bg-surface border border-border rounded-container px-6 py-3.5 flex items-center justify-between gap-4">
         {onCancel ? (
           <Button variant="outline" size="md" onClick={onCancel}>
             {cancelLabel}

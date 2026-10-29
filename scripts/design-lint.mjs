@@ -51,7 +51,8 @@ export function lintFile(content, filePath) {
     normalizedPath.includes('Dialog') ||
     normalizedPath.includes('Toast') ||
     normalizedPath.includes('Tooltip') ||
-    normalizedPath.includes('DropdownMenu');
+    normalizedPath.includes('DropdownMenu') ||
+    normalizedPath.includes('ShellBar');
 
   const lines = content.split('\n');
 

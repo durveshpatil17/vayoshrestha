@@ -8,12 +8,12 @@ export const ScPortal: React.FC = () => {
 
   return (
     <div className={`max-w-3xl mx-auto space-y-6 py-6 px-4 ${largeText ? 'text-lg' : 'text-base'}`}>
-      <div className="bg-surface rounded-xl border border-[var(--border)] p-6 flex items-start justify-between">
+      <div className="bg-surface rounded-xl border border-border p-6 flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-[var(--text)]">
+          <h1 className="text-2xl font-semibold text-text">
             Namaste, Kamala Ji
           </h1>
-          <p className="text-sm text-[var(--text-secondary)] mt-1">
+          <p className="text-sm text-text-secondary mt-1">
             Ekta Hub: <strong>Pune Centre</strong> • Member ID: <span className="tabular-nums">VV-PUN-0012</span>
           </p>
         </div>
@@ -31,25 +31,25 @@ export const ScPortal: React.FC = () => {
         {[
           {
             to: '/me/programmes',
-            icon: <Calendar size={28} className="text-[var(--accent)]" />,
+            icon: <Calendar size={28} className="text-accent" />,
             title: 'My programmes & sessions',
             desc: 'View your upcoming community activities and register for new sessions.',
           },
           {
             to: '/me/messages',
-            icon: <MessageSquare size={28} className="text-[var(--accent)]" />,
+            icon: <MessageSquare size={28} className="text-accent" />,
             title: 'Messages & announcements',
             desc: 'Updates from your Ekta Hub coordinator and wellness reminders.',
           },
           {
             to: '/me/health',
-            icon: <Heart size={28} className="text-[var(--accent)]" />,
+            icon: <Heart size={28} className="text-accent" />,
             title: 'Health & vitals records',
             desc: 'Your blood pressure, glucose readings, and medication schedule.',
           },
           {
             to: '/me/profile',
-            icon: <User size={28} className="text-[var(--accent)]" />,
+            icon: <User size={28} className="text-accent" />,
             title: 'My profile & emergency contacts',
             desc: 'Your emergency contacts, address, and language preferences.',
           },
@@ -57,24 +57,24 @@ export const ScPortal: React.FC = () => {
           <Link
             key={card.to}
             to={card.to}
-            className="block bg-surface p-5 rounded-lg border border-[var(--border)] hover:bg-[var(--surface-hover)] transition-colors min-h-[120px]"
+            className="block bg-surface p-5 rounded-lg border border-border hover:bg-surface-hover transition-colors min-h-28"
           >
             <div className="flex items-start gap-4">
-              <div className="p-2.5 rounded bg-[var(--surface-subtle)] shrink-0">
+              <div className="p-2.5 rounded bg-surface-subtle shrink-0">
                 {card.icon}
               </div>
               <div>
-                <h2 className="text-base font-semibold text-[var(--text)] font-sans">{card.title}</h2>
-                <p className="text-xs text-[var(--text-secondary)] mt-1">{card.desc}</p>
+                <h2 className="text-base font-semibold text-text font-sans">{card.title}</h2>
+                <p className="text-xs text-text-secondary mt-1">{card.desc}</p>
               </div>
             </div>
           </Link>
         ))}
       </div>
 
-      <div className="bg-surface rounded-xl border border-[var(--border)] p-6">
-        <h2 className="text-lg font-semibold text-[var(--text)] mb-3">Need assistance?</h2>
-        <p className="text-sm text-[var(--text-secondary)] mb-4">
+      <div className="bg-surface rounded-xl border border-border p-6">
+        <h2 className="text-lg font-semibold text-text mb-3">Need assistance?</h2>
+        <p className="text-sm text-text-secondary mb-4">
           Your Ekta Hub coordinator is here to support you at any time.
         </p>
         <div className="flex flex-wrap items-center gap-3">

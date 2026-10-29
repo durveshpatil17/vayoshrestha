@@ -237,7 +237,12 @@
     - Ecosystem Strategic Nexus (`src/pages/ecosystem/EcosystemNexusPage.tsx`): Restyled 4-layer architecture map to clean tokens.
   - Removed deprecated `font-serif`, hardcoded hex values, and emoji characters from UI chrome.
   - Verification: 0 design-lint violations across all 32 files, `tsc --noEmit` clean, 148 unit tests passing (100%).
-- [ ] **Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844)**
+- [x] **Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844) (Completed)**
+  - Senior Portal (`/me/*`, `ScPortal.tsx`, `ScPortalSubPages.tsx`): high-contrast elder accessibility, "Larger text" toggle, touch targets $\ge 48$px, clean tokens.
+  - Family Member Portal (`/family/*`, `FmPortal.tsx`, `FmPortalSubPages.tsx`): elder wellbeing snapshots, consent verification banner, quick actions.
+  - Mobile Field View (`/field/*` across 6 files): centered 480px responsive container, touch targets $\ge 48$px, offline sync status, double consent forms.
+  - Verification: 0 design-lint violations across all 10 files, `tsc --noEmit` clean, 148 unit tests passing (100%).
+- [ ] **Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs**
 - [ ] **Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus)**
 - [ ] **Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844)**
 - [ ] **Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs**

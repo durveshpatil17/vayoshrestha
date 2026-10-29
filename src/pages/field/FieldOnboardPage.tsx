@@ -149,7 +149,7 @@ export const FieldOnboardPage: React.FC = () => {
         </div>
 
         <div>
-          <h2 className="text-xl font-semibold text-text-primary">
+          <h2 className="text-xl font-semibold text-text">
             {outcome === 'REGISTERED' ? 'Peer Successfully Registered!' : 'Onboarding Queued for Consent 2'}
           </h2>
           <p className="text-sm text-text-secondary mt-2 leading-relaxed px-4">
@@ -159,25 +159,25 @@ export const FieldOnboardPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="p-4 bg-bg-subtle rounded-lg border border-border-hairline text-left text-xs space-y-2">
+        <div className="p-4 bg-surface-subtle rounded-lg border border-border text-left text-xs space-y-2">
           <div className="flex justify-between">
-            <span className="text-text-muted">Peer Name:</span>
-            <span className="font-semibold text-text-primary">{peerName}</span>
+            <span className="text-text-secondary">Peer Name:</span>
+            <span className="font-semibold text-text">{peerName}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-text-muted">Mobile:</span>
-            <span className="font-semibold text-text-primary">+91 {peerPhone}</span>
+            <span className="text-text-secondary">Mobile:</span>
+            <span className="font-semibold text-text">+91 {peerPhone}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-text-muted">Area Stamp:</span>
-            <span className="font-semibold text-text-primary">Shivajinagar, Pune (±1 km)</span>
+            <span className="text-text-secondary">Area Stamp:</span>
+            <span className="font-semibold text-text">Shivajinagar, Pune (±1 km)</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-text-muted">Consent 1:</span>
+            <span className="text-text-secondary">Consent 1:</span>
             <span className="font-semibold text-positive">Captured in-person</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-text-muted">Consent 2:</span>
+            <span className="text-text-secondary">Consent 2:</span>
             <span className={peerConfirmedConsent2 ? 'font-semibold text-positive' : 'font-semibold text-critical'}>
               {peerConfirmedConsent2 ? 'Verified via WhatsApp' : 'Awaiting peer reply'}
             </span>
@@ -220,11 +220,11 @@ export const FieldOnboardPage: React.FC = () => {
   return (
     <div className="space-y-4">
       {/* Step Header Indicator */}
-      <div className="flex items-center justify-between pb-2 border-b border-border-hairline">
+      <div className="flex items-center justify-between pb-2 border-b border-border">
         <button
           type="button"
           onClick={() => (step > 1 ? setStep((step - 1) as any) : navigate('/field'))}
-          className="flex items-center gap-1 text-xs text-text-secondary hover:text-text-primary"
+          className="flex items-center gap-1 text-xs text-text-secondary hover:text-text"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>{step === 1 ? 'Cancel' : 'Previous Step'}</span>
@@ -236,8 +236,8 @@ export const FieldOnboardPage: React.FC = () => {
       {step === 1 && (
         <form onSubmit={handleNextFromStep1} className="space-y-4">
           <div>
-            <h1 className="text-lg font-semibold text-text-primary">Peer Details</h1>
-            <p className="text-xs text-text-muted mt-0.5">
+            <h1 className="text-lg font-semibold text-text">Peer Details</h1>
+            <p className="text-xs text-text-secondary mt-0.5">
               Enter the senior's basic contact details and primary emergency support.
             </p>
           </div>
@@ -263,13 +263,13 @@ export const FieldOnboardPage: React.FC = () => {
           />
 
           <div>
-            <label className="block text-xs font-medium text-text-primary mb-1">
+            <label className="block text-xs font-semibold text-text mb-1">
               Preferred Language *
             </label>
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value as any)}
-              className="w-full h-11 px-3 rounded-lg border border-border bg-bg-surface text-text-primary text-sm focus:border-accent focus:ring-1 focus:ring-accent"
+              className="w-full h-11 px-3 rounded-lg border border-border bg-bg-surface text-text text-sm focus:border-accent focus:ring-1 focus:ring-accent"
             >
               <option value="Marathi">Marathi (मराठी)</option>
               <option value="English">English</option>
@@ -278,7 +278,7 @@ export const FieldOnboardPage: React.FC = () => {
             </select>
           </div>
 
-          <div className="pt-2 border-t border-border-hairline space-y-3">
+          <div className="pt-2 border-t border-border space-y-3">
             <span className="text-xs font-semibold text-text-secondary block">
               Emergency Contact / Next of Kin (Optional)
             </span>
@@ -315,13 +315,13 @@ export const FieldOnboardPage: React.FC = () => {
       {step === 2 && (
         <div className="space-y-4">
           <div>
-            <h1 className="text-lg font-semibold text-text-primary">Consent 1: In-Person Explanation</h1>
-            <p className="text-xs text-text-muted mt-0.5">
+            <h1 className="text-lg font-semibold text-text">Consent 1: In-Person Explanation</h1>
+            <p className="text-xs text-text-secondary mt-0.5">
               Read the following script aloud to the peer in {language}.
             </p>
           </div>
 
-          <div className="p-4 bg-bg-subtle rounded-lg border border-border-hairline text-sm leading-relaxed text-text-primary italic">
+          <div className="p-4 bg-surface-subtle rounded-lg border border-border text-sm leading-relaxed text-text italic">
             "{READ_ALOUD_SCRIPTS[language] || READ_ALOUD_SCRIPTS.English}"
           </div>
 
@@ -335,7 +335,7 @@ export const FieldOnboardPage: React.FC = () => {
               className={`w-full h-14 rounded-lg border-2 flex items-center justify-center gap-2 font-semibold text-sm transition-all ${
                 consent1Agreed && !voiceRecorded
                   ? 'border-accent bg-accent-tint text-accent'
-                  : 'border-border bg-bg-surface text-text-primary hover:border-accent'
+                  : 'border-border bg-bg-surface text-text hover:border-accent'
               }`}
             >
               <CheckCircle2 className="w-5 h-5 text-accent" />
@@ -348,7 +348,7 @@ export const FieldOnboardPage: React.FC = () => {
               className={`w-full h-14 rounded-lg border-2 flex items-center justify-center gap-2 font-semibold text-sm transition-all ${
                 voiceRecorded
                   ? 'border-accent bg-accent-tint text-accent'
-                  : 'border-border bg-bg-surface text-text-primary hover:border-accent'
+                  : 'border-border bg-bg-surface text-text hover:border-accent'
               }`}
             >
               <Mic className="w-5 h-5 text-accent" />
@@ -376,18 +376,18 @@ export const FieldOnboardPage: React.FC = () => {
       {step === 3 && (
         <div className="space-y-4">
           <div>
-            <h1 className="text-lg font-semibold text-text-primary">Consent 2: WhatsApp Confirmation</h1>
-            <p className="text-xs text-text-muted mt-0.5">
+            <h1 className="text-lg font-semibold text-text">Consent 2: WhatsApp Confirmation</h1>
+            <p className="text-xs text-text-secondary mt-0.5">
               Under DPDP regulations, peer must independently confirm via their own mobile.
             </p>
           </div>
 
-          <div className="p-4 bg-bg-surface rounded-lg border border-border-hairline space-y-3">
-            <div className="flex items-center gap-2 text-xs font-semibold text-text-primary">
+          <div className="p-4 bg-bg-surface rounded-lg border border-border space-y-3">
+            <div className="flex items-center gap-2 text-xs font-semibold text-text">
               <Send className="w-4 h-4 text-accent" />
               Interactive WhatsApp Dispatch
             </div>
-            <p className="text-xs text-text-muted leading-relaxed">
+            <p className="text-xs text-text-secondary leading-relaxed">
               We send an interactive verification message to +91 {peerPhone}. The peer simply replies "YES" to activate full services.
             </p>
 
@@ -395,7 +395,7 @@ export const FieldOnboardPage: React.FC = () => {
               <Button
                 variant="primary"
                 size="md"
-                className="w-full h-11 bg-accent hover:bg-accent-hover text-white text-xs font-medium"
+                className="w-full h-11 bg-accent hover:bg-accent-hover text-white text-xs font-semibold"
                 onClick={handleSendConsent2WhatsApp}
               >
                 Send Verification WhatsApp Message Now
@@ -409,11 +409,11 @@ export const FieldOnboardPage: React.FC = () => {
           </div>
 
           {consent2Sent && (
-            <div className="p-3 bg-bg-subtle rounded-lg border border-border-hairline space-y-2">
-              <span className="text-xs font-medium text-text-secondary block">
+            <div className="p-3 bg-surface-subtle rounded-lg border border-border space-y-2">
+              <span className="text-xs font-semibold text-text-secondary block">
                 Simulated Peer Response (for Prototype):
               </span>
-              <label className="flex items-center gap-2 cursor-pointer text-xs text-text-primary">
+              <label className="flex items-center gap-2 cursor-pointer text-xs text-text">
                 <input
                   type="checkbox"
                   checked={peerConfirmedConsent2}
@@ -422,7 +422,7 @@ export const FieldOnboardPage: React.FC = () => {
                 />
                 <span>Simulate Peer replying "YES" on WhatsApp immediately</span>
               </label>
-              <p className="text-[11px] text-text-muted">
+              <p className="text-xs text-text-secondary">
                 If left unchecked, record will enter "Stalled Onboardings — Awaiting 2nd consent".
               </p>
             </div>
@@ -444,31 +444,31 @@ export const FieldOnboardPage: React.FC = () => {
       {step === 4 && (
         <div className="space-y-4">
           <div>
-            <h1 className="text-lg font-semibold text-text-primary">Review & Save Record</h1>
-            <p className="text-xs text-text-muted mt-0.5">
+            <h1 className="text-lg font-semibold text-text">Review & Save Record</h1>
+            <p className="text-xs text-text-secondary mt-0.5">
               Data is encrypted locally and stamped with coarse area privacy.
             </p>
           </div>
 
-          <div className="p-4 bg-bg-subtle rounded-lg border border-border-hairline space-y-2.5 text-xs">
+          <div className="p-4 bg-surface-subtle rounded-lg border border-border space-y-2.5 text-xs">
             <div className="flex justify-between">
-              <span className="text-text-muted">Peer:</span>
-              <span className="font-semibold text-text-primary">{peerName}</span>
+              <span className="text-text-secondary">Peer:</span>
+              <span className="font-semibold text-text">{peerName}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-text-muted">Phone:</span>
-              <span className="font-semibold text-text-primary">+91 {peerPhone}</span>
+              <span className="text-text-secondary">Phone:</span>
+              <span className="font-semibold text-text">+91 {peerPhone}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-text-muted">Chapter:</span>
-              <span className="font-semibold text-text-primary">{user?.assignedChapter || 'HUB-PUN'} (Pune)</span>
+              <span className="text-text-secondary">Chapter:</span>
+              <span className="font-semibold text-text">{user?.assignedChapter || 'HUB-PUN'} (Pune)</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-text-muted">Consent 1:</span>
+              <span className="text-text-secondary">Consent 1:</span>
               <span className="font-semibold text-positive">Captured ({voiceRecorded ? 'Voice' : 'In-person'})</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-text-muted">Consent 2:</span>
+              <span className="text-text-secondary">Consent 2:</span>
               <span className={peerConfirmedConsent2 ? 'font-semibold text-positive' : 'font-semibold text-critical'}>
                 {peerConfirmedConsent2 ? 'Verified' : 'Pending reply (will stall)'}
               </span>
@@ -476,8 +476,8 @@ export const FieldOnboardPage: React.FC = () => {
           </div>
 
           {/* Privacy & Encryption Guarantee Notice */}
-          <div className="p-3 bg-bg-surface rounded-lg border border-border-hairline space-y-2 text-xs text-text-muted">
-            <div className="flex items-center gap-1.5 font-medium text-text-primary">
+          <div className="p-3 bg-bg-surface rounded-lg border border-border space-y-2 text-xs text-text-secondary">
+            <div className="flex items-center gap-1.5 font-semibold text-text">
               <Lock className="w-4 h-4 text-accent" />
               <span>WebCrypto AES-GCM 256-bit Encryption</span>
             </div>
@@ -485,11 +485,11 @@ export const FieldOnboardPage: React.FC = () => {
               Record is encrypted in browser storage before synchronization.
             </p>
 
-            <div className="flex items-center gap-1.5 font-medium text-text-primary pt-1">
+            <div className="flex items-center gap-1.5 font-semibold text-text pt-1">
               <MapPin className="w-4 h-4 text-accent" />
               <span>Coarse Location Capture: Shivajinagar, Pune (±1 km)</span>
             </div>
-            <p className="leading-relaxed text-[11px]">
+            <p className="leading-relaxed text-xs">
               Only a single 2-decimal area stamp is recorded. Zero continuous GPS tracking or route trails.
             </p>
           </div>

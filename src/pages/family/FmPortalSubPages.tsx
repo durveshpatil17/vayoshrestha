@@ -10,12 +10,12 @@ export const FmSeniorOverviewPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/family" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/family" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> Family portal
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Elder overview</span>
+        <span className="text-text font-semibold">Elder overview</span>
       </div>
 
       <PageHeader
@@ -25,17 +25,17 @@ export const FmSeniorOverviewPage: React.FC = () => {
 
       <Card title="Activity & check-in summary">
         <div className="space-y-3 text-sm">
-          <div className="flex justify-between py-2 border-b border-[var(--border-subtle)]">
-            <span className="text-[var(--text-secondary)]">Recent attendance:</span>
-            <span className="font-semibold text-[var(--text)]">Gentle Yoga (Attended yesterday)</span>
+          <div className="flex justify-between py-2 border-b border-border-subtle">
+            <span className="text-text-secondary">Recent attendance:</span>
+            <span className="font-semibold text-text">Gentle Yoga (Attended yesterday)</span>
           </div>
-          <div className="flex justify-between py-2 border-b border-[var(--border-subtle)]">
-            <span className="text-[var(--text-secondary)]">Last blood pressure check:</span>
-            <span className="font-semibold text-[var(--positive)]">128 / 82 mmHg (Normal)</span>
+          <div className="flex justify-between py-2 border-b border-border-subtle">
+            <span className="text-text-secondary">Last blood pressure check:</span>
+            <span className="font-semibold text-positive">128 / 82 mmHg (Normal)</span>
           </div>
-          <div className="flex justify-between py-2 border-b border-[var(--border-subtle)]">
-            <span className="text-[var(--text-secondary)]">Active SOS alerts:</span>
-            <span className="font-semibold text-[var(--positive)]">None</span>
+          <div className="flex justify-between py-2 border-b border-border-subtle">
+            <span className="text-text-secondary">Active SOS alerts:</span>
+            <span className="font-semibold text-positive">None</span>
           </div>
         </div>
       </Card>
@@ -46,12 +46,12 @@ export const FmSeniorOverviewPage: React.FC = () => {
 export const FmLinksPage: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/family" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/family" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> Family portal
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Contacts</span>
+        <span className="text-text font-semibold">Contacts</span>
       </div>
 
       <PageHeader
@@ -62,16 +62,16 @@ export const FmLinksPage: React.FC = () => {
       <Card title="Primary emergency contact">
         <div className="space-y-3 text-sm">
           <div>
-            <span className="text-xs text-[var(--text-secondary)] block">Contact Name</span>
-            <strong className="text-[var(--text)]">Sunita Desai (Daughter)</strong>
+            <span className="text-xs text-text-secondary block">Contact Name</span>
+            <strong className="text-text">Sunita Desai (Daughter)</strong>
           </div>
           <div>
-            <span className="text-xs text-[var(--text-secondary)] block">Registered Phone</span>
-            <strong className="text-[var(--accent)]">+91 98450 11223</strong>
+            <span className="text-xs text-text-secondary block">Registered Phone</span>
+            <strong className="text-accent">+91 98450 11223</strong>
           </div>
           <div>
-            <span className="text-xs text-[var(--text-secondary)] block">Notification Mode</span>
-            <span className="text-[var(--text)]">WhatsApp Interactive Prompt + Emergency SMS</span>
+            <span className="text-xs text-text-secondary block">Notification Mode</span>
+            <span className="text-text">WhatsApp Interactive Prompt + Emergency SMS</span>
           </div>
         </div>
       </Card>

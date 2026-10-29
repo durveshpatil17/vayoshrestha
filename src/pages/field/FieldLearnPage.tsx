@@ -63,11 +63,11 @@ export const FieldLearnPage: React.FC = () => {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+        <h1 className="text-lg font-semibold text-text flex items-center gap-2">
           <BookOpen className="w-5 h-5 text-accent" />
           Field Associate Training
         </h1>
-        <p className="text-xs text-text-muted mt-0.5">
+        <p className="text-xs text-text-secondary mt-0.5">
           Essential guidelines for ethical field outreach and peer protection.
         </p>
       </div>
@@ -76,17 +76,17 @@ export const FieldLearnPage: React.FC = () => {
       <div
         className={`p-3 rounded-lg border flex items-center justify-between text-xs ${
           isCompleted
-            ? 'bg-positive-tint/50 border-positive/30 text-positive font-medium'
-            : 'bg-bg-subtle border-border-hairline text-text-muted'
+            ? 'bg-positive-tint/50 border-positive/30 text-positive font-semibold'
+            : 'bg-surface-subtle border-border text-text-secondary'
         }`}
       >
         <div className="flex items-center gap-2">
-          <Award className={`w-5 h-5 ${isCompleted ? 'text-positive' : 'text-text-muted'}`} />
+          <Award className={`w-5 h-5 ${isCompleted ? 'text-positive' : 'text-text-secondary'}`} />
           <div>
-            <div className="font-semibold text-text-primary">
+            <div className="font-semibold text-text">
               {isCompleted ? 'Certified Senior Field Associate' : 'Training Pending Completion'}
             </div>
-            <div className="text-[11px] text-text-muted">
+            <div className="text-xs text-text-secondary">
               {isCompleted ? 'Certified for DPDP peer onboarding' : 'Complete the modules and quiz below'}
             </div>
           </div>
@@ -95,14 +95,14 @@ export const FieldLearnPage: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-border-hairline text-xs font-medium">
+      <div className="flex border-b border-border text-xs font-semibold">
         <button
           type="button"
           onClick={() => setActiveTab('modules')}
           className={`flex-1 py-2.5 text-center border-b-2 transition-colors ${
             activeTab === 'modules'
               ? 'border-accent text-accent font-semibold'
-              : 'border-transparent text-text-muted hover:text-text-primary'
+              : 'border-transparent text-text-secondary hover:text-text'
           }`}
         >
           Learning Modules
@@ -113,7 +113,7 @@ export const FieldLearnPage: React.FC = () => {
           className={`flex-1 py-2.5 text-center border-b-2 transition-colors ${
             activeTab === 'quiz'
               ? 'border-accent text-accent font-semibold'
-              : 'border-transparent text-text-muted hover:text-text-primary'
+              : 'border-transparent text-text-secondary hover:text-text'
           }`}
         >
           Knowledge Check ({isCompleted ? 'Passed' : 'Pending'})
@@ -123,20 +123,20 @@ export const FieldLearnPage: React.FC = () => {
       {activeTab === 'modules' ? (
         <div className="space-y-3">
           {/* Module 1 */}
-          <div className="p-4 bg-bg-surface rounded-lg border border-border-hairline space-y-2">
+          <div className="p-4 bg-bg-surface rounded-lg border border-border space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-accent-tint text-accent">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded bg-accent-tint text-accent">
                 Module 1
               </span>
-              <span className="text-[11px] text-text-muted">3 min read</span>
+              <span className="text-xs text-text-secondary">3 min read</span>
             </div>
-            <h2 className="text-sm font-semibold text-text-primary">
+            <h2 className="text-sm font-semibold text-text">
               Ethical Peer Consent & Plain-Language Explanation
             </h2>
             <p className="text-xs text-text-secondary leading-relaxed">
               When meeting fellow seniors in your neighborhood, always explain that Vayoh Vikas is an NGO dedicated to elder well-being.
             </p>
-            <ul className="text-xs text-text-muted list-disc pl-4 space-y-1">
+            <ul className="text-xs text-text-secondary list-disc pl-4 space-y-1">
               <li>Always speak in their preferred native tongue (Marathi, Hindi, Kannada, English).</li>
               <li>Never collect passwords, Aadhaar card copies, or banking details.</li>
               <li>Explain that Consent 2 will arrive on their WhatsApp so they remain in complete control.</li>
@@ -144,20 +144,20 @@ export const FieldLearnPage: React.FC = () => {
           </div>
 
           {/* Module 2 */}
-          <div className="p-4 bg-bg-surface rounded-lg border border-border-hairline space-y-2">
+          <div className="p-4 bg-bg-surface rounded-lg border border-border space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-accent-tint text-accent">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded bg-accent-tint text-accent">
                 Module 2
               </span>
-              <span className="text-[11px] text-text-muted">4 min read</span>
+              <span className="text-xs text-text-secondary">4 min read</span>
             </div>
-            <h2 className="text-sm font-semibold text-text-primary">
+            <h2 className="text-sm font-semibold text-text">
               Frontline Defense: Recognizing Elder Cyber-Scams
             </h2>
             <p className="text-xs text-text-secondary leading-relaxed">
               Older adults are frequently targeted by pension update scams, fake electricity bill threats, and KYC calls.
             </p>
-            <ul className="text-xs text-text-muted list-disc pl-4 space-y-1">
+            <ul className="text-xs text-text-secondary list-disc pl-4 space-y-1">
               <li>Warn elders that electricity boards never disconnect power via SMS links.</li>
               <li>Teach peers the golden rule: "Never share OTP with anyone, even if they claim to be from a bank."</li>
               <li>Encourage peers to attend weekly Digital Literacy sessions at the Ekta Hub.</li>
@@ -179,9 +179,9 @@ export const FieldLearnPage: React.FC = () => {
           {questions.map((q, idx) => (
             <div
               key={q.id}
-              className="p-4 bg-bg-surface rounded-lg border border-border-hairline space-y-3"
+              className="p-4 bg-bg-surface rounded-lg border border-border space-y-3"
             >
-              <div className="text-xs font-semibold text-text-primary">
+              <div className="text-xs font-semibold text-text">
                 Q{idx + 1}: {q.question}
               </div>
 
@@ -195,8 +195,8 @@ export const FieldLearnPage: React.FC = () => {
                       onClick={() => handleSelectOption(idx, optIdx)}
                       className={`w-full text-left p-2.5 rounded-lg border text-xs leading-relaxed transition-colors ${
                         isSelected
-                          ? 'border-accent bg-accent-tint/50 font-medium text-text-primary'
-                          : 'border-border-hairline bg-bg-base text-text-secondary hover:border-accent'
+                          ? 'border-accent bg-accent-tint/50 font-semibold text-text'
+                          : 'border-border bg-surface text-text-secondary hover:border-accent'
                       }`}
                     >
                       {opt}
@@ -206,8 +206,8 @@ export const FieldLearnPage: React.FC = () => {
               </div>
 
               {selectedAnswers[idx] !== undefined && (
-                <div className="p-2.5 bg-bg-subtle rounded text-[11px] text-text-muted">
-                  <span className="font-semibold text-text-primary">Guidance: </span>
+                <div className="p-2.5 bg-surface-subtle rounded text-xs text-text-secondary">
+                  <span className="font-semibold text-text">Guidance: </span>
                   {q.explanation}
                 </div>
               )}

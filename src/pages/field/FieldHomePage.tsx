@@ -84,7 +84,7 @@ export const FieldHomePage: React.FC = () => {
           ) : (
             <Wifi className="w-4 h-4 flex-shrink-0" />
           )}
-          <span className="font-medium">
+          <span className="font-semibold">
             {isSimulatedOffline
               ? 'Offline mode active (activities queued)'
               : pendingCount > 0
@@ -112,18 +112,18 @@ export const FieldHomePage: React.FC = () => {
       </Button>
 
       {/* Language Selector Ribbon */}
-      <div className="flex items-center justify-between p-2.5 bg-bg-subtle rounded-lg border border-border-hairline text-xs">
-        <span className="text-text-muted font-medium">Script Language:</span>
+      <div className="flex items-center justify-between p-2.5 bg-surface-subtle rounded-lg border border-border text-xs">
+        <span className="text-text-secondary font-semibold">Script Language:</span>
         <div className="flex items-center gap-1">
           {(['English', 'Marathi', 'Hindi', 'Kannada'] as const).map((lang) => (
             <button
               key={lang}
               type="button"
               onClick={() => setLanguage(lang)}
-              className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+              className={`px-2 py-1 rounded text-xs font-semibold transition-colors ${
                 language === lang
                   ? 'bg-accent text-white font-semibold'
-                  : 'text-text-secondary hover:text-text-primary bg-bg-surface border border-border-hairline'
+                  : 'text-text-secondary hover:text-text bg-bg-surface border border-border'
               }`}
             >
               {lang}
@@ -134,28 +134,28 @@ export const FieldHomePage: React.FC = () => {
 
       {/* Activity Counters (Clean Enterprise Cards) */}
       <div className="grid grid-cols-3 gap-2">
-        <div className="p-3 bg-bg-surface border border-border-hairline rounded-lg text-center">
+        <div className="p-3 bg-bg-surface border border-border rounded-lg text-center">
           <div className="text-2xl font-semibold text-accent tabular-nums">14</div>
-          <div className="text-[11px] text-text-muted leading-tight mt-0.5">Peers Onboarded</div>
+          <div className="text-xs text-text-secondary leading-tight mt-0.5">Peers Onboarded</div>
         </div>
-        <div className="p-3 bg-bg-surface border border-border-hairline rounded-lg text-center">
-          <div className="text-2xl font-semibold text-text-primary tabular-nums">{syncedTodayCount}</div>
-          <div className="text-[11px] text-text-muted leading-tight mt-0.5">Visits Synced</div>
+        <div className="p-3 bg-bg-surface border border-border rounded-lg text-center">
+          <div className="text-2xl font-semibold text-text tabular-nums">{syncedTodayCount}</div>
+          <div className="text-xs text-text-secondary leading-tight mt-0.5">Visits Synced</div>
         </div>
-        <div className="p-3 bg-bg-surface border border-border-hairline rounded-lg text-center">
+        <div className="p-3 bg-bg-surface border border-border rounded-lg text-center">
           <div className="text-2xl font-semibold text-critical tabular-nums">{pendingCount}</div>
-          <div className="text-[11px] text-text-muted leading-tight mt-0.5">Waiting Queue</div>
+          <div className="text-xs text-text-secondary leading-tight mt-0.5">Waiting Queue</div>
         </div>
       </div>
 
       {/* Today's Tasks */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-text-primary flex items-center gap-1.5">
+          <h2 className="text-sm font-semibold text-text flex items-center gap-1.5">
             <Calendar className="w-4 h-4 text-accent" />
             Today's Visits & Follow-ups
           </h2>
-          <span className="text-[11px] text-text-muted">Pune Ekta Hub</span>
+          <span className="text-xs text-text-secondary">Pune Ekta Hub</span>
         </div>
 
         <div className="space-y-2">
@@ -165,7 +165,7 @@ export const FieldHomePage: React.FC = () => {
               onClick={() => toggleTask(t.id)}
               className={`p-3 rounded-lg border cursor-pointer transition-all flex items-start justify-between ${
                 t.done
-                  ? 'bg-bg-subtle/50 border-border-hairline opacity-70'
+                  ? 'bg-surface-subtle/50 border-border opacity-70'
                   : 'bg-bg-surface border-border hover:border-accent'
               }`}
             >
@@ -178,18 +178,18 @@ export const FieldHomePage: React.FC = () => {
                 />
                 <div>
                   <div
-                    className={`font-medium text-sm text-text-primary ${
-                      t.done ? 'line-through text-text-muted' : ''
+                    className={`font-semibold text-sm text-text ${
+                      t.done ? 'line-through text-text-secondary' : ''
                     }`}
                   >
                     {t.peerName}
                   </div>
-                  <div className="text-xs text-text-muted mt-0.5">
+                  <div className="text-xs text-text-secondary mt-0.5">
                     {t.type} · {t.area}
                   </div>
                 </div>
               </div>
-              <span className="text-xs tabular-nums text-text-muted font-medium">
+              <span className="text-xs tabular-nums text-text-secondary font-semibold">
                 {t.time}
               </span>
             </div>
@@ -200,14 +200,14 @@ export const FieldHomePage: React.FC = () => {
       {/* Field Associate Training Ribbon */}
       <Link
         to="/field/learn"
-        className="block p-3 rounded-lg border border-border-hairline bg-accent-tint/40 hover:bg-accent-tint/60 transition-colors"
+        className="block p-3 rounded-lg border border-border bg-accent-tint/40 hover:bg-accent-tint/60 transition-colors"
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <BookOpen className="w-4 h-4 text-accent" />
             <div>
-              <div className="text-xs font-semibold text-text-primary">Associate Training Modules</div>
-              <div className="text-[11px] text-text-muted">DPDP Consent rules & Cyber-scam awareness</div>
+              <div className="text-xs font-semibold text-text">Associate Training Modules</div>
+              <div className="text-xs text-text-secondary">DPDP Consent rules & Cyber-scam awareness</div>
             </div>
           </div>
           <ChevronRight className="w-4 h-4 text-accent" />
@@ -218,12 +218,12 @@ export const FieldHomePage: React.FC = () => {
       <div className="pt-2">
         <a
           href="tel:9822011223"
-          className="w-full h-12 flex items-center justify-center gap-2 border border-border-strong rounded-lg bg-bg-surface hover:bg-bg-subtle text-text-primary font-medium text-sm transition-colors"
+          className="w-full h-12 flex items-center justify-center gap-2 border border-border-strong rounded-lg bg-bg-surface hover:bg-surface-subtle text-text font-semibold text-sm transition-colors"
         >
           <PhoneCall className="w-4 h-4 text-accent" />
           <span>Call Coordinator (Sunita Patil · Ekta Hub)</span>
         </a>
-        <p className="text-[10px] text-text-muted text-center mt-1">
+        <p className="text-xs text-text-secondary text-center mt-1">
           For emergency support, hub inquiries, or peer dispute escalation.
         </p>
       </div>

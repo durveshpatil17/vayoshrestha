@@ -13,9 +13,9 @@ export const FmPortal: React.FC = () => {
         subtitle="Keep track of your elder's wellbeing and community activities with explicit consent"
       />
 
-      <div className="flex items-center gap-3 p-4 rounded-lg bg-[var(--surface-selected)] border border-[var(--border)]">
-        <ShieldCheck size={20} className="text-[var(--accent)] shrink-0" />
-        <div className="text-sm text-[var(--text)]">
+      <div className="flex items-center gap-3 p-4 rounded-lg bg-informative-tint border border-border">
+        <ShieldCheck size={20} className="text-accent shrink-0" />
+        <div className="text-sm text-text">
           Family access granted by <strong>Kamala Devi</strong> (Mother) on 12 Sep 2026. Only permitted wellness records and activity summaries are visible.
         </div>
       </div>
@@ -24,20 +24,20 @@ export const FmPortal: React.FC = () => {
         <Card title="Elder status snapshot">
           <div className="space-y-3">
             <div className="flex justify-between text-sm">
-              <span className="text-[var(--text-secondary)]">Senior:</span>
-              <span className="font-semibold text-[var(--text)]">Kamala Devi (72y)</span>
+              <span className="text-text-secondary">Senior:</span>
+              <span className="font-semibold text-text">Kamala Devi (72y)</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-[var(--text-secondary)]">Hub:</span>
-              <span className="font-semibold text-[var(--text)]">Pune Ekta Hub</span>
+              <span className="text-text-secondary">Hub:</span>
+              <span className="font-semibold text-text">Pune Ekta Hub</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-[var(--text-secondary)]">Last check-in call:</span>
-              <span className="text-[var(--positive)] font-semibold">27 Oct 2026 (Completed)</span>
+              <span className="text-text-secondary">Last check-in call:</span>
+              <span className="text-positive font-semibold">27 Oct 2026 (Completed)</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-[var(--text-secondary)]">Active SOS:</span>
-              <span className="text-[var(--positive)] font-semibold">None (Normal)</span>
+              <span className="text-text-secondary">Active SOS:</span>
+              <span className="text-positive font-semibold">None (Normal)</span>
             </div>
           </div>
         </Card>
@@ -63,7 +63,7 @@ export const FmPortal: React.FC = () => {
         </Card>
 
         <Card title="Ekta Hub contact">
-          <div className="space-y-2 text-sm text-[var(--text-secondary)]">
+          <div className="space-y-2 text-sm text-text-secondary">
             <p><strong>Coordinator:</strong> Suresh Kulkarni</p>
             <p><strong>Phone:</strong> +91 98200 11223</p>
             <p><strong>Hours:</strong> Mon – Sat, 9:00 AM – 6:00 PM</p>

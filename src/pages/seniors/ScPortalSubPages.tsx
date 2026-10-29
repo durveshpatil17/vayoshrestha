@@ -25,12 +25,12 @@ export const ScProgrammesPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/me" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/me" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> My Home
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">My Programmes</span>
+        <span className="text-text font-semibold">My Programmes</span>
       </div>
 
       <PageHeader
@@ -41,9 +41,9 @@ export const ScProgrammesPage: React.FC = () => {
       <div className="space-y-4">
         {programmes.map((p) => (
           <Card key={p.id} title={p.name}>
-            <p className="text-sm text-[var(--text-secondary)] mb-3">{p.description}</p>
+            <p className="text-sm text-text-secondary mb-3">{p.description}</p>
             <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-[var(--accent)]">{p.category}</span>
+              <span className="font-semibold text-accent">{p.category}</span>
               <Button size="sm" variant="primary">Book this session</Button>
             </div>
           </Card>
@@ -56,12 +56,12 @@ export const ScProgrammesPage: React.FC = () => {
 export const ScBookingsPage: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/me" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/me" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> My Home
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Bookings</span>
+        <span className="text-text font-semibold">Bookings</span>
       </div>
 
       <PageHeader
@@ -73,10 +73,10 @@ export const ScBookingsPage: React.FC = () => {
         <div className="divide-y divide-[var(--border-subtle)] text-sm">
           <div className="py-3 flex items-center justify-between">
             <div>
-              <div className="font-semibold text-[var(--text)]">Gentle Yoga & Joint Mobility</div>
-              <div className="text-xs text-[var(--text-secondary)] mt-0.5">Tomorrow, 10:00 AM • Main Hall</div>
+              <div className="font-semibold text-text">Gentle Yoga & Joint Mobility</div>
+              <div className="text-xs text-text-secondary mt-0.5">Tomorrow, 10:00 AM • Main Hall</div>
             </div>
-            <span className="text-xs font-semibold text-[var(--positive)] bg-[var(--positive-tint)] px-2 py-0.5 rounded">Confirmed</span>
+            <span className="text-xs font-semibold text-positive bg-positive-tint px-2 py-0.5 rounded">Confirmed</span>
           </div>
         </div>
       </Card>
@@ -87,12 +87,12 @@ export const ScBookingsPage: React.FC = () => {
 export const ScMessagesPage: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/me" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/me" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> My Home
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Messages</span>
+        <span className="text-text font-semibold">Messages</span>
       </div>
 
       <PageHeader
@@ -102,12 +102,12 @@ export const ScMessagesPage: React.FC = () => {
 
       <Card title="Recent notifications">
         <div className="space-y-3 text-sm">
-          <div className="p-3.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)]">
-            <div className="font-semibold text-[var(--text)]">Session Reminder</div>
-            <p className="text-xs text-[var(--text-secondary)] mt-1">
+          <div className="p-3.5 rounded bg-surface-subtle border border-border">
+            <div className="font-semibold text-text">Session Reminder</div>
+            <p className="text-xs text-text-secondary mt-1">
               Namaste Kamala Ji, reminder for your Gentle Yoga session tomorrow at 10:00 AM.
             </p>
-            <span className="text-[10px] text-[var(--text-tertiary)] block mt-2">Yesterday, 5:30 PM</span>
+            <span className="text-xs text-text-secondary block mt-2">Yesterday, 5:30 PM</span>
           </div>
         </div>
       </Card>
@@ -121,12 +121,12 @@ export const ScServicesPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/me" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/me" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> My Home
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Services</span>
+        <span className="text-text font-semibold">Services</span>
       </div>
 
       <PageHeader
@@ -137,9 +137,9 @@ export const ScServicesPage: React.FC = () => {
       <div className="space-y-4">
         {services.map((s) => (
           <Card key={s.id} title={s.name}>
-            <p className="text-sm text-[var(--text-secondary)] mb-3">{s.description}</p>
+            <p className="text-sm text-text-secondary mb-3">{s.description}</p>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-[var(--text-secondary)]">Partner: <strong>{s.partnerName}</strong></span>
+              <span className="text-text-secondary">Partner: <strong>{s.partnerName}</strong></span>
               <Button size="sm" variant="primary">Request consultation</Button>
             </div>
           </Card>
@@ -152,12 +152,12 @@ export const ScServicesPage: React.FC = () => {
 export const ScProfilePage: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/me" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/me" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> My Home
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Profile</span>
+        <span className="text-text font-semibold">Profile</span>
       </div>
 
       <PageHeader
@@ -168,20 +168,20 @@ export const ScProfilePage: React.FC = () => {
       <Card title="Personal details">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="text-xs text-[var(--text-secondary)] block">Full Name</span>
-            <span className="font-semibold text-[var(--text)]">Kamala Devi</span>
+            <span className="text-xs text-text-secondary block">Full Name</span>
+            <span className="font-semibold text-text">Kamala Devi</span>
           </div>
           <div>
-            <span className="text-xs text-[var(--text-secondary)] block">Age & Gender</span>
-            <span className="font-semibold text-[var(--text)]">72 years, Female</span>
+            <span className="text-xs text-text-secondary block">Age & Gender</span>
+            <span className="font-semibold text-text">72 years, Female</span>
           </div>
           <div>
-            <span className="text-xs text-[var(--text-secondary)] block">Registered Phone</span>
-            <span className="font-semibold text-[var(--text)]">+91 98220 12345</span>
+            <span className="text-xs text-text-secondary block">Registered Phone</span>
+            <span className="font-semibold text-text">+91 98220 12345</span>
           </div>
           <div>
-            <span className="text-xs text-[var(--text-secondary)] block">Assigned Chapter</span>
-            <span className="font-semibold text-[var(--text)]">Pune Ekta Hub (HUB-PUN)</span>
+            <span className="text-xs text-text-secondary block">Assigned Chapter</span>
+            <span className="font-semibold text-text">Pune Ekta Hub (HUB-PUN)</span>
           </div>
         </div>
       </Card>
@@ -192,12 +192,12 @@ export const ScProfilePage: React.FC = () => {
 export const ScHealthPage: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/me" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/me" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> My Home
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Health</span>
+        <span className="text-text font-semibold">Health</span>
       </div>
 
       <PageHeader
@@ -207,13 +207,13 @@ export const ScHealthPage: React.FC = () => {
 
       <Card title="Latest blood pressure readings">
         <div className="space-y-2 text-sm">
-          <div className="p-3 rounded bg-[var(--surface-subtle)] flex items-center justify-between">
+          <div className="p-3 rounded bg-surface-subtle flex items-center justify-between">
             <span>27 Oct 2026, Morning</span>
-            <strong className="text-[var(--positive)]">128 / 82 mmHg (Normal)</strong>
+            <strong className="text-positive">128 / 82 mmHg (Normal)</strong>
           </div>
-          <div className="p-3 rounded bg-[var(--surface-subtle)] flex items-center justify-between">
+          <div className="p-3 rounded bg-surface-subtle flex items-center justify-between">
             <span>20 Oct 2026, Morning</span>
-            <strong className="text-[var(--text)]">134 / 86 mmHg (Normal)</strong>
+            <strong className="text-text">134 / 86 mmHg (Normal)</strong>
           </div>
         </div>
       </Card>
@@ -224,12 +224,12 @@ export const ScHealthPage: React.FC = () => {
 export const ScFeedbackPage: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/me" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/me" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> My Home
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Feedback</span>
+        <span className="text-text font-semibold">Feedback</span>
       </div>
 
       <PageHeader
@@ -242,7 +242,7 @@ export const ScFeedbackPage: React.FC = () => {
           <textarea
             rows={4}
             placeholder="Tell us what you liked or what we can improve..."
-            className="w-full px-3 py-2 text-sm rounded border border-[var(--border)] focus:outline-none"
+            className="w-full px-3 py-2 text-sm rounded border border-border focus:outline-none"
           />
           <Button variant="primary">Send to coordinator</Button>
         </div>
@@ -254,12 +254,12 @@ export const ScFeedbackPage: React.FC = () => {
 export const ScHelpPage: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/me" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/me" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> My Home
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Help</span>
+        <span className="text-text font-semibold">Help</span>
       </div>
 
       <PageHeader
@@ -270,19 +270,19 @@ export const ScHelpPage: React.FC = () => {
       <div className="space-y-4">
         <Card title="Emergency helplines">
           <div className="space-y-3 text-sm">
-            <div className="p-3 rounded bg-[var(--surface-subtle)] flex items-center justify-between">
+            <div className="p-3 rounded bg-surface-subtle flex items-center justify-between">
               <div>
-                <strong className="block text-[var(--text)]">National Emergency Ambulance</strong>
-                <span className="text-xs text-[var(--text-secondary)]">24/7 Government Helpline</span>
+                <strong className="block text-text">National Emergency Ambulance</strong>
+                <span className="text-xs text-text-secondary">24/7 Government Helpline</span>
               </div>
               <a href="tel:112">
                 <Button size="sm" variant="destructive">Call 112</Button>
               </a>
             </div>
-            <div className="p-3 rounded bg-[var(--surface-subtle)] flex items-center justify-between">
+            <div className="p-3 rounded bg-surface-subtle flex items-center justify-between">
               <div>
-                <strong className="block text-[var(--text)]">Elderline Senior Helpline</strong>
-                <span className="text-xs text-[var(--text-secondary)]">Ministry of Social Justice</span>
+                <strong className="block text-text">Elderline Senior Helpline</strong>
+                <span className="text-xs text-text-secondary">Ministry of Social Justice</span>
               </div>
               <a href="tel:14567">
                 <Button size="sm" variant="primary">Call 14567</Button>
@@ -298,12 +298,12 @@ export const ScHelpPage: React.FC = () => {
 export const ScFamilyPage: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-6 px-4">
-      <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-        <Link to="/me" className="hover:text-[var(--accent)] flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-text-secondary">
+        <Link to="/me" className="hover:text-accent flex items-center gap-1">
           <ArrowLeft size={16} /> My Home
         </Link>
         <span>/</span>
-        <span className="text-[var(--text)] font-semibold">Family</span>
+        <span className="text-text font-semibold">Family</span>
       </div>
 
       <PageHeader
@@ -312,12 +312,12 @@ export const ScFamilyPage: React.FC = () => {
       />
 
       <Card title="Permitted family members">
-        <div className="p-3.5 rounded bg-[var(--surface-subtle)] flex items-center justify-between text-sm">
+        <div className="p-3.5 rounded bg-surface-subtle flex items-center justify-between text-sm">
           <div>
-            <strong className="text-[var(--text)]">Sunita Desai (Daughter)</strong>
-            <div className="text-xs text-[var(--text-secondary)]">+91 98450 11223 • Family portal access granted</div>
+            <strong className="text-text">Sunita Desai (Daughter)</strong>
+            <div className="text-xs text-text-secondary">+91 98450 11223 • Family portal access granted</div>
           </div>
-          <span className="text-xs font-semibold text-[var(--positive)]">Active</span>
+          <span className="text-xs font-semibold text-positive">Active</span>
         </div>
       </Card>
     </div>

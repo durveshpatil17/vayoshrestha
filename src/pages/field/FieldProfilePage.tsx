@@ -48,47 +48,47 @@ export const FieldProfilePage: React.FC = () => {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+        <h1 className="text-lg font-semibold text-text flex items-center gap-2">
           <User className="w-5 h-5 text-accent" />
           Field Associate Profile
         </h1>
-        <p className="text-xs text-text-muted mt-0.5">
+        <p className="text-xs text-text-secondary mt-0.5">
           Your active credentials and display accessibility preferences.
         </p>
       </div>
 
       {/* Associate Identity Card */}
-      <div className="p-4 bg-bg-surface rounded-lg border border-border-hairline space-y-3">
+      <div className="p-4 bg-bg-surface rounded-lg border border-border space-y-3">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center font-semibold text-lg">
             {user?.fullName?.charAt(0) || 'S'}
           </div>
           <div>
-            <div className="font-semibold text-base text-text-primary">
+            <div className="font-semibold text-base text-text">
               {user?.fullName || 'Ramakant Shinde'}
             </div>
-            <div className="text-xs text-text-muted flex items-center gap-1 mt-0.5">
+            <div className="text-xs text-text-secondary flex items-center gap-1 mt-0.5">
               <MapPin className="w-3.5 h-3.5 text-accent" />
               <span>Pune Ekta Hub · Shivajinagar</span>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-border-hairline text-xs">
+        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-border text-xs">
           <div>
-            <span className="text-text-muted block text-[11px]">Role Code</span>
+            <span className="text-text-secondary block text-xs">Role Code</span>
             <span className="font-semibold text-accent">SF (Senior Field Associate)</span>
           </div>
           <div>
-            <span className="text-text-muted block text-[11px]">Phone</span>
-            <span className="font-semibold text-text-primary">+91 98220 99001</span>
+            <span className="text-text-secondary block text-xs">Phone</span>
+            <span className="font-semibold text-text">+91 98220 99001</span>
           </div>
           <div>
-            <span className="text-text-muted block text-[11px]">Peers Onboarded</span>
-            <span className="font-semibold text-text-primary">14 Active Elders</span>
+            <span className="text-text-secondary block text-xs">Peers Onboarded</span>
+            <span className="font-semibold text-text">14 Active Elders</span>
           </div>
           <div>
-            <span className="text-text-muted block text-[11px]">Training Status</span>
+            <span className="text-text-secondary block text-xs">Training Status</span>
             <span className="font-semibold text-positive flex items-center gap-1">
               <CheckCircle className="w-3.5 h-3.5" />
               Certified
@@ -98,7 +98,7 @@ export const FieldProfilePage: React.FC = () => {
       </div>
 
       {/* Accessibility Controls */}
-      <div className="p-4 bg-bg-surface rounded-lg border border-border-hairline space-y-3">
+      <div className="p-4 bg-bg-surface rounded-lg border border-border space-y-3">
         <h2 className="text-xs font-semibold text-text-secondary">
           Accessibility & Display
         </h2>
@@ -108,8 +108,8 @@ export const FieldProfilePage: React.FC = () => {
           <div className="flex items-center gap-2">
             <Type className="w-4 h-4 text-accent" />
             <div>
-              <div className="text-xs font-medium text-text-primary">Large Type (22px)</div>
-              <div className="text-[11px] text-text-muted">Enlarged font for easier reading</div>
+              <div className="text-xs font-semibold text-text">Large Type (22px)</div>
+              <div className="text-xs text-text-secondary">Enlarged font for easier reading</div>
             </div>
           </div>
           <button
@@ -130,12 +130,12 @@ export const FieldProfilePage: React.FC = () => {
         </div>
 
         {/* High Contrast Toggle */}
-        <div className="flex items-center justify-between pt-2 border-t border-border-hairline">
+        <div className="flex items-center justify-between pt-2 border-t border-border">
           <div className="flex items-center gap-2">
             <Sun className="w-4 h-4 text-accent" />
             <div>
-              <div className="text-xs font-medium text-text-primary">High Contrast Mode</div>
-              <div className="text-[11px] text-text-muted">High-legibility contrast ratio (≥ 7:1)</div>
+              <div className="text-xs font-semibold text-text">High Contrast Mode</div>
+              <div className="text-xs text-text-secondary">High-legibility contrast ratio (≥ 7:1)</div>
             </div>
           </div>
           <button
@@ -157,8 +157,8 @@ export const FieldProfilePage: React.FC = () => {
       </div>
 
       {/* Ethical Conduct & Privacy */}
-      <div className="p-3 bg-bg-subtle rounded-lg border border-border-hairline space-y-1.5 text-xs text-text-muted">
-        <div className="font-semibold text-text-primary flex items-center gap-1.5">
+      <div className="p-3 bg-surface-subtle rounded-lg border border-border space-y-1.5 text-xs text-text-secondary">
+        <div className="font-semibold text-text flex items-center gap-1.5">
           <Shield className="w-4 h-4 text-accent" />
           Field Privacy Guarantee
         </div>

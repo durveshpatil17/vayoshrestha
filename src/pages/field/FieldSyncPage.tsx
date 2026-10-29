@@ -67,19 +67,19 @@ export const FieldSyncPage: React.FC = () => {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+        <h1 className="text-lg font-semibold text-text flex items-center gap-2">
           <RefreshCw className="w-5 h-5 text-accent" />
           Field Sync Queue
         </h1>
-        <p className="text-xs text-text-muted mt-0.5">
+        <p className="text-xs text-text-secondary mt-0.5">
           Local cryptographic queue status and cloud synchronization.
         </p>
       </div>
 
       {/* Simulator Offline Toggle Panel */}
-      <div className="p-4 bg-bg-subtle rounded-lg border border-border-hairline flex items-center justify-between">
+      <div className="p-4 bg-surface-subtle rounded-lg border border-border flex items-center justify-between">
         <div>
-          <div className="text-sm font-semibold text-text-primary flex items-center gap-1.5">
+          <div className="text-sm font-semibold text-text flex items-center gap-1.5">
             {isSimulatedOffline ? (
               <WifiOff className="w-4 h-4 text-critical" />
             ) : (
@@ -87,7 +87,7 @@ export const FieldSyncPage: React.FC = () => {
             )}
             Simulate Offline Network
           </div>
-          <p className="text-xs text-text-muted mt-0.5 leading-normal max-w-[280px]">
+          <p className="text-xs text-text-secondary mt-0.5 leading-normal max-w-xs">
             {isSimulatedOffline
               ? 'Network disabled: activities stay encrypted locally.'
               : 'Network active: queue synchronizes automatically.'}
@@ -114,23 +114,23 @@ export const FieldSyncPage: React.FC = () => {
 
       {/* Queue Metrics Strip */}
       <div className="grid grid-cols-3 gap-2 text-center text-xs">
-        <div className="p-3 bg-bg-surface border border-border-hairline rounded-lg">
+        <div className="p-3 bg-bg-surface border border-border rounded-lg">
           <div className="text-xl font-semibold text-critical tabular-nums">
             {pendingItems.length}
           </div>
-          <div className="text-[11px] text-text-muted mt-0.5">Pending Sync</div>
+          <div className="text-xs text-text-secondary mt-0.5">Pending Sync</div>
         </div>
-        <div className="p-3 bg-bg-surface border border-border-hairline rounded-lg">
+        <div className="p-3 bg-bg-surface border border-border rounded-lg">
           <div className="text-xl font-semibold text-positive tabular-nums">
             {syncedItems.length + 8}
           </div>
-          <div className="text-[11px] text-text-muted mt-0.5">Synced Today</div>
+          <div className="text-xs text-text-secondary mt-0.5">Synced Today</div>
         </div>
-        <div className="p-3 bg-bg-surface border border-border-hairline rounded-lg">
-          <div className="text-xl font-semibold text-text-primary tabular-nums">
+        <div className="p-3 bg-bg-surface border border-border rounded-lg">
+          <div className="text-xl font-semibold text-text tabular-nums">
             {lateItems.length}
           </div>
-          <div className="text-[11px] text-text-muted mt-0.5">Late (&gt;24h)</div>
+          <div className="text-xs text-text-secondary mt-0.5">Late (&gt;24h)</div>
         </div>
       </div>
 
@@ -168,7 +168,7 @@ export const FieldSyncPage: React.FC = () => {
         </h2>
 
         {queue.length === 0 ? (
-          <div className="p-6 text-center border border-dashed border-border rounded-lg text-xs text-text-muted">
+          <div className="p-6 text-center border border-dashed border-border rounded-lg text-xs text-text-secondary">
             Queue is empty. Use "Add a Peer" to capture activities.
           </div>
         ) : (
@@ -176,23 +176,23 @@ export const FieldSyncPage: React.FC = () => {
             {queue.map((item) => (
               <div
                 key={item.id}
-                className="p-3 bg-bg-surface rounded-lg border border-border-hairline flex items-center justify-between text-xs"
+                className="p-3 bg-bg-surface rounded-lg border border-border flex items-center justify-between text-xs"
               >
                 <div>
-                  <div className="font-semibold text-text-primary flex items-center gap-1.5">
-                    <span className="tabular-nums text-[10px] px-1.5 py-0.5 rounded bg-bg-subtle text-text-muted">
+                  <div className="font-semibold text-text flex items-center gap-1.5">
+                    <span className="tabular-nums text-xs px-1.5 py-0.5 rounded bg-surface-subtle text-text-secondary">
                       #{item.sequenceNumber}
                     </span>
                     <span>{item.peerName}</span>
                   </div>
-                  <div className="text-[11px] text-text-muted mt-0.5">
+                  <div className="text-xs text-text-secondary mt-0.5">
                     {item.activityType} · {item.geoArea}
                   </div>
                 </div>
 
                 <div className="text-right">
                   <span
-                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                    className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
                       item.status === 'synced'
                         ? 'bg-positive-tint text-positive'
                         : 'bg-critical-tint text-critical'
@@ -200,7 +200,7 @@ export const FieldSyncPage: React.FC = () => {
                   >
                     {item.status}
                   </span>
-                  <div className="text-[10px] tabular-nums text-text-muted mt-1">
+                  <div className="text-xs tabular-nums text-text-secondary mt-1">
                     {new Date(item.clientCapturedAt).toLocaleTimeString([], {
                       hour: '2-digit',
                       minute: '2-digit',
@@ -213,8 +213,8 @@ export const FieldSyncPage: React.FC = () => {
         )}
       </div>
 
-      <div className="p-3 bg-bg-subtle rounded-lg border border-border-hairline text-[11px] text-text-muted space-y-1">
-        <div className="font-semibold text-text-primary">Demonstration Guide:</div>
+      <div className="p-3 bg-surface-subtle rounded-lg border border-border text-xs text-text-secondary space-y-1">
+        <div className="font-semibold text-text">Demonstration Guide:</div>
         <p>1. Toggle "Simulate Offline" ON.</p>
         <p>2. Tap "Add a Peer" and complete the 4-step wizard.</p>
         <p>3. Notice item queued locally with pending status.</p>

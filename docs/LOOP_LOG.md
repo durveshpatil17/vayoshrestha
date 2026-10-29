@@ -323,3 +323,20 @@
   - Design-lint: 0 violations across all 32 files in Addendum v3.1.
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844).
+
+---
+
+## Loop U10: Senior & Family Portals + Mobile Field View (Phase U: Final UI Design Pass)
+- **Goal**: Restyle Senior Portal (`/me/*`), Family Member Portal (`/family/*`), and Mobile Field View (`/field/*`) for elder accessibility and mobile responsiveness:
+  - Senior Portal (`/me/*`): `.density-large` styling with 18px base text size, "Larger text" toggle, touch targets $\ge 48$px, clean Horizon blue tokens, spacious high-contrast cards.
+  - Family Member Portal (`/family/*`): elder status snapshots, explicit consent verification banner, coordinator contact card.
+  - Mobile Field View (`/field/*`): centered 480px max-width container, touch targets $\ge 48$px, offline sync status, double consent workflow, clean tokens.
+- **What Changed**:
+  - Restyled 10 files across `src/pages/seniors/ScPortal*.tsx`, `src/pages/family/*`, and `src/pages/field/*`.
+  - Normalized all token classes and removed arbitrary brackets.
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+  - Design-lint: 0 violations across all 10 files.
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U11: Simulators, Auth, Error Pages, Print & Tamper-Evident PDFs.

@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { mockStore } from '@/mock/store';
-import { PageHeader } from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/Button';
-import { StatusChip } from '@/components/ui/StatusChip';
 import {
-  MessageSquare,
   ArrowLeft,
   Save,
-  CheckCircle,
-  ShieldCheck,
   Smartphone,
-  Check,
   CheckCheck,
+  Pill,
+  Clock,
+  ChevronRight,
 } from 'lucide-react';
+import { Container } from '@/ui/Container';
+import { MessageStrip } from '@/ui/MessageStrip';
 
 export const ReminderEditorPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -78,45 +77,52 @@ export const ReminderEditorPage: React.FC = () => {
 
   return (
     <div className="space-y-6 max-w-6xl pb-16">
-      <div className="flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => navigate('/health/reminders')}
-          className="gap-1 text-xs"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          Back to Templates
-        </Button>
+      {/* Prominent non-clinical notice banner */}
+      <MessageStrip type="informative">
+        Vayoshreshtha is a non-clinical community support platform. Biomarker readings and reminder acknowledgements are self-reported and do not constitute clinical diagnosis.
+      </MessageStrip>
+
+      {/* Nav & Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/health/reminders')}
+            className="gap-1.5"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Templates
+          </Button>
+          <div>
+            <h1 className="text-2xl font-semibold text-text">Edit Template: {id || '08:00 Morning Wellness & Vitals Prompt'}</h1>
+            <p className="text-xs text-text-secondary mt-0.5">
+              Configure variable placeholders, WhatsApp utility character limits, and interactive button replies.
+            </p>
+          </div>
+        </div>
       </div>
 
-      <PageHeader
-        title={`Edit Template: ${id || '08:00 Morning Wellness & Vitals Prompt'}`}
-        description="Configure variable placeholders, WhatsApp utility character limits, and interactive button replies."
-      />
-
       {feedback && (
-        <div className="p-3 bg-success-surface border border-success/30 rounded text-xs text-success flex items-center justify-between">
-          <span>{feedback}</span>
-          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
-            Dismiss
-          </button>
-        </div>
+        <MessageStrip type="positive" onClose={() => setFeedback(null)}>
+          {feedback}
+        </MessageStrip>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Editor & Variable Chips (7 cols) */}
         <div className="lg:col-span-7 space-y-5">
           {/* Language Tabs */}
-          <div className="flex border-b border-border-hairline text-xs font-medium">
+          <div className="flex border-b border-border text-xs">
             {(['ENGLISH', 'HINDI', 'KANNADA', 'MARATHI', 'TAMIL'] as const).map((lang) => (
               <button
                 key={lang}
+                type="button"
                 onClick={() => setActiveLang(lang)}
-                className={`px-3 py-2 border-b-2 transition-colors ${
+                className={`px-3 py-2 border-b-2 transition-colors font-semibold ${
                   activeLang === lang
-                    ? 'border-accent text-accent font-semibold bg-accent-tint/30'
-                    : 'border-transparent text-text-muted hover:text-text-primary'
+                    ? 'border-accent text-accent bg-informative-tint'
+                    : 'border-transparent text-text-secondary hover:text-text'
                 }`}
               >
                 {lang}
@@ -125,41 +131,41 @@ export const ReminderEditorPage: React.FC = () => {
           </div>
 
           {/* Variable Chips */}
-          <div className="bg-white border border-border-hairline rounded p-4 space-y-2">
-            <span className="text-xs font-semibold text-text-muted">Insert Dynamic Variable:</span>
+          <Container className="p-4 space-y-2">
+            <span className="text-xs font-semibold text-text-secondary">Insert Dynamic Variable:</span>
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
                 onClick={() => handleInsertVariable('{name}')}
-                className="px-2.5 py-1 bg-surface-subtle border border-border-hairline hover:border-accent rounded text-xs tabular-nums text-accent"
+                className="px-2.5 py-1 bg-page border border-border hover:border-accent rounded-control text-xs tabular-nums text-accent font-normal"
               >
                 + {'{name}'}
               </button>
               <button
                 type="button"
                 onClick={() => handleInsertVariable('{chapter}')}
-                className="px-2.5 py-1 bg-surface-subtle border border-border-hairline hover:border-accent rounded text-xs tabular-nums text-accent"
+                className="px-2.5 py-1 bg-page border border-border hover:border-accent rounded-control text-xs tabular-nums text-accent font-normal"
               >
                 + {'{chapter}'}
               </button>
               <button
                 type="button"
                 onClick={() => handleInsertVariable('{time}')}
-                className="px-2.5 py-1 bg-surface-subtle border border-border-hairline hover:border-accent rounded text-xs tabular-nums text-accent"
+                className="px-2.5 py-1 bg-page border border-border hover:border-accent rounded-control text-xs tabular-nums text-accent font-normal"
               >
                 + {'{time}'}
               </button>
             </div>
-          </div>
+          </Container>
 
           {/* Text Area */}
           <form onSubmit={handleSave} className="space-y-4">
-            <div className="bg-white border border-border-hairline rounded p-4 space-y-2">
+            <Container className="p-4 space-y-2">
               <div className="flex justify-between items-center text-xs">
-                <label className="font-semibold text-text-primary">
+                <label className="font-semibold text-text">
                   WhatsApp Message Body ({activeLang}):
                 </label>
-                <span className="tabular-nums text-text-muted">
+                <span className="tabular-nums text-text-secondary">
                   {currentText.length} / 1024 chars
                 </span>
               </div>
@@ -173,33 +179,33 @@ export const ReminderEditorPage: React.FC = () => {
                   })
                 }
                 disabled={!canEdit}
-                className="w-full text-xs p-3 border border-border-hairline rounded focus:outline-none focus:border-accent font-sans leading-relaxed"
+                className="w-full text-xs p-3 border border-border rounded-control bg-surface text-text focus:outline-none focus:border-accent leading-relaxed"
                 required
               />
-            </div>
+            </Container>
 
             {/* Configured Quick Reply Buttons */}
-            <div className="bg-white border border-border-hairline rounded p-4 space-y-2">
-              <span className="text-xs font-semibold text-text-primary block">
+            <Container className="p-4 space-y-2">
+              <span className="text-xs font-semibold text-text block">
                 Quick-Reply Interactive Buttons (Fixed by Pilot Schema):
               </span>
               <div className="grid grid-cols-3 gap-2">
-                <div className="p-2 border border-border-hairline rounded bg-surface-subtle text-center text-xs font-medium text-text-primary">
+                <div className="p-2 border border-border rounded-control bg-page text-center text-xs font-semibold text-text">
                   1. Taken
                 </div>
-                <div className="p-2 border border-border-hairline rounded bg-surface-subtle text-center text-xs font-medium text-text-primary">
+                <div className="p-2 border border-border rounded-control bg-page text-center text-xs font-semibold text-text">
                   2. Not yet
                 </div>
-                <div className="p-2 border border-border-hairline rounded bg-surface-subtle text-center text-xs font-medium text-text-primary">
+                <div className="p-2 border border-border rounded-control bg-page text-center text-xs font-semibold text-text">
                   3. Skip
                 </div>
               </div>
-            </div>
+            </Container>
 
             {canEdit && (
               <div className="flex justify-end gap-2">
-                <Button type="submit" variant="primary" size="sm" className="text-xs gap-1.5 bg-accent">
-                  <Save className="w-3.5 h-3.5" />
+                <Button type="submit" variant="primary" size="sm" className="gap-1.5 bg-accent">
+                  <Save className="w-4 h-4" />
                   Save Draft Changes
                 </Button>
               </div>
@@ -207,69 +213,72 @@ export const ReminderEditorPage: React.FC = () => {
           </form>
         </div>
 
-        {/* Right Column: WhatsApp Phone Simulator Preview (5 cols) */}
+        {/* Right Column: WhatsApp Phone Preview (5 cols) */}
         <div className="lg:col-span-5">
           <div className="sticky top-6">
-            <div className="text-xs font-semibold text-text-muted mb-2 flex items-center gap-1.5">
-              <Smartphone className="w-3.5 h-3.5 text-accent" />
+            <div className="text-xs font-semibold text-text-secondary mb-2 flex items-center gap-1.5">
+              <Smartphone className="w-4 h-4 text-accent" />
               Live WhatsApp Senior Preview
             </div>
 
-            {/* Unbranded WhatsApp Chat Frame */}
-            <div className="bg-[#ECE5DD] border border-[#DDD4C9] rounded-2xl p-4 max-w-sm mx-auto space-y-3 font-sans">
+            {/* Clean Phone Preview Card using tokens */}
+            <div className="bg-page border border-border rounded-container p-4 max-w-sm mx-auto space-y-3">
               {/* Header inside phone */}
-              <div className="bg-[#075E54] text-white p-2.5 rounded-t-lg -mx-4 -mt-4 flex items-center gap-2">
+              <div className="bg-accent text-white p-3 rounded-container flex items-center gap-2">
                 <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center font-semibold text-xs">
                   VV
                 </div>
                 <div>
                   <div className="font-semibold text-xs leading-none">Vayoh Vikas Senior Support</div>
-                  <div className="text-[10px] text-white/80 mt-0.5">Verified Official Channel</div>
+                  <div className="text-xs text-white/80 mt-0.5">Verified Official Channel</div>
                 </div>
               </div>
 
               {/* Chat Date Divider */}
               <div className="text-center">
-                <span className="bg-white/80 text-[#555] text-[10px] px-2 py-0.5 rounded">
+                <span className="bg-surface text-text-secondary text-xs px-2.5 py-0.5 rounded-control border border-border">
                   Today
                 </span>
               </div>
 
               {/* Inbound WhatsApp Message Bubble */}
-              <div className="bg-white rounded-lg p-3 text-xs text-[#111] space-y-2 border border-black/5 max-w-[90%]">
+              <div className="bg-surface rounded-container p-3 text-xs text-text space-y-2 border border-border w-11/12">
                 <p className="leading-relaxed">{previewText}</p>
-                <div className="flex items-center justify-end gap-1 text-[10px] text-gray-500 tabular-nums">
+                <div className="flex items-center justify-end gap-1 text-xs text-text-secondary tabular-nums">
                   <span>08:00 AM</span>
-                  <CheckCheck className="w-3.5 h-3.5 text-[#34B7F1]" />
+                  <CheckCheck className="w-3.5 h-3.5 text-accent" />
                 </div>
               </div>
 
               {/* Quick Reply Buttons Below Bubble */}
-              <div className="space-y-1.5 max-w-[90%]">
+              <div className="space-y-1.5 w-11/12">
                 <button
                   type="button"
-                  className="w-full py-1.5 px-3 bg-white hover:bg-gray-50 border border-gray-200 text-[#00A884] text-xs font-semibold rounded text-center"
+                  className="w-full py-2 px-3 bg-surface hover:bg-page border border-border text-accent text-xs font-semibold rounded-control text-center flex items-center justify-center gap-1.5"
                 >
-                  💊 Taken
+                  <Pill className="w-3.5 h-3.5" />
+                  Taken
                 </button>
                 <button
                   type="button"
-                  className="w-full py-1.5 px-3 bg-white hover:bg-gray-50 border border-gray-200 text-[#00A884] text-xs font-semibold rounded text-center"
+                  className="w-full py-2 px-3 bg-surface hover:bg-page border border-border text-accent text-xs font-semibold rounded-control text-center flex items-center justify-center gap-1.5"
                 >
-                  ⏳ Not yet
+                  <Clock className="w-3.5 h-3.5" />
+                  Not yet
                 </button>
                 <button
                   type="button"
-                  className="w-full py-1.5 px-3 bg-white hover:bg-gray-50 border border-gray-200 text-[#00A884] text-xs font-semibold rounded text-center"
+                  className="w-full py-2 px-3 bg-surface hover:bg-page border border-border text-accent text-xs font-semibold rounded-control text-center flex items-center justify-center gap-1.5"
                 >
-                  ⏭️ Skip
+                  <ChevronRight className="w-3.5 h-3.5" />
+                  Skip
                 </button>
               </div>
 
               {/* Vital Input Simulation Prompt Bubble */}
-              <div className="bg-white rounded-lg p-2.5 text-xs text-[#111] space-y-1 border border-black/5 max-w-[90%] mt-2">
-                <p className="text-[11px] text-gray-600">
-                  Optional: Reply with your reading (e.g. <code>130/85</code> or <code>112</code>).
+              <div className="bg-surface rounded-container p-2.5 text-xs text-text space-y-1 border border-border w-11/12 mt-2">
+                <p className="text-xs text-text-secondary">
+                  Optional: Reply with your reading (e.g. 130/85 or 112).
                 </p>
               </div>
             </div>

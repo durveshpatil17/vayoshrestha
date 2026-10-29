@@ -4,14 +4,11 @@ import { useAuthStore } from '@/store/authStore';
 import { mockStore } from '@/mock/store';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/Button';
-import { StatusChip } from '@/components/ui/StatusChip';
 import { ExportDialog } from '@/components/data/ExportDialog';
 import { maskPhoneNumber } from '@/domain/masking';
 import { maskAbhaNumber } from '@/domain/abha';
 import {
-  Users,
   Search,
-  Filter,
   Download,
   UserPlus,
   AlertTriangle,
@@ -41,20 +38,17 @@ export const SeniorListPage: React.FC = () => {
     : data.chapters.map((c) => c.id);
 
   const filtered = data.seniorCitizens.filter((s) => {
-    // 1. Scope filter
     if (!allowedChapters.includes(s.chapterId)) return false;
 
-    // 2. Dropdown filters
     if (chapterFilter !== 'all' && s.chapterId !== chapterFilter) return false;
     if (languageFilter !== 'all' && s.primaryLanguage !== languageFilter) return false;
-    const hasAbha = s.abha?.status === 'provided_unverified' || s.abha?.verificationStatus === 'ProvidedUnverified' || !!s.abha?.number || !!s.abha?.abhaNumber;
+    const hasAbha = s.abha?.status === 'provided_unverified' || s.abha?.verificationStatus === 'ProvidedUnverified' || Boolean(s.abha?.number) || Boolean(s.abha?.abhaNumber);
     if (abhaFilter === 'provided' && !hasAbha) return false;
     if (abhaFilter === 'not_provided' && hasAbha) return false;
-    const hasConsent = s.consentRecorded || !!s.consent?.generalCommunications;
+    const hasConsent = s.consentRecorded || Boolean(s.consent?.generalCommunications);
     if (consentFilter === 'opted_out' && hasConsent) return false;
     if (consentFilter === 'active' && !hasConsent) return false;
 
-    // 3. Search query
     if (search.trim()) {
       const q = search.toLowerCase();
       const matchName = s.fullName.toLowerCase().includes(q);
@@ -70,40 +64,40 @@ export const SeniorListPage: React.FC = () => {
   const pagedItems = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-16">
       <PageHeader
-        title={`Registered Senior Citizens (${filtered.length.toLocaleString()})`}
+        title={`Registered senior citizens (${filtered.length.toLocaleString()})`}
         description="Comprehensive directory of senior citizens enrolled in Vayoshreshtha across assigned chapters."
         breadcrumbs={[
           { label: 'Dashboard', to: '/' },
-          { label: 'Senior Citizens' },
+          { label: 'Senior citizens' },
         ]}
         actions={
           <div className="flex gap-2">
             <Button
               variant="outline"
               size="sm"
-              icon={<Download className="w-4 h-4" />}
+              icon={<Download className="w-4 h-4 stroke-[1.5]" />}
               onClick={() => setExportOpen(true)}
             >
-              Export Directory
+              Export directory
             </Button>
             <Button
               variant="primary"
               size="sm"
-              icon={<UserPlus className="w-4 h-4" />}
+              icon={<UserPlus className="w-4 h-4 stroke-[1.5]" />}
               onClick={() => navigate('/onboarding/new')}
             >
-              Assisted Onboarding
+              Assisted onboarding
             </Button>
           </div>
         }
       />
 
       {/* Filter and Search Bar */}
-      <div className="bg-white border border-border-hairline rounded p-4 flex flex-wrap gap-3 items-center justify-between">
-        <div className="flex flex-1 min-w-[280px] max-w-md relative">
-          <Search className="w-4 h-4 text-text-muted absolute left-3 top-2.5" />
+      <div className="bg-surface border border-border rounded-container p-4 flex flex-wrap gap-3 items-center justify-between">
+        <div className="flex flex-1 min-w-64 max-w-md relative">
+          <Search className="w-4 h-4 text-text-secondary absolute left-3 top-2.5 stroke-[1.5]" />
           <input
             type="text"
             value={search}
@@ -112,40 +106,36 @@ export const SeniorListPage: React.FC = () => {
               setCurrentPage(1);
             }}
             placeholder="Search by name, ID (VV-PUN...), or phone..."
-            className="w-full bg-bg-subtle border border-border-hairline rounded pl-9 pr-3 py-1.5 text-xs text-text-primary focus:bg-white focus:border-accent focus:outline-none"
+            className="w-full bg-surface-subtle border border-border rounded-control pl-9 pr-3 py-1.5 text-xs text-text focus:bg-surface focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
         <div className="flex flex-wrap gap-2 items-center text-xs">
-          {/* Chapter Filter */}
-          {allowedChapters.length > 1 && (
+          {user?.role !== 'CM' && user?.role !== 'VF' && (
             <select
               value={chapterFilter}
               onChange={(e) => {
                 setChapterFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              className="bg-bg-subtle border border-border-hairline rounded px-2.5 py-1.5 text-text-primary"
+              className="bg-surface border border-border rounded-control px-2.5 py-1.5 text-text focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <option value="all">All Chapters</option>
-              {data.chapters
-                .filter((c) => allowedChapters.includes(c.id))
-                .map((c) => (
-                  <option key={c.id} value={c.id}>{c.name}</option>
-                ))}
+              <option value="all">All chapters</option>
+              {data.chapters.map((c) => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
             </select>
           )}
 
-          {/* Language Filter */}
           <select
             value={languageFilter}
             onChange={(e) => {
               setLanguageFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="bg-bg-subtle border border-border-hairline rounded px-2.5 py-1.5 text-text-primary"
+            className="bg-surface border border-border rounded-control px-2.5 py-1.5 text-text focus:outline-none focus:ring-2 focus:ring-accent"
           >
-            <option value="all">All Languages</option>
+            <option value="all">All languages</option>
             <option value="Marathi">Marathi</option>
             <option value="Hindi">Hindi</option>
             <option value="English">English</option>
@@ -153,57 +143,55 @@ export const SeniorListPage: React.FC = () => {
             <option value="Tamil">Tamil</option>
           </select>
 
-          {/* ABHA Filter */}
           <select
             value={abhaFilter}
             onChange={(e) => {
               setAbhaFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="bg-bg-subtle border border-border-hairline rounded px-2.5 py-1.5 text-text-primary"
+            className="bg-surface border border-border rounded-control px-2.5 py-1.5 text-text focus:outline-none focus:ring-2 focus:ring-accent"
           >
-            <option value="all">ABHA: All</option>
-            <option value="provided">ABHA: Provided (Phase 2)</option>
-            <option value="not_provided">ABHA: Not Provided</option>
+            <option value="all">All ABHA statuses</option>
+            <option value="provided">ABHA provided</option>
+            <option value="not_provided">Not provided</option>
           </select>
 
-          {/* Consent Filter */}
           <select
             value={consentFilter}
             onChange={(e) => {
               setConsentFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="bg-bg-subtle border border-border-hairline rounded px-2.5 py-1.5 text-text-primary"
+            className="bg-surface border border-border rounded-control px-2.5 py-1.5 text-text focus:outline-none focus:ring-2 focus:ring-accent"
           >
-            <option value="all">Consent: All</option>
-            <option value="active">Consent: Active</option>
-            <option value="opted_out">Consent: Opted Out</option>
+            <option value="all">All consent statuses</option>
+            <option value="active">Active consent</option>
+            <option value="opted_out">Opted out</option>
           </select>
         </div>
       </div>
 
       {/* Directory Table */}
-      <div className="bg-white border border-border-hairline rounded overflow-hidden">
+      <div className="bg-surface border border-border rounded-container overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-bg-subtle text-text-muted font-semibold border-b border-border-hairline">
-              <tr>
+          <table className="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr className="bg-surface-subtle border-b border-border text-text-secondary font-normal">
                 <th className="px-4 py-3">Member ID</th>
-                <th className="px-4 py-3">Senior Name</th>
-                <th className="px-4 py-3">Age Band</th>
-                <th className="px-4 py-3">Phone</th>
+                <th className="px-4 py-3">Full legal name</th>
+                <th className="px-4 py-3">Age band</th>
+                <th className="px-4 py-3">Mobile (+91)</th>
                 <th className="px-4 py-3">Chapter</th>
                 <th className="px-4 py-3">Language</th>
-                <th className="px-4 py-3">Emergency NOK</th>
-                <th className="px-4 py-3">ABHA (Phase 2)</th>
+                <th className="px-4 py-3">Primary emergency contact</th>
+                <th className="px-4 py-3">ABHA number</th>
                 <th className="px-4 py-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-hairline">
+            <tbody className="divide-y divide-border-subtle">
               {pagedItems.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-4 py-8 text-center text-text-muted">
+                  <td colSpan={9} className="px-4 py-8 text-center text-text-secondary">
                     No senior citizens matched your search and filter criteria.
                   </td>
                 </tr>
@@ -218,58 +206,58 @@ export const SeniorListPage: React.FC = () => {
                     <tr
                       key={senior.id}
                       onClick={() => navigate(`/seniors/${senior.id}`)}
-                      className="hover:bg-bg-subtle/50 cursor-pointer transition-colors"
+                      className="hover:bg-surface-hover cursor-pointer transition-colors"
                     >
-                      <td className="px-4 py-3 tabular-nums font-medium text-accent">
+                      <td className="px-4 py-3 tabular-nums font-semibold text-accent">
                         {senior.memberId || senior.membershipId}
                       </td>
-                      <td className="px-4 py-3 font-medium text-text-primary">
+                      <td className="px-4 py-3 font-semibold text-text">
                         <div>{senior.fullName}</div>
                         {senior.isAssistedRegistration && (
-                          <span className="text-[10px] text-text-muted font-normal">Assisted by volunteer</span>
+                          <span className="text-xs text-text-secondary font-normal">Assisted by volunteer</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 tabular-nums text-text-muted">
+                      <td className="px-4 py-3 tabular-nums text-text-secondary">
                         {senior.ageBand || (senior.age ? `${senior.age} yrs` : 'Senior')}
                       </td>
-                      <td className="px-4 py-3 tabular-nums text-text-primary">
+                      <td className="px-4 py-3 tabular-nums text-text">
                         {displayPhone}
                       </td>
-                      <td className="px-4 py-3 text-text-muted">
+                      <td className="px-4 py-3 text-text-secondary">
                         {senior.chapterId}
                       </td>
-                      <td className="px-4 py-3 text-text-muted">
+                      <td className="px-4 py-3 text-text-secondary">
                         {senior.preferredLanguage || senior.primaryLanguage}
                       </td>
                       <td className="px-4 py-3">
                         {primaryNok ? (
                           <div>
-                            <span className="text-text-primary font-medium">{primaryNok.name}</span>
-                            <span className="text-[10px] text-text-muted block">({primaryNok.relationship})</span>
+                            <span className="text-text font-semibold">{primaryNok.name}</span>
+                            <span className="text-xs text-text-secondary block">({primaryNok.relationship})</span>
                           </div>
                         ) : (
-                          <span className="text-danger flex items-center gap-1">
-                            <AlertTriangle className="w-3 h-3" /> Missing
+                          <span className="text-negative flex items-center gap-1 font-semibold">
+                            <AlertTriangle className="w-3 h-3 stroke-[1.5]" /> Missing
                           </span>
                         )}
                       </td>
                       <td className="px-4 py-3 tabular-nums">
                         {senior.abha?.number || senior.abha?.abhaNumber ? (
-                          <span className="text-[11px] text-accent">
+                          <span className="text-xs text-accent font-semibold">
                             {maskAbhaNumber(senior.abha?.number || senior.abha?.abhaNumber || '')}
                           </span>
                         ) : (
-                          <span className="text-text-disabled text-[11px]">None</span>
+                          <span className="text-text-disabled text-xs">None</span>
                         )}
                       </td>
                       <td className="px-4 py-3">
                         {senior.consentRecorded || senior.consent?.generalCommunications ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-success-bg text-success">
-                            <CheckCircle2 className="w-3 h-3" /> Active
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-chip text-xs font-semibold bg-positive-tint text-positive">
+                            <CheckCircle2 className="w-3 h-3 stroke-[1.5]" /> Active
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-bg-subtle text-text-muted border border-border-hairline">
-                            <XCircle className="w-3 h-3" /> Opted Out
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-chip text-xs font-semibold bg-surface-subtle text-text-secondary border border-border">
+                            <XCircle className="w-3 h-3 stroke-[1.5]" /> Opted out
                           </span>
                         )}
                       </td>
@@ -282,10 +270,11 @@ export const SeniorListPage: React.FC = () => {
         </div>
 
         {/* Pagination Bar */}
-        <div className="p-3 border-t border-border-hairline bg-bg-subtle/50 flex items-center justify-between text-xs text-text-muted">
+        <div className="p-3 border-t border-border-subtle bg-surface-subtle flex items-center justify-between text-xs text-text-secondary">
           <div>
-            Showing {(currentPage - 1) * pageSize + 1} to{' '}
-            {Math.min(currentPage * pageSize, filtered.length)} of {filtered.length.toLocaleString()} seniors
+            Showing <span className="tabular-nums font-semibold">{(currentPage - 1) * pageSize + 1}</span> to{' '}
+            <span className="tabular-nums font-semibold">{Math.min(currentPage * pageSize, filtered.length)}</span> of{' '}
+            <span className="tabular-nums font-semibold">{filtered.length.toLocaleString()}</span> seniors
           </div>
           <div className="flex items-center gap-2">
             <Button

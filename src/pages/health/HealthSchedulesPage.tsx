@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { mockStore } from '@/mock/store';
-import { PageHeader } from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { StatusChip } from '@/components/ui/StatusChip';
 import {
@@ -10,15 +9,15 @@ import {
   Clock,
   Pill,
   Search,
-  Filter,
   PauseCircle,
   PlayCircle,
   Plus,
-  AlertTriangle,
   Info,
   ArrowLeft,
 } from 'lucide-react';
 import { MedicationSchedule } from '@/api/contracts';
+import { Container } from '@/ui/Container';
+import { MessageStrip } from '@/ui/MessageStrip';
 
 export const HealthSchedulesPage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,7 +27,6 @@ export const HealthSchedulesPage: React.FC = () => {
   const [search, setSearch] = useState('');
   const [selectedChapter, setSelectedChapter] = useState('ALL');
   const [statusFilter, setStatusFilter] = useState('ALL');
-  const [activeTab, setActiveTab] = useState<'ACTIVE' | 'MISSED'>('ACTIVE');
   const [feedback, setFeedback] = useState<string | null>(null);
 
   // New schedule modal state
@@ -121,29 +119,35 @@ export const HealthSchedulesPage: React.FC = () => {
 
   return (
     <div className="space-y-6 max-w-7xl pb-16">
-      <div className="flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => navigate('/health')}
-          className="gap-1 text-xs"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          Back to Health Overview
-        </Button>
-      </div>
+      {/* Prominent non-clinical notice banner */}
+      <MessageStrip type="informative">
+        Vayoshreshtha is a non-clinical community support platform. Biomarker readings and reminder acknowledgements are self-reported and do not constitute clinical diagnosis.
+      </MessageStrip>
 
+      {/* Nav & Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <PageHeader
-          title="Medication Reminder Schedules"
-          description="Configure daily utility reminder schedules, quiet hours compliance, and automated prompt timings."
-        />
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/health')}
+            className="gap-1.5"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Health
+          </Button>
+          <div>
+            <h1 className="text-2xl font-semibold text-text">Medication Reminder Schedules</h1>
+            <p className="text-xs text-text-secondary mt-0.5">
+              Configure daily utility reminder schedules, quiet hours compliance, and automated prompt timings.
+            </p>
+          </div>
+        </div>
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="sm"
             onClick={() => navigate('/health/reminders')}
-            className="text-xs"
           >
             Reminder Templates
           </Button>
@@ -152,9 +156,9 @@ export const HealthSchedulesPage: React.FC = () => {
               variant="primary"
               size="sm"
               onClick={() => setAddModalOpen(true)}
-              className="text-xs gap-1.5 bg-accent"
+              className="gap-1.5 bg-accent"
             >
-              <Plus className="w-3.5 h-3.5" />
+              <Plus className="w-4 h-4" />
               New Schedule
             </Button>
           )}
@@ -162,132 +166,128 @@ export const HealthSchedulesPage: React.FC = () => {
       </div>
 
       {feedback && (
-        <div className="p-3 bg-accent-tint border border-accent/20 rounded text-xs text-accent flex items-center justify-between">
-          <span>{feedback}</span>
-          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
-            Dismiss
-          </button>
-        </div>
+        <MessageStrip type="positive" onClose={() => setFeedback(null)}>
+          {feedback}
+        </MessageStrip>
       )}
 
-      {/* Data Minimisation Reminder Banner */}
-      <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs text-text-muted flex items-center gap-2">
-        <Info className="w-4 h-4 text-accent flex-shrink-0" />
+      {/* Data Minimisation Mandate Strip */}
+      <div className="p-3 bg-surface border border-border rounded-container text-xs text-text-secondary flex items-center gap-2">
+        <Info className="w-4 h-4 text-accent shrink-0" />
         <span>
-          <strong>Data Minimisation Mandate:</strong> Only reminder labels (e.g. "Morning wellness
-          prescription") and target times are stored. No clinical dosage guidance or pharmacological
-          advice is collected or sent.
+          <strong className="text-text">Data Minimisation Mandate:</strong> Only reminder labels (e.g. "Morning wellness prescription") and target times are stored. No clinical dosage guidance or pharmacological advice is collected or sent.
         </span>
       </div>
 
-      {/* Filters and search */}
-      <div className="bg-white border border-border-hairline rounded p-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
-        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
-          <div className="relative flex-1 md:w-64">
-            <Search className="w-3.5 h-3.5 text-text-muted absolute left-2.5 top-2.5" />
-            <input
-              type="text"
-              placeholder="Search senior or label..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 border border-border-hairline rounded text-xs"
-            />
+      {/* Filter and search bar */}
+      <Container className="p-4">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 text-xs">
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="relative min-w-64">
+              <Search className="w-4 h-4 text-text-secondary absolute left-3 top-3" />
+              <input
+                type="text"
+                placeholder="Search senior or label..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full h-10 pl-9 pr-3 border border-border rounded-control text-xs bg-surface text-text focus:outline-none focus:border-accent"
+              />
+            </div>
+
+            <select
+              value={selectedChapter}
+              onChange={(e) => setSelectedChapter(e.target.value)}
+              className="h-10 px-3 border border-border rounded-control bg-surface text-text text-xs"
+            >
+              <option value="ALL">All Chapters</option>
+              {data.chapters.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name} ({c.id})
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="h-10 px-3 border border-border rounded-control bg-surface text-text text-xs"
+            >
+              <option value="ALL">All Statuses</option>
+              <option value="ACTIVE">Active Only</option>
+              <option value="PAUSED">Paused Only</option>
+            </select>
           </div>
 
-          <select
-            value={selectedChapter}
-            onChange={(e) => setSelectedChapter(e.target.value)}
-            className="px-2.5 py-1.5 border border-border-hairline rounded bg-white text-xs"
-          >
-            <option value="ALL">All Chapters</option>
-            {data.chapters.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name} ({c.id})
-              </option>
-            ))}
-          </select>
-
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-2.5 py-1.5 border border-border-hairline rounded bg-white text-xs"
-          >
-            <option value="ALL">All Statuses</option>
-            <option value="ACTIVE">Active Only</option>
-            <option value="PAUSED">Paused Only</option>
-          </select>
+          <span className="text-text-secondary text-xs shrink-0 self-center">
+            Showing <strong className="text-text tabular-nums">{filtered.length}</strong> schedules
+          </span>
         </div>
-
-        <span className="text-text-muted text-xs">
-          Showing <strong>{filtered.length}</strong> schedules
-        </span>
-      </div>
+      </Container>
 
       {/* Schedules Table */}
-      <div className="bg-white border border-border-hairline rounded overflow-hidden">
+      <Container>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-surface-subtle border-b border-border-hairline text-text-muted font-medium">
-                <th className="py-2.5 px-4">Senior Citizen</th>
-                <th className="py-2.5 px-4">Chapter</th>
-                <th className="py-2.5 px-4">Reminder Label</th>
-                <th className="py-2.5 px-4">Scheduled Time (IST)</th>
-                <th className="py-2.5 px-4">Recurrence</th>
-                <th className="py-2.5 px-4">Language</th>
-                <th className="py-2.5 px-4">Status</th>
-                <th className="py-2.5 px-4 text-right">Actions</th>
+              <tr className="border-b border-border bg-page text-text-secondary font-semibold">
+                <th className="py-3 px-4">Senior Citizen</th>
+                <th className="py-3 px-4">Chapter</th>
+                <th className="py-3 px-4">Reminder Label</th>
+                <th className="py-3 px-4">Scheduled Time (IST)</th>
+                <th className="py-3 px-4">Recurrence</th>
+                <th className="py-3 px-4">Language</th>
+                <th className="py-3 px-4">Status</th>
+                <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-hairline">
+            <tbody className="divide-y divide-border">
               {filtered.slice(0, 50).map((sched) => {
                 const senior = data.seniorCitizens.find((s) => s.id === sched.seniorId);
 
                 return (
-                  <tr key={sched.id} className="hover:bg-surface-subtle">
-                    <td className="py-2.5 px-4">
-                      <span className="font-semibold text-text-primary block">
+                  <tr key={sched.id} className="hover:bg-page transition-colors">
+                    <td className="py-3 px-4">
+                      <span className="font-semibold text-text block">
                         {senior?.fullName || 'Senior'}
                       </span>
-                      <span className="text-[11px] tabular-nums text-text-muted">
+                      <span className="text-xs tabular-nums text-text-secondary">
                         {senior?.memberId}
                       </span>
                     </td>
-                    <td className="py-2.5 px-4 text-text-primary">{sched.chapterId}</td>
-                    <td className="py-2.5 px-4 font-medium text-text-primary">
+                    <td className="py-3 px-4 text-text">{sched.chapterId}</td>
+                    <td className="py-3 px-4 font-semibold text-text">
                       {sched.medicationLabel}
                     </td>
-                    <td className="py-2.5 px-4 tabular-nums text-accent font-semibold">
+                    <td className="py-3 px-4 tabular-nums text-accent font-semibold">
                       {sched.scheduledTime} IST
                     </td>
-                    <td className="py-2.5 px-4 text-text-muted capitalize">
-                      {(sched.recurrence || 'Daily').toLowerCase()}
+                    <td className="py-3 px-4 text-text-secondary">
+                      {sched.recurrence === 'DAILY' ? 'Daily' : sched.recurrence === 'WEEKLY' ? 'Weekly' : sched.recurrence || 'Daily'}
                     </td>
-                    <td className="py-2.5 px-4 text-text-muted">{sched.language}</td>
-                    <td className="py-2.5 px-4">
+                    <td className="py-3 px-4 text-text-secondary">{sched.language}</td>
+                    <td className="py-3 px-4">
                       <StatusChip
                         status={sched.status === 'ACTIVE' ? 'success' : 'neutral'}
                         label={sched.status}
                       />
                     </td>
-                    <td className="py-2.5 px-4 text-right">
+                    <td className="py-3 px-4 text-right">
                       {(user?.role === 'CM' || user?.role === 'VF') && (
-                        <Button
-                          variant="outline"
-                          size="sm"
+                        <button
+                          type="button"
                           onClick={() => handleToggleStatus(sched)}
-                          className="text-xs px-2 py-0.5 h-6 gap-1"
+                          className="px-2.5 py-1 text-xs border border-border rounded-control font-semibold text-text hover:bg-page inline-flex items-center gap-1.5"
                         >
                           {sched.status === 'ACTIVE' ? (
                             <>
-                              <PauseCircle className="w-3 h-3 text-warning" /> Pause
+                              <PauseCircle className="w-3.5 h-3.5 text-critical" /> Pause
                             </>
                           ) : (
                             <>
-                              <PlayCircle className="w-3 h-3 text-success" /> Resume
+                              <PlayCircle className="w-3.5 h-3.5 text-positive" /> Resume
                             </>
                           )}
-                        </Button>
+                        </button>
                       )}
                     </td>
                   </tr>
@@ -296,24 +296,24 @@ export const HealthSchedulesPage: React.FC = () => {
             </tbody>
           </table>
         </div>
-      </div>
+      </Container>
 
       {/* Add Schedule Modal */}
       {addModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 space-y-4">
-            <h3 className="font-semibold text-base text-text-primary flex items-center gap-2">
+          <div className="bg-surface border border-border rounded-container max-w-md w-full p-6 space-y-4">
+            <h3 className="font-semibold text-base text-text flex items-center gap-2">
               <Plus className="w-4 h-4 text-accent" />
               Add Medication Reminder Schedule
             </h3>
 
             <form onSubmit={handleCreateSchedule} className="space-y-3 text-xs">
               <div>
-                <label className="block font-medium text-text-muted mb-1">Select Senior Citizen:</label>
+                <label className="block font-semibold text-text mb-1">Select Senior Citizen:</label>
                 <select
                   value={seniorId}
                   onChange={(e) => setSeniorId(e.target.value)}
-                  className="w-full px-3 py-2 border border-border-hairline rounded bg-white"
+                  className="w-full h-10 px-3 border border-border rounded-control bg-surface text-text text-xs"
                   required
                 >
                   {data.seniorCitizens.slice(0, 30).map((s) => (
@@ -325,7 +325,7 @@ export const HealthSchedulesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block font-medium text-text-muted mb-1">
+                <label className="block font-semibold text-text mb-1">
                   Reminder Label (Non-Clinical):
                 </label>
                 <input
@@ -333,31 +333,31 @@ export const HealthSchedulesPage: React.FC = () => {
                   value={reminderLabel}
                   onChange={(e) => setReminderLabel(e.target.value)}
                   placeholder="e.g. Morning wellness prescription"
-                  className="w-full px-3 py-2 border border-border-hairline rounded"
+                  className="w-full h-10 px-3 border border-border rounded-control bg-surface text-text text-xs focus:outline-none focus:border-accent"
                   required
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-medium text-text-muted mb-1">
+                  <label className="block font-semibold text-text mb-1">
                     Scheduled Time (24h IST):
                   </label>
                   <input
                     type="time"
                     value={scheduledTime}
                     onChange={(e) => setScheduledTime(e.target.value)}
-                    className="w-full px-3 py-2 border border-border-hairline rounded tabular-nums"
+                    className="w-full h-10 px-3 border border-border rounded-control bg-surface text-text text-xs tabular-nums"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block font-medium text-text-muted mb-1">Recurrence:</label>
+                  <label className="block font-semibold text-text mb-1">Recurrence:</label>
                   <select
                     value={recurrence}
                     onChange={(e) => setRecurrence(e.target.value as any)}
-                    className="w-full px-3 py-2 border border-border-hairline rounded bg-white"
+                    className="w-full h-10 px-3 border border-border rounded-control bg-surface text-text text-xs"
                   >
                     <option value="DAILY">Daily</option>
                     <option value="WEEKLY">Weekly</option>
@@ -365,7 +365,7 @@ export const HealthSchedulesPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-border-hairline">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-border">
                 <Button
                   type="button"
                   variant="outline"

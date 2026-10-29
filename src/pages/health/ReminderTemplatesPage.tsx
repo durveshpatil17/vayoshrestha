@@ -1,30 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
-import { mockStore } from '@/mock/store';
-import { PageHeader } from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { StatusChip } from '@/components/ui/StatusChip';
 import {
-  MessageSquare,
   Plus,
   ShieldCheck,
-  CheckCircle,
-  Clock,
-  ArrowRight,
   ArrowLeft,
   Eye,
 } from 'lucide-react';
+import { Container } from '@/ui/Container';
+import { MessageStrip } from '@/ui/MessageStrip';
 
 export const ReminderTemplatesPage: React.FC = () => {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
-  const data = mockStore.getData();
 
-  const isNM = user?.role === 'NM';
   const isRA = user?.role === 'RA';
 
-  // Sample templates or data from store
   const templates = [
     {
       id: 'TPL-MORNING-01',
@@ -63,47 +56,53 @@ export const ReminderTemplatesPage: React.FC = () => {
 
   return (
     <div className="space-y-6 max-w-6xl pb-16">
-      <div className="flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => navigate('/health')}
-          className="gap-1 text-xs"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          Back to Health Overview
-        </Button>
-      </div>
+      {/* Prominent non-clinical notice banner */}
+      <MessageStrip type="informative">
+        Vayoshreshtha is a non-clinical community support platform. Biomarker readings and reminder acknowledgements are self-reported and do not constitute clinical diagnosis.
+      </MessageStrip>
 
+      {/* Nav & Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <PageHeader
-          title="WhatsApp Reminder Templates"
-          description="Business-initiated utility templates, quick-reply buttons, and multi-language variants."
-        />
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/health')}
+            className="gap-1.5"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Health
+          </Button>
+          <div>
+            <h1 className="text-2xl font-semibold text-text">WhatsApp Reminder Templates</h1>
+            <p className="text-xs text-text-secondary mt-0.5">
+              Business-initiated utility templates, quick-reply buttons, and multi-language variants.
+            </p>
+          </div>
+        </div>
         {isRA && (
           <Button
             variant="primary"
             size="sm"
             onClick={() => navigate('/health/reminders/new')}
-            className="text-xs gap-1.5 bg-accent"
+            className="gap-1.5 bg-accent"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-4 h-4" />
             Create Template Draft
           </Button>
         )}
       </div>
 
       {/* Maker-Checker Policy Banner */}
-      <div className="p-4 bg-white border border-border-hairline rounded flex items-center justify-between gap-4">
+      <div className="p-4 bg-surface border border-border rounded-container flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <ShieldCheck className="w-5 h-5 text-accent" />
+          <ShieldCheck className="w-5 h-5 text-accent shrink-0" />
           <div>
-            <span className="font-semibold text-xs text-text-primary block">
+            <span className="font-semibold text-xs text-text block">
               Maker-Checker Operational Governance
             </span>
-            <span className="text-xs text-text-muted">
-              Templates drafted by Regional Admins require explicit approval by NGO Management before
-              automated delivery to seniors.
+            <span className="text-xs text-text-secondary">
+              Templates drafted by Regional Admins require explicit approval by NGO Management before automated delivery to seniors.
             </span>
           </div>
         </div>
@@ -114,11 +113,11 @@ export const ReminderTemplatesPage: React.FC = () => {
         {templates.map((tpl) => (
           <div
             key={tpl.id}
-            className="bg-white border border-border-hairline rounded p-5 flex flex-col justify-between space-y-4 hover:border-accent/40 transition-colors"
+            className="bg-surface border border-border rounded-container p-5 flex flex-col justify-between space-y-4 hover:border-accent/40 transition-colors"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] tabular-nums text-text-muted">{tpl.id}</span>
+                <span className="text-xs tabular-nums text-text-secondary">{tpl.id}</span>
                 <StatusChip
                   status={tpl.approvalStatus === 'APPROVED' ? 'success' : 'warning'}
                   label={tpl.approvalStatus}
@@ -126,19 +125,19 @@ export const ReminderTemplatesPage: React.FC = () => {
               </div>
 
               <div>
-                <h3 className="font-semibold text-sm text-text-primary">{tpl.title}</h3>
-                <p className="text-[11px] text-text-muted mt-1">
-                  Category: <strong>{tpl.category}</strong>
+                <h3 className="font-semibold text-sm text-text">{tpl.title}</h3>
+                <p className="text-xs text-text-secondary mt-1">
+                  Category: <strong className="text-text">{tpl.category}</strong>
                 </p>
               </div>
 
               <div className="space-y-1.5 text-xs">
-                <div className="text-[11px] font-semibold text-text-muted">Quick Reply Actions:</div>
+                <div className="text-xs font-semibold text-text-secondary">Quick Reply Actions:</div>
                 <div className="flex flex-wrap gap-1">
                   {tpl.buttons.map((b) => (
                     <span
                       key={b}
-                      className="px-2 py-0.5 bg-surface-subtle border border-border-hairline rounded text-[11px] text-text-primary font-medium"
+                      className="px-2 py-0.5 bg-page border border-border rounded-control text-xs text-text font-normal"
                     >
                       {b}
                     </span>
@@ -147,20 +146,20 @@ export const ReminderTemplatesPage: React.FC = () => {
               </div>
 
               <div className="text-xs">
-                <div className="text-[11px] font-semibold text-text-muted">Languages:</div>
-                <p className="text-xs text-text-primary mt-0.5">{tpl.languages.join(' · ')}</p>
+                <div className="text-xs font-semibold text-text-secondary">Languages:</div>
+                <p className="text-xs text-text mt-0.5">{tpl.languages.join(' · ')}</p>
               </div>
             </div>
 
-            <div className="pt-3 border-t border-border-hairline flex items-center justify-between">
-              <span className="text-[10px] text-text-muted tabular-nums">
+            <div className="pt-3 border-t border-border flex items-center justify-between">
+              <span className="text-xs text-text-secondary tabular-nums">
                 {tpl.approvedBy ? `Approved by ${tpl.approvedBy}` : 'Awaiting NM Review'}
               </span>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => navigate(`/health/reminders/${tpl.id}`)}
-                className="text-xs gap-1"
+                className="gap-1"
               >
                 <Eye className="w-3.5 h-3.5" />
                 Inspect & Edit

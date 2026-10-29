@@ -202,7 +202,22 @@
 
 - [x] **Loop U5: Role Dashboards ($\le 4$ headline tiles, key-value lists, tables, Field Telemetry Card)**
 - [x] **Loop U6: SOS Board (Cloudscape split panel + non-strobing flashbar)**
-- [ ] **Loop U7: Tranche A Pages (Onboarding, Seniors Object Page, Health & Biomarkers)**
+- [x] **Loop U7: Tranche A Pages (Onboarding Wizard, Seniors Object Page, Health & Biomarkers) (Completed)**
+  - Implemented Cloudscape Wizard for Assisted Onboarding (`/onboarding/new`, 7-step rail, clean inputs, printable card preview with zero emoji).
+  - Restyled Onboarding Funnel (`/onboarding`) with 4 KPI indicators, conversion steps, and stalled table.
+  - Restyled Onboarding Script Editor (`/onboarding/script`) with language selector, dynamic variable chips, and phone preview frame.
+  - Restyled Senior Directory (`/seniors`) as Fiori List Report with FilterBar and tabular numerals.
+  - Restyled Senior Profile (`/seniors/:id`) as Fiori Object Page with 8 tabs, key-value summaries, and threshold band vitals charts.
+  - Restyled Senior Duplicates (`/seniors/duplicates`) and Senior Edit (`/seniors/:id/edit`) with type-to-confirm modal.
+  - Restyled all 8 Health & Biomarkers views with prominent non-clinical notice MessageStrip banner:
+    - `HealthOverviewPage.tsx`: 4 headline numeric tiles (`MetricTile`), 7-day vitals trend band chart (`CloudscapeChart` with normal 100-130 and critical >160 bands), chapter performance table.
+    - `HealthFlagsPage.tsx`: AWS Cloudscape Split Panel (left 7 cols triage queue, right 5 cols sticky detail panel with senior contact, primary physician contact, call log, escalate to SOS, and audited dismissal).
+    - `HealthLogsPage.tsx`: Fiori List Report with search, chapter filter, reading type, and risk band chips.
+    - `HealthSchedulesPage.tsx`: Fiori List Report with data minimisation banner and add schedule modal.
+    - `ReminderTemplatesPage.tsx` & `ReminderEditorPage.tsx`: Maker-checker banner, language tabs, dynamic chips, tokenized phone preview.
+    - `ThresholdRulesPage.tsx`: Maker-checker approval banner, interactive rule evaluation scratchpad, BP and glucose threshold inputs.
+    - `WellnessCallsPage.tsx`: Fiori List Report with telephone outreach queue and mark done action.
+  - Verification: 0 design-lint violations, `tsc --noEmit` clean, 148 unit tests passing (100%).
 - [ ] **Loop U8: Tranche B Pages (Chapters, Programmes, Attendance, Communication, Services/Referrals/Partners, Feedback, Support, Reports, Admin)**
 - [ ] **Loop U9: Addendum v3.1 Pages (Field Network, Telemetry & Impact Packs, Public Verify, Routing, Vouchers, Legal Intake, Learning, Ecosystem Nexus)**
 - [ ] **Loop U10: Senior & Family Portals (`.density-large`) + Mobile Field View (`/field/*`, 390x844)**

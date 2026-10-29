@@ -574,7 +574,7 @@ export const SosCaseDetailPage: React.FC = () => {
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-semibold text-xs text-text">
-                        {c.fullName || c.name} ({c.relationship})
+                        {c.name || (c as any).fullName} ({c.relationship})
                       </span>
                       <span className="text-xs bg-surface px-1.5 py-0.5 rounded-control border border-border text-text-secondary">
                         Priority {c.priority}
@@ -585,7 +585,7 @@ export const SosCaseDetailPage: React.FC = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleSimulatedCall(c.fullName || c.name, c.phoneNumber || '')}
+                        onClick={() => handleSimulatedCall(c.name || (c as any).fullName, c.phoneNumber || '')}
                         className="text-xs h-7 px-2 gap-1 text-accent"
                       >
                         <PhoneCall className="w-3 h-3 stroke-[1.5]" />

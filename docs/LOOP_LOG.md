@@ -241,3 +241,46 @@
   - Design-lint: 0 violations across all 6 files in `src/pages/sos/`.
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U7: Tranche A Pages (Onboarding, Seniors Object Page, Health & Biomarkers).
+
+---
+
+## Loop U7: Tranche A Pages (Phase U: Final UI Design Pass)
+- **Goal**: Restyle and restructure Tranche A pages (Onboarding `/onboarding/*`, Seniors `/seniors/*`, and Health & Biomarkers `/health/*`) to SAP Fiori Horizon and AWS Cloudscape patterns:
+  - Assisted Onboarding (`/onboarding/new`): Wire directly to AWS Cloudscape `Wizard.tsx` (7-step rail, clean inputs, printable card preview with zero emoji).
+  - Onboarding Funnel (`/onboarding`): 4 headline numeric indicators, conversion steps, and clean stalled table.
+  - Onboarding Script Editor (`/onboarding/script`): Language tabs, dynamic variable chips, and phone preview frame.
+  - Senior Directory (`/seniors`): Fiori List Report with FilterBar and tabular numerals.
+  - Senior Profile (`/seniors/:id`): Fiori Object Page with 8 tabs, key-value summaries, and threshold band vitals charts using CSS variables (`var(--chart-1)`, `var(--critical-tint)`).
+  - Senior Duplicates (`/seniors/duplicates`) and Senior Edit (`/seniors/:id/edit`): Clean tokenized cards and type-to-confirm modal.
+  - Prominent non-clinical notice banner on all health views: "Vayoshreshtha is a non-clinical community support platform. Biomarker readings and reminder acknowledgements are self-reported and do not constitute clinical diagnosis." (informative MessageStrip).
+  - Health Overview (`/health`): 4 headline numeric tiles (`MetricTile`), 7-day vitals trend band chart (`CloudscapeChart` with normal 100-130 in positive tint, critical >160 in critical tint, test systolic at 178 above critical line), chapter performance table.
+  - Health Flags (`/health/flags`): AWS Cloudscape Split Panel layout (left 7 cols triage queue, right 5 cols sticky detail panel with senior contact, primary physician contact, call log, escalate to SOS danger button, and audited dismissal modal).
+  - Health Logs (`/health/logs`): Fiori List Report with search, chapter filter, reading type, and risk band chips.
+  - Health Schedules (`/health/schedules`): Fiori List Report with data minimisation banner, schedules table, and add schedule modal.
+  - Reminder Templates (`/health/reminders`) & Editor (`/health/reminders/:id`): Maker-checker banner, language tabs, dynamic variable chips, tokenized phone preview.
+  - Threshold Rules (`/health/rules`): Maker-checker approval banner, interactive rule evaluation scratchpad, BP and glucose threshold inputs.
+  - Wellness Calls (`/health/calls`): Fiori List Report with telephone outreach queue and mark done action.
+- **What Changed**:
+  - Rewrote/restyled:
+    - `src/pages/onboarding/AssistedOnboardingPage.tsx`
+    - `src/pages/onboarding/OnboardingFunnelPage.tsx`
+    - `src/pages/onboarding/OnboardingScriptPage.tsx`
+    - `src/pages/seniors/SeniorListPage.tsx`
+    - `src/pages/seniors/SeniorDetailPage.tsx`
+    - `src/pages/seniors/SeniorDuplicatesPage.tsx`
+    - `src/pages/seniors/SeniorEditPage.tsx`
+    - `src/pages/health/HealthOverviewPage.tsx`
+    - `src/pages/health/HealthFlagsPage.tsx`
+    - `src/pages/health/HealthLogsPage.tsx`
+    - `src/pages/health/HealthSchedulesPage.tsx`
+    - `src/pages/health/ReminderTemplatesPage.tsx`
+    - `src/pages/health/ReminderEditorPage.tsx`
+    - `src/pages/health/ThresholdRulesPage.tsx`
+    - `src/pages/health/WellnessCallsPage.tsx`
+  - Fixed TypeScript contract alignments in `SosBoardPage.tsx` and `SosCaseDetailPage.tsx`.
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+  - Design-lint: 0 violations across all 8 files in `src/pages/health/`, 0 across all 3 files in `src/pages/onboarding/`, and 0 across all 4 files in `src/pages/seniors/`.
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U8: Tranche B Pages (Chapters, Programmes, Attendance, Communication, Services/Referrals/Partners, Feedback, Support, Reports, Admin).

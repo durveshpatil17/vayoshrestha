@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { mockStore } from '@/mock/store';
-import { PageHeader } from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { StatusChip } from '@/components/ui/StatusChip';
 import { parseVitalsInput } from '@/domain/vitalsParser';
 import { evaluateVitalsReading } from '@/domain/thresholds';
 import {
-  ShieldAlert,
   ShieldCheck,
   HeartPulse,
   Activity,
@@ -17,8 +15,10 @@ import {
   AlertTriangle,
   Save,
   CheckCircle,
-  Clock,
+  PhoneCall,
 } from 'lucide-react';
+import { Container } from '@/ui/Container';
+import { MessageStrip } from '@/ui/MessageStrip';
 
 export const ThresholdRulesPage: React.FC = () => {
   const navigate = useNavigate();
@@ -136,53 +136,53 @@ export const ThresholdRulesPage: React.FC = () => {
 
   return (
     <div className="space-y-6 max-w-5xl pb-16">
-      <div className="flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => navigate('/health')}
-          className="gap-1 text-xs"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          Back to Health Overview
-        </Button>
-      </div>
+      {/* Prominent non-clinical notice banner */}
+      <MessageStrip type="informative">
+        Vayoshreshtha is a non-clinical community support platform. Biomarker readings and reminder acknowledgements are self-reported and do not constitute clinical diagnosis.
+      </MessageStrip>
 
-      <PageHeader
-        title="Vital Anomaly Thresholds & Routing Rules"
-        description="Configure risk bands for Blood Pressure and Glucose. High-risk bands trigger welfare calls; critical bands trigger emergency SOS."
-      />
+      {/* Nav & Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/health')}
+            className="gap-1.5"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Health
+          </Button>
+          <div>
+            <h1 className="text-2xl font-semibold text-text">Vital Anomaly Thresholds & Routing Rules</h1>
+            <p className="text-xs text-text-secondary mt-0.5">
+              Configure risk bands for Blood Pressure and Glucose. High-risk bands trigger welfare calls; critical bands trigger emergency SOS.
+            </p>
+          </div>
+        </div>
+      </div>
 
       {feedback && (
-        <div className="p-3 bg-success-surface border border-success/30 rounded text-xs text-success flex items-center justify-between">
-          <span>{feedback}</span>
-          <button onClick={() => setFeedback(null)} className="font-semibold underline ml-2">
-            Dismiss
-          </button>
-        </div>
+        <MessageStrip type="positive" onClose={() => setFeedback(null)}>
+          {feedback}
+        </MessageStrip>
       )}
 
-      {/* Mandatory Clinician Placeholder Banner */}
-      <div className="p-4 bg-amber-50 border-l-4 border-warning rounded text-xs text-amber-900 space-y-1">
-        <div className="flex items-center gap-2 font-semibold text-amber-950">
-          <AlertTriangle className="w-4 h-4 text-warning" />
-          PROVISIONAL PLACEHOLDER — TO BE SET BY A QUALIFIED CLINICIAN
-        </div>
-        <p className="leading-relaxed">
-          The values shown below are placeholder operational defaults for engineering evaluation.
-          Formal clinical sign-off from a certified physician and NGO Management approval is legally
-          mandatory prior to deploying live senior notifications. Vayoshreshtha is strictly an
-          operational outreach tool, not a medical diagnostic product.
-        </p>
-      </div>
+      {/* Mandatory Clinician Placeholder MessageStrip */}
+      <MessageStrip
+        type="critical"
+        title="Provisional Operational Parameters — Clinician Validation Mandatory"
+      >
+        The values shown below are provisional operational defaults for software evaluation. Formal clinical sign-off from a certified physician and NGO Management approval is legally mandatory prior to deploying live senior notifications.
+      </MessageStrip>
 
       {/* Approval Status Card */}
-      <div className="bg-white border border-border-hairline rounded p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <Container className="p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <ShieldCheck className="w-5 h-5 text-accent" />
+          <ShieldCheck className="w-5 h-5 text-accent shrink-0" />
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-text-primary">
+              <span className="text-xs font-semibold text-text">
                 Rule Version: {currentConfig.version} · Governance:
               </span>
               <StatusChip
@@ -190,9 +190,8 @@ export const ThresholdRulesPage: React.FC = () => {
                 label={currentConfig.approvalStatus || 'APPROVED'}
               />
             </div>
-            <p className="text-[11px] text-text-muted mt-0.5">
-              Care Team (CT) proposes clinical thresholds; NGO Management (NM) approves. Maker cannot
-              self-approve.
+            <p className="text-xs text-text-secondary mt-0.5">
+              Care Team (CT) proposes clinical thresholds; NGO Management (NM) approves. Maker cannot self-approve.
             </p>
           </div>
         </div>
@@ -203,22 +202,21 @@ export const ThresholdRulesPage: React.FC = () => {
             variant="primary"
             size="sm"
             onClick={handleApprove}
-            className="text-xs bg-success hover:bg-success/90 text-white"
+            className="bg-positive hover:bg-positive/90 text-white"
           >
             Approve Threshold Version
           </Button>
         )}
-      </div>
+      </Container>
 
       {/* Interactive 'Test a Reading' Tool */}
-      <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-        <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
+      <Container className="p-5 space-y-4">
+        <h2 className="font-semibold text-sm text-text flex items-center gap-2">
           <Activity className="w-4 h-4 text-accent" />
           Interactive Rule Test Scratchpad
-        </h3>
-        <p className="text-xs text-text-muted">
-          Type an arbitrary user input format (e.g. <code>140/90</code>, <code>140 90</code>,{' '}
-          <code>BP 150 over 95</code>, <code>240 mg/dl</code>) to verify parsing and band outcome.
+        </h2>
+        <p className="text-xs text-text-secondary">
+          Type an arbitrary user input format (e.g. 140/90, 140 90, BP 150 over 95, 240 mg/dl) to verify parsing and band outcome.
         </p>
 
         <form onSubmit={handleRunTest} className="flex gap-2 max-w-md">
@@ -227,24 +225,24 @@ export const ThresholdRulesPage: React.FC = () => {
             value={testInput}
             onChange={(e) => setTestInput(e.target.value)}
             placeholder="e.g. 145/95 or 240"
-            className="flex-1 text-xs px-3 py-2 border border-border-hairline rounded focus:outline-none focus:border-accent tabular-nums"
+            className="flex-1 h-10 text-xs px-3 border border-border rounded-control bg-surface text-text focus:outline-none focus:border-accent tabular-nums"
             required
           />
-          <Button type="submit" variant="primary" size="sm" className="text-xs gap-1 bg-accent">
+          <Button type="submit" variant="primary" size="sm" className="gap-1.5 bg-accent">
             <Play className="w-3.5 h-3.5 fill-current" />
             Evaluate Reading
           </Button>
         </form>
 
         {testResult && (
-          <div className="p-3 bg-surface-subtle border border-border-hairline rounded text-xs space-y-1">
+          <div className="p-3 bg-page border border-border rounded-control text-xs space-y-1">
             {testResult.error ? (
-              <span className="text-danger font-medium">{testResult.error}</span>
+              <span className="text-negative font-semibold">{testResult.error}</span>
             ) : (
               <>
                 <div className="flex justify-between">
-                  <span className="text-text-muted">Parsed Type:</span>
-                  <span className="font-semibold text-text-primary">
+                  <span className="text-text-secondary">Parsed Type:</span>
+                  <span className="font-semibold text-text">
                     {testResult.parsed.readingType} (
                     {testResult.parsed.systolic
                       ? `${testResult.parsed.systolic}/${testResult.parsed.diastolic} mmHg`
@@ -253,7 +251,7 @@ export const ThresholdRulesPage: React.FC = () => {
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-muted">Evaluated Risk Band:</span>
+                  <span className="text-text-secondary">Evaluated Risk Band:</span>
                   <StatusChip
                     status={
                       testResult.evaluated.band === 'CRITICAL'
@@ -265,46 +263,53 @@ export const ThresholdRulesPage: React.FC = () => {
                     label={testResult.evaluated.band}
                   />
                 </div>
-                <div className="flex justify-between pt-1 border-t border-border-hairline">
-                  <span className="text-text-muted">Operational Action:</span>
-                  <span className="font-semibold text-accent">
-                    {testResult.evaluated.action === 'ESCALATE_TO_SOS'
-                      ? '🚨 Immediately Trigger Emergency SOS Alert'
-                      : testResult.evaluated.action === 'FLAG_FOR_CALL'
-                      ? '📞 Create Chapter Manager Wellness Call Task'
-                      : '✓ Log Reading Silently (Normal)'}
+                <div className="flex justify-between pt-1 border-t border-border">
+                  <span className="text-text-secondary">Operational Action:</span>
+                  <span className="font-semibold text-accent inline-flex items-center gap-1.5">
+                    {testResult.evaluated.action === 'ESCALATE_TO_SOS' ? (
+                      <>
+                        <AlertTriangle className="w-4 h-4 text-negative" /> Immediately Trigger Emergency SOS Alert
+                      </>
+                    ) : testResult.evaluated.action === 'FLAG_FOR_CALL' ? (
+                      <>
+                        <PhoneCall className="w-4 h-4 text-critical" /> Create Chapter Manager Wellness Call Task
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle className="w-4 h-4 text-positive" /> Log Reading Silently (Normal)
+                      </>
+                    )}
                   </span>
                 </div>
               </>
             )}
           </div>
         )}
-      </div>
+      </Container>
 
       {/* Threshold Rules Configuration Form */}
       <form onSubmit={handlePropose} className="space-y-6">
         {/* Blood Pressure Bands */}
-        <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-          <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
+        <Container className="p-5 space-y-4">
+          <h2 className="font-semibold text-sm text-text flex items-center gap-2">
             <HeartPulse className="w-4 h-4 text-accent" />
             Blood Pressure (BP) Risk Bands (mmHg)
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-            <div className="p-4 bg-surface-subtle border border-border-hairline rounded space-y-3">
+            <div className="p-4 bg-page border border-border rounded-control space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-warning">High-Risk Band (Wellness Call)</span>
-                <span className="text-[10px] bg-warning/10 text-warning px-1.5 py-0.5 rounded font-semibold">
+                <span className="font-semibold text-critical">High-Risk Band (Wellness Call)</span>
+                <span className="text-xs bg-critical-tint text-critical px-2 py-0.5 rounded-control font-semibold">
                   FLAG FOR CALL
                 </span>
               </div>
-              <p className="text-[11px] text-text-muted">
-                Readings at or above these thresholds trigger an anomaly queue entry for human
-                follow-up.
+              <p className="text-xs text-text-secondary">
+                Readings at or above these thresholds trigger an anomaly queue entry for human follow-up.
               </p>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-[11px] text-text-muted mb-0.5">
+                  <label className="block text-xs text-text-secondary mb-1">
                     Systolic Min (mmHg):
                   </label>
                   <input
@@ -312,11 +317,11 @@ export const ThresholdRulesPage: React.FC = () => {
                     value={bpHighRiskSystolic}
                     onChange={(e) => setBpHighRiskSystolic(Number(e.target.value))}
                     disabled={!canPropose}
-                    className="w-full px-2 py-1.5 border border-border-hairline rounded tabular-nums"
+                    className="w-full h-10 px-3 border border-border rounded-control bg-surface text-text tabular-nums"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] text-text-muted mb-0.5">
+                  <label className="block text-xs text-text-secondary mb-1">
                     Diastolic Min (mmHg):
                   </label>
                   <input
@@ -324,26 +329,25 @@ export const ThresholdRulesPage: React.FC = () => {
                     value={bpHighRiskDiastolic}
                     onChange={(e) => setBpHighRiskDiastolic(Number(e.target.value))}
                     disabled={!canPropose}
-                    className="w-full px-2 py-1.5 border border-border-hairline rounded tabular-nums"
+                    className="w-full h-10 px-3 border border-border rounded-control bg-surface text-text tabular-nums"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="p-4 bg-danger-surface border border-danger/30 rounded space-y-3">
+            <div className="p-4 bg-negative-tint border border-negative/30 rounded-control space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-danger">Critical Band (Treated as SOS)</span>
-                <span className="text-[10px] bg-danger text-white px-1.5 py-0.5 rounded font-semibold">
+                <span className="font-semibold text-negative">Critical Band (Treated as SOS)</span>
+                <span className="text-xs bg-negative text-white px-2 py-0.5 rounded-control font-semibold">
                   EMERGENCY SOS
                 </span>
               </div>
-              <p className="text-[11px] text-text-muted">
-                Readings in this extreme range immediately trigger an Emergency SOS alert across the
-                regional board.
+              <p className="text-xs text-text-secondary">
+                Readings in this extreme range immediately trigger an Emergency SOS alert across the regional board.
               </p>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-[11px] text-text-muted mb-0.5">
+                  <label className="block text-xs text-text-secondary mb-1">
                     Systolic Min (mmHg):
                   </label>
                   <input
@@ -351,11 +355,11 @@ export const ThresholdRulesPage: React.FC = () => {
                     value={bpCriticalSystolic}
                     onChange={(e) => setBpCriticalSystolic(Number(e.target.value))}
                     disabled={!canPropose}
-                    className="w-full px-2 py-1.5 border border-border-hairline rounded tabular-nums"
+                    className="w-full h-10 px-3 border border-border rounded-control bg-surface text-text tabular-nums"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] text-text-muted mb-0.5">
+                  <label className="block text-xs text-text-secondary mb-1">
                     Diastolic Min (mmHg):
                   </label>
                   <input
@@ -363,34 +367,34 @@ export const ThresholdRulesPage: React.FC = () => {
                     value={bpCriticalDiastolic}
                     onChange={(e) => setBpCriticalDiastolic(Number(e.target.value))}
                     disabled={!canPropose}
-                    className="w-full px-2 py-1.5 border border-border-hairline rounded tabular-nums"
+                    className="w-full h-10 px-3 border border-border rounded-control bg-surface text-text tabular-nums"
                   />
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </Container>
 
         {/* Blood Glucose Bands */}
-        <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-          <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
+        <Container className="p-5 space-y-4">
+          <h2 className="font-semibold text-sm text-text flex items-center gap-2">
             <Activity className="w-4 h-4 text-accent" />
             Blood Glucose Risk Bands (mg/dL)
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-            <div className="p-4 bg-surface-subtle border border-border-hairline rounded space-y-3">
+            <div className="p-4 bg-page border border-border rounded-control space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-warning">High-Risk Band (Wellness Call)</span>
-                <span className="text-[10px] bg-warning/10 text-warning px-1.5 py-0.5 rounded font-semibold">
+                <span className="font-semibold text-critical">High-Risk Band (Wellness Call)</span>
+                <span className="text-xs bg-critical-tint text-critical px-2 py-0.5 rounded-control font-semibold">
                   FLAG FOR CALL
                 </span>
               </div>
-              <p className="text-[11px] text-text-muted">
+              <p className="text-xs text-text-secondary">
                 Glucose readings exceeding standard post-prandial ranges prompt chapter check-in.
               </p>
               <div>
-                <label className="block text-[11px] text-text-muted mb-0.5">
+                <label className="block text-xs text-text-secondary mb-1">
                   Glucose Min (mg/dL):
                 </label>
                 <input
@@ -398,23 +402,23 @@ export const ThresholdRulesPage: React.FC = () => {
                   value={glucoseHighRiskMin}
                   onChange={(e) => setGlucoseHighRiskMin(Number(e.target.value))}
                   disabled={!canPropose}
-                  className="w-full px-2 py-1.5 border border-border-hairline rounded tabular-nums"
+                  className="w-full h-10 px-3 border border-border rounded-control bg-surface text-text tabular-nums"
                 />
               </div>
             </div>
 
-            <div className="p-4 bg-danger-surface border border-danger/30 rounded space-y-3">
+            <div className="p-4 bg-negative-tint border border-negative/30 rounded-control space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-danger">Critical Band (Treated as SOS)</span>
-                <span className="text-[10px] bg-danger text-white px-1.5 py-0.5 rounded font-semibold">
+                <span className="font-semibold text-negative">Critical Band (Treated as SOS)</span>
+                <span className="text-xs bg-negative text-white px-2 py-0.5 rounded-control font-semibold">
                   EMERGENCY SOS
                 </span>
               </div>
-              <p className="text-[11px] text-text-muted">
+              <p className="text-xs text-text-secondary">
                 Extreme hyper- or hypoglycemic values trigger an urgent incident alert.
               </p>
               <div>
-                <label className="block text-[11px] text-text-muted mb-0.5">
+                <label className="block text-xs text-text-secondary mb-1">
                   Glucose Min (mg/dL):
                 </label>
                 <input
@@ -422,17 +426,17 @@ export const ThresholdRulesPage: React.FC = () => {
                   value={glucoseCriticalMin}
                   onChange={(e) => setGlucoseCriticalMin(Number(e.target.value))}
                   disabled={!canPropose}
-                  className="w-full px-2 py-1.5 border border-border-hairline rounded tabular-nums"
+                  className="w-full h-10 px-3 border border-border rounded-control bg-surface text-text tabular-nums"
                 />
               </div>
             </div>
           </div>
-        </div>
+        </Container>
 
         {canPropose && (
           <div className="flex justify-end pt-2">
-            <Button type="submit" variant="primary" size="sm" className="text-xs gap-1.5 bg-accent">
-              <Save className="w-3.5 h-3.5" />
+            <Button type="submit" variant="primary" size="sm" className="gap-1.5 bg-accent">
+              <Save className="w-4 h-4" />
               {isNM ? 'Save & Approve Thresholds' : 'Propose Changes to NM'}
             </Button>
           </div>

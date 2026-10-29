@@ -700,7 +700,7 @@ export const SosBoardPage: React.FC = () => {
                     selectedContacts.map((c) => (
                       <div key={c.id} className="flex items-center justify-between text-xs">
                         <span className="text-text font-normal">
-                          {c.fullName} ({c.relationship})
+                          {c.name || (c as any).fullName} ({c.relationship})
                         </span>
                         <span className="text-text-secondary tabular-nums">
                           {maskPhoneNumber(c.phoneNumber)}
@@ -738,7 +738,7 @@ export const SosBoardPage: React.FC = () => {
 
                 <div className="max-h-36 overflow-y-auto space-y-1.5 bg-page p-3 rounded-control border border-border text-xs text-text-secondary">
                   {selectedEvent.notes ? (
-                    selectedEvent.notes.split('\n').map((line, idx) => (
+                    (Array.isArray(selectedEvent.notes) ? selectedEvent.notes.join('\n') : String(selectedEvent.notes)).split('\n').map((line: string, idx: number) => (
                       <p key={idx} className="leading-relaxed">
                         {line}
                       </p>

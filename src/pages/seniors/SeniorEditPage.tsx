@@ -28,12 +28,12 @@ export const SeniorEditPage: React.FC = () => {
 
   if (!senior) {
     return (
-      <div className="p-8 text-center bg-white border border-border-hairline rounded max-w-md mx-auto my-12">
-        <AlertTriangle className="w-8 h-8 text-warning mx-auto mb-3" />
-        <h3 className="font-semibold text-base text-text-primary">Senior Citizen Not Found</h3>
-        <p className="text-xs text-text-muted mt-1">Cannot edit an unknown profile record.</p>
+      <div className="p-8 text-center bg-surface border border-border rounded-container max-w-md mx-auto my-12">
+        <AlertTriangle className="w-8 h-8 text-critical mx-auto mb-3 stroke-[1.5]" />
+        <h3 className="font-semibold text-base text-text">Senior citizen not found</h3>
+        <p className="text-xs text-text-secondary mt-1">Cannot edit an unknown profile record.</p>
         <Button variant="outline" size="sm" className="mt-4" onClick={() => navigate('/seniors')}>
-          Return to Registry
+          Return to registry
         </Button>
       </div>
     );
@@ -189,39 +189,39 @@ export const SeniorEditPage: React.FC = () => {
           variant="outline"
           size="sm"
           onClick={() => navigate(`/seniors/${senior.id}`)}
-          className="gap-1 text-xs"
+          className="gap-1.5 text-xs"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          Cancel & Return
+          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
+          Cancel & return
         </Button>
       </div>
 
       <PageHeader
-        title={`Edit Profile: ${senior.fullName}`}
+        title={`Edit profile: ${senior.fullName}`}
         description={`Member ID: ${senior.memberId} · Chapter: ${senior.chapterId} · Changes are strictly audited`}
       />
 
       {errorMsg && (
-        <div className="p-3 bg-danger-surface border border-danger/30 rounded text-xs text-danger flex items-center gap-2">
-          <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+        <div className="p-3 bg-negative-tint border border-negative/30 rounded-control text-xs text-negative flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4 shrink-0 stroke-[1.5]" />
           <span>{errorMsg}</span>
         </div>
       )}
 
       {successMsg && (
-        <div className="p-3 bg-success-surface border border-success/30 rounded text-xs text-success flex items-center gap-2">
-          <Info className="w-4 h-4 flex-shrink-0" />
+        <div className="p-3 bg-positive-tint border border-positive/30 rounded-control text-xs text-positive flex items-center gap-2">
+          <Info className="w-4 h-4 shrink-0 stroke-[1.5]" />
           <span>{successMsg}</span>
         </div>
       )}
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Core Personal Details */}
-        <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-          <div className="flex items-center justify-between border-b border-border-hairline pb-3">
-            <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
-              <User className="w-4 h-4 text-accent" />
-              Senior Demographics
+        <div className="bg-surface border border-border rounded-container p-5 space-y-4">
+          <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+            <h3 className="font-semibold text-sm text-text flex items-center gap-2">
+              <User className="w-4 h-4 text-accent stroke-[1.5]" />
+              Senior demographics
             </h3>
             <StatusChip
               status={
@@ -237,65 +237,65 @@ export const SeniorEditPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-text-muted mb-1">
-                Full Name <span className="text-danger">*</span>
+              <label className="block text-xs font-semibold text-text mb-1">
+                Full name <span className="text-negative">*</span>
               </label>
               <input
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 disabled={isVolunteer}
-                className="w-full text-xs px-3 py-2 border border-border-hairline rounded focus:outline-none focus:border-accent disabled:bg-surface-subtle"
+                className="w-full text-xs px-3 py-2 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent disabled:bg-surface-subtle"
                 required
               />
               {isVolunteer && (
-                <p className="text-[11px] text-text-muted mt-0.5">
+                <p className="text-xs text-text-secondary mt-0.5">
                   Volunteers cannot modify senior legal names.
                 </p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-text-muted mb-1">
-                Preferred Language <span className="text-danger">*</span>
+              <label className="block text-xs font-semibold text-text mb-1">
+                Preferred language <span className="text-negative">*</span>
               </label>
               <select
                 value={preferredLanguage}
-                onChange={(e) => setPreferredLanguage(e.target.value as any)}
-                className="w-full text-xs px-3 py-2 border border-border-hairline rounded focus:outline-none focus:border-accent"
+                onChange={(e) => setPreferredLanguage(e.target.value as 'ENGLISH' | 'HINDI' | 'KANNADA' | 'MARATHI' | 'TAMIL')}
+                className="w-full text-xs px-3 py-2 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
               >
                 <option value="ENGLISH">English</option>
-                <option value="HINDI">Hindi (हिंदी)</option>
-                <option value="KANNADA">Kannada (ಕನ್ನಡ)</option>
-                <option value="MARATHI">Marathi (मराठी)</option>
-                <option value="TAMIL">Tamil (தமிழ்)</option>
+                <option value="HINDI">Hindi</option>
+                <option value="KANNADA">Kannada</option>
+                <option value="MARATHI">Marathi</option>
+                <option value="TAMIL">Tamil</option>
               </select>
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-text-muted mb-1">
-                Residential Address / Landmark
+              <label className="block text-xs font-semibold text-text mb-1">
+                Residential address / landmark
               </label>
               <input
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="Door No, Street, Ward, Ekta Hub Zone"
-                className="w-full text-xs px-3 py-2 border border-border-hairline rounded focus:outline-none focus:border-accent"
+                className="w-full text-xs px-3 py-2 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
               />
             </div>
           </div>
         </div>
 
         {/* Emergency Contacts Section */}
-        <div className="bg-white border border-border-hairline rounded p-5 space-y-4">
-          <div className="flex items-center justify-between border-b border-border-hairline pb-3">
+        <div className="bg-surface border border-border rounded-container p-5 space-y-4">
+          <div className="flex items-center justify-between border-b border-border-subtle pb-3">
             <div>
-              <h3 className="font-semibold text-sm text-text-primary flex items-center gap-2">
-                <Phone className="w-4 h-4 text-accent" />
-                Emergency Contacts (Next-of-Kin)
+              <h3 className="font-semibold text-sm text-text flex items-center gap-2">
+                <Phone className="w-4 h-4 text-accent stroke-[1.5]" />
+                Emergency contacts (Next-of-Kin)
               </h3>
-              <p className="text-[11px] text-text-muted mt-0.5">
+              <p className="text-xs text-text-secondary mt-0.5">
                 Targeted for cellular SMS fallback in the event of data network failure during an SOS.
               </p>
             </div>
@@ -307,8 +307,8 @@ export const SeniorEditPage: React.FC = () => {
                 onClick={handleAddContact}
                 className="gap-1 text-xs"
               >
-                <Plus className="w-3.5 h-3.5" />
-                Add Contact
+                <Plus className="w-3.5 h-3.5 stroke-[1.5]" />
+                Add contact
               </Button>
             )}
           </div>
@@ -317,9 +317,9 @@ export const SeniorEditPage: React.FC = () => {
             {contacts.map((c, idx) => (
               <div
                 key={c.id || idx}
-                className="p-3 bg-surface-subtle border border-border-hairline rounded flex flex-col md:flex-row gap-3 items-start md:items-center justify-between"
+                className="p-3 bg-surface-subtle border border-border rounded-control flex flex-col md:flex-row gap-3 items-start md:items-center justify-between"
               >
-                <div className="flex items-center gap-2 text-xs font-medium text-text-muted min-w-[80px]">
+                <div className="flex items-center gap-2 text-xs font-semibold text-text min-w-20">
                   <span>Priority {idx + 1}</span>
                 </div>
 
@@ -333,10 +333,9 @@ export const SeniorEditPage: React.FC = () => {
                       updated[idx].name = e.target.value;
                       setContacts(updated);
                     }}
-                    className="text-xs px-2.5 py-1.5 border border-border-hairline rounded bg-white"
+                    className="text-xs px-3 py-1.5 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
                     required
                   />
-
                   <select
                     value={c.relationship}
                     onChange={(e) => {
@@ -344,26 +343,25 @@ export const SeniorEditPage: React.FC = () => {
                       updated[idx].relationship = e.target.value;
                       setContacts(updated);
                     }}
-                    className="text-xs px-2.5 py-1.5 border border-border-hairline rounded bg-white"
+                    className="text-xs px-2.5 py-1.5 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
                   >
-                    <option value="Son">Son</option>
                     <option value="Daughter">Daughter</option>
+                    <option value="Son">Son</option>
                     <option value="Spouse">Spouse</option>
-                    <option value="Neighbor">Neighbor</option>
-                    <option value="Relative">Relative</option>
                     <option value="Caregiver">Caregiver</option>
+                    <option value="Neighbour">Neighbour</option>
+                    <option value="Relative">Relative</option>
                   </select>
-
                   <input
                     type="text"
-                    placeholder="+919876543210"
+                    placeholder="+91..."
                     value={c.phoneNumber}
                     onChange={(e) => {
                       const updated = [...contacts];
                       updated[idx].phoneNumber = e.target.value;
                       setContacts(updated);
                     }}
-                    className="text-xs px-2.5 py-1.5 border border-border-hairline rounded bg-white tabular-nums"
+                    className="text-xs px-3 py-1.5 border border-border rounded-control bg-surface text-text tabular-nums focus:outline-none focus:ring-2 focus:ring-accent"
                     required
                   />
                 </div>
@@ -372,10 +370,10 @@ export const SeniorEditPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleRemoveContact(idx)}
-                    className="text-text-muted hover:text-danger p-1"
-                    title="Remove contact"
+                    className="text-negative hover:text-negative/80 p-1"
+                    title="Remove Contact"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-4 h-4 stroke-[1.5]" />
                   </button>
                 )}
               </div>
@@ -384,11 +382,11 @@ export const SeniorEditPage: React.FC = () => {
         </div>
 
         {/* Audit Justification Field */}
-        <div className="bg-white border border-border-hairline rounded p-5 space-y-3">
-          <label className="block text-xs font-semibold text-text-primary">
-            Audit Reason for Profile Modification <span className="text-danger">*</span>
+        <div className="bg-surface border border-border rounded-container p-5 space-y-3">
+          <label className="block text-xs font-semibold text-text">
+            Audit reason for profile modification <span className="text-negative">*</span>
           </label>
-          <p className="text-[11px] text-text-muted">
+          <p className="text-xs text-text-secondary">
             All updates to senior citizen information are tracked in the immutable audit log hash chain.
           </p>
           <input
@@ -396,13 +394,13 @@ export const SeniorEditPage: React.FC = () => {
             value={editReason}
             onChange={(e) => setEditReason(e.target.value)}
             placeholder="e.g. Verified residential address during hub visit; updated daughter's mobile number"
-            className="w-full text-xs px-3 py-2 border border-border-hairline rounded focus:outline-none focus:border-accent"
+            className="w-full text-xs px-3 py-2 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
             required
           />
         </div>
 
         {/* Actions bar */}
-        <div className="flex items-center justify-between pt-4 border-t border-border-hairline">
+        <div className="flex items-center justify-between pt-4 border-t border-border-subtle">
           <div>
             {!isVolunteer && senior.status !== 'INACTIVE' && (
               <Button
@@ -410,10 +408,10 @@ export const SeniorEditPage: React.FC = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => setDeactivateModalOpen(true)}
-                className="text-danger border-danger/30 hover:bg-danger-surface text-xs gap-1"
+                className="text-negative border-negative/30 hover:bg-negative-tint text-xs gap-1.5 font-semibold"
               >
-                <ShieldAlert className="w-3.5 h-3.5" />
-                Deactivate Senior Record
+                <ShieldAlert className="w-3.5 h-3.5 stroke-[1.5]" />
+                Deactivate senior record
               </Button>
             )}
           </div>
@@ -428,9 +426,9 @@ export const SeniorEditPage: React.FC = () => {
             >
               Cancel
             </Button>
-            <Button type="submit" variant="primary" size="sm" className="text-xs gap-1">
-              <Save className="w-3.5 h-3.5" />
-              Save Audited Changes
+            <Button type="submit" variant="primary" size="sm" className="text-xs gap-1.5 font-semibold">
+              <Save className="w-3.5 h-3.5 stroke-[1.5]" />
+              Save audited changes
             </Button>
           </div>
         </div>
@@ -439,45 +437,45 @@ export const SeniorEditPage: React.FC = () => {
       {/* Deactivate Modal */}
       {deactivateModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="bg-white border border-border-hairline rounded-lg max-w-md w-full p-6 space-y-4">
-            <div className="flex items-center gap-2 text-danger">
-              <AlertTriangle className="w-5 h-5 flex-shrink-0" />
-              <h3 className="font-semibold text-base text-text-primary">
-                Confirm Profile Deactivation
+          <div className="bg-surface border border-border rounded-container max-w-md w-full p-6 space-y-4">
+            <div className="flex items-center gap-2 text-negative">
+              <AlertTriangle className="w-5 h-5 shrink-0 stroke-[1.5]" />
+              <h3 className="font-semibold text-base text-text">
+                Confirm profile deactivation
               </h3>
             </div>
-            <p className="text-xs text-text-muted leading-relaxed">
-              Deactivating <strong>{senior.fullName}</strong> will immediately halt all automated daily
+            <p className="text-xs text-text-secondary leading-relaxed">
+              Deactivating <strong className="text-text font-semibold">{senior.fullName}</strong> will immediately halt all automated daily
               medication reminders and flag any incoming SOS triggers with an inactive profile warning.
             </p>
 
             <div className="space-y-2">
-              <label className="block text-xs font-medium text-text-primary">
-                Mandatory Deactivation Reason:
+              <label className="block text-xs font-semibold text-text">
+                Mandatory deactivation reason:
               </label>
               <input
                 type="text"
                 placeholder="e.g. Relocated out of chapter zone / Requested withdrawal"
                 value={deactivateReason}
                 onChange={(e) => setDeactivateReason(e.target.value)}
-                className="w-full text-xs px-3 py-2 border border-border-hairline rounded"
+                className="w-full text-xs px-3 py-2 border border-border rounded-control bg-surface text-text focus:outline-none focus:ring-2 focus:ring-accent"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="block text-xs font-medium text-text-primary">
-                Type <span className="tabular-nums font-semibold text-danger">DEACTIVATE</span> to confirm:
+              <label className="block text-xs font-semibold text-text">
+                Type <span className="tabular-nums font-semibold text-negative">DEACTIVATE</span> to confirm:
               </label>
               <input
                 type="text"
                 placeholder="DEACTIVATE"
                 value={deactivateConfirmText}
                 onChange={(e) => setDeactivateConfirmText(e.target.value)}
-                className="w-full text-xs px-3 py-2 border border-border-hairline rounded tabular-nums"
+                className="w-full text-xs px-3 py-2 border border-border rounded-control bg-surface text-text tabular-nums focus:outline-none focus:ring-2 focus:ring-accent"
               />
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-border-hairline">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-border-subtle">
               <Button
                 variant="outline"
                 size="sm"
@@ -490,10 +488,9 @@ export const SeniorEditPage: React.FC = () => {
                 variant="primary"
                 size="sm"
                 onClick={handleDeactivate}
-                disabled={deactivateConfirmText !== 'DEACTIVATE' || !deactivateReason.trim()}
-                className="bg-danger hover:bg-danger/90 text-white text-xs"
+                className="text-xs bg-negative hover:bg-negative/90 text-white font-semibold"
               >
-                Confirm Deactivation
+                Confirm deactivation
               </Button>
             </div>
           </div>

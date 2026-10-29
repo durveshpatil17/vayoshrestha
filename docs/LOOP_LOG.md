@@ -187,3 +187,17 @@
   - Vitest: 28 test suites, 148 tests passing (100% green).
 - **Defects & Blockers**: None.
 - **Next Step**: Loop U4: Charts (Recharts restyled with Cloudscape rules, blue ramp, table view toggle).
+
+---
+
+## Loop U4: Charts & Table Toggle (Phase U: Final UI Design Pass)
+- **Goal**: Implement Recharts wrappers styled to AWS Cloudscape patterns (`CloudscapeChart`, `Sparkline`, `ChartTableToggle`) with token-based series colors, 1px horizontal gridlines, popover tooltips, threshold bands, definition captions, and accessible data table view fallback.
+- **What Changed**:
+  - Implemented `src/ui/ChartTableToggle.tsx`.
+  - Implemented `src/ui/Chart.tsx` featuring `CloudscapeChart` and `Sparkline`.
+  - Exported chart components from `src/ui/index.ts`.
+- **Gate Results**:
+  - `tsc --noEmit`: 0 errors.
+  - Vitest: 28 test suites, 148 tests passing (100% green).
+- **Defects & Blockers**: None.
+- **Next Step**: Loop U5: Role Dashboards ($\le 4$ headline tiles, key-value lists, tables, Field Telemetry Card).

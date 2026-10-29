@@ -15,3 +15,5 @@ export * from './FormControls';
 export * from './StickyActionFooter';
 export * from './Flashbar';
 export * from './ConfirmDialog';
+export * from './ChartTableToggle';
+export * from './Chart';

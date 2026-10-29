@@ -189,7 +189,17 @@
   - Implemented `src/ui/ConfirmDialog.tsx` (including type-to-confirm pattern).
   - Verification: `tsc --noEmit` clean, 148 unit tests passing (100%).
 
-- [ ] **Loop U4: Charts (Recharts restyled with Cloudscape rules, blue ramp, table view toggle)**
+- [x] **Loop U4: Charts (Completed)**
+  - Implemented `src/ui/ChartTableToggle.tsx` (accessible toggle between graphical chart and data table).
+  - Implemented `src/ui/Chart.tsx` (`CloudscapeChart` and `Sparkline`):
+    - Horizontal-only 1px hairline grid, baseline X/Y axes with 12px secondary tabular labels.
+    - Square bars, 2px stroke lines with markers, zero gradients, zero pie/donut.
+    - Color tokens from blue ramp (`--chart-1` through `--chart-5`), popover tooltip with exact values.
+    - ReferenceArea threshold bands for vitals (Normal, Watch, High-risk, Critical).
+    - Seamless fallback to `DataTable` upon "View as table" toggle.
+    - Informative definition caption beneath every chart.
+  - Verification: `tsc --noEmit` clean, 148 unit tests passing (100%).
+
 - [ ] **Loop U5: Role Dashboards ($\le 4$ headline tiles, key-value lists, tables, Field Telemetry Card)**
 - [ ] **Loop U6: SOS Board (Cloudscape split panel + non-strobing flashbar)**
 - [ ] **Loop U7: Tranche A Pages (Onboarding, Seniors Object Page, Health & Biomarkers)**

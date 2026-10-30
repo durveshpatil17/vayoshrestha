@@ -96,3 +96,4 @@ export function formatErrorMessage(code: keyof typeof ERROR_CODES | string, fall
   if (!def) return fallback || `An unexpected error occurred (${code}).`;
   return `[${def.code}] ${def.title}: ${def.description}`;
 }
+

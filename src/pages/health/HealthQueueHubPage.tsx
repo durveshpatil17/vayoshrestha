@@ -51,3 +51,4 @@ export const HealthQueueHubPage: React.FC = () => {
     </div>
   );
 };
+

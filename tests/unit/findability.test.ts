@@ -98,3 +98,4 @@ describe('Loop R2: Findability & Information Architecture Checks', () => {
     }
   });
 });
+

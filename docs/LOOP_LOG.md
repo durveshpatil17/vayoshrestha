@@ -722,3 +722,23 @@
 - **Next Step**: Loop R14: Final Sweep, Multi-Role Test Matrix, Score Summary & `docs/CSR_DEMO_PLAYBOOK.md`.
 
 ---
+
+## Loop R14: Final Sweep, Multi-Role Test Matrix, Score Summary & `docs/CSR_DEMO_PLAYBOOK.md` (Phase v4)
+- **Goal**: Execute the final quality sweep across all 11 workspaces, capture high-resolution after-screenshots across key routes into `docs/screens/v4-after/`, produce the definitive `docs/CSR_DEMO_PLAYBOOK.md` for corporate funder reviews, and verify zero regressions across all gates.
+- **What Changed**:
+  - `scripts/capture-v4-after.mjs`: Authored and executed automated screenshot capture of 35 manifest views at 1440×900 desktop and 390×844 mobile, populated into `docs/screens/v4-after/`.
+  - `docs/CSR_DEMO_PLAYBOOK.md`: Authored comprehensive 5-part demonstration playbook covering executive architectural pillars, guided walkthroughs for scenarios S1 through S6, multi-role RBAC capability matrix, keyboard shortcuts, and verified quality evidence.
+  - Final Verification Gates:
+    * `tsc --noEmit`: 0 errors.
+    * `npm run design:lint`: 0 violations across 290 source files.
+    * `vitest run`: 36 test suites, 179 tests passing (100% green).
+    * `npm run ledger:check`: 171 features tracked (171 Built, 0 Partial, 0 Missing) — **100% Built**.
+    * `npm run manifest:check`: 123 routes in manifest, all verified.
+    * `npm run ratchet`: 171 Built verified against ratchet baseline.
+    * `npm run build`: Production bundle built cleanly with Vite (0 errors).
+    * `npm run gate:ui`: 38 UI Playwright tests passing 100% green (`no-scroll-shell`, `ia-budget`, `layout-check`, `dead-controls`).
+    * All 15 Journey E2E Specs (`J-01` through `J-15`): 15/15 passed 100% green.
+- **Defects & Blockers**: 0 defects, 0 blockers.
+- **Phase v4 Status**: **COMPLETE & PRODUCTION-READY FOR CSR FUNDER DEMONSTRATIONS**.
+
+---

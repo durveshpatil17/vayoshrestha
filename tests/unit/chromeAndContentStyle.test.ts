@@ -44,3 +44,4 @@ describe('Loop R13: Product Chrome, Content Style & Error Codes', () => {
     expect(canonicalGlossary.recipient).not.toBe('old person');
   });
 });
+

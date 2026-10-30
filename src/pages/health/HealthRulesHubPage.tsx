@@ -37,3 +37,4 @@ export const HealthRulesHubPage: React.FC = () => {
     </div>
   );
 };
+

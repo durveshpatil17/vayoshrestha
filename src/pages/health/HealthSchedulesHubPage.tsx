@@ -37,3 +37,4 @@ export const HealthSchedulesHubPage: React.FC = () => {
     </div>
   );
 };
+

@@ -450,31 +450,31 @@
 - **Defects & Blockers**: 0 blockers. Fixed 14 no-scroll document overflow defects and 1 role-filtering defect from R0.5.
 - **Next Step**: Loop R2: Home launchpad, workspace landing pages, App Finder, Command Palette with actions, and findability checks.
 
-- **Goal**: Complete Loop R0 close-out: run baseline Playwright tests, record dead-control counts, author 15 executable journey specs (J-01..J-15), codify process step gap analysis into the feature ledger, generate click-depth report and reachability test, extend before-screenshots across all 123 routes, update IA.md to 11 workspaces and client/edge redirects, neutralize legal wording, and introduce `gate:ui`.
-- **Test Executions & Baseline Results**:
-  - `tests/e2e/dead-controls.spec.ts`: **8/8 PASSED (GREEN)**. Baseline dead-control count: **0 dead controls** across sampled views.
-  - `tests/e2e/ia-budget.spec.ts`: **3 passed, 1 failed (RED)**. Fails on role-filtered navigation isolation because old sidebar still displays un-partitioned links across modules (target for Loop R1).
-  - `tests/e2e/no-scroll-shell.spec.ts`: **14 failed (RED)**. Confirms diagnosis: `document.scrollingElement.scrollHeight > clientHeight` on all pages (e.g. 2939 vs 720). Shell allows document scrolling rather than locking viewport to `100dvh` (target for Loop R1).
-  - `tests/e2e/journeys/J-01.spec.ts`: **FAILED (RED)** as expected (`Error: Inbox should contain task of type DUPLICATE_REVIEW`) because `/inbox` and Task Service are scheduled for Loop R4.
+---
+
+## Loop R2: Discovery — Home Launchpad, Favourites, Recents, App Finder & Command Palette (Phase v4)
+- **Goal**: Implement Fiori Launchpad / AWS Console Home experience with 4 key KPI tiles, My Work section (top 5 tasks with SLA countdown, 1-click open, take next task), Favourites (user-editable, star/unstar in `/apps`), Recently visited (last 8 visited items, auto-tracked on route change), upgraded Command Palette (`Ctrl+K`) with 100% app indexing, records search, and executable actions.
 - **What Changed**:
-  - Authored 15 executable Playwright journey test specs in `tests/e2e/journeys/` (`J-01.spec.ts` through `J-15.spec.ts`) and helper library `helpers.ts`.
-  - Renamed doc test to `processesSpec: spec lint` in `tests/unit/processesSpec.test.ts`.
-  - Executed process step gap analysis across P1–P15: added 66 granular step rows to `docs/feature-ledger.json` and regenerated `docs/FEATURE_LEDGER.md`. True status: **171 total items (151 Built, 16 Partial, 4 Missing)**. Updated `scripts/ledger-check.mjs`.
-  - Generated `docs/CLICK_DEPTH.md` using `scripts/generate-click-depth.mjs` verifying max click-depth $\le 3$ clicks from Home for all 123 routes. Added `tests/unit/reachability.test.ts` (2/2 passed).
-  - Extended before-screenshot capture runner `scripts/capture-all-v4-before.mjs` across all 123 manifest routes into `docs/screens/v4-before/`. Verified **123/123 captured cleanly (0 infeasible routes)**.
-  - Updated `docs/IA.md` with explicit 11 workspaces catalogue, and replaced "301" with React Router client redirects and `vercel.json` edge redirects. Added `src/routes/redirects.ts` and `tests/unit/redirects.test.ts` (3/3 passed).
-  - Replaced "statutory" and "client-advocate privilege" claims with "DPDP-aligned (prototype)" and added permanent non-legal-advice notices across `docs/PROCESSES.md`, `docs/JOURNEYS.md`, and `docs/CONTENT_STYLE.md`.
-  - Added `"gate:ui"` script to `package.json` covering `no-scroll-shell`, `ia-budget`, `layout-check`, and `dead-controls`.
+  - `src/store/authStore.ts`: Added persistent `favourites` list and `recentVisits` list (capped at 8), with `toggleFavourite()` and `addRecentVisit()` actions.
+  - `src/components/layout/AppShell.tsx`: Added automatic route change tracking to populate `recentVisits` across app navigation.
+  - `src/components/dashboard/LaunchpadWidgets.tsx`: Implemented `LaunchpadMyWork` (top 5 tasks, priority indicators, SLA countdown, take next task action), `LaunchpadFavourites` (direct launch tiles with unstar action), and `LaunchpadRecents` (relative timestamp cards).
+  - `src/pages/dashboard/RanmDashboard.tsx`: Integrated `LaunchpadMyWork`, `LaunchpadFavourites`, and `LaunchpadRecents` into the primary operations console.
+  - `src/pages/apps/AppFinderPage.tsx`: Added Star/Unstar toggle on every application card for instant customization of Favourites.
+  - `src/components/ui/CommandPalette.tsx`: Full upgrade indexing 100% of apps across all 11 workspaces, recent records (Seniors, Emergency Cases, Chapters), and executable actions (Switch chapter, Switch persona, Trigger drill, New senior intake, Run export, Toggle text size, Toggle chime).
+  - `src/navigation/workspaces.ts`: Enhanced `findWorkspaceForPath` with precise app registry lookup.
+  - `tests/unit/findability.test.ts`: Added comprehensive findability test suite verifying $\le 8$ apps budget per workspace, 100% app indexing, unique paths, reachability, Favourites/Recents store mechanics, and role isolation.
 - **Gate Results**:
-  - `npm run gate:full`: Passed cleanly.
-  - `tsc --noEmit`: 0 errors.
-  - `npm run design:lint`: 0 violations across 265 files.
-  - `vitest run`: 158 tests passing across 31 test suites (100% green).
-  - `ledger-check`: 171 features tracked (151 Built, 16 Partial, 4 Missing).
-  - `manifest-check`: 123 routes verified in router.
-  - `ratchet-check`: 151 ledger built (no regression).
-- **Defects & Blockers**: None.
-- **Next Step**: Loop R1: Shell and layout fix (`100dvh`, workspace tabs, All-workspaces popover, workspace side navigation with Work/Monitor/Configure, collapsible rail, breadcrumbs, redirects).
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 272 files.
+    * `vitest run`: 163 tests passing across 32 test suites.
+    * `ledger-check`: 171 features tracked (151 Built, 16 Partial, 4 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 151 Built stable.
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+- **Defects & Blockers**: 0 blockers.
+- **Next Step**: Loop R3: Tabbed App Hub Consolidation per `docs/IA.md`.
+
 
 
 

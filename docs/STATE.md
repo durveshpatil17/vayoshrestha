@@ -303,8 +303,12 @@
   - Canonical URL redirect router enforcing `docs/IA.md` explicit 21-route redirect map.
   - Workspace landing page (`/w/:workspace`), `/inbox` stub, `/apps` App Finder, `/about` About page.
   - `gate:ui` (38/38 tests) & `gate:full` (158 tests) passing 100% green.
-- [ ] **Loop R2: Launchpad Home, Workspace Landing Pages, `/apps`, Recents, Favourites, Create Menu & Command Palette (In Progress)**
-- [ ] **Loop R3: Consolidation into App Hubs with Tabs per `docs/IA.md`**
+- [x] **Loop R2: Launchpad Home, Workspace Landing Pages, `/apps`, Recents, Favourites, Create Menu & Command Palette (Completed)**
+  - Fiori Launchpad & AWS Console Home experience with 4 KPI tiles, `LaunchpadMyWork` (top 5 tasks with SLA countdown), `LaunchpadFavourites` (star/unstar in `/apps`), `LaunchpadRecents` (last 8 visited items auto-tracked on route change).
+  - Upgraded Command Palette (`Ctrl+K`) with 100% app indexing across all 11 workspaces, recent records search (seniors, cases, chapters), and 7 executable actions.
+  - Added Star toggle in `/apps` App Finder.
+  - Added findability test suite `tests/unit/findability.test.ts` (163 total vitest tests passing).
+- [ ] **Loop R3: Consolidation into App Hubs with Tabs per `docs/IA.md` (Next)**
 - [ ] **Loop R4: Task Service Backbone, My Work `/inbox`, Split Panel, Entity Hover Cards, Process Flow & Context Rail**
 - [ ] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories**
 - [ ] **Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End**

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Ribbon } from './Ribbon';
 import { ShellBar } from '@/ui/ShellBar';
 import { Sidebar } from './Sidebar';
 import { Breadcrumbs } from './Breadcrumbs';
 import { useAuthStore } from '@/store/authStore';
 import { backgroundJobs } from '@/mock/backgroundJobs';
+import { findWorkspaceForPath, WORKSPACES } from '@/navigation/workspaces';
 import { Clock } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
 export const AppShell: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated, textSize, logout } = useAuthStore();
+  const location = useLocation();
+  const { user, isAuthenticated, textSize, logout, addRecentVisit } = useAuthStore();
   const [idleWarning, setIdleWarning] = useState(false);
   const [secondsRemaining, setSecondsRemaining] = useState(60);
 
@@ -20,6 +22,20 @@ export const AppShell: React.FC = () => {
     backgroundJobs.start();
     return () => backgroundJobs.stop();
   }, []);
+
+  // Track recent visits automatically
+  useEffect(() => {
+    const path = location.pathname;
+    if (path === '/' || path.startsWith('/login') || path.startsWith('/session')) return;
+
+    const wsId = findWorkspaceForPath(path);
+    const ws = wsId ? WORKSPACES[wsId] : null;
+    const app = ws?.apps.find((a) => a.path === path);
+    const title = app?.name || (ws ? `${ws.name} Workspace` : path);
+    const category = ws?.name || 'General';
+
+    addRecentVisit({ title, path, category });
+  }, [location.pathname, addRecentVisit]);
 
   // Auth gate
   useEffect(() => {

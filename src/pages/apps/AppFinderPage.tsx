@@ -7,10 +7,10 @@ import {
   WorkspaceDefinition,
   WorkspaceApp,
 } from '@/navigation/workspaces';
-import { Search, ChevronRight, ExternalLink, LayoutGrid, Check } from 'lucide-react';
+import { Search, ChevronRight, ExternalLink, LayoutGrid, Check, Star } from 'lucide-react';
 
 export const AppFinderPage: React.FC = () => {
-  const user = useAuthStore((s) => s.user);
+  const { user, favourites, toggleFavourite } = useAuthStore();
   const [search, setSearch] = useState('');
   const [selectedWs, setSelectedWs] = useState<string>('all');
 
@@ -117,32 +117,52 @@ export const AppFinderPage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {ws.apps.map((app) => (
-                <Link
-                  key={app.id}
-                  to={app.path}
-                  className="bg-surface border border-border hover:border-accent rounded-container p-4 transition-all group flex flex-col justify-between"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="p-2 rounded-control bg-surface-subtle text-text group-hover:text-accent group-hover:bg-accent-tint transition-colors border border-border shrink-0">
-                      <app.icon className="w-4 h-4 stroke-[1.5]" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-text group-hover:text-accent transition-colors flex items-center gap-1.5">
-                        <span>{app.name}</span>
-                        <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              {ws.apps.map((app) => {
+                const isStarred = favourites.includes(app.path);
+                return (
+                  <Link
+                    key={app.id}
+                    to={app.path}
+                    className="bg-surface border border-border hover:border-accent rounded-container p-4 transition-all group flex flex-col justify-between"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3 min-w-0">
+                        <div className="p-2 rounded-control bg-surface-subtle text-text group-hover:text-accent group-hover:bg-accent-tint transition-colors border border-border shrink-0">
+                          <app.icon className="w-4 h-4 stroke-[1.5]" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="text-sm font-semibold text-text group-hover:text-accent transition-colors flex items-center gap-1.5">
+                            <span className="truncate">{app.name}</span>
+                            <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                          </div>
+                          <p className="text-xs text-text-secondary mt-1 leading-relaxed line-clamp-2">
+                            {app.description}
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-xs text-text-secondary mt-1 leading-relaxed line-clamp-2">
-                        {app.description}
-                      </p>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleFavourite(app.path);
+                        }}
+                        className={`p-1 rounded-control transition-colors shrink-0 ${
+                          isStarred ? 'text-accent' : 'text-text-secondary hover:text-accent'
+                        }`}
+                        title={isStarred ? 'Remove from favourites' : 'Add to favourites'}
+                        aria-label={isStarred ? `Remove ${app.name} from favourites` : `Add ${app.name} to favourites`}
+                      >
+                        <Star className={`w-4 h-4 stroke-[1.5] ${isStarred ? 'fill-accent' : ''}`} />
+                      </button>
                     </div>
-                  </div>
-                  <div className="mt-3 pt-2 border-t border-border-subtle flex items-center justify-between text-xs text-text-secondary">
-                    <span>{app.group}</span>
-                    <span className="text-accent group-hover:underline">Launch app</span>
-                  </div>
-                </Link>
-              ))}
+                    <div className="mt-3 pt-2 border-t border-border-subtle flex items-center justify-between text-xs text-text-secondary">
+                      <span>{app.group}</span>
+                      <span className="text-accent group-hover:underline">Launch app</span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         ))}

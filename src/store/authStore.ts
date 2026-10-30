@@ -15,6 +15,8 @@ export interface AuthState {
   idleWarningOpen: boolean;
   idleCountdown: number;
   openSosCount: number;
+  favourites: string[];
+  recentVisits: { title: string; path: string; category?: string; timestamp: number }[];
 
   // Actions
   loginWithPassword: (email: string, pass: string) => { success: boolean; requiresMfa?: boolean; error?: string };
@@ -27,6 +29,8 @@ export interface AuthState {
   setTextSize: (size: 'normal' | 'large' | 'xlarge') => void;
   toggleChime: () => void;
   setOpenSosCount: (count: number) => void;
+  toggleFavourite: (appIdOrPath: string) => void;
+  addRecentVisit: (visit: { title: string; path: string; category?: string }) => void;
   logout: () => void;
   resetFailedAttempts: (email: string) => void;
 }
@@ -50,6 +54,13 @@ export const useAuthStore = create<AuthState>((set, get) => {
     idleWarningOpen: false,
     idleCountdown: 60,
     openSosCount: sosCount,
+    favourites: ['/sos', '/seniors', '/health', '/programmes'],
+    recentVisits: [
+      { title: 'Emergency SOS Board', path: '/sos', category: 'Emergency', timestamp: Date.now() - 360000 },
+      { title: 'Seniors Directory', path: '/seniors', category: 'Seniors', timestamp: Date.now() - 720000 },
+      { title: 'Care Overview', path: '/health', category: 'Care', timestamp: Date.now() - 1080000 },
+      { title: 'Community Programmes', path: '/programmes', category: 'Community', timestamp: Date.now() - 1440000 },
+    ],
 
     loginWithPassword: (email, pass) => {
       const users = mockStore.getData().users;
@@ -164,6 +175,25 @@ export const useAuthStore = create<AuthState>((set, get) => {
     setTextSize: (size) => set({ textSize: size }),
     toggleChime: () => set((state) => ({ chimeEnabled: !state.chimeEnabled })),
     setOpenSosCount: (count) => set({ openSosCount: count }),
+
+    toggleFavourite: (appIdOrPath) => {
+      set((state) => {
+        const exists = state.favourites.includes(appIdOrPath);
+        return {
+          favourites: exists
+            ? state.favourites.filter((f) => f !== appIdOrPath)
+            : [...state.favourites, appIdOrPath],
+        };
+      });
+    },
+
+    addRecentVisit: (visit) => {
+      set((state) => {
+        const filtered = state.recentVisits.filter((v) => v.path !== visit.path);
+        const updated = [{ ...visit, timestamp: Date.now() }, ...filtered].slice(0, 8);
+        return { recentVisits: updated };
+      });
+    },
 
     logout: () => {
       set({

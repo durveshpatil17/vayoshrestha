@@ -745,6 +745,16 @@ export function findWorkspaceForPath(pathname: string): WorkspaceId | null {
     const candidate = pathname.split('/')[2] as WorkspaceId;
     if (candidate && WORKSPACES[candidate]) return candidate;
   }
+
+  // Exact or sub-path match against registered apps
+  for (const [wsId, ws] of Object.entries(WORKSPACES)) {
+    for (const app of ws.apps) {
+      if (pathname === app.path || (app.path !== '/' && (pathname.startsWith(app.path + '/') || pathname.startsWith(app.path + '?')))) {
+        return wsId as WorkspaceId;
+      }
+    }
+  }
+
   if (pathname.startsWith('/sos') || pathname.startsWith('/sms-log')) return 'emergency';
   if (pathname.startsWith('/health') || pathname.startsWith('/support')) return 'care';
   if (pathname.startsWith('/seniors') || pathname.startsWith('/onboarding')) return 'seniors';

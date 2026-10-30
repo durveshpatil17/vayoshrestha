@@ -9,6 +9,11 @@ import { Card } from '@/components/ui/Card';
 import { KpiTile } from '@/components/ui/KpiTile';
 import { FieldTelemetryCard } from '@/components/telemetry/FieldTelemetryCard';
 import {
+  LaunchpadMyWork,
+  LaunchpadFavourites,
+  LaunchpadRecents,
+} from '@/components/dashboard/LaunchpadWidgets';
+import {
   AlertOctagon,
   Users,
   Clock,
@@ -185,6 +190,15 @@ export const RanmDashboard: React.FC = () => {
           statusLine="Target > 75.0% met"
           status="positive"
         />
+      </div>
+
+      {/* 4b. My Work Section (Fiori Launchpad / AWS Console) */}
+      <LaunchpadMyWork />
+
+      {/* 4c. Favourites & Recently Visited */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <LaunchpadFavourites />
+        <LaunchpadRecents />
       </div>
 
       {/* 5. Cloudscape Key-Value List for Remaining Measures */}

@@ -33,6 +33,8 @@ import {
 import { RoleCode } from '@/permissions/matrix';
 import { eventQueue } from './eventQueue';
 import { createExpandedSeedData } from './seedExpanded';
+import { calculateAuditHash, GENESIS_HASH, verifyAuditChain } from './auditChain';
+import { injectInFlightStories } from './demoStories';
 
 const STORAGE_KEY = 'vayoshrestha_store_v3';
 
@@ -111,6 +113,7 @@ class MockDataStore {
             }
           }
 
+          injectInFlightStories(parsed);
           return parsed;
         }
       }
@@ -128,6 +131,7 @@ class MockDataStore {
       ...expanded,
     };
 
+    injectInFlightStories(state);
     this.persist(state);
     return state;
   }
@@ -203,20 +207,11 @@ class MockDataStore {
     chapterId?: string,
     regionId?: string
   ): AuditEvent {
-    const lastEvent = this.data.auditEvents[this.data.auditEvents.length - 1];
-    const prevHash = lastEvent ? lastEvent.hash : 'GENESIS_VAYOSHRESTHA';
+    const latestEvent = this.data.auditEvents[this.data.auditEvents.length - 1];
+    const prevHash = latestEvent?.hash || GENESIS_HASH;
     const timestamp = new Date().toISOString();
-    const rawString = `${prevHash}|${timestamp}|${actorId}|${action}|${entityType}|${entityId}`;
-    
-    // Simple deterministic hash representation
-    let hashNum = 0;
-    for (let i = 0; i < rawString.length; i++) {
-      hashNum = (hashNum << 5) - hashNum + rawString.charCodeAt(i);
-      hashNum |= 0;
-    }
-    const hash = `h-${Math.abs(hashNum).toString(16)}`;
 
-    const event: AuditEvent = {
+    const rawEvent: Omit<AuditEvent, 'hash'> = {
       id: `aud-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
       timestamp,
       actorId,
@@ -231,15 +226,25 @@ class MockDataStore {
       reason,
       diff,
       previousHash: prevHash,
-      hash,
     };
 
-    this.data.auditEvents.unshift(event);
+    const event: AuditEvent = {
+      ...rawEvent,
+      hash: calculateAuditHash(rawEvent),
+    };
+
+    this.data.auditEvents.push(event);
     if (this.data.auditEvents.length > 500) {
-      this.data.auditEvents.pop();
+      this.data.auditEvents.shift();
     }
     this.persist(this.data);
     return event;
+  }
+
+  public logAuditEvent = this.writeAudit.bind(this);
+
+  public verifyAuditChain() {
+    return verifyAuditChain(this.data.auditEvents);
   }
 }
 

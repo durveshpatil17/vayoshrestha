@@ -23,6 +23,7 @@ import {
 } from '@/api/contracts';
 import { generateMembershipId } from '@/domain/idGenerator';
 import { dobToAgeBand } from '@/domain/masking';
+import { calculateAuditHash, GENESIS_HASH } from './auditChain';
 import { DEFAULT_CLINICIAN_PLACEHOLDER_THRESHOLDS } from '@/domain/thresholds';
 
 export function createDeterministicSeed() {
@@ -863,8 +864,8 @@ export function createDeterministicSeed() {
     },
   };
 
-  // 13. Audit Events (~200 records)
-  const auditEvents: AuditEvent[] = [
+  // 13. Audit Events (~200 records with cryptographic hash chain)
+  const rawAuditSeeds: Array<Omit<AuditEvent, 'hash'>> = [
     {
       id: 'aud-001',
       timestamp: '2026-08-01T10:00:00.000Z',
@@ -876,7 +877,6 @@ export function createDeterministicSeed() {
       entityId: 'sys-001',
       details: 'Approved v2 Pilot configuration parameters and quiet hours.',
       previousHash: 'GENESIS_VAYOSHRESTHA_2026',
-      hash: 'h-001-f923c8a',
     },
     {
       id: 'aud-002',
@@ -888,8 +888,7 @@ export function createDeterministicSeed() {
       entityType: 'THRESHOLD',
       entityId: 'thresh-default-v1',
       details: 'Approved clinician placeholder threshold rules for Blood Pressure and Glucose.',
-      previousHash: 'h-001-f923c8a',
-      hash: 'h-002-3b78d1e',
+      previousHash: '',
     },
     {
       id: 'aud-003',
@@ -901,10 +900,22 @@ export function createDeterministicSeed() {
       entityType: 'USER',
       entityId: 'u-ra-west',
       details: 'Created Regional Admin account for Arjun Nambiar (West Region).',
-      previousHash: 'h-002-3b78d1e',
-      hash: 'h-003-99fa42c',
+      previousHash: '',
     },
   ];
+
+  const auditEvents: AuditEvent[] = [];
+  let prevHash = 'GENESIS_VAYOSHRESTHA_2026';
+  for (const raw of rawAuditSeeds) {
+    const item: AuditEvent = {
+      ...raw,
+      previousHash: prevHash,
+      hash: '',
+    };
+    item.hash = calculateAuditHash(item);
+    prevHash = item.hash;
+    auditEvents.push(item);
+  }
 
   return {
     regions,

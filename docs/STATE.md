@@ -323,7 +323,13 @@
   - Exposed `__AUTH_STORE__` and added persisted active role in `src/store/authStore.ts` and `src/pages/auth/LoginPage.tsx` with `data-persona` attributes.
   - Verified Journey J-01 (`tests/e2e/journeys/J-01.spec.ts`) turns **GREEN**.
   - `gate:ui` (38/38 tests) & `gate:full` (165 tests, 0 design violations) passing 100% green.
-- [ ] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories (Next)**
+- [x] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories (Completed)**
+  - Implemented `src/mock/auditChain.ts` with SHA-256 block hashing (`calculateAuditHash`), `GENESIS_HASH` anchor (`GENESIS_VAYOSHRESTHA_2026`), and bi-directional chain verification (`verifyAuditChain`).
+  - Integrated cryptographic audit chain into `MockDataStore` (`src/mock/store.ts`): chronological appending, tamper detection, and verification API (`mockStore.verifyAuditChain()`).
+  - Codified the 8 canonical in-flight demo stories in `src/mock/demoStories.ts` (`IN_FLIGHT_DEMO_STORIES`), ensuring zero-setup entry for CSR funder presentations (Lakshmi Devi active SOS, Ramesh Kulkarni hypertensive flag, Abdul Rehman second consent, Savitri Patil unredeemed voucher, Mohan Lal legal intake, Dharwad quiz mastermind, Monsoon advisory template, and Pushpa yoga attendance correction).
+  - Authored reconciliation test suite `tests/unit/eventStoreReconciliation.test.ts` (7/7 passed), verifying chain integrity, append mechanics, tamper detection, broken linkage detection, demo story seeding, and cross-tab event subscriber notifications.
+  - `gate:full` (172 vitest tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
+- [ ] **Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End (Next)**
 - [ ] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories**
 - [ ] **Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End**
 - [ ] **Loop R7: Processes P2 & P3 (Emergency SOS & Daily Health Routine) End to End**

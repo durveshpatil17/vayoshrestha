@@ -530,6 +530,29 @@
 - **Defects & Blockers**: 0 blockers. Fixed 1 design linter font-family/shadow issue in `ContextRail` and `EntityHoverCard`, fixed Vite preview build sync for Playwright.
 - **Next Step**: Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories.
 
+---
+
+## Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories (Phase v4)
+- **Goal**: Implement cryptographic SHA-256 audit hash chain with chronological linkage and tamper detection; inject the 8 canonical in-flight demo stories from `docs/DATA_REALISM.md` into mock data; author unit test suite `tests/unit/eventStoreReconciliation.test.ts` verifying chain verification, tamper detection, event subscriber dispatch, and store state persistence.
+- **What Changed**:
+  - `src/mock/auditChain.ts`: Implemented deterministic SHA-256 block hashing (`calculateAuditHash`), `GENESIS_HASH` anchor (`GENESIS_VAYOSHRESTHA_2026`), and comprehensive chain validator (`verifyAuditChain`) supporting chronological and reverse-chronological event arrays.
+  - `src/mock/seed.ts`: Seeded audit blocks with real cryptographic SHA-256 hashes linked to genesis.
+  - `src/mock/store.ts`: Integrated `calculateAuditHash` into `MockDataStore.writeAudit` and added `mockStore.verifyAuditChain()`.
+  - `src/mock/demoStories.ts`: Codified the 8 canonical in-flight stories (Lakshmi Devi `SOS-26-00042`, Ramesh Kulkarni `FLAG-26-00189`, Abdul Rehman `ONB-26-00312`, Savitri Patil `VCH-26-8942-D`, Mohan Lal `LEG-26-00054`, Dharwad Quiz Channel `LRN-QZ-26-04`, Monsoon Advisory `TMP-26-00018`, Attendance Correction `ATT-COR-26-00007`) with `injectInFlightStories` auto-injected on store initialization.
+  - `tests/unit/eventStoreReconciliation.test.ts`: Added 7 test cases covering audit chain validity, block appending, content tampering detection, broken hash linkage detection, in-flight stories presence, eventQueue pub-sub notifications, and entity mutation persistence.
+- **Gate Results**:
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 285 files.
+    * `vitest run`: 172 tests passing across 34 test suites.
+    * `ledger-check`: 171 features tracked (151 Built, 16 Partial, 4 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 151 Built stable.
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+  - Journey J-01: Passed 100% clean.
+- **Defects & Blockers**: 0 blockers. Fixed audit array ordering between chronological genesis append and unshift display.
+- **Next Step**: Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End.
+
 
 
 

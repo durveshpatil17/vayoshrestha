@@ -172,7 +172,7 @@ class TaskServiceClass {
       {
         id: 'TASK-P4-001',
         processId: 'P4',
-        stepId: 'P4-S3',
+        stepId: 'P4-S4',
         type: 'ATTENDANCE_CORRECTION_APPROVAL',
         title: 'Correction request: Chair Yoga Circle roster',
         description: 'Volunteer facilitator submitted attendance adjustment for 2 walk-in elders.',
@@ -187,6 +187,27 @@ class TaskServiceClass {
         status: 'open',
         actionLabel: 'Review correction',
         actionEndpoint: '/attendance?tab=corrections',
+      },
+
+      // P4-S5: DISENGAGEMENT_OUTREACH for Volunteer Facilitator (VF)
+      {
+        id: 'TASK-P4-002',
+        processId: 'P4',
+        stepId: 'P4-S5',
+        type: 'DISENGAGEMENT_OUTREACH',
+        title: '3-Session absence follow-up: Anand Rao',
+        description: 'Elder missed 3 consecutive Chair Yoga sessions. Conduct welfare phone outreach and document support need.',
+        entityType: 'senior',
+        entityId: 'SC-KA-BLR-007',
+        entityName: 'Anand Rao',
+        assignedRole: 'VF',
+        assignedChapter: 'HUB-BLR',
+        priority: 'medium',
+        slaDue: hours(48),
+        createdAt: ago(4),
+        status: 'open',
+        actionLabel: 'Complete outreach',
+        actionEndpoint: '/feedback?tab=follow-ups',
       },
 
       // J-05 (P5): TEMPLATE_APPROVAL for National Manager (NM)

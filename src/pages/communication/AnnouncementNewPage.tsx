@@ -1,21 +1,47 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Send, Users, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Send, Users, ShieldCheck, Moon, Clock } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { mockStore } from '@/mock/store';
+import { useAuthStore } from '@/store/authStore';
+import { isWithinQuietHours } from '@/domain/reminders';
 
 export const AnnouncementNewPage: React.FC = () => {
   const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
   const [title, setTitle] = useState('');
   const [chapter, setChapter] = useState('ALL');
   const [language, setLanguage] = useState('ALL');
   const [message, setMessage] = useState('');
 
+  const now = new Date();
+  const currentHour = now.getHours();
+  const currentMinute = String(now.getMinutes()).padStart(2, '0');
+  const currentTimeStr = `${String(currentHour).padStart(2, '0')}:${currentMinute}`;
+  const isQuietHours = isWithinQuietHours(currentTimeStr, '21:00', '08:00');
+
   const estimatedRecipients = chapter === 'ALL' ? 420 : chapter === 'HUB-PUN' ? 142 : 98;
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const broadcastId = `BCAST-${Date.now()}`;
+    mockStore.writeAudit(
+      user?.id || 'u-pm-1',
+      (user as any)?.name || user?.fullName || 'Priya Menon',
+      user?.role || 'PM',
+      'CREATE',
+      'ANNOUNCEMENT',
+      broadcastId,
+      `Broadcast "${title}" queued for ${estimatedRecipients} elders (${chapter}). ${
+        isQuietHours ? 'Quiet hours active: deferred to 08:00 IST.' : 'Dispatched immediately.'
+      }`,
+      'Quiet-hours policy compliance'
+    );
+    mockStore.persist();
+
     navigate('/communication/announcements');
   };
 
@@ -97,12 +123,24 @@ export const AnnouncementNewPage: React.FC = () => {
             />
           </div>
 
+          {isQuietHours && (
+            <div className="p-3 bg-informative-tint border border-accent/20 rounded text-xs text-text flex items-center gap-2">
+              <Moon className="w-4 h-4 text-accent stroke-[1.5] shrink-0" />
+              <span>
+                <strong>Quiet hours active (21:00 – 08:00 IST):</strong> Non-emergency broadcasts are queued safely and held for automatic release at 08:00 IST tomorrow morning.
+              </span>
+            </div>
+          )}
+
           <div className="flex items-center justify-between pt-4 border-t border-border">
-            <span className="text-xs text-text-secondary">
-              Scheduled messages adhere to 07:00 – 21:00 IST quiet hours.
+            <span className="text-xs text-text-secondary flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5 stroke-[1.5]" />
+              Scheduled messages adhere to 08:00 – 21:00 IST quiet hours.
             </span>
             <Button variant="primary" type="submit" icon={<Send size={16} />}>
-              Queue broadcast ({estimatedRecipients} elders)
+              {isQuietHours
+                ? `Queue for 08:00 IST dispatch (${estimatedRecipients} elders)`
+                : `Queue broadcast (${estimatedRecipients} elders)`}
             </Button>
           </div>
         </form>

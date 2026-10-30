@@ -342,8 +342,16 @@
   - Added 24-Hour Post-Incident Review Panel into `src/pages/sos/SosCaseDetailPage.tsx` with safety checklist and task completion hook for CM.
   - Validated automated multi-context Playwright journeys `J-02` (Emergency SOS Response & Post-Case Review) and `J-03` (Daily Biomarker Alert & Wellness Outreach) passing **100% GREEN**.
   - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
-- [ ] **Loop R8: Processes P4 & P5 (Community Programmes & Communication Campaigns) End to End (Next)**
-- [ ] **Loop R9: Processes P6, P7 & P14 (Service Routing, Vouchers, Legal Intake, Partner Onboarding) End to End**
+- [x] **Loop R8: Processes P4 & P5 (Community Programmes & Communication Campaigns) End to End (Completed)**
+  - Advanced feature ledger items `P04-S4` (Attendance correction approval task for CM), `P04-S5` (3-session absence drop-off outreach task for VF), `P05-S3` (Maker-checker submission to NM inbox), and `P05-S4` (Quiet hours 21:00-08:00 broadcast guard) from Partial/Missing to **Built** in `docs/feature-ledger.json` (ratchet updated to 160 Built, 9 Partial, 2 Missing).
+  - Updated `AttendanceCorrectionsPage.tsx` with CM role approval entitlement, `TaskService.completeTask('TASK-P4-001')`, and cryptographic audit chain generation.
+  - Enhanced `FollowUpsPage.tsx` with drop-off outreach task completion action, `TaskService.completeTask('TASK-P4-002')`, and SHA-256 audit logging.
+  - Wired `TemplateNewPage.tsx` to enqueue `TASK-P5-001` in NM inbox and log maker-checker submission audit event.
+  - Implemented quiet hours (21:00 to 08:00 IST) broadcast guard in `AnnouncementNewPage.tsx` with warning banner, deferred queue button, and audit documentation.
+  - Wired `ATTENDANCE_CORRECTION_APPROVAL`, `DISENGAGEMENT_OUTREACH`, and `TEMPLATE_APPROVAL` execution handlers into `InboxPage.tsx`.
+  - Validated automated multi-context Playwright journeys `J-04` (Community Programme Session & Attendance Corrections) and `J-05` (Statutory Template Maker-Checker Approval) passing **100% GREEN**.
+  - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
+- [ ] **Loop R9: Processes P6, P7 & P14 (Service Routing, Vouchers, Legal Intake, Partner Onboarding) End to End (Next)**
 - [ ] **Loop R10: Processes P8 & P13 (Learning Delivery & Impact Reporting) End to End**
 - [ ] **Loop R11: Processes P10, P11, P12 & P15 (Maker-Checker, Data Requests, Complaints, Pilot Readiness) End to End**
 - [ ] **Loop R12: Scenario Engine (S1–S6), Ambient Operations Simulator, Demo Director & Guided Demo Panel**

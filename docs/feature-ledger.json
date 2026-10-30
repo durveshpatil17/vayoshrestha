@@ -1899,8 +1899,8 @@
       "roles": [
         "CM"
       ],
-      "status": "Partial",
-      "notes": "Approval action exists; task in CM inbox missing (Loop R4/R8)."
+      "status": "Built",
+      "notes": "Approval action and task in CM inbox with audit log."
     },
     {
       "id": "P04-S5",
@@ -1913,8 +1913,8 @@
         "VF",
         "CM"
       ],
-      "status": "Missing",
-      "notes": "Disengagement detection and outreach task (Loop R8)."
+      "status": "Built",
+      "notes": "Disengagement detection and outreach task in VF inbox."
     },
     {
       "id": "P05-S1",
@@ -1953,8 +1953,8 @@
       "roles": [
         "NM"
       ],
-      "status": "Partial",
-      "notes": "Template status exists; inbox task for NM missing (Loop R4/R8)."
+      "status": "Built",
+      "notes": "Template creation queues maker-checker task in NM inbox."
     },
     {
       "id": "P05-S4",
@@ -1967,8 +1967,8 @@
         "PM",
         "SA"
       ],
-      "status": "Partial",
-      "notes": "Enforced on learning series; broadcaster deferral missing (Loop R8)."
+      "status": "Built",
+      "notes": "Enforced on learning series and announcement broadcaster with deferral."
     },
     {
       "id": "P05-S5",

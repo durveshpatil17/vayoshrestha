@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { StatusChip } from '@/components/ui/StatusChip';
 import { useAuthStore } from '@/store/authStore';
+import { TaskService } from '@/services/tasks';
+import { mockStore } from '@/mock/store';
 
 export const AttendanceCorrectionsPage: React.FC = () => {
   const user = useAuthStore((s) => s.user);
@@ -39,7 +41,7 @@ export const AttendanceCorrectionsPage: React.FC = () => {
     },
   ]);
 
-  const canApprove = user?.role === 'NM' || user?.role === 'RA' || user?.role === 'SA';
+  const canApprove = user?.role === 'CM' || user?.role === 'NM' || user?.role === 'RA' || user?.role === 'SA';
 
   const handleAction = (id: string, action: 'Approve' | 'Reject') => {
     setCorrections(
@@ -47,6 +49,21 @@ export const AttendanceCorrectionsPage: React.FC = () => {
         c.id === id ? { ...c, status: action === 'Approve' ? 'Approved' : 'Rejected' } : c
       )
     );
+
+    if (action === 'Approve') {
+      TaskService.completeTask('TASK-P4-001');
+      mockStore.writeAudit(
+        user?.id || 'u-cm-1',
+        (user as any)?.name || user?.fullName || 'Sunita Patil',
+        user?.role || 'CM',
+        'APPROVE',
+        'ROSTER',
+        id,
+        `Attendance correction ${id} approved by ${user?.name || user?.role}. Roster state adjusted.`,
+        'Maker-checker policy verified'
+      );
+      mockStore.persist();
+    }
   };
 
   return (

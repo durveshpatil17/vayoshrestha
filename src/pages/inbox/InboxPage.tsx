@@ -207,6 +207,39 @@ export const InboxPage: React.FC = () => {
         `Supervisor completed sync state inspection for field terminal ${task.entityId}. Connectivity restored.`,
         'Field supervisor check'
       );
+    } else if (task.type === 'ATTENDANCE_CORRECTION_APPROVAL') {
+      mockStore.writeAudit(
+        user?.id || 'u-cm-1',
+        user?.fullName || 'Sunita Patil',
+        user?.role || 'CM',
+        'APPROVE',
+        'ROSTER',
+        task.entityId,
+        `Attendance correction approved for roster ${task.entityId} (${task.entityName}).`,
+        'CM inbox verification'
+      );
+    } else if (task.type === 'DISENGAGEMENT_OUTREACH') {
+      mockStore.writeAudit(
+        user?.id || 'u-vf-1',
+        user?.fullName || 'Pooja Shinde',
+        user?.role || 'VF',
+        'UPDATE',
+        'SENIOR',
+        task.entityId,
+        `Completed 3-session absence drop-off outreach for senior ${task.entityName}.`,
+        'VF welfare follow-up'
+      );
+    } else if (task.type === 'TEMPLATE_APPROVAL') {
+      mockStore.writeAudit(
+        user?.id || 'u-nm-1',
+        user?.fullName || 'Nandita Rao',
+        user?.role || 'NM',
+        'APPROVE',
+        'INTAKE',
+        task.entityId,
+        `Communication template ${task.entityId} (${task.entityName}) approved for statutory broadcast.`,
+        'NM maker-checker signoff'
+      );
     }
 
     setActionNotice(`Successfully completed: ${task.title}`);

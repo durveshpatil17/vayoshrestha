@@ -577,6 +577,33 @@
 
 ---
 
+## Loop R8: Processes P4 & P5 (Community Programmes & Communication Campaigns) End to End (Phase v4)
+- **Goal**: Complete end-to-end wiring for Process P4 (Community Programme Session & Attendance Corrections) and Process P5 (Communication Campaign & Template Approvals); advance feature ledger items `P04-S4`, `P04-S5`, `P05-S3`, and `P05-S4` to Built; verify Journeys J-04 and J-05 are green.
+- **What Changed**:
+  - `src/services/tasks.ts`: Seeded `TASK-P4-002` (Disengagement outreach for VF) and confirmed `TASK-P4-001` (Attendance correction approval for CM) and `TASK-P5-001` (Template approval for NM).
+  - `src/pages/attendance/AttendanceCorrectionsPage.tsx`: Added CM role to `canApprove` check, hooked approval to `TaskService.completeTask('TASK-P4-001')`, and recorded SHA-256 audit entry.
+  - `src/pages/feedback/FollowUpsPage.tsx`: Added complete task action for drop-off outreach, completing `TaskService.completeTask('TASK-P4-002')` and generating audit log.
+  - `src/pages/communication/TemplateNewPage.tsx`: Wired submission to write SHA-256 audit log and queue maker-checker task in NM inbox.
+  - `src/pages/communication/AnnouncementNewPage.tsx`: Added 21:00-08:00 IST quiet hours check using `isWithinQuietHours`, warning banner, deferred queue button, and audit documentation.
+  - `src/pages/inbox/InboxPage.tsx`: Wired `ATTENDANCE_CORRECTION_APPROVAL`, `DISENGAGEMENT_OUTREACH`, and `TEMPLATE_APPROVAL` execution handlers with SHA-256 audit logging.
+  - `docs/feature-ledger.json` & `docs/ratchet.json`: Promoted `P04-S4`, `P04-S5`, `P05-S3`, `P05-S4` from Partial/Missing to Built, advancing total built features from 156 to 160 (171 features: 160 Built, 9 Partial, 2 Missing).
+  - `tests/e2e/journeys/J-04.spec.ts` & `tests/e2e/journeys/J-05.spec.ts`: Executed and verified both journeys pass 100% green.
+- **Gate Results**:
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 285 files.
+    * `vitest run`: 172 tests passing across 34 test suites.
+    * `ledger-check`: 171 features tracked (160 Built, 9 Partial, 2 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 160 Built verified.
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+  - Journeys J-01 through J-05 & J-09: Passed 100% clean (6/6 passed).
+- **Defects & Blockers**: 0 blockers. Fixed TypeScript union type assertion for FollowUpTask status.
+- **Next Step**: Loop R9: Processes P6, P7 & P14 (Service Routing, Vouchers, Legal Intake, Partner Onboarding) End to End.
+
+---
+
+
 
 
 

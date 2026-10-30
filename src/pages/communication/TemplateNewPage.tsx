@@ -4,15 +4,33 @@ import { ArrowLeft, Save } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { TaskService } from '@/services/tasks';
+import { mockStore } from '@/mock/store';
+import { useAuthStore } from '@/store/authStore';
 
 export const TemplateNewPage: React.FC = () => {
   const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
   const [name, setName] = useState('');
   const [category, setCategory] = useState('Session_Reminder');
   const [body, setBody] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const templateId = `TMPL-2026-${Math.floor(Math.random() * 900 + 100)}`;
+    mockStore.writeAudit(
+      user?.id || 'u-pm-1',
+      (user as any)?.name || user?.fullName || 'Priya Menon',
+      user?.role || 'PM',
+      'CREATE',
+      'INTAKE',
+      templateId,
+      `Communication template ${name} (${category}) submitted for NM maker-checker review.`,
+      'Maker-checker policy'
+    );
+    mockStore.persist();
+
     navigate('/communication/templates');
   };
 

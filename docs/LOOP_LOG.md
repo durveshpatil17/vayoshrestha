@@ -475,6 +475,36 @@
 - **Defects & Blockers**: 0 blockers.
 - **Next Step**: Loop R3: Tabbed App Hub Consolidation per `docs/IA.md`.
 
+---
+
+## Loop R3: Consolidation — Tabbed App Hubs with URL Query Param Sync (Phase v4)
+- **Goal**: Consolidate the 8 multi-page clusters into deep-linkable tabbed hubs using URL search param `?tab=`, supporting instant back-button navigation, default fallbacks, and 100% clean redirect resolution.
+- **What Changed**:
+  - `src/ui/NavTabBar.tsx`: Built reusable Fiori Horizon tab bar with URL search param sync (`?tab=`), deep-linkable tab keys, badges, and fallback to default tab. Exported from `src/ui/index.ts`.
+  - Hub 1: `src/pages/sos/SosCasesHubPage.tsx`: Built hub for `/sos/cases` with `active` (Active incidents), `all` (Historical events), and `drills` (Disaster simulations).
+  - Hub 2: `src/pages/health/HealthQueueHubPage.tsx`: Built hub for `/health/queue` with `requests` (Support requests), `flags` (Anomaly flags), `calls` (Wellness calls), and `logs` (Vital logs).
+  - Hub 3: `src/pages/health/HealthSchedulesHubPage.tsx`: Built hub for `/health/schedules-hub` with `schedules` (Dosage schedules) and `templates` (WhatsApp templates).
+  - Hub 4: `src/pages/health/HealthRulesHubPage.tsx`: Built hub for `/health/rules-hub` with `thresholds` (Vital thresholds) and `warning-signs` (Clinical escalation triggers).
+  - Hub 5: `src/pages/support/SupportQueueHubPage.tsx`: Built hub for `/support/queue` with `requests` (Assisted requests), `escalations` (Escalation queue), `handover` (Shift handovers), and `voice-checkins` (Voice check-ins).
+  - Hub 6: `src/pages/attendance/AttendanceHubPage.tsx`: Upgraded `/attendance` with tabs for `today` (Rosters), `corrections` (Maker-checker corrections), and `history` (Historical logs).
+  - Hub 7: `src/pages/feedback/FeedbackHubPage.tsx`: Upgraded `/feedback` with tabs for `hub` (Responses), `forms` (Survey templates), `follow-ups` (Task queue), and `engagement` (Dropout risk index).
+  - Hub 8: `src/pages/telemetry/TelemetryHubPage.tsx`: Upgraded `/telemetry` with tabs for `cohort` (Cohort cube), `trends` (Macro trends), `privacy` (k-Suppression controls), and `exports` (Released dossiers).
+  - `src/pages/telemetry/ImpactPacksPage.tsx`: Added `packs` and `exports` tab bar responding to `/telemetry/packs?tab=exports`.
+  - `src/routes/index.tsx`: Mounted the 8 consolidated hub components and verified all 21 `CANONICAL_REDIRECTS`.
+  - `tests/unit/tabbedHubs.test.ts`: Added unit tests verifying every canonical redirect targets a valid tabbed hub with `?tab=` and validates default tab integrity.
+- **Gate Results**:
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 279 files.
+    * `vitest run`: 165 tests passing across 33 test suites.
+    * `ledger-check`: 171 features tracked (151 Built, 16 Partial, 4 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 151 Built stable.
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+- **Defects & Blockers**: 0 blockers.
+- **Next Step**: Loop R4: Task Service Backbone, My Work `/inbox`, Split Panel, Entity Hover Cards, Process Flow & Context Rail.
+
+
 
 
 

@@ -28,6 +28,14 @@ import { AppFinderPage } from '@/pages/apps/AppFinderPage';
 import { AboutPage } from '@/pages/about/AboutPage';
 import { CANONICAL_REDIRECTS } from '@/routes/redirects';
 
+// Tabbed Hub Pages (Loop R3)
+import { SosCasesHubPage } from '@/pages/sos/SosCasesHubPage';
+import { HealthQueueHubPage } from '@/pages/health/HealthQueueHubPage';
+import { HealthSchedulesHubPage } from '@/pages/health/HealthSchedulesHubPage';
+import { HealthRulesHubPage } from '@/pages/health/HealthRulesHubPage';
+import { SupportQueueHubPage } from '@/pages/support/SupportQueueHubPage';
+import { TelemetryHubPage } from '@/pages/telemetry/TelemetryHubPage';
+
 // Module 1: Emergency SOS Routing (Group D)
 import { SosBoardPage } from '@/pages/sos/SosBoardPage';
 import { SosCaseDetailPage } from '@/pages/sos/SosCaseDetailPage';
@@ -740,7 +748,7 @@ export const router = createBrowserRouter([
       { path: 'field-network/sync', element: <FieldSyncMonitorPage /> },
 
       // Telemetry & Ecosystem Evidence (Layer 1)
-      { path: 'telemetry', element: <CohortDashboardPage /> },
+      { path: 'telemetry', element: <TelemetryHubPage /> },
       { path: 'telemetry/trends', element: <MacroTrendsPage /> },
       { path: 'telemetry/privacy', element: <PrivacyStatementPage /> },
       { path: 'telemetry/packs', element: <ImpactPacksPage /> },
@@ -755,11 +763,11 @@ export const router = createBrowserRouter([
       { path: 'about', element: <AboutPage /> },
 
       // Destination endpoints for tabbed hubs (Pass v4)
-      { path: 'sos/cases', element: <SosHistoryPage /> },
-      { path: 'health/queue', element: <HealthFlagsPage /> },
-      { path: 'health/schedules-hub', element: <HealthSchedulesPage /> },
-      { path: 'health/rules-hub', element: <ThresholdRulesPage /> },
-      { path: 'support/queue', element: <SupportEscalationsPage /> },
+      { path: 'sos/cases', element: <SosCasesHubPage /> },
+      { path: 'health/queue', element: <HealthQueueHubPage /> },
+      { path: 'health/schedules-hub', element: <HealthSchedulesHubPage /> },
+      { path: 'health/rules-hub', element: <HealthRulesHubPage /> },
+      { path: 'support/queue', element: <SupportQueueHubPage /> },
       { path: 'feedback/follow-ups', element: <FollowUpsPage /> },
 
       // Canonical URL Redirects (docs/IA.md Section 5)

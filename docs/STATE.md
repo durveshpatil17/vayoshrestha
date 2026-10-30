@@ -308,8 +308,12 @@
   - Upgraded Command Palette (`Ctrl+K`) with 100% app indexing across all 11 workspaces, recent records search (seniors, cases, chapters), and 7 executable actions.
   - Added Star toggle in `/apps` App Finder.
   - Added findability test suite `tests/unit/findability.test.ts` (163 total vitest tests passing).
-- [ ] **Loop R3: Consolidation into App Hubs with Tabs per `docs/IA.md` (Next)**
-- [ ] **Loop R4: Task Service Backbone, My Work `/inbox`, Split Panel, Entity Hover Cards, Process Flow & Context Rail**
+- [x] **Loop R3: Consolidation into App Hubs with Tabs per `docs/IA.md` (Completed)**
+  - Consolidated the 8 multi-page clusters into deep-linkable tabbed hubs using URL search param `?tab=`.
+  - Created reusable `src/ui/NavTabBar.tsx` with instant query parameter sync and fallback handling.
+  - Built `SosCasesHubPage`, `HealthQueueHubPage`, `HealthSchedulesHubPage`, `HealthRulesHubPage`, `SupportQueueHubPage`, `AttendanceHubPage`, `FeedbackHubPage`, and `TelemetryHubPage`.
+  - Added unit test suite `tests/unit/tabbedHubs.test.ts` (165 total vitest tests passing).
+- [ ] **Loop R4: Task Service Backbone, My Work `/inbox`, Split Panel, Entity Hover Cards, Process Flow & Context Rail (Next)**
 - [ ] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories**
 - [ ] **Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End**
 - [ ] **Loop R7: Processes P2 & P3 (Emergency SOS & Daily Health Routine) End to End**

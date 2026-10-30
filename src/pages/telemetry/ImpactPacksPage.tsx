@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { NavTabBar } from '@/ui/NavTabBar';
+import { ExportRegistryPage } from './ExportRegistryPage';
 import {
   FileText,
   Plus,
@@ -15,9 +17,25 @@ import { PageHeader } from '@/components/layout/PageHeader';
 import { getImpactPacks, ImpactPack, PackStatus } from '@/domain/telemetry/packBuilder';
 
 export const ImpactPacksPage: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const currentTab = searchParams.get('tab') || 'packs';
   const [packs] = useState<ImpactPack[]>(() => getImpactPacks());
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const tabs = [
+    {
+      key: 'packs',
+      label: 'Impact packs',
+      badge: packs.length,
+      icon: <FileText className="w-3.5 h-3.5 stroke-[1.5]" />,
+    },
+    {
+      key: 'exports',
+      label: 'Export registry',
+      icon: <FileCheck2 className="w-3.5 h-3.5 stroke-[1.5]" />,
+    },
+  ];
 
   const filteredPacks = packs.filter((pack) => {
     if (statusFilter !== 'all' && pack.status !== statusFilter) return false;
@@ -49,13 +67,6 @@ export const ImpactPacksPage: React.FC = () => {
         actions={
           <div className="flex items-center gap-3">
             <Link
-              to="/telemetry/exports"
-              className="px-3 py-2 text-xs font-semibold text-text-secondary border border-border rounded-lg hover:bg-page flex items-center gap-1.5"
-            >
-              <FileCheck2 className="w-4 h-4 text-accent" />
-              Export Registry
-            </Link>
-            <Link
               to="/telemetry/packs/new"
               className="px-4 py-2 text-xs font-semibold text-white bg-accent rounded-lg hover:bg-accent/90 flex items-center gap-1.5"
             >
@@ -66,7 +77,13 @@ export const ImpactPacksPage: React.FC = () => {
         }
       />
 
-      {/* KPI Cards */}
+      <NavTabBar tabs={tabs} defaultTab="packs" />
+
+      {currentTab === 'exports' && <ExportRegistryPage />}
+
+      {currentTab === 'packs' && (
+        <div className="space-y-6">
+          {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-4 bg-bg-surface border border-border rounded-xl space-y-1">
           <div className="text-xs text-text-secondary font-semibold">Total Dossiers</div>
@@ -234,6 +251,8 @@ export const ImpactPacksPage: React.FC = () => {
           </table>
         </div>
       </div>
+        </div>
+      )}
     </div>
   );
 };

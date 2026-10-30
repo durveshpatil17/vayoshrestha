@@ -17,3 +17,4 @@ export * from './Flashbar';
 export * from './ConfirmDialog';
 export * from './ChartTableToggle';
 export * from './Chart';
+export * from './NavTabBar';

@@ -33,3 +33,4 @@ export const CANONICAL_REDIRECTS: RedirectEntry[] = [
   { source: '/telemetry/privacy', destination: '/telemetry?tab=privacy', permanent: true },
   { source: '/telemetry/exports', destination: '/telemetry/packs?tab=exports', permanent: true },
 ];
+

@@ -295,13 +295,15 @@
   - [x] Replaced "statutory" and "client-advocate privilege" claims with "DPDP-aligned (prototype)" and added permanent non-legal-advice notices across `docs/PROCESSES.md`, `docs/JOURNEYS.md`, and `docs/CONTENT_STYLE.md`.
   - [x] Added `npm run gate:ui` to `package.json`.
   - [x] Verification: `npm run gate:full` passing cleanly (158 vitest tests green, ratchet verified).
-- [ ] **Loop R1: Shell and Layout Fix (Next)**
-  - Fixed-height shell layout (`100dvh`, `overflow: hidden`, main region as sole scroll container).
+- [x] **Loop R1: Fixed-Height Shell, Workspace Tabs, Navigation Rails & Client Redirects (Completed)**
+  - Fixed-height shell layout (`100dvh`, document never scrolls, side nav never overflows, main region is sole scroll container).
   - Fiori 52px shell bar with inline workspace tabs (top $\le 5$), "All workspaces" popover, scope switcher, global search / command palette (`Ctrl+K`), `+ Create` menu, SOS chip.
-  - Workspace side navigation: Workspace name + purpose, pinned Home (`/`) and My work (`/inbox`), Work / Monitor / Configure sections (Configure collapsed by default), $\le 8$ apps budget.
+  - Workspace side navigation: Workspace name, pinned Home (`/`) and My work (`/inbox`), Work / Monitor / Configure sections (Configure collapsed by default), $\le 8$ apps budget.
   - Breadcrumb hierarchy: Workspace > App > Record.
-  - SPA 301 Redirect router enforcing `docs/IA.md` explicit redirect map.
-- [ ] **Loop R2: Launchpad Home, Workspace Landing Pages, `/apps`, Recents, Favourites, Create Menu & Command Palette**
+  - Canonical URL redirect router enforcing `docs/IA.md` explicit 21-route redirect map.
+  - Workspace landing page (`/w/:workspace`), `/inbox` stub, `/apps` App Finder, `/about` About page.
+  - `gate:ui` (38/38 tests) & `gate:full` (158 tests) passing 100% green.
+- [ ] **Loop R2: Launchpad Home, Workspace Landing Pages, `/apps`, Recents, Favourites, Create Menu & Command Palette (In Progress)**
 - [ ] **Loop R3: Consolidation into App Hubs with Tabs per `docs/IA.md`**
 - [ ] **Loop R4: Task Service Backbone, My Work `/inbox`, Split Panel, Entity Hover Cards, Process Flow & Context Rail**
 - [ ] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories**

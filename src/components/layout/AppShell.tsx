@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Ribbon } from './Ribbon';
 import { ShellBar } from '@/ui/ShellBar';
 import { Sidebar } from './Sidebar';
+import { Breadcrumbs } from './Breadcrumbs';
 import { useAuthStore } from '@/store/authStore';
 import { backgroundJobs } from '@/mock/backgroundJobs';
 import { Clock } from 'lucide-react';
@@ -39,18 +40,21 @@ export const AppShell: React.FC = () => {
       : '';
 
   return (
-    <div className={`min-h-screen bg-page flex flex-col ${textSizeClass}`}>
+    <div className={`h-screen max-h-screen overflow-hidden bg-page flex flex-col ${textSizeClass}`}>
       {/* 1. SAP Fiori 52px Shell Bar on top */}
       <ShellBar />
 
       {/* 2. Prototype Notice Ribbon pinned directly underneath Shell Bar */}
       <Ribbon />
 
-      {/* 3. Main Workspace: 256px Side Navigation + Scrollable Content */}
-      <div className="flex-1 flex overflow-hidden">
+      {/* 3. Auto-computed Breadcrumb Bar */}
+      <Breadcrumbs />
+
+      {/* 4. Main Body: Side Navigation + Only Scrollable Region */}
+      <div className="flex-1 min-h-0 flex overflow-hidden">
         <Sidebar />
 
-        <main className="flex-1 overflow-y-auto bg-page p-8 scroll-pt-28">
+        <main className="flex-1 min-h-0 overflow-y-auto bg-page p-8 scroll-pt-28">
           <div className="max-w-screen-2xl mx-auto">
             <Outlet />
           </div>

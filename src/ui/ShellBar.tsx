@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { mockStore } from '@/mock/store';
 import { RoleCode, ROLES } from '@/permissions/matrix';
@@ -14,11 +14,21 @@ import {
   AlertTriangle,
   Volume2,
   VolumeX,
+  LayoutGrid,
+  Plus,
+  ExternalLink,
 } from 'lucide-react';
 import { CommandPalette } from '@/components/ui/CommandPalette';
+import {
+  getPrimaryWorkspaces,
+  getPermittedWorkspaces,
+  findWorkspaceForPath,
+  WorkspaceDefinition,
+} from '@/navigation/workspaces';
 
 export const ShellBar: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     user,
     activeChapterId,
@@ -34,8 +44,15 @@ export const ShellBar: React.FC = () => {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [scopeMenuOpen, setScopeMenuOpen] = useState(false);
+  const [workspacesMenuOpen, setWorkspacesMenuOpen] = useState(false);
+  const [createMenuOpen, setCreateMenuOpen] = useState(false);
 
   const chapters = mockStore.getData().chapters;
+  const role = user?.role || 'RA';
+
+  const primaryWorkspaces = getPrimaryWorkspaces(role);
+  const permittedWorkspaces = getPermittedWorkspaces(role);
+  const currentWorkspaceId = findWorkspaceForPath(location.pathname);
 
   // Real-time SOS count monitoring
   useEffect(() => {
@@ -53,35 +70,49 @@ export const ShellBar: React.FC = () => {
 
   const activeChapter = chapters.find((c) => c.id === activeChapterId) || chapters[0];
 
+  const quickCreateActions = [
+    { label: 'Register senior', path: '/onboarding', roleFilter: ['RA', 'PM', 'CM', 'VF', 'CT', 'SA'] },
+    { label: 'Trigger emergency SOS', path: '/sos', roleFilter: ['RA', 'PM', 'CM', 'VF', 'CT', 'CD', 'SP', 'SA'] },
+    { label: 'Create programme', path: '/programmes/new', roleFilter: ['PM', 'CM', 'VF', 'RA', 'SA'] },
+    { label: 'Issue support voucher', path: '/vouchers/issue', roleFilter: ['CM', 'PM', 'RA', 'SA'] },
+    { label: 'Broadcast announcement', path: '/communication/announcements/new', roleFilter: ['CM', 'PM', 'RA', 'SA'] },
+    { label: 'Record complaint', path: '/complaints/new', roleFilter: ['RA', 'PM', 'CM', 'VF', 'CT', 'CD', 'SP', 'SA'] },
+  ].filter((action) => action.roleFilter.includes(role));
+
   return (
     <>
       <header
         role="banner"
-        className="h-13 bg-surface border-b border-border px-6 flex items-center justify-between gap-4 select-none shrink-0 z-30"
+        className="h-13 bg-surface border-b border-border px-4 lg:px-6 flex items-center justify-between gap-3 select-none shrink-0 z-30"
       >
-        {/* Left: Brand + Scope Switcher */}
-        <div className="flex items-center gap-6 min-w-0">
+        {/* Left: Brand + Scope Switcher + Workspace Tabs */}
+        <div className="flex items-center gap-4 lg:gap-6 min-w-0">
           <div
             onClick={() => navigate('/')}
             className="cursor-pointer flex items-baseline gap-2 shrink-0 group"
           >
             <span className="text-base font-semibold text-text group-hover:text-accent transition-colors">
-              Vayoshreshtha
+              Vayoshrestha
             </span>
-            <span className="text-xs text-text-secondary font-normal">
+            <span className="text-xs text-text-secondary font-normal hidden sm:inline">
               Vayoh Vikas
             </span>
           </div>
 
           {/* Scope Switcher Dropdown */}
-          <div className="relative hidden md:block">
+          <div className="relative hidden xl:block">
             <button
               type="button"
-              onClick={() => setScopeMenuOpen(!scopeMenuOpen)}
+              onClick={() => {
+                setScopeMenuOpen(!scopeMenuOpen);
+                setWorkspacesMenuOpen(false);
+                setCreateMenuOpen(false);
+                setUserMenuOpen(false);
+              }}
               className="h-8 px-2.5 rounded-control bg-surface-subtle border border-border text-xs text-text hover:bg-surface-hover flex items-center gap-1.5 transition-colors"
             >
               <Building2 className="w-4 h-4 text-text-secondary stroke-[1.5]" />
-              <span className="font-semibold text-text max-w-36 truncate">
+              <span className="font-semibold text-text max-w-28 truncate">
                 {activeChapter ? activeChapter.name : 'All chapters'}
               </span>
               <ChevronDown className="w-3.5 h-3.5 text-text-secondary stroke-[1.5]" />
@@ -117,10 +148,148 @@ export const ShellBar: React.FC = () => {
               </div>
             )}
           </div>
+
+          {/* Workspace Tabs (top <= 5 for active role) */}
+          <nav aria-label="Workspaces" className="hidden md:flex items-center gap-1">
+            {primaryWorkspaces.map((ws) => {
+              const isActive = currentWorkspaceId === ws.id;
+              return (
+                <button
+                  key={ws.id}
+                  type="button"
+                  onClick={() => navigate(`/w/${ws.id}`)}
+                  className={`h-13 px-3 text-xs flex items-center gap-1.5 border-b-2 transition-all ${
+                    isActive
+                      ? 'border-accent text-accent font-semibold bg-accent-tint/30'
+                      : 'border-transparent text-text-secondary hover:text-text hover:border-border'
+                  }`}
+                >
+                  <ws.icon className="w-3.5 h-3.5 stroke-[1.5]" />
+                  <span>{ws.name}</span>
+                </button>
+              );
+            })}
+
+            {/* "All workspaces" popover button */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => {
+                  setWorkspacesMenuOpen(!workspacesMenuOpen);
+                  setCreateMenuOpen(false);
+                  setScopeMenuOpen(false);
+                  setUserMenuOpen(false);
+                }}
+                className={`h-8 px-2 rounded-control border text-xs flex items-center gap-1 transition-colors ${
+                  workspacesMenuOpen
+                    ? 'bg-accent-tint text-accent border-accent/40 font-semibold'
+                    : 'bg-surface border-border text-text-secondary hover:text-text hover:bg-surface-hover'
+                }`}
+                title="All workspaces and applications"
+                aria-label="All workspaces"
+              >
+                <LayoutGrid className="w-4 h-4 stroke-[1.5]" />
+                <span className="hidden lg:inline text-xs">Workspaces</span>
+                <ChevronDown className="w-3 h-3 text-text-secondary stroke-[1.5]" />
+              </button>
+
+              {workspacesMenuOpen && (
+                <div className="absolute left-0 top-9 w-72 bg-surface border border-border rounded-control shadow-overlay p-2 z-40 animate-in fade-in-0 duration-150">
+                  <div className="px-2 py-1 text-xs font-semibold text-text-secondary border-b border-border-subtle mb-1 flex items-center justify-between">
+                    <span>Permitted Workspaces ({permittedWorkspaces.length})</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setWorkspacesMenuOpen(false);
+                        navigate('/apps');
+                      }}
+                      className="text-accent hover:underline text-xs flex items-center gap-1"
+                    >
+                      <span>App Finder</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </button>
+                  </div>
+                  <div className="max-h-80 overflow-y-auto space-y-1">
+                    {permittedWorkspaces.map((ws) => (
+                      <button
+                        key={ws.id}
+                        type="button"
+                        onClick={() => {
+                          setWorkspacesMenuOpen(false);
+                          navigate(`/w/${ws.id}`);
+                        }}
+                        className={`w-full text-left p-2 rounded-control hover:bg-surface-hover flex items-start gap-2.5 transition-colors ${
+                          currentWorkspaceId === ws.id ? 'bg-accent-tint' : ''
+                        }`}
+                      >
+                        <div className="p-1.5 rounded-control bg-surface-subtle text-accent mt-0.5 border border-border">
+                          <ws.icon className="w-3.5 h-3.5 stroke-[1.5]" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-text truncate">
+                            {ws.name}
+                          </div>
+                          <div className="text-xs text-text-secondary line-clamp-1">
+                            {ws.purpose}
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* "+ Create" quick-actions popover button */}
+            {quickCreateActions.length > 0 && (
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCreateMenuOpen(!createMenuOpen);
+                    setWorkspacesMenuOpen(false);
+                    setScopeMenuOpen(false);
+                    setUserMenuOpen(false);
+                  }}
+                  className={`h-8 px-2.5 rounded-control border text-xs flex items-center gap-1.5 transition-colors ${
+                    createMenuOpen
+                      ? 'bg-accent text-white border-accent font-semibold'
+                      : 'bg-surface border-border text-text hover:bg-surface-hover'
+                  }`}
+                  aria-label="Create new item"
+                >
+                  <Plus className="w-3.5 h-3.5 stroke-[2]" />
+                  <span className="font-semibold text-xs">Create</span>
+                </button>
+
+                {createMenuOpen && (
+                  <div className="absolute left-0 top-9 w-56 bg-surface border border-border rounded-control shadow-overlay py-1 z-40 animate-in fade-in-0 duration-150">
+                    <div className="px-3 py-1.5 text-xs text-text-secondary font-semibold border-b border-border-subtle">
+                      Quick actions
+                    </div>
+                    {quickCreateActions.map((action, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setCreateMenuOpen(false);
+                          navigate(action.path);
+                        }}
+                        className="w-full text-left px-3 py-2 text-xs text-text hover:bg-surface-hover flex items-center justify-between"
+                      >
+                        <span>{action.label}</span>
+                        <ChevronDown className="w-3 h-3 text-text-secondary -rotate-90 stroke-[1.5]" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </nav>
         </div>
 
         {/* Center: Global Search Bar with Ctrl K hint */}
-        <div className="flex-1 max-w-md mx-auto hidden sm:block">
+        <div className="flex-1 max-w-xs lg:max-w-md mx-2 hidden sm:block">
           <button
             type="button"
             onClick={() => setCommandPaletteOpen(true)}
@@ -128,7 +297,7 @@ export const ShellBar: React.FC = () => {
           >
             <div className="flex items-center gap-2">
               <Search className="w-4 h-4 text-text-secondary stroke-[1.5]" />
-              <span>Search seniors, emergency alerts, chapters...</span>
+              <span className="truncate">Search seniors, emergency alerts, apps...</span>
             </div>
             <kbd className="px-1.5 py-0.5 rounded-control bg-surface border border-border text-xs text-text-secondary tabular-nums">
               Ctrl K
@@ -137,12 +306,12 @@ export const ShellBar: React.FC = () => {
         </div>
 
         {/* Right: SOS status chip, alerts, help, user profile */}
-        <div className="flex items-center gap-2.5 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           {/* SOS Status Chip */}
           <button
             type="button"
             onClick={() => navigate('/sos')}
-            className={`h-8 px-3 rounded-control text-xs flex items-center gap-2 transition-colors ${
+            className={`h-8 px-2.5 lg:px-3 rounded-control text-xs flex items-center gap-2 transition-colors ${
               openSosCount > 0
                 ? 'bg-negative text-white font-semibold hover:opacity-95'
                 : 'bg-surface border border-border text-text-secondary hover:bg-surface-hover hover:text-text'
@@ -152,7 +321,7 @@ export const ShellBar: React.FC = () => {
               className={`w-4 h-4 stroke-[1.5] ${openSosCount > 0 ? 'text-white' : 'text-text-secondary'}`}
             />
             <span className="tabular-nums">
-              {openSosCount > 0 ? `${openSosCount} open SOS` : 'No open emergencies'}
+              {openSosCount > 0 ? `${openSosCount} open SOS` : '0 open SOS'}
             </span>
           </button>
 
@@ -164,7 +333,7 @@ export const ShellBar: React.FC = () => {
             title="Notifications"
           >
             <Bell className="w-4 h-4 stroke-[1.5]" />
-            <span className="hidden lg:inline">Alerts</span>
+            <span className="hidden xl:inline">Alerts</span>
           </button>
 
           {/* Help Link */}
@@ -175,21 +344,26 @@ export const ShellBar: React.FC = () => {
             title="Operational manuals and SOPs"
           >
             <HelpCircle className="w-4 h-4 stroke-[1.5]" />
-            <span className="hidden lg:inline">Help</span>
+            <span className="hidden xl:inline">Help</span>
           </button>
 
           {/* User Account Menu with Role Switcher & Chime Toggle */}
           <div className="relative">
             <button
               type="button"
-              onClick={() => setUserMenuOpen(!userMenuOpen)}
+              onClick={() => {
+                setUserMenuOpen(!userMenuOpen);
+                setWorkspacesMenuOpen(false);
+                setCreateMenuOpen(false);
+                setScopeMenuOpen(false);
+              }}
               className="h-8 px-2.5 rounded-control bg-surface border border-border flex items-center gap-2 hover:bg-surface-hover transition-colors"
             >
-              <div className="w-5 h-5 rounded-full bg-surface-subtle text-text-secondary border border-border flex items-center justify-center text-xs font-semibold">
+              <div className="w-5 h-5 rounded-full bg-accent-tint text-accent border border-accent/20 flex items-center justify-center text-xs font-semibold">
                 {user?.fullName?.charAt(0) || 'U'}
               </div>
               <div className="text-left hidden lg:block">
-                <span className="text-xs font-semibold text-text block truncate max-w-32">
+                <span className="text-xs font-semibold text-text block truncate max-w-28">
                   {user?.fullName}
                 </span>
               </div>
@@ -227,26 +401,28 @@ export const ShellBar: React.FC = () => {
                 <div className="px-3 py-1.5 text-xs text-text-secondary font-semibold border-b border-border-subtle">
                   Switch persona:
                 </div>
-                {(['SA', 'NM', 'RA', 'PM', 'CM', 'VF', 'CT', 'CD', 'SP', 'SC', 'FM', 'SF'] as RoleCode[]).map((r) => (
-                  <button
-                    key={r}
-                    type="button"
-                    onClick={() => {
-                      switchPersona(r);
-                      setUserMenuOpen(false);
-                      if (r === 'SF') navigate('/field');
-                      else if (r === 'SC') navigate('/me');
-                      else if (r === 'FM') navigate('/family');
-                      else navigate('/');
-                    }}
-                    className={`w-full text-left px-3 py-1.5 text-xs flex items-center justify-between hover:bg-surface-hover ${
-                      user?.role === r ? 'text-accent font-semibold bg-accent-tint' : 'text-text'
-                    }`}
-                  >
-                    <span>{ROLES[r].name}</span>
-                    <span className="text-xs text-text-secondary">{r}</span>
-                  </button>
-                ))}
+                <div className="max-h-56 overflow-y-auto">
+                  {(['SA', 'NM', 'RA', 'PM', 'CM', 'VF', 'CT', 'CD', 'SP', 'SC', 'FM', 'SF'] as RoleCode[]).map((r) => (
+                    <button
+                      key={r}
+                      type="button"
+                      onClick={() => {
+                        switchPersona(r);
+                        setUserMenuOpen(false);
+                        if (r === 'SF') navigate('/field');
+                        else if (r === 'SC') navigate('/me');
+                        else if (r === 'FM') navigate('/family');
+                        else navigate('/');
+                      }}
+                      className={`w-full text-left px-3 py-1.5 text-xs flex items-center justify-between hover:bg-surface-hover ${
+                        user?.role === r ? 'text-accent font-semibold bg-accent-tint' : 'text-text'
+                      }`}
+                    >
+                      <span>{ROLES[r].name}</span>
+                      <span className="text-xs text-text-secondary">{r}</span>
+                    </button>
+                  ))}
+                </div>
 
                 <div className="border-t border-border-subtle pt-1 mt-1">
                   <button
@@ -259,6 +435,17 @@ export const ShellBar: React.FC = () => {
                   >
                     <User className="w-3.5 h-3.5 stroke-[1.5]" />
                     <span>Account settings</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUserMenuOpen(false);
+                      navigate('/about');
+                    }}
+                    className="w-full text-left px-3 py-1.5 text-xs text-text hover:bg-surface-hover flex items-center gap-2"
+                  >
+                    <HelpCircle className="w-3.5 h-3.5 stroke-[1.5]" />
+                    <span>About Vayoshrestha</span>
                   </button>
                   <button
                     type="button"

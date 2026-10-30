@@ -22,6 +22,11 @@ import { DashboardRouter } from '@/pages/dashboard/DashboardRouter';
 import { NotificationsPage } from '@/pages/shell/NotificationsPage';
 import { AccountPage } from '@/pages/shell/AccountPage';
 import { HelpPage } from '@/pages/shell/HelpPage';
+import { WorkspaceLandingPage } from '@/pages/workspace/WorkspaceLandingPage';
+import { InboxPage } from '@/pages/inbox/InboxPage';
+import { AppFinderPage } from '@/pages/apps/AppFinderPage';
+import { AboutPage } from '@/pages/about/AboutPage';
+import { CANONICAL_REDIRECTS } from '@/routes/redirects';
 
 // Module 1: Emergency SOS Routing (Group D)
 import { SosBoardPage } from '@/pages/sos/SosBoardPage';
@@ -742,6 +747,26 @@ export const router = createBrowserRouter([
       { path: 'telemetry/packs/new', element: <ImpactPackNewPage /> },
       { path: 'telemetry/packs/:id', element: <ImpactPackDetailPage /> },
       { path: 'telemetry/exports', element: <ExportRegistryPage /> },
+
+      // Workspace and Ecosystem Core (Pass v4)
+      { path: 'w/:workspace', element: <WorkspaceLandingPage /> },
+      { path: 'inbox', element: <InboxPage /> },
+      { path: 'apps', element: <AppFinderPage /> },
+      { path: 'about', element: <AboutPage /> },
+
+      // Destination endpoints for tabbed hubs (Pass v4)
+      { path: 'sos/cases', element: <SosHistoryPage /> },
+      { path: 'health/queue', element: <HealthFlagsPage /> },
+      { path: 'health/schedules-hub', element: <HealthSchedulesPage /> },
+      { path: 'health/rules-hub', element: <ThresholdRulesPage /> },
+      { path: 'support/queue', element: <SupportEscalationsPage /> },
+      { path: 'feedback/follow-ups', element: <FollowUpsPage /> },
+
+      // Canonical URL Redirects (docs/IA.md Section 5)
+      ...CANONICAL_REDIRECTS.map((r) => ({
+        path: r.source.replace(/^\//, ''),
+        element: <Navigate to={r.destination} replace />,
+      })),
     ],
   },
 

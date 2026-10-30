@@ -420,7 +420,36 @@
 
 ---
 
-## Loop R0.5: Close-Out & Red Test Baseline Verification (Phase v4: Product-Feel Pass)
+## Loop R1: Foundation — Fixed-Height Shell, Workspace Tabs, Sidebar & Client Redirects (Phase v4)
+- **Goal**: Implement fixed-height no-scroll shell layout, 11 workspace model, role-filtered workspace tabs, All-workspaces popover, Quick Create menu, workspace sidebar with Work/Monitor/Configure groups (Configure collapsed by default), pinned Home & My work, collapsible 56px rail, auto-computed Breadcrumbs, workspace landing pages (`/w/:workspace`), stubs for `/inbox`, `/apps`, `/about`, and wire 21 client redirects.
+- **What Changed**:
+  - `src/index.css`: Locked `html, body, #root` to `height: 100dvh; max-height: 100dvh; overflow: hidden; margin: 0; padding: 0;`.
+  - `src/components/layout/AppShell.tsx`: Configured fixed-height viewport grid: 52px ShellBar | 28px Ribbon | Breadcrumbs | Body (Sidebar + only scrollable main content).
+  - `src/navigation/workspaces.ts`: Complete typed definitions for all 11 workspaces (Emergency, Care, Seniors, Community, Learning, Messaging, Partners, Field network, Insights, Governance, Administration), $\le 8$ apps each, and role-to-workspaces matrix.
+  - `src/ui/ShellBar.tsx`: Added top $\le 5$ primary workspace tabs with accent underline, "All workspaces" popover with App Finder link, "+ Create" quick actions menu, command palette trigger, SOS chip, scope switcher, persona switcher.
+  - `src/components/layout/Sidebar.tsx`: Reorganized to render strictly active workspace's apps, Work/Monitor/Configure groups with Configure collapsed by default (`data-nav-group="configure"` and `aria-expanded="false"`), pinned Home and My work (`data-nav-pinned`), and collapsible 56px rail toggle.
+  - `src/components/layout/Breadcrumbs.tsx`: Created auto-computed `Workspace > App > Record` breadcrumb trail.
+  - `src/pages/workspace/WorkspaceLandingPage.tsx`: Built workspace landing page (`/w/:workspace`) with hero banner, 4 key metrics, and Work/Monitor/Configure application cards.
+  - `src/pages/inbox/InboxPage.tsx`: Created task inbox view with split-panel layout placeholder, urgent filters, and SLA badges.
+  - `src/pages/apps/AppFinderPage.tsx`: Created searchable App Finder across all permitted workspaces.
+  - `src/pages/about/AboutPage.tsx`: Built About page with platform architecture, DPDP prototype compliance statement, and disclaimer.
+  - `src/routes/index.tsx`: Mounted workspace landing `/w/:workspace`, `/inbox`, `/apps`, `/about`, and wired all 21 client redirects from `CANONICAL_REDIRECTS`.
+- **Gate Results**:
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 271 files.
+    * `vitest run`: 158 tests passing across 31 test suites.
+    * `ledger-check`: 171 features tracked (151 Built, 16 Partial, 4 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 151 Built stable.
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+    * `tests/e2e/no-scroll-shell.spec.ts`: **14/14 PASSED (GREEN)** (Fixed from RED in R0.5).
+    * `tests/e2e/ia-budget.spec.ts`: **4/4 PASSED (GREEN)** (Fixed from RED in R0.5).
+    * `tests/e2e/dead-controls.spec.ts`: **8/8 PASSED (GREEN)**.
+    * `tests/e2e/layout-check.spec.ts`: **12/12 PASSED (GREEN)**.
+- **Defects & Blockers**: 0 blockers. Fixed 14 no-scroll document overflow defects and 1 role-filtering defect from R0.5.
+- **Next Step**: Loop R2: Home launchpad, workspace landing pages, App Finder, Command Palette with actions, and findability checks.
+
 - **Goal**: Complete Loop R0 close-out: run baseline Playwright tests, record dead-control counts, author 15 executable journey specs (J-01..J-15), codify process step gap analysis into the feature ledger, generate click-depth report and reachability test, extend before-screenshots across all 123 routes, update IA.md to 11 workspaces and client/edge redirects, neutralize legal wording, and introduce `gate:ui`.
 - **Test Executions & Baseline Results**:
   - `tests/e2e/dead-controls.spec.ts`: **8/8 PASSED (GREEN)**. Baseline dead-control count: **0 dead controls** across sampled views.

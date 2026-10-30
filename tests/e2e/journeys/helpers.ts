@@ -6,15 +6,10 @@ import { Page, expect } from '@playwright/test';
 
 export async function loginAs(page: Page, role: string) {
   await page.goto('/login', { waitUntil: 'domcontentloaded' });
-  await page.evaluate((r) => {
-    try {
-      const auth = (window as any).__AUTH_STORE__;
-      if (auth && auth.getState) {
-        auth.getState().switchPersona(r);
-      }
-    } catch (e) {}
-  }, role);
-  await page.waitForTimeout(200);
+  const personaBtn = page.locator(`[data-persona="${role}"]`).first();
+  await personaBtn.waitFor({ state: 'visible', timeout: 5000 });
+  await personaBtn.click();
+  await page.waitForTimeout(300);
 }
 
 export async function assertInboxHasTask(

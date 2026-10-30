@@ -262,18 +262,17 @@ export const LoginPage: React.FC = () => {
                 <button
                   key={p.id}
                   type="button"
+                  data-persona={p.role}
+                  data-testid={`persona-${p.role}`}
                   onClick={() => {
+                    switchPersona(p.role as any);
                     if (p.role === 'SC') {
-                      switchPersona(p.role as any);
                       navigate('/me');
                     } else if (p.role === 'FM') {
-                      switchPersona(p.role as any);
                       navigate('/family');
                     } else if (p.role === 'SF') {
-                      switchPersona(p.role as any);
                       navigate('/field');
                     } else {
-                      switchPersona(p.role as any);
                       navigate(returnTo);
                     }
                   }}

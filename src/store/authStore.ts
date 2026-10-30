@@ -36,9 +36,19 @@ export interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set, get) => {
-  // Pre-seed initial default user for prototype immediate readiness: Regional Admin (Arjun Nambiar)
+  // Pre-seed initial default user, checking localStorage for persisted active role
   const defaultUsers = mockStore.getData().users;
-  const initialUser = defaultUsers.find((u) => u.role === 'RA') || defaultUsers[0];
+  let savedRole: string | null = null;
+  try {
+    if (typeof window !== 'undefined') {
+      savedRole = localStorage.getItem('vayoshrestha_active_role');
+    }
+  } catch (e) {}
+
+  const initialUser =
+    (savedRole && defaultUsers.find((u) => u.role === savedRole)) ||
+    defaultUsers.find((u) => u.role === 'RA') ||
+    defaultUsers[0];
 
   const sosCount = mockStore.getData().sosEvents.filter((e) => e.status === 'Triggered' || e.status === 'Acknowledged').length;
 
@@ -155,6 +165,12 @@ export const useAuthStore = create<AuthState>((set, get) => {
     },
 
     switchPersona: (roleCode) => {
+      try {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('vayoshrestha_active_role', roleCode);
+        }
+      } catch (e) {}
+
       const users = mockStore.getData().users;
       const targetUser = users.find((u) => u.role === roleCode) || users[0];
 
@@ -214,3 +230,7 @@ export const useAuthStore = create<AuthState>((set, get) => {
     },
   };
 });
+
+if (typeof window !== 'undefined') {
+  (window as any).__AUTH_STORE__ = useAuthStore;
+}

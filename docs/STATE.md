@@ -313,7 +313,17 @@
   - Created reusable `src/ui/NavTabBar.tsx` with instant query parameter sync and fallback handling.
   - Built `SosCasesHubPage`, `HealthQueueHubPage`, `HealthSchedulesHubPage`, `HealthRulesHubPage`, `SupportQueueHubPage`, `AttendanceHubPage`, `FeedbackHubPage`, and `TelemetryHubPage`.
   - Added unit test suite `tests/unit/tabbedHubs.test.ts` (165 total vitest tests passing).
-- [ ] **Loop R4: Task Service Backbone, My Work `/inbox`, Split Panel, Entity Hover Cards, Process Flow & Context Rail (Next)**
+- [x] **Loop R4: Task Service Backbone, My Work `/inbox`, Split Panel, Entity Hover Cards, Process Flow & Context Rail (Completed)**
+  - Implemented `TaskService` (`src/services/tasks.ts`) with unified task schema (`id`, `processId`, `stepId`, `type`, `title`, `description`, `entityType`, `entityId`, `entityName`, `assignedRole`, `assignedChapter`, `priority`, `slaDue`, `createdAt`, `status`, `actionLabel`, `actionEndpoint`).
+  - Implemented deterministic seeds for all 15 business processes (P1..P15) and roles, with real-time BroadcastChannel sync and localStorage persistence.
+  - Built horizontal stepped progress tracker `ProcessFlow` (`src/components/workflow/ProcessFlow.tsx`) with current/completed/blocked nodes, role/SLA badges, and `data-stage` / `data-testid` attributes.
+  - Built accessible `EntityHoverCard` (`src/components/ui/EntityHoverCard.tsx`) showing entity type icons, ID, status badge, key facts, and deep links.
+  - Built collapsible 320px right `ContextRail` (`src/components/layout/ContextRail.tsx`) showing active record context, action buttons, process timeline, and audit trail.
+  - Built split-panel My work (`/inbox`) (`src/pages/inbox/InboxPage.tsx`) with 384px task list on left, filter pills (All, Critical, Due soon, By process), SLA urgency countdowns, embedded `ProcessFlow`, entity hover card, direct action executor ("Confirm unique person", "Acknowledge emergency", etc.), and "Take next task" prioritizer.
+  - Exposed `__AUTH_STORE__` and added persisted active role in `src/store/authStore.ts` and `src/pages/auth/LoginPage.tsx` with `data-persona` attributes.
+  - Verified Journey J-01 (`tests/e2e/journeys/J-01.spec.ts`) turns **GREEN**.
+  - `gate:ui` (38/38 tests) & `gate:full` (165 tests, 0 design violations) passing 100% green.
+- [ ] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories (Next)**
 - [ ] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories**
 - [ ] **Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End**
 - [ ] **Loop R7: Processes P2 & P3 (Emergency SOS & Daily Health Routine) End to End**

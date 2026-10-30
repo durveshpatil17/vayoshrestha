@@ -504,6 +504,32 @@
 - **Defects & Blockers**: 0 blockers.
 - **Next Step**: Loop R4: Task Service Backbone, My Work `/inbox`, Split Panel, Entity Hover Cards, Process Flow & Context Rail.
 
+---
+
+## Loop R4: Task Service Backbone, My Work `/inbox`, Split Panel, Entity Hover Cards, Process Flow & Context Rail (Phase v4)
+- **Goal**: Implement `TaskService` (`src/services/tasks.ts`) with typed task items, role-queue routing, SLA countdown calculation, and deterministic seeds for all 15 business processes; implement `ProcessFlow` stepped visualization; implement `EntityHoverCard` and `ContextRail`; upgrade `/inbox` into a full split-panel workbench; verify Journey `J-01` turns green.
+- **What Changed**:
+  - `src/services/tasks.ts`: Built `TaskService` with full lifecycle management (`listTasks`, `getTask`, `claimTask`, `completeTask`, `reassignTask`, `getTasksForRole`, `getTakeNextTask`), BroadcastChannel cross-tab sync, localStorage persistence, and 18 seeded tasks covering all 15 end-to-end processes (P1..P15).
+  - `src/components/workflow/ProcessFlow.tsx`: Stepped progress bar component with completed nodes (checkmarks), current highlighted node with ring, role/SLA badges, and `data-stage` / `data-testid` attributes.
+  - `src/components/ui/EntityHoverCard.tsx`: Accessible entity card overlay supporting 7 entity types, status badges, key facts list, and deep links.
+  - `src/components/layout/ContextRail.tsx`: Collapsible 320px right context rail rendering active record overview, quick actions, process timeline, and audit trail.
+  - `src/pages/inbox/InboxPage.tsx`: Upgraded to full split-panel operational workbench (384px task scroll list on left, filter pills All / Critical / Due soon / By process, search filter, urgency countdowns; detail pane on right with metadata, embedded `ProcessFlow`, `EntityHoverCard`, direct action buttons like "Confirm unique person", and "Take next task" button).
+  - `src/store/authStore.ts` & `src/pages/auth/LoginPage.tsx`: Added `localStorage` active role persistence, exposed `window.__AUTH_STORE__`, and added `data-persona` test attributes on login persona switcher.
+  - `tests/e2e/journeys/helpers.ts`: Enhanced `loginAs` to reliably target persona buttons with wait-state.
+  - `tests/e2e/journeys/J-01.spec.ts`: Executed and verified Journey J-01 turns **GREEN** (1 passed in 3.0s).
+- **Gate Results**:
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 283 files.
+    * `vitest run`: 165 tests passing across 33 test suites.
+    * `ledger-check`: 171 features tracked (151 Built, 16 Partial, 4 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 151 Built stable.
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+  - Journey J-01: Passed 100% clean.
+- **Defects & Blockers**: 0 blockers. Fixed 1 design linter font-family/shadow issue in `ContextRail` and `EntityHoverCard`, fixed Vite preview build sync for Playwright.
+- **Next Step**: Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories.
+
 
 
 

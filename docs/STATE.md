@@ -336,11 +336,13 @@
   - Wired supervisor sync check resolution into `InboxPage.tsx` with audit logging.
   - Validated automated multi-context Playwright journeys `J-01` (Senior Onboarding & Duplicate Resolution) and `J-09` (Field Associate Offline Terminal & Sync Supervision) passing **100% GREEN**.
   - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
-- [ ] **Loop R7: Processes P2 & P3 (Emergency SOS & Daily Health Routine) End to End (Next)**
-- [ ] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories**
-- [ ] **Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End**
-- [ ] **Loop R7: Processes P2 & P3 (Emergency SOS & Daily Health Routine) End to End**
-- [ ] **Loop R8: Processes P4 & P5 (Community Programmes & Communication Campaigns) End to End**
+- [x] **Loop R7: Processes P2 & P3 (Emergency SOS & Daily Health Routine) End to End (Completed)**
+  - Advanced feature ledger items `P02-S6` (Mandatory post-case review task for CM) and `P03-S5` (Wellness-call task generation & Take Next outreach) from Partial/Missing to **Built** in `docs/feature-ledger.json` (ratchet updated to 156 Built, 12 Partial, 3 Missing).
+  - Updated `src/pages/health/WellnessCallsPage.tsx` with "Take next wellness call" prioritizer, task completion hook, and SHA-256 audit logging.
+  - Added 24-Hour Post-Incident Review Panel into `src/pages/sos/SosCaseDetailPage.tsx` with safety checklist and task completion hook for CM.
+  - Validated automated multi-context Playwright journeys `J-02` (Emergency SOS Response & Post-Case Review) and `J-03` (Daily Biomarker Alert & Wellness Outreach) passing **100% GREEN**.
+  - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
+- [ ] **Loop R8: Processes P4 & P5 (Community Programmes & Communication Campaigns) End to End (Next)**
 - [ ] **Loop R9: Processes P6, P7 & P14 (Service Routing, Vouchers, Legal Intake, Partner Onboarding) End to End**
 - [ ] **Loop R10: Processes P8 & P13 (Learning Delivery & Impact Reporting) End to End**
 - [ ] **Loop R11: Processes P10, P11, P12 & P15 (Maker-Checker, Data Requests, Complaints, Pilot Readiness) End to End**

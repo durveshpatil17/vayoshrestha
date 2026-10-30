@@ -15,6 +15,7 @@ import {
 import { WellnessCallTask } from '@/api/contracts';
 import { Container } from '@/ui/Container';
 import { MessageStrip } from '@/ui/MessageStrip';
+import { TaskService } from '@/services/tasks';
 
 export const WellnessCallsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -69,20 +70,27 @@ export const WellnessCallsPage: React.FC = () => {
     task.outcome = 'REACHED_WELL';
     task.completedAt = new Date().toISOString();
 
-    data.auditEvents.unshift({
-      id: `AUD-${Date.now()}`,
-      timestamp: new Date().toISOString(),
-      actorId: user?.id || 'SYSTEM',
-      actorRole: user?.role || 'CM',
-      chapterId: task.chapterId,
-      action: 'WELLNESS_CALL_COMPLETED',
-      entityType: 'CALL',
-      entityId: task.id,
-      details: `Wellness check-in call task completed by ${user?.name || user?.role}.`,
-    });
+    TaskService.completeTask('TASK-P3-001');
+
+    mockStore.writeAudit(
+      user?.id || 'SYSTEM',
+      user?.name || user?.fullName || 'Meera Kulkarni',
+      user?.role || 'CT',
+      'APPROVE',
+      'CALL',
+      task.id,
+      `Wellness check-in call task completed by ${user?.name || user?.role}. Outcome: REACHED_WELL.`
+    );
 
     mockStore.persist();
     setFeedback(`Wellness call ${task.id} marked as completed.`);
+  };
+
+  const handleTakeNext = () => {
+    const nextTask = TaskService.getTakeNextTask('CT') || TaskService.getTakeNextTask('CM');
+    if (nextTask) {
+      setFeedback(`Take Next: Opened prioritized outreach for ${nextTask.entityName}`);
+    }
   };
 
   return (
@@ -111,13 +119,22 @@ export const WellnessCallsPage: React.FC = () => {
             </p>
           </div>
         </div>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => navigate('/health/flags')}
-        >
-          Anomaly Flags Queue
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleTakeNext}
+          >
+            Take next wellness call
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/health/flags')}
+          >
+            Anomaly Flags Queue
+          </Button>
+        </div>
       </div>
 
       {feedback && (

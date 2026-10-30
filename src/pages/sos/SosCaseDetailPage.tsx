@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { mockStore } from '@/mock/store';
+import { TaskService } from '@/services/tasks';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { StatusChip } from '@/components/ui/StatusChip';
@@ -33,6 +34,8 @@ export const SosCaseDetailPage: React.FC = () => {
   const [resolveNotes, setResolveNotes] = useState('');
   const [newNote, setNewNote] = useState('');
   const [actionFeedback, setActionFeedback] = useState<string | null>(null);
+  const [postReviewChecks, setPostReviewChecks] = useState({ stable: true, nok: true, prevent: true });
+  const [postReviewComplete, setPostReviewComplete] = useState(false);
 
   const event = data.sosEvents.find((e) => e.id === id);
 
@@ -54,6 +57,23 @@ export const SosCaseDetailPage: React.FC = () => {
   const fallbackRecord = data.smsFallbackRecords.find((r) => r.sosEventId === event.id);
 
   const isOpenCase = event.status !== 'RESOLVED' && event.status !== 'CANCELLED_BY_SENIOR';
+
+  const handleCompletePostReview = () => {
+    setPostReviewComplete(true);
+    TaskService.completeTask('TASK-P2-002');
+    mockStore.writeAudit(
+      user?.id || 'u-cm-1',
+      (user as any)?.name || user?.fullName || 'Sunita Patil',
+      user?.role || 'CM',
+      'APPROVE',
+      'SOS',
+      event.id,
+      `Mandatory 24-hour post-incident review completed and sealed for SOS case ${event.id}.`,
+      'Institutional safety checklist'
+    );
+    mockStore.persist();
+    setActionFeedback('Post-incident review completed and cryptographically sealed.');
+  };
 
   const handleAcknowledge = () => {
     event.status = 'ACKNOWLEDGED';
@@ -596,6 +616,65 @@ export const SosCaseDetailPage: React.FC = () => {
                 ))
               )}
             </div>
+          </div>
+
+          {/* Mandatory 24h Post-Case Review Checklist (for CM or Resolved cases) */}
+          <div className="bg-surface border border-border rounded-container p-5 space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
+              <h3 className="font-semibold text-sm text-text flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-accent stroke-[1.5]" />
+                24-Hour Post-Incident Review (Mandatory for CM)
+              </h3>
+              <span className="text-caption font-semibold px-2 py-0.5 rounded-control bg-accent-tint text-accent">
+                SLA: 24h
+              </span>
+            </div>
+
+            <p className="text-xs text-text-secondary leading-relaxed">
+              Institutional safety compliance requires the Chapter Manager to complete this post-incident review checklist within 24 hours of case resolution.
+            </p>
+
+            <div className="space-y-2 text-xs">
+              <label className="flex items-center gap-2 p-2 rounded-control bg-surface-subtle border border-border cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={postReviewChecks.stable}
+                  onChange={(e) => setPostReviewChecks((p) => ({ ...p, stable: e.target.checked }))}
+                  className="rounded text-accent"
+                />
+                <span className="text-text">Senior confirmed stable at home or discharged safely</span>
+              </label>
+
+              <label className="flex items-center gap-2 p-2 rounded-control bg-surface-subtle border border-border cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={postReviewChecks.nok}
+                  onChange={(e) => setPostReviewChecks((p) => ({ ...p, nok: e.target.checked }))}
+                  className="rounded text-accent"
+                />
+                <span className="text-text">Primary next-of-kin contacted and follow-up coordinated</span>
+              </label>
+
+              <label className="flex items-center gap-2 p-2 rounded-control bg-surface-subtle border border-border cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={postReviewChecks.prevent}
+                  onChange={(e) => setPostReviewChecks((p) => ({ ...p, prevent: e.target.checked }))}
+                  className="rounded text-accent"
+                />
+                <span className="text-text">Root cause and home prevention measures documented</span>
+              </label>
+            </div>
+
+            <Button
+              variant="primary"
+              size="sm"
+              disabled={!postReviewChecks.stable || !postReviewChecks.nok || !postReviewChecks.prevent || postReviewComplete}
+              onClick={handleCompletePostReview}
+              className="w-full text-xs"
+            >
+              {postReviewComplete ? 'Review Completed & Cryptographically Sealed' : 'Complete 24h Post-Case Review'}
+            </Button>
           </div>
 
           {/* Map-less Static Location Pin */}

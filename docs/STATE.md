@@ -359,8 +359,13 @@
   - Wired `PARTNER_REFERRAL_ACTION`, `LEGAL_CONSULTATION`, and `PARTNER_ACCREDITATION` task execution branches in `InboxPage.tsx`.
   - Validated automated multi-context Playwright journeys `J-06` (Partner Routing & Voucher Redemption), `J-07` (Pro-Bono Encrypted Legal Intake), and `J-14` (Partner Accreditation & Activation) passing **100% GREEN**.
   - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
-- [ ] **Loop R10: Processes P8 & P13 (Learning Delivery & Impact Reporting) End to End (Next)**
-- [ ] **Loop R11: Processes P10, P11, P12 & P15 (Maker-Checker, Data Requests, Complaints, Pilot Readiness) End to End**
+- [x] **Loop R10: Processes P8 & P13 (Learning Delivery & Impact Reporting) End to End (Completed)**
+  - Advanced feature ledger items `P08-S2` (Curriculum maker-checker approval task for NM) and `P13-S4` (Impact pack release sign-off task in NM inbox) from Partial to **Built** in `docs/feature-ledger.json` (ratchet updated to 165 Built, 4 Partial, 2 Missing).
+  - Wired `ImpactPackDetailPage.tsx` with `TaskService.completeTask('TASK-P13-001')` and SHA-256 seal audit block upon impact pack release.
+  - Linked `CURRICULUM_APPROVAL` and `IMPACT_PACK_RELEASE` task completion branches into `InboxPage.tsx` with cryptographic audit logs.
+  - Validated automated multi-context Playwright journeys `J-08` (Virtual Literacy Daily Drip & Quiz Engagement) and `J-13` (Impact Pack Generation & Public Audit Verification) passing **100% GREEN**.
+  - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
+- [ ] **Loop R11: Processes P10, P11, P12 & P15 (Maker-Checker, Data Requests, Complaints, Pilot Readiness) End to End (Next)**
 - [ ] **Loop R12: Scenario Engine (S1–S6), Ambient Operations Simulator, Demo Director & Guided Demo Panel**
 - [ ] **Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour**
 - [ ] **Loop R14: Final Sweep, Multi-Role Test Matrix, Score Summary & `docs/CSR_DEMO_PLAYBOOK.md`**

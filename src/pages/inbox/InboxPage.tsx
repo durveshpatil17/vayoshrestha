@@ -273,6 +273,28 @@ export const InboxPage: React.FC = () => {
         `Service partner ${task.entityName} accredited and activated in deterministic capacity pool.`,
         'NM accreditation governance signoff'
       );
+    } else if (task.type === 'CURRICULUM_APPROVAL') {
+      mockStore.writeAudit(
+        user?.id || 'u-nm-1',
+        user?.fullName || 'Nandita Rao',
+        user?.role || 'NM',
+        'APPROVE',
+        'INTAKE',
+        task.entityId,
+        `Digital literacy curriculum ${task.entityId} (${task.entityName}) approved for chapter delivery.`,
+        'NM curriculum signoff'
+      );
+    } else if (task.type === 'IMPACT_PACK_RELEASE') {
+      mockStore.writeAudit(
+        user?.id || 'u-nm-1',
+        user?.fullName || 'Nandita Rao',
+        user?.role || 'NM',
+        'APPROVE',
+        'SETTINGS',
+        task.entityId,
+        `Impact pack ${task.entityId} (${task.entityName}) approved for public release with cryptographic SHA-256 seal.`,
+        'NM impact dossier signoff'
+      );
     }
 
     setActionNotice(`Successfully completed: ${task.title}`);

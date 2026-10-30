@@ -2117,8 +2117,8 @@
       "roles": [
         "NM"
       ],
-      "status": "Partial",
-      "notes": "Status flag exists; NM approval task missing (Loop R4/R10)."
+      "status": "Built",
+      "notes": "Curriculum approval task in NM inbox with cryptographic audit log."
     },
     {
       "id": "P08-S3",
@@ -2415,8 +2415,8 @@
       "roles": [
         "NM"
       ],
-      "status": "Partial",
-      "notes": "Release button exists; inbox task missing (Loop R4/R10)."
+      "status": "Built",
+      "notes": "Impact pack release sign-off task in NM inbox with SHA-256 seal."
     },
     {
       "id": "P13-S5",

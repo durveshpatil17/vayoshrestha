@@ -627,6 +627,29 @@
 
 ---
 
+## Loop R10: Processes P8 & P13 (Learning Delivery & Impact Reporting) End to End (Phase v4)
+- **Goal**: Complete end-to-end wiring for Process P8 (Virtual Literacy Daily Drip & Quiz Engagement) and Process P13 (Impact Pack Generation & Public Audit Verification); advance feature ledger items `P08-S2` and `P13-S4` to Built; verify Journeys J-08 and J-13 are green.
+- **What Changed**:
+  - `src/pages/telemetry/ImpactPackDetailPage.tsx`: Wired `releaseImpactPack` to complete `TaskService.completeTask('TASK-P13-001')` and recorded SHA-256 seal audit block in `mockStore`.
+  - `src/pages/inbox/InboxPage.tsx`: Wired `CURRICULUM_APPROVAL` and `IMPACT_PACK_RELEASE` task execution branches with SHA-256 audit logging.
+  - `docs/feature-ledger.json` & `docs/ratchet.json`: Promoted `P08-S2` and `P13-S4` from Partial to Built, advancing total built features from 163 to 165 (171 features: 165 Built, 4 Partial, 2 Missing).
+  - `tests/e2e/journeys/J-08.spec.ts` & `tests/e2e/journeys/J-13.spec.ts`: Executed and verified both journeys pass 100% green.
+- **Gate Results**:
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 285 files.
+    * `vitest run`: 172 tests passing across 34 test suites.
+    * `ledger-check`: 171 features tracked (165 Built, 4 Partial, 2 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 165 Built verified.
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+  - Active Journeys (11 journeys: J-01..J-09, J-13, J-14): Passed 100% clean (11/11 passed).
+- **Defects & Blockers**: 0 blockers.
+- **Next Step**: Loop R11: Processes P10, P11, P12 & P15 (Maker-Checker, Data Requests, Complaints, Pilot Readiness) End to End.
+
+---
+
+
 
 
 

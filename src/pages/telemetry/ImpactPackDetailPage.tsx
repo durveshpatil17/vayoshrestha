@@ -21,6 +21,8 @@ import {
   WATERMARK_TEXT,
 } from '@/domain/telemetry/packBuilder';
 import { useAuthStore } from '@/store/authStore';
+import { TaskService } from '@/services/tasks';
+import { mockStore } from '@/mock/store';
 
 export const ImpactPackDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -69,10 +71,22 @@ export const ImpactPackDetailPage: React.FC = () => {
     try {
       const updated = await releaseImpactPack(pack.id, {
         id: user?.id || 'usr-nm-1',
-        name: user?.name || 'Dr. Anita Joshi',
+        name: (user as any)?.name || user?.fullName || 'Nandita Rao',
         role: user?.role || 'NM',
       });
       setPack({ ...updated });
+      TaskService.completeTask('TASK-P13-001');
+      mockStore.writeAudit(
+        user?.id || 'u-nm-1',
+        (user as any)?.name || user?.fullName || 'Nandita Rao',
+        user?.role || 'NM',
+        'APPROVE',
+        'SETTINGS',
+        pack.id,
+        `Impact pack ${pack.title} released with SHA-256 seal: ${updated.sha256Hash}.`,
+        'NM impact pack release signoff'
+      );
+      mockStore.persist();
     } finally {
       setIsProcessing(false);
     }

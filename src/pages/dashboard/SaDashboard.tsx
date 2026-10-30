@@ -165,10 +165,10 @@ export const SaDashboard: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={() => navigate('/admin/audit-logs')}
-            className="gap-1"
+            className="gap-1.5 whitespace-nowrap shrink-0"
           >
             <span>Full Audit Trail</span>
-            <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+            <ArrowRight className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
           </Button>
         </div>
 

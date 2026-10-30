@@ -72,10 +72,10 @@ export const WorkspaceLandingPage: React.FC = () => {
               variant="primary"
               size="md"
               onClick={() => navigate(workApps[0].path)}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 whitespace-nowrap shrink-0"
             >
               <span>Launch {workApps[0].name}</span>
-              <ArrowRight className="w-4 h-4 stroke-[1.5]" />
+              <ArrowRight className="w-4 h-4 stroke-[1.5] shrink-0" />
             </Button>
           </div>
         )}

@@ -8,19 +8,9 @@ export const Breadcrumbs: React.FC = () => {
   const params = useParams();
   const pathname = location.pathname;
 
-  // Don't render full trail on pure Home page
+  // Don't render redundant breadcrumbs on pure Home page
   if (pathname === '/') {
-    return (
-      <nav
-        aria-label="Breadcrumb"
-        className="h-8 bg-surface-subtle border-b border-border-subtle px-6 flex items-center text-xs text-text-secondary select-none shrink-0"
-      >
-        <span className="flex items-center gap-1.5 font-semibold text-text">
-          <Home className="w-3.5 h-3.5 stroke-[1.5]" />
-          <span>Home</span>
-        </span>
-      </nav>
-    );
+    return null;
   }
 
   const items: { label: string; href?: string }[] = [{ label: 'Home', href: '/' }];

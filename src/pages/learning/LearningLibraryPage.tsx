@@ -210,10 +210,10 @@ export const LearningLibraryPage: React.FC = () => {
 
               <Link
                 to={`/learning/library/${les.id}`}
-                className="text-text-secondary font-semibold hover:text-text hover:underline flex items-center gap-1"
+                className="text-text-secondary font-semibold hover:text-text hover:underline inline-flex items-center gap-1 whitespace-nowrap"
               >
                 Full Lesson
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 shrink-0" />
               </Link>
             </div>
           </div>

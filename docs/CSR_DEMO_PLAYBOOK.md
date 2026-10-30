@@ -198,3 +198,4 @@ During live evaluations, present the platform using built-in interactive tools:
 - **Fixed-Height Shell Hard Rule**: Zero page scroll at 1440×900 and 1280×720 viewports (`document.scrollingElement.scrollHeight === clientHeight`).
 - **Design Linter Strictness**: **0 violations across 290 source files** (Open Sans font, sentence case, no arbitrary brackets, standard tokens only).
 - **Edge Redirects & Routing**: 21 canonical redirects in `vercel.json` and client router guarantee 0 broken URLs.
+

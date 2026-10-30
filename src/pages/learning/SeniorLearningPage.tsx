@@ -93,10 +93,10 @@ export const SeniorLearningPage: React.FC = () => {
                 <span className="text-text-secondary">{les.language}</span>
                 <Link
                   to={`/learning/library/${les.id}`}
-                  className="text-accent font-semibold hover:underline flex items-center gap-1"
+                  className="text-accent font-semibold hover:underline inline-flex items-center gap-1 whitespace-nowrap"
                 >
                   Read Lesson
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                 </Link>
               </div>
             </div>

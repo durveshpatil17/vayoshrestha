@@ -367,10 +367,10 @@ export const EcosystemNexusPage: React.FC = () => {
         </div>
         <Link
           to="/simulator"
-          className="text-accent font-semibold flex items-center gap-1 hover:underline"
+          className="text-accent font-semibold inline-flex items-center gap-1 hover:underline whitespace-nowrap"
         >
           Open Phone Simulator
-          <ArrowRight className="w-3.5 h-3.5" />
+          <ArrowRight className="w-3.5 h-3.5 shrink-0" />
         </Link>
       </div>
     </div>

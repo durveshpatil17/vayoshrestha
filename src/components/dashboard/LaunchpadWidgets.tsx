@@ -83,14 +83,14 @@ export const LaunchpadMyWork: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={() => navigate(tasks[0].path)}
-            className="flex items-center gap-1.5"
+            className="flex items-center gap-1.5 whitespace-nowrap shrink-0"
           >
             <span>Take next task</span>
-            <ArrowRight className="w-3.5 h-3.5 stroke-[1.5]" />
+            <ArrowRight className="w-3.5 h-3.5 stroke-[1.5] shrink-0" />
           </Button>
           <Link
             to="/inbox"
-            className="text-xs text-accent hover:underline flex items-center gap-1 font-semibold"
+            className="text-xs text-accent hover:underline inline-flex items-center gap-1 font-semibold whitespace-nowrap shrink-0"
           >
             <span>Full inbox</span>
             <ChevronRight className="w-3.5 h-3.5 stroke-[1.5]" />

@@ -201,10 +201,10 @@ export const LegalIntakeQueuePage: React.FC = () => {
                   <td className="p-3.5 text-right">
                     <Link
                       to={`/legal-intake/${c.id}`}
-                      className="text-accent hover:underline font-semibold flex items-center justify-end gap-1"
+                      className="text-accent hover:underline font-semibold inline-flex items-center justify-end gap-1 whitespace-nowrap"
                     >
                       View Case
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                     </Link>
                   </td>
                 </tr>

@@ -15,6 +15,7 @@ export interface AuthState {
   idleWarningOpen: boolean;
   idleCountdown: number;
   openSosCount: number;
+  demoDirectorOpen: boolean;
   favourites: string[];
   recentVisits: { title: string; path: string; category?: string; timestamp: number }[];
 
@@ -29,6 +30,8 @@ export interface AuthState {
   setTextSize: (size: 'normal' | 'large' | 'xlarge') => void;
   toggleChime: () => void;
   setOpenSosCount: (count: number) => void;
+  setDemoDirectorOpen: (open: boolean) => void;
+  toggleDemoDirector: () => void;
   toggleFavourite: (appIdOrPath: string) => void;
   addRecentVisit: (visit: { title: string; path: string; category?: string }) => void;
   logout: () => void;
@@ -64,6 +67,7 @@ export const useAuthStore = create<AuthState>((set, get) => {
     idleWarningOpen: false,
     idleCountdown: 60,
     openSosCount: sosCount,
+    demoDirectorOpen: false,
     favourites: ['/sos', '/seniors', '/health', '/programmes'],
     recentVisits: [
       { title: 'Emergency SOS Board', path: '/sos', category: 'Emergency', timestamp: Date.now() - 360000 },
@@ -191,6 +195,8 @@ export const useAuthStore = create<AuthState>((set, get) => {
     setTextSize: (size) => set({ textSize: size }),
     toggleChime: () => set((state) => ({ chimeEnabled: !state.chimeEnabled })),
     setOpenSosCount: (count) => set({ openSosCount: count }),
+    setDemoDirectorOpen: (open) => set({ demoDirectorOpen: open }),
+    toggleDemoDirector: () => set((state) => ({ demoDirectorOpen: !state.demoDirectorOpen })),
 
     toggleFavourite: (appIdOrPath) => {
       set((state) => {

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Info, X } from 'lucide-react';
+import { Info, X, Sparkles } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 
 export const Ribbon: React.FC = () => {
   const user = useAuthStore((s) => s.user);
+  const toggleDemoDirector = useAuthStore((s) => s.toggleDemoDirector);
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
@@ -31,6 +32,16 @@ export const Ribbon: React.FC = () => {
         </span>
       </div>
       <div className="flex items-center gap-4">
+        <button
+          type="button"
+          onClick={toggleDemoDirector}
+          aria-label="Open demo director"
+          className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface border border-accent/30 text-accent hover:bg-accent-tint text-xs font-semibold transition-colors"
+          title="Open CSR demo director (Ctrl+Shift+D)"
+        >
+          <Sparkles className="w-3.5 h-3.5 stroke-[1.5]" />
+          <span>Demo director</span>
+        </button>
         <span className="text-text-secondary hidden sm:inline">
           Active persona: <strong className="text-text font-semibold">{user?.fullName} ({user?.role})</strong>
         </span>

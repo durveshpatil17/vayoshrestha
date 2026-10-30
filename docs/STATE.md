@@ -374,7 +374,14 @@
   - Wired `GOVERNANCE_APPROVAL`, `DPDP_REQUEST_ACTION`, `COMPLAINT_INVESTIGATION`, and `GO_LIVE_AUTHORIZATION` execution branches in `InboxPage.tsx`.
   - Validated all 15 automated multi-context Playwright journeys (`J-01` through `J-15`) passing **100% GREEN**.
   - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
-- [ ] **Loop R12: Scenario Engine (S1–S6), Ambient Operations Simulator, Demo Director & Guided Demo Panel (Next)**
-- [ ] **Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour**
+- [x] **Loop R12: Scenario Engine (S1–S6), Ambient Operations Simulator, Demo Director & Guided Demo Panel (Completed)**
+  - Authored deterministic Scenario Engine in `src/demo/scenarioEngine.ts` implementing scenarios S1 through S6 with CSR funder value propositions, recommended walkthrough steps, starting roles, starting routes, and speed controls (`paused`, `1x`, `5x`, `realtime`).
+  - Implemented `ambientSimulator` in `src/demo/ambientSimulator.ts` pulsing realistic background operations (WhatsApp vitals, gateway delivery receipts, session attendances, field sync tickers).
+  - Built accessible `DemoDirectorDrawer.tsx` with S1–S6 scenario loader, ambient ticker monitor, walkthrough step navigator, speed controls, and reset action.
+  - Wired `DemoDirectorDrawer` into `AppShell.tsx` and bound global `Ctrl+Shift+D` shortcut.
+  - Added "Demo director" pill button with Sparkles icon to `Ribbon.tsx`.
+  - Added unit test suite `tests/unit/scenarioEngine.test.ts` (176 tests across 35 test suites, 100% green).
+  - `gate:full` (176 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
+- [ ] **Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour (Current)**
 - [ ] **Loop R14: Final Sweep, Multi-Role Test Matrix, Score Summary & `docs/CSR_DEMO_PLAYBOOK.md`**
 

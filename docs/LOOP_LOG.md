@@ -674,13 +674,28 @@
 
 ---
 
+## Loop R12: Scenario Engine (S1–S6), Ambient Operations Simulator, Demo Director & Guided Demo Panel (Phase v4)
+- **Goal**: Implement deterministic Scenario Engine codifying funder showcase scenarios S1 through S6, ambient operations simulator pulsing realistic telemetry, and accessible Demo Director drawer (`Ctrl+Shift+D`) with walkthrough steps and speed controls.
+- **What Changed**:
+  - `src/demo/scenarioEngine.ts`: Implemented `scenarioEngine` service providing scenarios S1 through S6 with CSR funder value propositions, recommended walkthrough steps, starting roles, starting routes, and speed controls (`paused`, `1x`, `5x`, `realtime`).
+  - `src/demo/ambientSimulator.ts`: Implemented `ambientSimulator` pulsing background operations (WhatsApp vitals, gateway delivery receipts, session attendances, field sync tickers) with listener subscription mechanism.
+  - `src/services/tasks.ts`: Added `resetToSeed()` method.
+  - `src/store/authStore.ts`: Added `demoDirectorOpen`, `setDemoDirectorOpen`, and `toggleDemoDirector` actions.
+  - `src/components/demo/DemoDirectorDrawer.tsx`: Built accessible drawer controller with scenario switcher, ambient ticker monitor, walkthrough step navigator, speed controls, and reset action.
+  - `src/components/layout/AppShell.tsx`: Hooked `DemoDirectorDrawer` and registered global `Ctrl+Shift+D` keyboard shortcut.
+  - `src/components/layout/Ribbon.tsx`: Added quick-launch "Demo director" pill with Sparkles icon.
+  - `tests/unit/scenarioEngine.test.ts`: Added 4 unit tests verifying all 6 scenarios, speed toggles, state resets, signed audit log recording, and ambient telemetry subscription.
+- **Gate Results**:
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 288 files.
+    * `vitest run`: 176 tests passing across 35 test suites.
+    * `ledger-check`: 171 features tracked (171 Built, 0 Partial, 0 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 171 Built verified.
+  - `npm run build`: Production bundle built cleanly (0 errors).
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+- **Defects & Blockers**: 0 blockers.
+- **Next Step**: Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour.
 
-
-
-
-
-
-
-
-
-
+---

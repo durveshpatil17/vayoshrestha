@@ -9,13 +9,35 @@ import { backgroundJobs } from '@/mock/backgroundJobs';
 import { findWorkspaceForPath, WORKSPACES } from '@/navigation/workspaces';
 import { Clock } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { DemoDirectorDrawer } from '@/components/demo/DemoDirectorDrawer';
 
 export const AppShell: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, isAuthenticated, textSize, logout, addRecentVisit } = useAuthStore();
+  const {
+    user,
+    isAuthenticated,
+    textSize,
+    logout,
+    addRecentVisit,
+    demoDirectorOpen,
+    setDemoDirectorOpen,
+    toggleDemoDirector,
+  } = useAuthStore();
   const [idleWarning, setIdleWarning] = useState(false);
   const [secondsRemaining, setSecondsRemaining] = useState(60);
+
+  // Keyboard shortcut for Demo Director (Ctrl+Shift+D or Cmd+Shift+D)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+        e.preventDefault();
+        toggleDemoDirector();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [toggleDemoDirector]);
 
   // Background worker lifecycle
   useEffect(() => {
@@ -117,6 +139,12 @@ export const AppShell: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* CSR Demo Director Drawer */}
+      <DemoDirectorDrawer
+        isOpen={demoDirectorOpen}
+        onClose={() => setDemoDirectorOpen(false)}
+      />
     </div>
   );
 };

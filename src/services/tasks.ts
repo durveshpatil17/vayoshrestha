@@ -46,6 +46,11 @@ class TaskServiceClass {
     }
   }
 
+  public resetToSeed() {
+    this.seedInitialTasks();
+    this.saveToStorage();
+  }
+
   private init() {
     if (this.initialized) return;
     this.loadFromStorage();

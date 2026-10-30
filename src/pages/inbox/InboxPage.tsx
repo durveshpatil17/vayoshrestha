@@ -295,6 +295,50 @@ export const InboxPage: React.FC = () => {
         `Impact pack ${task.entityId} (${task.entityName}) approved for public release with cryptographic SHA-256 seal.`,
         'NM impact dossier signoff'
       );
+    } else if (task.type === 'GOVERNANCE_APPROVAL') {
+      mockStore.writeAudit(
+        user?.id || 'u-nm-1',
+        user?.fullName || 'Nandita Rao',
+        user?.role || 'NM',
+        'APPROVE',
+        'SETTINGS',
+        task.entityId,
+        `Governance policy update ${task.entityId} (${task.entityName}) approved by NM maker-checker.`,
+        'Policy update signoff'
+      );
+    } else if (task.type === 'DPDP_REQUEST_ACTION') {
+      mockStore.writeAudit(
+        user?.id || 'u-sa-1',
+        user?.fullName || 'Vikramaditya Rao',
+        user?.role || 'SA',
+        'PURGE',
+        'SENIOR',
+        task.entityId,
+        `DPDP-aligned data erasure completed for ${task.entityName} (${task.entityId}). Cryptographic purge executed.`,
+        'DPDP right to erasure'
+      );
+    } else if (task.type === 'COMPLAINT_INVESTIGATION') {
+      mockStore.writeAudit(
+        user?.id || 'u-cm-1',
+        user?.fullName || 'Sunita Patil',
+        user?.role || 'CM',
+        'UPDATE',
+        'CASE',
+        task.entityId,
+        `Citizen grievance ${task.entityId} investigated and resolution documented by CM.`,
+        'Grievance redressal protocol'
+      );
+    } else if (task.type === 'GO_LIVE_AUTHORIZATION') {
+      mockStore.writeAudit(
+        user?.id || 'u-nm-1',
+        user?.fullName || 'Nandita Rao',
+        user?.role || 'NM',
+        'APPROVE',
+        'SETTINGS',
+        task.entityId,
+        `Chapter go-live milestone authorized for ${task.entityName} (${task.entityId}). Pilot active.`,
+        'Go-live governance gate'
+      );
     }
 
     setActionNotice(`Successfully completed: ${task.title}`);

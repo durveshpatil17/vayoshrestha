@@ -365,8 +365,16 @@
   - Linked `CURRICULUM_APPROVAL` and `IMPACT_PACK_RELEASE` task completion branches into `InboxPage.tsx` with cryptographic audit logs.
   - Validated automated multi-context Playwright journeys `J-08` (Virtual Literacy Daily Drip & Quiz Engagement) and `J-13` (Impact Pack Generation & Public Audit Verification) passing **100% GREEN**.
   - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
-- [ ] **Loop R11: Processes P10, P11, P12 & P15 (Maker-Checker, Data Requests, Complaints, Pilot Readiness) End to End (Next)**
-- [ ] **Loop R12: Scenario Engine (S1–S6), Ambient Operations Simulator, Demo Director & Guided Demo Panel**
+- [x] **Loop R11: Processes P10, P11, P12 & P15 (Maker-Checker, Data Requests, Complaints, Pilot Readiness) End to End (Completed)**
+  - Advanced feature ledger items `P10-S3` (Governance approval task in NM inbox), `P11-S2` (NM identity verification task), `P11-S3` (SA irrevocable purge execution), `P12-S3` (Investigation task & notes thread), `P15-S3` (Pilot Readiness Checklist with remediation links), and `P15-S4` (Chapter Go-Live milestone authorization task) to **Built** in `docs/feature-ledger.json`.
+  - **100% of Feature Ledger is Built**: 171 / 171 features Built, 0 Partial, 0 Missing (monotonically ratcheted to 171 in `docs/ratchet.json`).
+  - Added Real-time Pilot Readiness Checklist with remediation links and Chapter Go-Live milestone authorization in `SettingsPage.tsx`.
+  - Added DPDP right to erasure queue with type-to-confirm input and irrevocable cryptographic purge in `DataGovernancePage.tsx`.
+  - Added grievance resolution workflow in `ComplaintsPage.tsx` with SHA-256 audit block logging.
+  - Wired `GOVERNANCE_APPROVAL`, `DPDP_REQUEST_ACTION`, `COMPLAINT_INVESTIGATION`, and `GO_LIVE_AUTHORIZATION` execution branches in `InboxPage.tsx`.
+  - Validated all 15 automated multi-context Playwright journeys (`J-01` through `J-15`) passing **100% GREEN**.
+  - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
+- [ ] **Loop R12: Scenario Engine (S1–S6), Ambient Operations Simulator, Demo Director & Guided Demo Panel (Next)**
 - [ ] **Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour**
 - [ ] **Loop R14: Final Sweep, Multi-Role Test Matrix, Score Summary & `docs/CSR_DEMO_PLAYBOOK.md`**
 

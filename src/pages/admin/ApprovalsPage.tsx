@@ -95,6 +95,8 @@ export const ApprovalsPage: React.FC = () => {
       TaskService.completeTask('TASK-P14-001');
     } else if (selectedItem.category === 'Template' && actionType === 'Approve') {
       TaskService.completeTask('TASK-P5-001');
+    } else if (actionType === 'Approve') {
+      TaskService.completeTask('TASK-P10-001');
     }
 
     setSelectedItem(null);

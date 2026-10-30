@@ -4,8 +4,8 @@
   "counts": {
     "routes_registered": 178,
     "routes_manifest": 120,
-    "ledger_built": 165,
-    "ledger_planned": 15,
+    "ledger_built": 171,
+    "ledger_planned": 0,
     "tests_passing": 95,
     "permission_cells": 9
   },

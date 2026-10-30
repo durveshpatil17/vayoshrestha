@@ -2253,8 +2253,8 @@
       "roles": [
         "NM"
       ],
-      "status": "Partial",
-      "notes": "Approvals queue exists; task in inbox missing (Loop R4/R11)."
+      "status": "Built",
+      "notes": "Approvals queue and policy task in NM inbox with cryptographic audit log."
     },
     {
       "id": "P10-S4",
@@ -2293,8 +2293,8 @@
       "roles": [
         "NM"
       ],
-      "status": "Partial",
-      "notes": "Review modal exists; inbox task missing (Loop R4/R11)."
+      "status": "Built",
+      "notes": "Identity verification workflow and task in NM inbox."
     },
     {
       "id": "P11-S3",
@@ -2306,8 +2306,8 @@
       "roles": [
         "SA"
       ],
-      "status": "Partial",
-      "notes": "Purge modal exists; SA execution task missing (Loop R4/R11)."
+      "status": "Built",
+      "notes": "Purge modal with type-to-confirm and SA execution task in inbox."
     },
     {
       "id": "P12-S1",
@@ -2346,8 +2346,8 @@
       "roles": [
         "CM"
       ],
-      "status": "Partial",
-      "notes": "Thread notes exist; inbox task missing (Loop R4/R11)."
+      "status": "Built",
+      "notes": "Investigation notes thread and resolution task in CM inbox."
     },
     {
       "id": "P12-S4",
@@ -2510,8 +2510,8 @@
         "CM",
         "NM"
       ],
-      "status": "Missing",
-      "notes": "Dynamic checklist tab computed from store state (Loop R11)."
+      "status": "Built",
+      "notes": "Dynamic checklist computed from store state with remediation links."
     },
     {
       "id": "P15-S4",
@@ -2523,8 +2523,8 @@
       "roles": [
         "NM"
       ],
-      "status": "Missing",
-      "notes": "Go-live milestone authorization task for NM (Loop R11)."
+      "status": "Built",
+      "notes": "Go-live milestone authorization task for NM with audit trail."
     }
   ]
 }

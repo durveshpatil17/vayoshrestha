@@ -699,3 +699,26 @@
 - **Next Step**: Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour.
 
 ---
+
+## Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour (Phase v4)
+- **Goal**: Implement canonical content style enforcement across all touchpoints, standardized `E-XXXX` error code system, enriched `/about` page with architecture pillars and CSR demo scenarios, and accessible `KeyboardShortcutsDialog` accessible via `?` key and system accelerator chords.
+- **What Changed**:
+  - `src/domain/errorCodes.ts`: Authored comprehensive error code catalog defining domains `AUTH`, `PERM`, `DPDP`, `GATE`, `SYNC`, `AUDT`, `VALD` with explicit remediation hints and `formatErrorMessage` helper.
+  - `src/components/common/KeyboardShortcutsDialog.tsx`: Created accessible keyboard shortcut modal (`?`, `Ctrl+K`, `Ctrl+Shift+D`, `Esc`, chord navigation `g h`, `g i`, `g s`, `g m`, `g a`).
+  - `src/components/layout/AppShell.tsx`: Bound `?` listener and two-key chord navigation (`g h`, `g i`, `g s`, `g m`, `g a`), mounted `KeyboardShortcutsDialog`.
+  - `src/pages/about/AboutPage.tsx`: Enhanced with CSR funder demonstration overview (S1–S6), DPDP regulatory compliance disclosures, and architecture specifications.
+  - `tests/unit/chromeAndContentStyle.test.ts`: Added unit test suite validating standard error code formatting and canonical terminology enforcement.
+- **Gate Results**:
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 290 files.
+    * `vitest run`: 179 tests passing across 36 test suites.
+    * `ledger-check`: 171 features tracked (171 Built, 0 Partial, 0 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 171 Built verified.
+  - `npm run build`: Production bundle built cleanly (0 errors).
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+- **Defects & Blockers**: 0 blockers.
+- **Next Step**: Loop R14: Final Sweep, Multi-Role Test Matrix, Score Summary & `docs/CSR_DEMO_PLAYBOOK.md`.
+
+---

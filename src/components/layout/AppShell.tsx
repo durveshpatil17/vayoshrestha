@@ -10,6 +10,7 @@ import { findWorkspaceForPath, WORKSPACES } from '@/navigation/workspaces';
 import { Clock } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { DemoDirectorDrawer } from '@/components/demo/DemoDirectorDrawer';
+import { KeyboardShortcutsDialog } from '@/components/common/KeyboardShortcutsDialog';
 
 export const AppShell: React.FC = () => {
   const navigate = useNavigate();
@@ -26,18 +27,57 @@ export const AppShell: React.FC = () => {
   } = useAuthStore();
   const [idleWarning, setIdleWarning] = useState(false);
   const [secondsRemaining, setSecondsRemaining] = useState(60);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
 
-  // Keyboard shortcut for Demo Director (Ctrl+Shift+D or Cmd+Shift+D)
+  // Keyboard shortcut listener (Ctrl+Shift+D for Demo Director, ? for shortcuts)
   useEffect(() => {
+    let pendingG = false;
+    let gTimeout: number | null = null;
+
     const handleKeyDown = (e: KeyboardEvent) => {
+      const activeTag = (document.activeElement?.tagName || '').toLowerCase();
+      const isInput = activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select';
+
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
         e.preventDefault();
         toggleDemoDirector();
+        return;
+      }
+
+      if (!isInput) {
+        if (e.key === '?') {
+          e.preventDefault();
+          setShortcutsOpen(true);
+          return;
+        }
+
+        // Two-key chord navigation: 'g' then key
+        if (e.key === 'g' || e.key === 'G') {
+          pendingG = true;
+          if (gTimeout) clearTimeout(gTimeout);
+          gTimeout = window.setTimeout(() => {
+            pendingG = false;
+          }, 1200);
+          return;
+        }
+
+        if (pendingG) {
+          pendingG = false;
+          const k = e.key.toLowerCase();
+          if (k === 'h') navigate('/');
+          else if (k === 'i') navigate('/inbox');
+          else if (k === 's') navigate('/sos');
+          else if (k === 'm') navigate('/apps');
+          else if (k === 'a') navigate('/apps');
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [toggleDemoDirector]);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      if (gTimeout) clearTimeout(gTimeout);
+    };
+  }, [toggleDemoDirector, navigate]);
 
   // Background worker lifecycle
   useEffect(() => {
@@ -144,6 +184,12 @@ export const AppShell: React.FC = () => {
       <DemoDirectorDrawer
         isOpen={demoDirectorOpen}
         onClose={() => setDemoDirectorOpen(false)}
+      />
+
+      {/* System Keyboard Shortcuts Dialog */}
+      <KeyboardShortcutsDialog
+        isOpen={shortcutsOpen}
+        onClose={() => setShortcutsOpen(false)}
       />
     </div>
   );

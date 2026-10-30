@@ -78,6 +78,31 @@ export const AboutPage: React.FC = () => {
         </div>
       </div>
 
+      {/* CSR Funder Showcase & Demo Capabilities */}
+      <div className="bg-surface border border-border rounded-container p-6 space-y-3">
+        <h3 className="text-sm font-semibold text-text flex items-center gap-2">
+          <FileText className="w-4 h-4 text-accent stroke-[1.5]" />
+          <span>CSR Funder Demonstration Scenarios (S1–S6)</span>
+        </h3>
+        <p className="text-xs text-text-secondary leading-relaxed">
+          The prototype includes a deterministic Scenario Engine and Ambient Operations Simulator designed specifically for corporate social responsibility (CSR) committee evaluations. Access the Demo Director anytime using <strong>Ctrl+Shift+D</strong> or the top banner button.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
+          <div className="p-3 rounded-control bg-surface-subtle border border-border space-y-1">
+            <div className="font-semibold text-text">S1 & S2: Operations</div>
+            <div className="text-text-secondary">Normal weekday rhythms across 9 hubs & monsoon heatwave broadcast with triage surge.</div>
+          </div>
+          <div className="p-3 rounded-control bg-surface-subtle border border-border space-y-1">
+            <div className="font-semibold text-text">S3 & S4: Field & Life-Safety</div>
+            <div className="text-text-secondary">Emergency SOS triage with 24h review & offline field terminal registration with deduplication.</div>
+          </div>
+          <div className="p-3 rounded-control bg-surface-subtle border border-border space-y-1">
+            <div className="font-semibold text-text">S5 & S6: Governance & Audit</div>
+            <div className="text-text-secondary">Quiet-hours delivery compliance & CSR impact pack generation with public verification at /verify.</div>
+          </div>
+        </div>
+      </div>
+
       {/* Build & Technical Details */}
       <div className="bg-surface border border-border rounded-container p-6 space-y-3">
         <h3 className="text-sm font-semibold text-text flex items-center gap-2">

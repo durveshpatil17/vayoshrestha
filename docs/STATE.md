@@ -382,6 +382,11 @@
   - Added "Demo director" pill button with Sparkles icon to `Ribbon.tsx`.
   - Added unit test suite `tests/unit/scenarioEngine.test.ts` (176 tests across 35 test suites, 100% green).
   - `gate:full` (176 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
-- [ ] **Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour (Current)**
-- [ ] **Loop R14: Final Sweep, Multi-Role Test Matrix, Score Summary & `docs/CSR_DEMO_PLAYBOOK.md`**
+- [x] **Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour (Completed)**
+  - Codified standardized error codes catalog `src/domain/errorCodes.ts` spanning 7 operational domains (`AUTH`, `PERM`, `DPDP`, `GATE`, `SYNC`, `AUDT`, `VALD`) with remediation guidance.
+  - Implemented `KeyboardShortcutsDialog.tsx` with modal accelerator key directory and global `?` key listener, plus two-key chord navigation (`g h`, `g i`, `g s`, `g m`, `g a`) in `AppShell.tsx`.
+  - Updated `AboutPage.tsx` with CSR demonstration scenario breakdowns (S1 through S6), regulatory compliance disclaimers, and system specs.
+  - Added unit test suite `tests/unit/chromeAndContentStyle.test.ts` (179 tests across 36 test suites, 100% green).
+  - `gate:full` (179 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
+- [ ] **Loop R14: Final Sweep, Multi-Role Test Matrix, Score Summary & `docs/CSR_DEMO_PLAYBOOK.md` (Current)**
 

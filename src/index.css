@@ -43,3 +43,25 @@ h1, h2, h3, h4 {
 /* Senior portal text size toggle */
 [data-senior-text="lg"] { font-size: 18px; }
 [data-senior-text="xl"] { font-size: 22px; }
+
+/* Master-detail locked split workbench & container scrolling */
+@media (min-width: 1024px) {
+  .split-workbench-container {
+    height: calc(100dvh - 180px);
+    min-height: 520px;
+  }
+}
+
+@media (min-width: 768px) {
+  .locked-list-scroll {
+    max-height: calc(100dvh - 240px);
+    overflow-y: auto;
+  }
+  .locked-detail-sticky {
+    position: sticky;
+    top: 0;
+    max-height: calc(100dvh - 240px);
+    overflow-y: auto;
+  }
+}
+

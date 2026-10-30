@@ -99,7 +99,7 @@ export const OnboardingScriptPage: React.FC = () => {
               Onboarding script sequence ({script.steps.length} steps)
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 locked-list-scroll pr-1">
               {script.steps.map((st, idx) => (
                 <div
                   key={st.stepNumber}
@@ -226,7 +226,7 @@ export const OnboardingScriptPage: React.FC = () => {
         </div>
 
         {/* Right: Phone Frame Preview (5 cols) */}
-        <div className="lg:col-span-5 sticky top-20">
+        <div className="lg:col-span-5 locked-detail-sticky">
           <div className="w-full max-w-sm mx-auto bg-surface border border-border rounded-container p-4 space-y-3">
             <div className="flex items-center justify-between border-b border-border-subtle pb-2 text-xs text-text-secondary">
               <span className="flex items-center gap-1.5 font-semibold text-text">

@@ -370,7 +370,7 @@ export const InboxPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full space-y-4">
+    <div className="flex flex-col gap-4 split-workbench-container">
       {/* Top Header Bar */}
       <div className="bg-surface border border-border rounded-container p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
         <div className="flex items-center gap-3">
@@ -535,9 +535,9 @@ export const InboxPage: React.FC = () => {
         {/* Right Detail Pane */}
         <div className="flex-1 min-w-0 bg-surface border border-border rounded-container flex flex-col h-full overflow-hidden">
           {selectedTask ? (
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              {/* Task Header */}
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-border">
+            <>
+              {/* Pinned Task Header */}
+              <div className="p-6 pb-4 border-b border-border shrink-0 bg-surface flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-semibold px-2 py-0.5 rounded-control bg-accent-tint text-accent border border-accent/20">
@@ -559,7 +559,7 @@ export const InboxPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleExecuteAction(selectedTask)}
-                    className="h-9 px-4 rounded-control bg-accent text-surface text-xs font-semibold hover:bg-accent-hover transition-colors flex items-center gap-1.5"
+                    className="h-9 px-4 rounded-control bg-accent text-surface text-xs font-semibold hover:bg-accent-hover transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0"
                   >
                     <Check className="w-4 h-4 stroke-[2]" />
                     <span>{selectedTask.actionLabel || 'Confirm unique person'}</span>
@@ -570,7 +570,7 @@ export const InboxPage: React.FC = () => {
                       variant="outline"
                       size="sm"
                       onClick={() => navigate(selectedTask.actionEndpoint!)}
-                      className="flex items-center gap-1"
+                      className="flex items-center gap-1 whitespace-nowrap shrink-0"
                     >
                       <span>Open view</span>
                       <ExternalLink className="w-3.5 h-3.5 stroke-[1.5]" />
@@ -578,6 +578,9 @@ export const InboxPage: React.FC = () => {
                   )}
                 </div>
               </div>
+
+              {/* Scrollable Task Details Body */}
+              <div className="flex-1 overflow-y-auto p-6 space-y-6">
 
               {/* SLA & Context Banner */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 bg-surface-subtle border border-border-subtle rounded-control text-xs">
@@ -666,6 +669,7 @@ export const InboxPage: React.FC = () => {
                 />
               </div>
             </div>
+            </>
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-text-secondary">
               <Inbox className="w-12 h-12 stroke-[1] text-text-muted mb-3" />

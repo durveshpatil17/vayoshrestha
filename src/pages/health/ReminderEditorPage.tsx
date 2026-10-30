@@ -214,8 +214,8 @@ export const ReminderEditorPage: React.FC = () => {
         </div>
 
         {/* Right Column: WhatsApp Phone Preview (5 cols) */}
-        <div className="lg:col-span-5">
-          <div className="sticky top-6">
+        <div className="lg:col-span-5 locked-detail-sticky">
+          <div>
             <div className="text-xs font-semibold text-text-secondary mb-2 flex items-center gap-1.5">
               <Smartphone className="w-4 h-4 text-accent" />
               Live WhatsApp Senior Preview

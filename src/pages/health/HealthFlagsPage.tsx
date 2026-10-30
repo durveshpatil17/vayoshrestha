@@ -242,7 +242,7 @@ export const HealthFlagsPage: React.FC = () => {
               </div>
             }
           >
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto locked-list-scroll">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
                   <tr className="border-b border-border bg-page text-text-secondary font-semibold">
@@ -335,7 +335,7 @@ export const HealthFlagsPage: React.FC = () => {
         </div>
 
         {/* Right Panel: Detail Inspection Panel for Selected Flag (5 cols) */}
-        <div className="lg:col-span-5 sticky top-20 space-y-4">
+        <div className="lg:col-span-5 locked-detail-sticky space-y-4">
           {selectedFlag ? (
             <Container
               header={

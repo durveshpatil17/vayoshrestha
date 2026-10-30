@@ -46,10 +46,15 @@ export const PartnerReferralsPage: React.FC = () => {
         subtitle="Review clinical requirements, schedule visits, and document consultation outcomes"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-1 space-y-3">
-          <h2 className="text-sm font-semibold text-text">Open cases</h2>
-          <div className="space-y-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <div className="md:col-span-1 bg-surface border border-border rounded-container p-4 flex flex-col">
+          <div className="flex items-center justify-between pb-3 border-b border-border-subtle shrink-0 mb-3">
+            <h2 className="text-sm font-semibold text-text">Open cases</h2>
+            <span className="text-xs text-text-secondary tabular-nums font-semibold">
+              {referrals.length} cases
+            </span>
+          </div>
+          <div className="space-y-2 locked-list-scroll pr-1">
             {referrals.map((r) => (
               <button
                 key={r.id}
@@ -59,7 +64,7 @@ export const PartnerReferralsPage: React.FC = () => {
                   setStatus(r.status);
                   setOutcome(r.outcome || '');
                 }}
-                className={`w-full text-left p-3 rounded-lg border transition-all text-xs ${
+                className={`w-full text-left p-3 rounded-control border transition-all text-xs ${
                   r.id === selectedId
                     ? 'border-accent bg-informative-tint'
                     : 'border-border bg-surface hover:bg-surface-hover'
@@ -80,7 +85,7 @@ export const PartnerReferralsPage: React.FC = () => {
         </div>
 
         {activeReferral && (
-          <div className="md:col-span-2 space-y-6">
+          <div className="md:col-span-2 space-y-6 locked-detail-sticky">
             <Card title={`${activeReferral.seniorName} — Clinical referral file`}>
               <div className="space-y-4 text-xs">
                 <div>

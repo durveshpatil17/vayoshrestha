@@ -426,7 +426,7 @@ export const SosBoardPage: React.FC = () => {
             </span>
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto locked-list-scroll">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="bg-surface-subtle border-b border-border text-text-secondary font-normal">
@@ -575,7 +575,7 @@ export const SosBoardPage: React.FC = () => {
         </div>
 
         {/* Right Column: AWS Cloudscape Split Panel (5 cols on lg) */}
-        <div className="lg:col-span-5 bg-surface border border-border rounded-container p-5 space-y-5 sticky top-20">
+        <div className="lg:col-span-5 bg-surface border border-border rounded-container p-5 space-y-5 locked-detail-sticky">
           {selectedEvent ? (
             <>
               {/* Panel Header */}

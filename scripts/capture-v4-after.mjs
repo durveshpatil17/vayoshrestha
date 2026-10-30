@@ -22,7 +22,7 @@ const routes = [
   { name: 'home-vf', path: '/', role: 'VF' },
   { name: 'home-ct', path: '/', role: 'CT' },
   { name: 'home-sa', path: '/', role: 'SA' },
-  { name: 'inbox-work-workbench', path: '/inbox', role: 'RA' },
+  { name: 'inbox-work-workbench', path: '/inbox', role: 'PM' },
   { name: 'apps-directory', path: '/apps', role: 'RA' },
   { name: 'workspace-emergency', path: '/w/emergency', role: 'CT' },
   { name: 'workspace-care', path: '/w/care', role: 'CT' },

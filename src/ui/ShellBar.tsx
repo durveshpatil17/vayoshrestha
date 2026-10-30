@@ -9,6 +9,7 @@ import {
   Search,
   Building2,
   ChevronDown,
+  ChevronRight,
   User,
   LogOut,
   AlertTriangle,
@@ -46,6 +47,7 @@ export const ShellBar: React.FC = () => {
   const [scopeMenuOpen, setScopeMenuOpen] = useState(false);
   const [workspacesMenuOpen, setWorkspacesMenuOpen] = useState(false);
   const [createMenuOpen, setCreateMenuOpen] = useState(false);
+  const [hoveredWsId, setHoveredWsId] = useState<string | null>(null);
 
   const chapters = mockStore.getData().chapters;
   const role = user?.role || 'RA';
@@ -53,6 +55,12 @@ export const ShellBar: React.FC = () => {
   const primaryWorkspaces = getPrimaryWorkspaces(role);
   const permittedWorkspaces = getPermittedWorkspaces(role);
   const currentWorkspaceId = findWorkspaceForPath(location.pathname);
+  const effectiveHoveredWsId =
+    hoveredWsId ||
+    currentWorkspaceId ||
+    (permittedWorkspaces[0] ? permittedWorkspaces[0].id : null);
+  const activeFlyoutWs =
+    permittedWorkspaces.find((w) => w.id === effectiveHoveredWsId) || permittedWorkspaces[0];
 
   // Real-time SOS count monitoring
   useEffect(() => {
@@ -123,48 +131,134 @@ export const ShellBar: React.FC = () => {
             </button>
 
             {workspacesMenuOpen && (
-              <div className="absolute left-0 top-9 w-72 bg-surface border border-border rounded-control shadow-overlay p-2 z-40 animate-in fade-in-0 duration-150">
-                <div className="px-2 py-1 text-xs font-semibold text-text-secondary border-b border-border-subtle mb-1 flex items-center justify-between">
-                  <span>Permitted Workspaces ({permittedWorkspaces.length})</span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setWorkspacesMenuOpen(false);
-                      navigate('/apps');
-                    }}
-                    className="text-accent hover:underline text-xs flex items-center gap-1"
-                  >
-                    <span>App Finder</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </button>
+              <div className="absolute left-0 top-9 flex bg-surface border border-border rounded-control shadow-overlay z-40 animate-in fade-in-0 duration-150 overflow-hidden">
+                {/* Left Column: Workspaces list with expansion arrows on hover */}
+                <div className="w-64 p-2 border-r border-border-subtle flex flex-col justify-between shrink-0">
+                  <div>
+                    <div className="px-2 py-1 text-xs font-semibold text-text-secondary border-b border-border-subtle mb-1 flex items-center justify-between">
+                      <span>Permitted Workspaces ({permittedWorkspaces.length})</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setWorkspacesMenuOpen(false);
+                          navigate('/apps');
+                        }}
+                        className="text-accent hover:underline text-xs flex items-center gap-1"
+                      >
+                        <span>App Finder</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </button>
+                    </div>
+                    <div className="max-h-96 overflow-y-auto space-y-1">
+                      {permittedWorkspaces.map((ws) => (
+                        <button
+                          key={ws.id}
+                          type="button"
+                          onMouseEnter={() => setHoveredWsId(ws.id)}
+                          onClick={() => {
+                            setWorkspacesMenuOpen(false);
+                            navigate(`/w/${ws.id}`);
+                          }}
+                          className={`w-full text-left p-2 rounded-control hover:bg-surface-hover flex items-center justify-between gap-2 transition-colors group ${
+                            effectiveHoveredWsId === ws.id ? 'bg-accent-tint text-accent' : ''
+                          }`}
+                        >
+                          <div className="flex items-start gap-2.5 min-w-0 flex-1">
+                            <div className="p-1.5 rounded-control bg-surface-subtle text-accent mt-0.5 border border-border shrink-0">
+                              <ws.icon className="w-3.5 h-3.5 stroke-[1.5]" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="text-xs font-semibold text-text truncate">
+                                {ws.name}
+                              </div>
+                              <div className="text-xs text-text-secondary line-clamp-1">
+                                {ws.purpose}
+                              </div>
+                            </div>
+                          </div>
+                          <ChevronRight
+                            className={`w-3.5 h-3.5 shrink-0 transition-all ${
+                              effectiveHoveredWsId === ws.id
+                                ? 'opacity-100 text-accent translate-x-0.5'
+                                : 'opacity-0 group-hover:opacity-100 text-text-secondary group-hover:translate-x-0.5'
+                            }`}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <div className="max-h-80 overflow-y-auto space-y-1">
-                  {permittedWorkspaces.map((ws) => (
-                    <button
-                      key={ws.id}
-                      type="button"
-                      onClick={() => {
-                        setWorkspacesMenuOpen(false);
-                        navigate(`/w/${ws.id}`);
-                      }}
-                      className={`w-full text-left p-2 rounded-control hover:bg-surface-hover flex items-start gap-2.5 transition-colors ${
-                        currentWorkspaceId === ws.id ? 'bg-accent-tint' : ''
-                      }`}
-                    >
-                      <div className="p-1.5 rounded-control bg-surface-subtle text-accent mt-0.5 border border-border">
-                        <ws.icon className="w-3.5 h-3.5 stroke-[1.5]" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="text-xs font-semibold text-text truncate">
-                          {ws.name}
+
+                {/* Right Column: Hovered Workspace Options & Applications Flyout */}
+                {activeFlyoutWs && (
+                  <div className="w-72 p-3 bg-surface-subtle/30 flex flex-col justify-between max-h-96 overflow-y-auto shrink-0 animate-in fade-in-0 duration-100">
+                    <div className="space-y-3">
+                      <div className="pb-2 border-b border-border-subtle flex items-center justify-between">
+                        <div>
+                          <div className="text-xs font-semibold text-text">
+                            {activeFlyoutWs.name} Apps
+                          </div>
+                          <div className="text-xs text-text-secondary">
+                            {activeFlyoutWs.apps.length} available applications
+                          </div>
                         </div>
-                        <div className="text-xs text-text-secondary line-clamp-1">
-                          {ws.purpose}
-                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setWorkspacesMenuOpen(false);
+                            navigate(`/w/${activeFlyoutWs.id}`);
+                          }}
+                          className="text-xs text-accent font-semibold hover:underline flex items-center gap-0.5"
+                        >
+                          <span>Overview</span>
+                          <ChevronRight className="w-3 h-3 stroke-[1.5]" />
+                        </button>
                       </div>
-                    </button>
-                  ))}
-                </div>
+
+                      {/* App options list */}
+                      <div className="space-y-1">
+                        {activeFlyoutWs.apps.map((app) => (
+                          <button
+                            key={app.id}
+                            type="button"
+                            onClick={() => {
+                              setWorkspacesMenuOpen(false);
+                              navigate(app.path);
+                            }}
+                            className="w-full text-left p-2 rounded-control hover:bg-surface border border-transparent hover:border-border transition-colors flex items-center justify-between group"
+                          >
+                            <div className="flex items-center gap-2 min-w-0 flex-1">
+                              <app.icon className="w-3.5 h-3.5 text-accent stroke-[1.5] shrink-0" />
+                              <div className="min-w-0 flex-1">
+                                <div className="text-xs font-semibold text-text truncate">
+                                  {app.name}
+                                </div>
+                                <div className="text-xs text-text-secondary truncate">
+                                  {app.description}
+                                </div>
+                              </div>
+                            </div>
+                            <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0 ml-1" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-border-subtle mt-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setWorkspacesMenuOpen(false);
+                          navigate(`/w/${activeFlyoutWs.id}`);
+                        }}
+                        className="w-full h-8 rounded-control bg-accent text-white text-xs font-semibold flex items-center justify-center gap-1 hover:bg-accent-hover transition-colors"
+                      >
+                        <span>Launch {activeFlyoutWs.name} Workspace</span>
+                        <ChevronRight className="w-3 h-3 stroke-[2]" />
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

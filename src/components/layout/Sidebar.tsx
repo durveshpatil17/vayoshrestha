@@ -31,7 +31,10 @@ export const Sidebar: React.FC = () => {
   const user = useAuthStore((s) => s.user);
   const location = useLocation();
   const [isRail, setIsRail] = useState(false);
+  const [workExpanded, setWorkExpanded] = useState(true);
+  const [monitorExpanded, setMonitorExpanded] = useState(true);
   const [configureExpanded, setConfigureExpanded] = useState(false);
+  const [workspaceSwitcherOpen, setWorkspaceSwitcherOpen] = useState(false);
 
   if (!user) return null;
 
@@ -49,7 +52,7 @@ export const Sidebar: React.FC = () => {
             end
             data-nav-pinned="true"
             className={({ isActive }) =>
-              `flex items-center gap-2.5 px-3 py-2 rounded-control text-xs transition-colors ${
+              `group flex items-center justify-between gap-2 px-3 py-2 rounded-control text-xs transition-colors ${
                 isActive
                   ? 'bg-surface-selected text-accent font-semibold'
                   : 'text-text-secondary hover:text-text hover:bg-surface-hover'
@@ -57,14 +60,19 @@ export const Sidebar: React.FC = () => {
             }
             title="My Home"
           >
-            <Home className="w-4 h-4 stroke-[1.5] shrink-0" />
-            {!isRail && <span>Home</span>}
+            <div className="flex items-center gap-2.5 min-w-0 truncate">
+              <Home className="w-4 h-4 stroke-[1.5] shrink-0" />
+              {!isRail && <span>Home</span>}
+            </div>
+            {!isRail && (
+              <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+            )}
           </NavLink>
           <NavLink
             to="/inbox"
             data-nav-pinned="true"
             className={({ isActive }) =>
-              `flex items-center gap-2.5 px-3 py-2 rounded-control text-xs transition-colors ${
+              `group flex items-center justify-between gap-2 px-3 py-2 rounded-control text-xs transition-colors ${
                 isActive
                   ? 'bg-surface-selected text-accent font-semibold'
                   : 'text-text-secondary hover:text-text hover:bg-surface-hover'
@@ -72,8 +80,13 @@ export const Sidebar: React.FC = () => {
             }
             title="My work"
           >
-            <Inbox className="w-4 h-4 stroke-[1.5] shrink-0" />
-            {!isRail && <span>My work</span>}
+            <div className="flex items-center gap-2.5 min-w-0 truncate">
+              <Inbox className="w-4 h-4 stroke-[1.5] shrink-0" />
+              {!isRail && <span>My work</span>}
+            </div>
+            {!isRail && (
+              <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+            )}
           </NavLink>
 
           <div data-nav-group="work" className="pt-2 space-y-0.5">
@@ -85,50 +98,70 @@ export const Sidebar: React.FC = () => {
             <NavLink
               to="/me/programmes"
               className={({ isActive }) =>
-                `flex items-center gap-2.5 px-3 py-2 rounded-control text-xs transition-colors ${
+                `group flex items-center justify-between gap-2 px-3 py-2 rounded-control text-xs transition-colors ${
                   isActive ? 'bg-surface-selected text-accent font-semibold' : 'text-text hover:bg-surface-hover'
                 }`
               }
               title="Programmes"
             >
-              <Calendar className="w-4 h-4 stroke-[1.5] shrink-0" />
-              {!isRail && <span>Programmes</span>}
+              <div className="flex items-center gap-2.5 min-w-0 truncate">
+                <Calendar className="w-4 h-4 stroke-[1.5] shrink-0" />
+                {!isRail && <span>Programmes</span>}
+              </div>
+              {!isRail && (
+                <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+              )}
             </NavLink>
             <NavLink
               to="/me/health"
               className={({ isActive }) =>
-                `flex items-center gap-2.5 px-3 py-2 rounded-control text-xs transition-colors ${
+                `group flex items-center justify-between gap-2 px-3 py-2 rounded-control text-xs transition-colors ${
                   isActive ? 'bg-surface-selected text-accent font-semibold' : 'text-text hover:bg-surface-hover'
                 }`
               }
               title="Care & Vitals"
             >
-              <HeartPulse className="w-4 h-4 stroke-[1.5] shrink-0" />
-              {!isRail && <span>Care & Vitals</span>}
+              <div className="flex items-center gap-2.5 min-w-0 truncate">
+                <HeartPulse className="w-4 h-4 stroke-[1.5] shrink-0" />
+                {!isRail && <span>Care & Vitals</span>}
+              </div>
+              {!isRail && (
+                <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+              )}
             </NavLink>
             <NavLink
               to="/me/learning"
               className={({ isActive }) =>
-                `flex items-center gap-2.5 px-3 py-2 rounded-control text-xs transition-colors ${
+                `group flex items-center justify-between gap-2 px-3 py-2 rounded-control text-xs transition-colors ${
                   isActive ? 'bg-surface-selected text-accent font-semibold' : 'text-text hover:bg-surface-hover'
                 }`
               }
               title="Learning"
             >
-              <BookOpen className="w-4 h-4 stroke-[1.5] shrink-0" />
-              {!isRail && <span>Learning</span>}
+              <div className="flex items-center gap-2.5 min-w-0 truncate">
+                <BookOpen className="w-4 h-4 stroke-[1.5] shrink-0" />
+                {!isRail && <span>Learning</span>}
+              </div>
+              {!isRail && (
+                <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+              )}
             </NavLink>
             <NavLink
               to="/me/profile"
               className={({ isActive }) =>
-                `flex items-center gap-2.5 px-3 py-2 rounded-control text-xs transition-colors ${
+                `group flex items-center justify-between gap-2 px-3 py-2 rounded-control text-xs transition-colors ${
                   isActive ? 'bg-surface-selected text-accent font-semibold' : 'text-text hover:bg-surface-hover'
                 }`
               }
               title="My Profile"
             >
-              <User className="w-4 h-4 stroke-[1.5] shrink-0" />
-              {!isRail && <span>My Profile</span>}
+              <div className="flex items-center gap-2.5 min-w-0 truncate">
+                <User className="w-4 h-4 stroke-[1.5] shrink-0" />
+                {!isRail && <span>My Profile</span>}
+              </div>
+              {!isRail && (
+                <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+              )}
             </NavLink>
           </div>
         </div>
@@ -185,7 +218,7 @@ export const Sidebar: React.FC = () => {
             end
             data-nav-pinned="true"
             className={({ isActive }) =>
-              `flex items-center gap-2.5 px-3 py-1.5 rounded-control text-xs transition-colors ${
+              `group flex items-center justify-between gap-2 px-3 py-1.5 rounded-control text-xs transition-colors ${
                 isActive
                   ? 'bg-surface-selected text-accent font-semibold'
                   : 'text-text-secondary hover:text-text hover:bg-surface-hover'
@@ -193,14 +226,19 @@ export const Sidebar: React.FC = () => {
             }
             title="Home"
           >
-            <Home className="w-4 h-4 stroke-[1.5] shrink-0" />
-            {!isRail && <span>Home</span>}
+            <div className="flex items-center gap-2.5 min-w-0 truncate">
+              <Home className="w-4 h-4 stroke-[1.5] shrink-0" />
+              {!isRail && <span>Home</span>}
+            </div>
+            {!isRail && (
+              <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+            )}
           </NavLink>
           <NavLink
             to="/inbox"
             data-nav-pinned="true"
             className={({ isActive }) =>
-              `flex items-center gap-2.5 px-3 py-1.5 rounded-control text-xs transition-colors ${
+              `group flex items-center justify-between gap-2 px-3 py-1.5 rounded-control text-xs transition-colors ${
                 isActive
                   ? 'bg-surface-selected text-accent font-semibold'
                   : 'text-text-secondary hover:text-text hover:bg-surface-hover'
@@ -208,76 +246,157 @@ export const Sidebar: React.FC = () => {
             }
             title="My work"
           >
-            <Inbox className="w-4 h-4 stroke-[1.5] shrink-0" />
-            {!isRail && <span>My work</span>}
+            <div className="flex items-center gap-2.5 min-w-0 truncate">
+              <Inbox className="w-4 h-4 stroke-[1.5] shrink-0" />
+              {!isRail && <span>My work</span>}
+            </div>
+            {!isRail && (
+              <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+            )}
           </NavLink>
         </div>
 
-        {/* Workspace Title Header */}
+        {/* Workspace Title Header with Switcher Expansion Arrow */}
         {!isRail && (
-          <div className="px-3 pt-2 pb-1 flex items-center justify-between">
-            <span className="text-xs font-semibold text-text">
-              {activeWs.name}
-            </span>
-            <span className="text-xs text-text-secondary tabular-nums">
-              {permittedApps.length} apps
-            </span>
+          <div className="space-y-1 pt-1 pb-1">
+            <button
+              type="button"
+              onClick={() => setWorkspaceSwitcherOpen(!workspaceSwitcherOpen)}
+              className="w-full px-3 py-1.5 flex items-center justify-between group rounded-control hover:bg-surface-hover transition-colors text-left"
+              title="Change workspace options"
+              aria-expanded={workspaceSwitcherOpen}
+            >
+              <div className="flex items-center gap-1.5 min-w-0">
+                <span className="text-xs font-semibold text-text truncate">
+                  {activeWs.name}
+                </span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 text-text-secondary group-hover:text-accent transition-transform duration-150 ${
+                    workspaceSwitcherOpen ? 'rotate-180 text-accent' : ''
+                  }`}
+                />
+              </div>
+              <span className="text-xs text-text-secondary tabular-nums shrink-0">
+                {permittedApps.length} apps
+              </span>
+            </button>
+
+            {/* Expanded Workspace Options Dropdown */}
+            {workspaceSwitcherOpen && (
+              <div className="px-1.5 py-1.5 bg-surface-subtle/50 rounded-control border border-border-subtle space-y-0.5 animate-in fade-in-0 duration-150">
+                <div className="px-2 py-0.5 text-xs font-semibold text-text-secondary">
+                  Workspaces
+                </div>
+                {permitted.map((ws) => (
+                  <NavLink
+                    key={ws.id}
+                    to={`/w/${ws.id}`}
+                    onClick={() => setWorkspaceSwitcherOpen(false)}
+                    className={({ isActive }) =>
+                      `flex items-center justify-between px-2 py-1 rounded-control text-xs transition-colors group ${
+                        activeWs?.id === ws.id
+                          ? 'bg-accent-tint text-accent font-semibold'
+                          : 'text-text hover:bg-surface-hover'
+                      }`
+                    }
+                  >
+                    <div className="flex items-center gap-2 min-w-0 truncate">
+                      <ws.icon className="w-3.5 h-3.5 text-accent stroke-[1.5] shrink-0" />
+                      <span className="truncate">{ws.name}</span>
+                    </div>
+                    <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" />
+                  </NavLink>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
         {/* 1. Work Group */}
         {workApps.length > 0 && (
           <div data-nav-group="work" className="space-y-0.5">
-            {!isRail && (
-              <div className="px-3 py-1 text-xs font-semibold text-text-secondary">
-                Work
-              </div>
-            )}
-            {workApps.map((app) => (
-              <NavLink
-                key={app.id}
-                to={app.path}
-                className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-3 py-1.5 rounded-control text-xs transition-colors ${
-                    isActive
-                      ? 'bg-surface-selected text-accent font-semibold'
-                      : 'text-text hover:bg-surface-hover'
-                  }`
-                }
-                title={app.name}
+            {!isRail ? (
+              <button
+                type="button"
+                aria-expanded={workExpanded}
+                onClick={() => setWorkExpanded(!workExpanded)}
+                className="w-full flex items-center justify-between px-3 py-1 text-xs font-semibold text-text-secondary hover:text-text rounded-control hover:bg-surface-hover transition-colors group"
               >
-                <app.icon className="w-4 h-4 stroke-[1.5] shrink-0" />
-                {!isRail && <span className="truncate">{app.name}</span>}
-              </NavLink>
-            ))}
+                <span>Work</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 stroke-[1.5] transition-transform duration-150 ${
+                    workExpanded ? '' : '-rotate-90'
+                  }`}
+                />
+              </button>
+            ) : null}
+            {workExpanded &&
+              workApps.map((app) => (
+                <NavLink
+                  key={app.id}
+                  to={app.path}
+                  className={({ isActive }) =>
+                    `group flex items-center justify-between gap-2 px-3 py-1.5 rounded-control text-xs transition-colors ${
+                      isActive
+                        ? 'bg-surface-selected text-accent font-semibold'
+                        : 'text-text hover:bg-surface-hover'
+                    }`
+                  }
+                  title={app.name}
+                >
+                  <div className="flex items-center gap-2.5 min-w-0 truncate">
+                    <app.icon className="w-4 h-4 stroke-[1.5] shrink-0" />
+                    {!isRail && <span className="truncate">{app.name}</span>}
+                  </div>
+                  {!isRail && (
+                    <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+                  )}
+                </NavLink>
+              ))}
           </div>
         )}
 
         {/* 2. Monitor Group */}
         {monitorApps.length > 0 && (
           <div data-nav-group="monitor" className="pt-2 space-y-0.5">
-            {!isRail && (
-              <div className="px-3 py-1 text-xs font-semibold text-text-secondary">
-                Monitor
-              </div>
-            )}
-            {monitorApps.map((app) => (
-              <NavLink
-                key={app.id}
-                to={app.path}
-                className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-3 py-1.5 rounded-control text-xs transition-colors ${
-                    isActive
-                      ? 'bg-surface-selected text-accent font-semibold'
-                      : 'text-text hover:bg-surface-hover'
-                  }`
-                }
-                title={app.name}
+            {!isRail ? (
+              <button
+                type="button"
+                aria-expanded={monitorExpanded}
+                onClick={() => setMonitorExpanded(!monitorExpanded)}
+                className="w-full flex items-center justify-between px-3 py-1 text-xs font-semibold text-text-secondary hover:text-text rounded-control hover:bg-surface-hover transition-colors group"
               >
-                <app.icon className="w-4 h-4 stroke-[1.5] shrink-0" />
-                {!isRail && <span className="truncate">{app.name}</span>}
-              </NavLink>
-            ))}
+                <span>Monitor</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 stroke-[1.5] transition-transform duration-150 ${
+                    monitorExpanded ? '' : '-rotate-90'
+                  }`}
+                />
+              </button>
+            ) : null}
+            {monitorExpanded &&
+              monitorApps.map((app) => (
+                <NavLink
+                  key={app.id}
+                  to={app.path}
+                  className={({ isActive }) =>
+                    `group flex items-center justify-between gap-2 px-3 py-1.5 rounded-control text-xs transition-colors ${
+                      isActive
+                        ? 'bg-surface-selected text-accent font-semibold'
+                        : 'text-text hover:bg-surface-hover'
+                    }`
+                  }
+                  title={app.name}
+                >
+                  <div className="flex items-center gap-2.5 min-w-0 truncate">
+                    <app.icon className="w-4 h-4 stroke-[1.5] shrink-0" />
+                    {!isRail && <span className="truncate">{app.name}</span>}
+                  </div>
+                  {!isRail && (
+                    <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+                  )}
+                </NavLink>
+              ))}
           </div>
         )}
 
@@ -289,7 +408,7 @@ export const Sidebar: React.FC = () => {
                 type="button"
                 aria-expanded={configureExpanded}
                 onClick={() => setConfigureExpanded(!configureExpanded)}
-                className="w-full flex items-center justify-between px-3 py-1 text-xs font-semibold text-text-secondary hover:text-text rounded-control hover:bg-surface-hover transition-colors"
+                className="w-full flex items-center justify-between px-3 py-1 text-xs font-semibold text-text-secondary hover:text-text rounded-control hover:bg-surface-hover transition-colors group"
               >
                 <span>Configure</span>
                 <ChevronDown
@@ -307,7 +426,7 @@ export const Sidebar: React.FC = () => {
                   key={app.id}
                   to={app.path}
                   className={({ isActive }) =>
-                    `flex items-center gap-2.5 px-3 py-1.5 rounded-control text-xs transition-colors ${
+                    `group flex items-center justify-between gap-2 px-3 py-1.5 rounded-control text-xs transition-colors ${
                       isActive
                         ? 'bg-surface-selected text-accent font-semibold'
                         : 'text-text hover:bg-surface-hover'
@@ -315,8 +434,13 @@ export const Sidebar: React.FC = () => {
                   }
                   title={app.name}
                 >
-                  <app.icon className="w-4 h-4 stroke-[1.5] shrink-0" />
-                  {!isRail && <span className="truncate">{app.name}</span>}
+                  <div className="flex items-center gap-2.5 min-w-0 truncate">
+                    <app.icon className="w-4 h-4 stroke-[1.5] shrink-0" />
+                    {!isRail && <span className="truncate">{app.name}</span>}
+                  </div>
+                  {!isRail && (
+                    <ChevronRight className="w-3.5 h-3.5 text-text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:text-accent transition-all shrink-0" />
+                  )}
                 </NavLink>
               ))}
           </div>

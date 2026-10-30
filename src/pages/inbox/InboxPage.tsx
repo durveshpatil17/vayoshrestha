@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
+import { mockStore } from '@/mock/store';
 import { TaskService, TaskItem } from '@/services/tasks';
 import { ProcessFlow, ProcessStep } from '@/components/workflow/ProcessFlow';
 import { EntityHoverCard } from '@/components/ui/EntityHoverCard';
@@ -171,6 +172,43 @@ export const InboxPage: React.FC = () => {
 
   const handleExecuteAction = (task: TaskItem) => {
     TaskService.completeTask(task.id);
+
+    if (task.type === 'DUPLICATE_REVIEW') {
+      mockStore.updateData((data) => {
+        data.outboundMessages.push({
+          id: `msg-${Date.now()}`,
+          channel: 'WhatsApp',
+          recipientPhone: '+919845012345',
+          recipientName: task.entityName,
+          content: `Namaskara ${task.entityName}, your membership is confirmed! Welcome to Vayoshrestha.`,
+          status: 'Sent',
+          sentAt: new Date().toISOString(),
+          retryCount: 0,
+        });
+      });
+      mockStore.writeAudit(
+        user?.id || 'u-pm-1',
+        user?.fullName || 'Priya Menon',
+        user?.role || 'PM',
+        'APPROVE',
+        'SENIOR',
+        task.entityId,
+        `Duplicate confirmed unique: ${task.entityName}. Welcome message dispatched.`,
+        'PM inbox confirmation'
+      );
+    } else if (task.type === 'SUPERVISOR_SYNC_CHECK') {
+      mockStore.writeAudit(
+        user?.id || 'u-cm-1',
+        user?.fullName || 'Sunita Patil',
+        user?.role || 'CM',
+        'UPDATE',
+        'SETTINGS',
+        task.entityId,
+        `Supervisor completed sync state inspection for field terminal ${task.entityId}. Connectivity restored.`,
+        'Field supervisor check'
+      );
+    }
+
     setActionNotice(`Successfully completed: ${task.title}`);
     setTimeout(() => setActionNotice(null), 4000);
     reloadTasks();

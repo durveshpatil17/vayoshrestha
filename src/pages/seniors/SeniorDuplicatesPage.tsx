@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Merge } from 'lucide-react';
+import { ArrowLeft, Merge, Check } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { TaskService } from '@/services/tasks';
+import { mockStore } from '@/mock/store';
 
 export const SeniorDuplicatesPage: React.FC = () => {
   const [candidates, setCandidates] = useState([
@@ -24,7 +26,34 @@ export const SeniorDuplicatesPage: React.FC = () => {
   ]);
 
   const handleMerge = (id: string) => {
-    setCandidates(candidates.filter((c) => c.id !== id));
+    setCandidates((prev) => prev.filter((c) => c.id !== id));
+  };
+
+  const handleConfirmUnique = (id: string) => {
+    setCandidates((prev) => prev.filter((c) => c.id !== id));
+    TaskService.completeTask('TASK-P1-001');
+    mockStore.updateData((data) => {
+      data.outboundMessages.push({
+        id: `msg-${Date.now()}`,
+        channel: 'WhatsApp',
+        recipientPhone: '+919845012345',
+        recipientName: 'Anasuya Bai',
+        content: 'Namaskara Anasuya Bai, your membership at Jayanagar Ekta Hub is confirmed! Welcome to Vayoshrestha.',
+        status: 'Sent',
+        sentAt: new Date().toISOString(),
+        retryCount: 0,
+      });
+    });
+    mockStore.writeAudit(
+      'u-pm-1',
+      'Priya Menon',
+      'PM',
+      'APPROVE',
+      'SENIOR',
+      'SC-KA-BLR-001',
+      'Confirmed unique senior enrollment after duplicate review; welcome message dispatched.',
+      'Manual field verification'
+    );
   };
 
   return (
@@ -52,6 +81,9 @@ export const SeniorDuplicatesPage: React.FC = () => {
                     {c.score}
                   </span>
                   <div className="flex items-center gap-2">
+                    <Button size="sm" variant="outline" icon={<Check className="w-3.5 h-3.5 stroke-[1.5]" />} onClick={() => handleConfirmUnique(c.id)}>
+                      Confirm unique person
+                    </Button>
                     <Button size="sm" variant="outline" onClick={() => handleMerge(c.id)}>Dismiss match</Button>
                     <Button size="sm" variant="primary" icon={<Merge className="w-3.5 h-3.5 stroke-[1.5]" />} onClick={() => handleMerge(c.id)}>
                       Merge into primary profile

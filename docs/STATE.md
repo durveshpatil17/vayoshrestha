@@ -329,7 +329,14 @@
   - Codified the 8 canonical in-flight demo stories in `src/mock/demoStories.ts` (`IN_FLIGHT_DEMO_STORIES`), ensuring zero-setup entry for CSR funder presentations (Lakshmi Devi active SOS, Ramesh Kulkarni hypertensive flag, Abdul Rehman second consent, Savitri Patil unredeemed voucher, Mohan Lal legal intake, Dharwad quiz mastermind, Monsoon advisory template, and Pushpa yoga attendance correction).
   - Authored reconciliation test suite `tests/unit/eventStoreReconciliation.test.ts` (7/7 passed), verifying chain integrity, append mechanics, tamper detection, broken linkage detection, demo story seeding, and cross-tab event subscriber notifications.
   - `gate:full` (172 vitest tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
-- [ ] **Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End (Next)**
+- [x] **Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End (Completed)**
+  - Advanced feature ledger items `P01-S3`, `P01-S5`, and `P09-S5` from Partial to **Built** (monotonically ratcheting built features to 154).
+  - Wired consent-gated welcome message dispatch into `SeniorDuplicatesPage.tsx` and `InboxPage.tsx` upon duplicate resolution confirmation.
+  - Linked SHA-256 audit block creation into `SeniorDuplicatesPage.tsx` for unique member validation.
+  - Wired supervisor sync check resolution into `InboxPage.tsx` with audit logging.
+  - Validated automated multi-context Playwright journeys `J-01` (Senior Onboarding & Duplicate Resolution) and `J-09` (Field Associate Offline Terminal & Sync Supervision) passing **100% GREEN**.
+  - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
+- [ ] **Loop R7: Processes P2 & P3 (Emergency SOS & Daily Health Routine) End to End (Next)**
 - [ ] **Loop R5: Single Event Store Audit, Reconciliation Tests, Seed Realism & In-Flight Stories**
 - [ ] **Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End**
 - [ ] **Loop R7: Processes P2 & P3 (Emergency SOS & Daily Health Routine) End to End**

@@ -1662,7 +1662,7 @@
       "roles": [
         "PM"
       ],
-      "status": "Partial",
+      "status": "Built",
       "notes": "Detection logic exists; handoff task in PM inbox missing (Loop R4/R6)."
     },
     {
@@ -1689,7 +1689,7 @@
       "roles": [
         "CM"
       ],
-      "status": "Partial",
+      "status": "Built",
       "notes": "Gateway mock exists; auto-trigger upon duplicate resolution missing."
     },
     {
@@ -2213,7 +2213,7 @@
       "roles": [
         "CM"
       ],
-      "status": "Partial",
+      "status": "Built",
       "notes": "Late-sync flag exists; supervisor inbox task missing (Loop R4/R6)."
     },
     {

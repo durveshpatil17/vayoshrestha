@@ -553,6 +553,28 @@
 - **Defects & Blockers**: 0 blockers. Fixed audit array ordering between chronological genesis append and unshift display.
 - **Next Step**: Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End.
 
+---
+
+## Loop R6: Processes P1 & P9 (Onboarding & Field Associates) End to End (Phase v4)
+- **Goal**: Complete end-to-end wiring for Process P1 (Senior Onboarding & Duplicate Resolution) and Process P9 (Field Associate Offline Terminal & Sync Supervision); advance feature ledger items `P01-S3`, `P01-S5`, and `P09-S5` from Partial to Built; verify Journeys J-01 and J-09 are green.
+- **What Changed**:
+  - `src/pages/seniors/SeniorDuplicatesPage.tsx`: Added `Confirm unique person` action button wired directly to `TaskService.completeTask('TASK-P1-001')`, consent-gated welcome message dispatch in `mockStore.data.outboundMessages`, and SHA-256 audit logging.
+  - `src/pages/inbox/InboxPage.tsx`: Enhanced `handleExecuteAction` for `DUPLICATE_REVIEW` to trigger welcome message enqueue and SHA-256 audit block; added `SUPERVISOR_SYNC_CHECK` resolution handler with audit trail.
+  - `docs/feature-ledger.json` & `docs/ratchet.json`: Promoted `P01-S3`, `P01-S5`, and `P09-S5` from Partial to Built, raising total built features from 151 to 154 (171 features: 154 Built, 13 Partial, 4 Missing).
+  - `tests/e2e/journeys/J-01.spec.ts` & `tests/e2e/journeys/J-09.spec.ts`: Executed and verified both journeys pass 100% green.
+- **Gate Results**:
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 285 files.
+    * `vitest run`: 172 tests passing across 34 test suites.
+    * `ledger-check`: 171 features tracked (154 Built, 13 Partial, 4 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 154 Built verified.
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+  - Journeys J-01 & J-09: Passed 100% clean (2/2 passed).
+- **Defects & Blockers**: 0 blockers.
+- **Next Step**: Loop R7: Processes P2 & P3 (Emergency SOS & Daily Health Routine) End to End.
+
 
 
 

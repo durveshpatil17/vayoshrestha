@@ -1,11 +1,11 @@
 {
   "version": "3.0.0",
-  "snapshot_date": "2026-10-29",
+  "snapshot_date": "2026-10-30",
   "counts": {
-    "routes_registered": 168,
+    "routes_registered": 178,
     "routes_manifest": 120,
-    "ledger_built": 105,
-    "ledger_planned": 0,
+    "ledger_built": 154,
+    "ledger_planned": 17,
     "tests_passing": 95,
     "permission_cells": 9
   },

@@ -2037,8 +2037,8 @@
       "roles": [
         "SP"
       ],
-      "status": "Partial",
-      "notes": "Referrals view exists; inbox task model missing (Loop R4/R9)."
+      "status": "Built",
+      "notes": "Referrals view and referral action task in SP inbox."
     },
     {
       "id": "P06-S5",
@@ -2091,8 +2091,8 @@
       "roles": [
         "SP"
       ],
-      "status": "Partial",
-      "notes": "Outcome codes exist; advocate inbox task missing (Loop R4/R9)."
+      "status": "Built",
+      "notes": "Outcome codes and advocate consultation task in SP inbox."
     },
     {
       "id": "P08-S1",
@@ -2454,8 +2454,8 @@
       "roles": [
         "NM"
       ],
-      "status": "Partial",
-      "notes": "Approvals queue exists; inbox task missing (Loop R4/R9)."
+      "status": "Built",
+      "notes": "Approvals queue and accreditation task in NM inbox."
     },
     {
       "id": "P14-S3",

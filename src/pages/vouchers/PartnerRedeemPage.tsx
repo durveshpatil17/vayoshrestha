@@ -17,6 +17,8 @@ import {
   DigitalVoucher,
 } from '@/domain/vouchers/voucherEngine';
 import { PARTNER_REGISTRY } from '@/domain/routing/engine';
+import { TaskService } from '@/services/tasks';
+import { mockStore } from '@/mock/store';
 
 export const PartnerRedeemPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -65,6 +67,19 @@ export const PartnerRedeemPage: React.FC = () => {
     });
 
     if (res.success) {
+      TaskService.completeTask('TASK-P6-001');
+      mockStore.writeAudit(
+        'u-sp-1',
+        partnerName,
+        'SP',
+        'UPDATE',
+        'VOUCHER',
+        res.voucher?.code || 'VCH-CODE',
+        `Voucher ${res.voucher?.code} redeemed by ${partnerName} for elder ${res.voucher?.seniorName}. Subsidy ₹${res.voucher?.faceValueInr} claimed.`,
+        'Web voucher redemption terminal'
+      );
+      mockStore.persist();
+
       setRedemptionFeedback({
         success: true,
         message: `Voucher ${res.voucher?.code} successfully redeemed! ₹${res.voucher?.faceValueInr} subsidy claimed for ${res.voucher?.seniorName}.`,

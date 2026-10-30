@@ -351,8 +351,15 @@
   - Wired `ATTENDANCE_CORRECTION_APPROVAL`, `DISENGAGEMENT_OUTREACH`, and `TEMPLATE_APPROVAL` execution handlers into `InboxPage.tsx`.
   - Validated automated multi-context Playwright journeys `J-04` (Community Programme Session & Attendance Corrections) and `J-05` (Statutory Template Maker-Checker Approval) passing **100% GREEN**.
   - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
-- [ ] **Loop R9: Processes P6, P7 & P14 (Service Routing, Vouchers, Legal Intake, Partner Onboarding) End to End (Next)**
-- [ ] **Loop R10: Processes P8 & P13 (Learning Delivery & Impact Reporting) End to End**
+- [x] **Loop R9: Processes P6, P7 & P14 (Service Routing, Vouchers, Legal Intake, Partner Onboarding) End to End (Completed)**
+  - Advanced feature ledger items `P06-S4` (Partner referral action task in partner inbox), `P07-S3` (Advocate consultation task & statutory closure codes), and `P14-S2` (Partner accreditation task in NM inbox) from Partial to **Built** in `docs/feature-ledger.json` (ratchet updated to 163 Built, 6 Partial, 2 Missing).
+  - Wired `PartnerRedeemPage.tsx` with `TaskService.completeTask('TASK-P6-001')` and cryptographic audit log upon voucher redemption.
+  - Hooked `LegalIntakeDetailPage.tsx` with `TaskService.completeTask('TASK-P7-001')` and SHA-256 audit block upon advocate case closure.
+  - Linked `ApprovalsPage.tsx` with `TaskService.completeTask('TASK-P14-001')` upon partner accreditation approval by NM.
+  - Wired `PARTNER_REFERRAL_ACTION`, `LEGAL_CONSULTATION`, and `PARTNER_ACCREDITATION` task execution branches in `InboxPage.tsx`.
+  - Validated automated multi-context Playwright journeys `J-06` (Partner Routing & Voucher Redemption), `J-07` (Pro-Bono Encrypted Legal Intake), and `J-14` (Partner Accreditation & Activation) passing **100% GREEN**.
+  - `gate:full` (172 tests, 0 design violations) & `gate:ui` (38/38 Playwright tests) passing 100% green.
+- [ ] **Loop R10: Processes P8 & P13 (Learning Delivery & Impact Reporting) End to End (Next)**
 - [ ] **Loop R11: Processes P10, P11, P12 & P15 (Maker-Checker, Data Requests, Complaints, Pilot Readiness) End to End**
 - [ ] **Loop R12: Scenario Engine (S1–S6), Ambient Operations Simulator, Demo Director & Guided Demo Panel**
 - [ ] **Loop R13: Product Chrome, Content Style Enforcement, Error Codes, `/about`, Shortcuts, First-Run Tour**

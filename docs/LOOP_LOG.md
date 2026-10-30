@@ -603,6 +603,31 @@
 
 ---
 
+## Loop R9: Processes P6, P7 & P14 (Service Routing, Vouchers, Legal Intake, Partner Onboarding) End to End (Phase v4)
+- **Goal**: Complete end-to-end wiring for Process P6 (Deterministic Partner Routing & Voucher Redemption), Process P7 (Pro-Bono Encrypted Legal Intake), and Process P14 (Partner Accreditation & Activation); advance feature ledger items `P06-S4`, `P07-S3`, and `P14-S2` to Built; verify Journeys J-06, J-07, and J-14 are green.
+- **What Changed**:
+  - `src/pages/vouchers/PartnerRedeemPage.tsx`: Wired voucher redemption to complete `TaskService.completeTask('TASK-P6-001')` and recorded cryptographic audit log in `mockStore`.
+  - `src/pages/legalIntake/LegalIntakeDetailPage.tsx`: Hooked case closure to `TaskService.completeTask('TASK-P7-001')` with statutory closure code and SHA-256 audit entry.
+  - `src/pages/admin/ApprovalsPage.tsx`: Added task completion hook `TaskService.completeTask('TASK-P14-001')` when NM signs off on partner accreditation.
+  - `src/pages/inbox/InboxPage.tsx`: Wired `PARTNER_REFERRAL_ACTION`, `LEGAL_CONSULTATION`, and `PARTNER_ACCREDITATION` task execution branches with SHA-256 audit logging.
+  - `docs/feature-ledger.json` & `docs/ratchet.json`: Promoted `P06-S4`, `P07-S3`, `P14-S2` from Partial to Built, advancing total built features from 160 to 163 (171 features: 163 Built, 6 Partial, 2 Missing).
+  - `tests/e2e/journeys/J-06.spec.ts`, `tests/e2e/journeys/J-07.spec.ts`, and `tests/e2e/journeys/J-14.spec.ts`: Executed and verified all 3 journeys pass 100% green.
+- **Gate Results**:
+  - `npm run gate:full`: Passed 100% clean.
+    * `tsc --noEmit`: 0 errors.
+    * `design-lint`: 0 violations across 285 files.
+    * `vitest run`: 172 tests passing across 34 test suites.
+    * `ledger-check`: 171 features tracked (163 Built, 6 Partial, 2 Missing).
+    * `route-manifest-check`: 123 routes in manifest, all verified.
+    * `ratchet-check`: 163 Built verified.
+  - `npm run gate:ui`: Passed 100% clean (38/38 tests passing).
+  - Active Journeys (J-01 through J-07, J-09, J-14): Passed 100% clean (9/9 passed).
+- **Defects & Blockers**: 0 blockers.
+- **Next Step**: Loop R10: Processes P8 & P13 (Learning Delivery & Impact Reporting) End to End.
+
+---
+
+
 
 
 

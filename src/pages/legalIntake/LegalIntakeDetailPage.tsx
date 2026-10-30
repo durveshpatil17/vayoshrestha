@@ -22,6 +22,8 @@ import {
   LegalClosureCode,
 } from '@/domain/legal/legalIntake';
 import { useAuthStore } from '@/store/authStore';
+import { TaskService } from '@/services/tasks';
+import { mockStore } from '@/mock/store';
 
 export const LegalIntakeDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -56,6 +58,18 @@ export const LegalIntakeDetailPage: React.FC = () => {
     try {
       const updated = closeLegalCase(legalCase.id, selectedClosureCode);
       setLegalCase({ ...updated });
+      TaskService.completeTask('TASK-P7-001');
+      mockStore.writeAudit(
+        user?.id || 'u-sp-legal-1',
+        (user as any)?.name || user?.fullName || 'Adv. Kulkarni',
+        user?.role || 'SP',
+        'UPDATE',
+        'INTAKE',
+        legalCase.id,
+        `Legal case ${legalCase.id} closed with statutory closure code: ${CLOSURE_CODE_LABELS[selectedClosureCode]}.`,
+        'Advocate formal closure'
+      );
+      mockStore.persist();
     } finally {
       setIsClosing(false);
     }

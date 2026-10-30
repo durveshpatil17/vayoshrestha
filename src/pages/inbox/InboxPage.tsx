@@ -240,6 +240,39 @@ export const InboxPage: React.FC = () => {
         `Communication template ${task.entityId} (${task.entityName}) approved for statutory broadcast.`,
         'NM maker-checker signoff'
       );
+    } else if (task.type === 'PARTNER_REFERRAL_ACTION') {
+      mockStore.writeAudit(
+        user?.id || 'u-sp-1',
+        user?.fullName || 'Apollo Pharmacy',
+        user?.role || 'SP',
+        'UPDATE',
+        'VOUCHER',
+        task.entityId,
+        `Partner acknowledged referral and initiated settlement for ${task.entityName}.`,
+        'Partner portal fulfillment'
+      );
+    } else if (task.type === 'LEGAL_CONSULTATION') {
+      mockStore.writeAudit(
+        user?.id || 'u-sp-legal-1',
+        user?.fullName || 'Adv. Kulkarni',
+        user?.role || 'SP',
+        'UPDATE',
+        'INTAKE',
+        task.entityId,
+        `Pro-bono counsel completed preliminary legal consultation for senior ${task.entityName}. Advice documented under privilege.`,
+        'Confidential pro-bono consultation'
+      );
+    } else if (task.type === 'PARTNER_ACCREDITATION') {
+      mockStore.writeAudit(
+        user?.id || 'u-nm-1',
+        user?.fullName || 'Nandita Rao',
+        user?.role || 'NM',
+        'APPROVE',
+        'PARTNER',
+        task.entityId,
+        `Service partner ${task.entityName} accredited and activated in deterministic capacity pool.`,
+        'NM accreditation governance signoff'
+      );
     }
 
     setActionNotice(`Successfully completed: ${task.title}`);

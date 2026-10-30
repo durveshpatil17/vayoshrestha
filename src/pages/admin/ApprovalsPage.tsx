@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { mockStore } from '@/mock/store';
 import { useAuthStore } from '@/store/authStore';
 import { CheckCircle2, XCircle, ShieldCheck, Clock, FileText, Send, Building2, X } from 'lucide-react';
+import { TaskService } from '@/services/tasks';
 
 interface ApprovalQueueItem {
   id: string;
@@ -89,6 +90,12 @@ export const ApprovalsPage: React.FC = () => {
       { before: { status: 'Pending' }, after: { status: newStatus } } as any,
       undefined
     );
+
+    if (selectedItem.category === 'Partner' && actionType === 'Approve') {
+      TaskService.completeTask('TASK-P14-001');
+    } else if (selectedItem.category === 'Template' && actionType === 'Approve') {
+      TaskService.completeTask('TASK-P5-001');
+    }
 
     setSelectedItem(null);
     setActionType(null);
